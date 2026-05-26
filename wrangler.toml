@@ -1,0 +1,5 @@
+# Cloudflare Pages config for jamlex-design
+# Deployed to https://design.amirj4m.com
+name = "jamlex-design"
+compatibility_date = "2026-05-27"
+pages_build_output_dir = "src"

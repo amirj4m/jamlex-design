@@ -1,0 +1,20 @@
+{
+  "name": "jamlex-design",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive design preview for the Jamlex app — clickable HTML/CSS mockups of every screen, deployed to Cloudflare Pages. The deliverable specs feed Flutter implementation.",
+  "scripts": {
+    "dev": "wrangler pages dev src --port 8788",
+    "deploy": "wrangler pages deploy src --project-name=jamlex-design",
+    "deploy:prod": "wrangler pages deploy src --project-name=jamlex-design --branch=main"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "license": "UNLICENSED",
+  "homepage": "https://design.amirj4m.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amirj4m/jamlex-design.git"
+  }
+}
