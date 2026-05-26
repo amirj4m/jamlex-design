@@ -4,38 +4,399 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#00B4A6" />
-  <title>Jamlex Design Preview</title>
+  <meta name="description" content="Jamlex design preview — clickable mockups of every screen" />
+  <title>Jamlex · Design Preview</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
+
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+
   <style>
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{margin:0;padding:0;height:100%;font-family:'Vazirmatn','Inter',system-ui,sans-serif;background:#F4FBFA;color:#1A1A2E;-webkit-font-smoothing:antialiased}
-    .container{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center}
-    .logo{font-size:48px;font-weight:800;color:#00B4A6;letter-spacing:-1px;margin-bottom:8px}
-    .tag{color:#6B7280;margin-bottom:24px;font-size:14px}
-    .status{padding:12px 20px;background:#FFFFFF;border-radius:14px;border:1px solid #E3E8EE;font-size:13px;color:#1A1A2E;max-width:520px}
-    .status b{color:#00B4A6}
-    .links{margin-top:24px;font-size:13px;color:#6B7280}
-    .links a{color:#00B4A6;text-decoration:none;margin-inline:8px}
+    /* Index-page specific styles — the hub itself is NOT a phone-frame */
+    .hub {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--sp-6) var(--sp-5) var(--sp-12);
+    }
+    .hub__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-6);
+    }
+    .hub__brand { display: flex; align-items: center; gap: var(--sp-3); }
+    .hub__logo {
+      width: 44px; height: 44px;
+      border-radius: var(--rd-3);
+      background: linear-gradient(135deg, var(--jx-primary), var(--jx-primary-dark));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: var(--fw-extrabold);
+      font-size: 20px;
+      box-shadow: var(--sh-brand);
+    }
+    .hub__title { font-size: var(--fs-display-m); font-weight: var(--fw-extrabold); margin: 0; }
+    .hub__tag { font-size: var(--fs-body-m); color: var(--jx-text-2); }
+    .hub__controls { display: flex; gap: var(--sp-3); align-items: center; flex-wrap: wrap; }
+
+    .control-select {
+      padding: var(--sp-2) var(--sp-3);
+      background: var(--jx-bg);
+      border: 1px solid var(--jx-border);
+      border-radius: var(--rd-3);
+      color: var(--jx-text);
+      font-size: var(--fs-body-s);
+      font-weight: var(--fw-semibold);
+      cursor: pointer;
+      min-height: 38px;
+    }
+
+    .hub__intro {
+      background: var(--jx-bg);
+      border: 1px solid var(--jx-border);
+      border-radius: var(--rd-5);
+      padding: var(--sp-6);
+      margin-bottom: var(--sp-6);
+    }
+    .hub__intro h2 { font-size: var(--fs-headline); margin-bottom: var(--sp-3); }
+    .hub__intro p { color: var(--jx-text-2); font-size: var(--fs-body-m); line-height: var(--lh-relaxed); }
+    .hub__intro p + p { margin-top: var(--sp-2); }
+    .hub__intro code {
+      background: var(--jx-surface);
+      padding: 2px 6px;
+      border-radius: var(--rd-1);
+      font-family: var(--font-family-mono);
+      font-size: 0.875em;
+    }
+    .hub__intro a { font-weight: var(--fw-semibold); }
+
+    .group { margin-bottom: var(--sp-6); }
+    .group__title {
+      font-size: var(--fs-body-l);
+      font-weight: var(--fw-bold);
+      color: var(--jx-text);
+      margin-bottom: var(--sp-3);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+    .group__title-tag {
+      font-size: var(--fs-caption);
+      font-weight: var(--fw-medium);
+      color: var(--jx-text-2);
+      padding: 2px 8px;
+      background: var(--jx-surface);
+      border-radius: var(--rd-pill);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--sp-3);
+    }
+    .card-link {
+      background: var(--jx-bg);
+      border: 1px solid var(--jx-border);
+      border-radius: var(--rd-4);
+      padding: var(--sp-4);
+      text-decoration: none;
+      color: var(--jx-text);
+      transition: border-color var(--motion-fast), transform var(--motion-fast), box-shadow var(--motion-fast);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+      min-height: 100px;
+    }
+    .card-link:hover {
+      border-color: var(--jx-primary);
+      transform: translateY(-2px);
+      text-decoration: none;
+      box-shadow: var(--sh-md);
+    }
+    .card-link[data-status="pending"] {
+      opacity: 0.55;
+      pointer-events: none;
+      border-style: dashed;
+    }
+    .card-link__title { font-weight: var(--fw-semibold); font-size: var(--fs-body-l); }
+    .card-link__desc { font-size: var(--fs-body-s); color: var(--jx-text-2); line-height: var(--lh-snug); }
+    .card-link__badge {
+      align-self: flex-start;
+      font-size: var(--fs-caption);
+      padding: 2px 8px;
+      background: var(--jx-primary-glow);
+      color: var(--jx-primary);
+      border-radius: var(--rd-pill);
+      font-weight: var(--fw-semibold);
+    }
+    .card-link[data-status="pending"] .card-link__badge {
+      background: var(--jx-surface-alt);
+      color: var(--jx-text-2);
+    }
+
+    .footer {
+      margin-top: var(--sp-8);
+      padding-top: var(--sp-5);
+      border-top: 1px solid var(--jx-divider);
+      font-size: var(--fs-body-s);
+      color: var(--jx-text-2);
+      display: flex;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+    .footer a { color: var(--jx-text-2); }
+    .footer a:hover { color: var(--jx-primary); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">Jamlex</div>
-    <div class="tag">Design Preview</div>
-    <div class="status">
-      🚧 طراحی در حال ساخت است.<br />
-      صفحات یکی‌یکی اضافه می‌شوند. <b>به‌زودی برگرد.</b>
-    </div>
-    <div class="links">
+  <main class="hub">
+    <header class="hub__header">
+      <div class="hub__brand">
+        <span class="hub__logo">J</span>
+        <div>
+          <h1 class="hub__title">Jamlex</h1>
+          <div class="hub__tag" data-i18n="app.tagline"></div>
+        </div>
+      </div>
+      <div class="hub__controls">
+        <select class="control-select" data-locale-picker aria-label="Locale">
+          <option value="fa">فارسی</option>
+          <option value="en">English</option>
+        </select>
+        <select class="control-select" data-theme-picker aria-label="Theme">
+          <option value="system">🖥 System</option>
+          <option value="light">☀ Light</option>
+          <option value="dark">🌙 Dark</option>
+        </select>
+      </div>
+    </header>
+
+    <section class="hub__intro">
+      <h2>Design Preview</h2>
+      <p>این صفحه‌ی hub فهرستِ همه‌ی mockup‌های Jamlex است. هر کارت یک صفحه‌ی قابل‌کلیک باز می‌کند — می‌توانید با locale و theme بالا تست کنید.</p>
+      <p>زبان پیش‌فرض <code>fa</code> است (فاز تست — مخاطب فارسی‌زبان دیاسپورا). برای دیدن همان صفحه به انگلیسی، در selectorِ بالا <code>English</code> را انتخاب کنید — جهت چپ به راست خودکار می‌چرخد.</p>
+      <p>کد منبع: <a href="https://github.com/amirj4m/jamlex-design">github.com/amirj4m/jamlex-design</a></p>
+    </section>
+
+    <section class="group">
+      <h2 class="group__title">
+        Auth flow
+        <span class="group__title-tag">7 صفحه</span>
+      </h2>
+      <div class="grid">
+        <a href="/screens/splash.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Splash</span>
+          <span class="card-link__desc">صفحه‌ی آغازین با لوگو و loader</span>
+        </a>
+        <a href="/screens/login.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Login</span>
+          <span class="card-link__desc">ایمیل + رمز، Google، یا ورود با شماره</span>
+        </a>
+        <a href="/screens/register.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Register</span>
+          <span class="card-link__desc">نام + ایمیل + رمز + قوانین</span>
+        </a>
+        <a href="/screens/phone-auth.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Phone Auth</span>
+          <span class="card-link__desc">شماره + OTP با country picker</span>
+        </a>
+        <a href="/screens/forgot-password.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Forgot Password</span>
+          <span class="card-link__desc">بازیابی با ایمیل یا شماره</span>
+        </a>
+        <a href="/screens/new-password.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">New Password</span>
+          <span class="card-link__desc">رمز جدید بعد از recovery</span>
+        </a>
+        <a href="/screens/change-password.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Change Password</span>
+          <span class="card-link__desc">تغییر رمز توسط کاربر لاگین‌شده</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2 class="group__title">
+        Main shell (bottom-nav tabs)
+        <span class="group__title-tag">5 تب</span>
+      </h2>
+      <div class="grid">
+        <a href="/screens/home.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Home</span>
+          <span class="card-link__desc">streak + word of day + quick actions</span>
+        </a>
+        <a href="/screens/leitner.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Leitner</span>
+          <span class="card-link__desc">5-box progress + today's review</span>
+        </a>
+        <a href="/screens/vocabulary.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Search</span>
+          <span class="card-link__desc">جستجوی دو زبانه + history</span>
+        </a>
+        <a href="/screens/stats.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Stats</span>
+          <span class="card-link__desc">XP / streak / heatmap / achievements</span>
+        </a>
+        <a href="/screens/profile.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Profile</span>
+          <span class="card-link__desc">avatar + sections (Leitner/Notif/Theme/Account)</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2 class="group__title">
+        Learn flows
+        <span class="group__title-tag">6 صفحه</span>
+      </h2>
+      <div class="grid">
+        <a href="/screens/leitner-review.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Leitner Review</span>
+          <span class="card-link__desc">tap-to-flip + 4 mastery buttons + 🔊</span>
+        </a>
+        <a href="/screens/flashcards.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Flashcards</span>
+          <span class="card-link__desc">سطح + flip + Know/Don't Know</span>
+        </a>
+        <a href="/screens/quiz-mcq.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Quiz — MCQ</span>
+          <span class="card-link__desc">English → 4 Persian options</span>
+        </a>
+        <a href="/screens/quiz-reverse.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Quiz — Reverse</span>
+          <span class="card-link__desc">Persian → 4 English options</span>
+        </a>
+        <a href="/screens/quiz-spelling.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Quiz — Spelling</span>
+          <span class="card-link__desc">Persian → typed English (Levenshtein-tolerant)</span>
+        </a>
+        <a href="/screens/vocab-learning.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Vocab Learning</span>
+          <span class="card-link__desc">سطوح CEFR + 35 دسته‌بندی از openjam</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2 class="group__title">
+        My Words
+        <span class="group__title-tag">2 صفحه</span>
+      </h2>
+      <div class="grid">
+        <a href="/screens/my-words.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">My Words (list)</span>
+          <span class="card-link__desc">گرید دسته‌بندی‌ها + جستجو + ساخت جدید</span>
+        </a>
+        <a href="/screens/my-words-detail.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">My Words Detail</span>
+          <span class="card-link__desc">لیست لغات داخل یک دسته + 🔊</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2 class="group__title">
+        Reading
+        <span class="group__title-tag">4 صفحه</span>
+      </h2>
+      <div class="grid">
+        <a href="/screens/reading.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Library</span>
+          <span class="card-link__desc">level chips + categories + carousels</span>
+        </a>
+        <a href="/screens/book-detail.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Book Detail</span>
+          <span class="card-link__desc">cover + meta + download/read</span>
+        </a>
+        <a href="/screens/book-reader.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Book Reader</span>
+          <span class="card-link__desc">Crimson Text + tap word → quick-look</span>
+        </a>
+        <a href="/screens/saved-books.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Saved Books</span>
+          <span class="card-link__desc">لیست کتاب‌های نشانه‌گذاری‌شده</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2 class="group__title">
+        Social + Settings
+        <span class="group__title-tag">5 صفحه</span>
+      </h2>
+      <div class="grid">
+        <a href="/screens/leaderboard.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Leaderboard</span>
+          <span class="card-link__desc">top-3 podium + your rank + top-100</span>
+        </a>
+        <a href="/screens/category-words.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Category Words</span>
+          <span class="card-link__desc">لیست لغات یک دسته‌بندی</span>
+        </a>
+        <a href="/screens/settings.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Settings</span>
+          <span class="card-link__desc">زبان / theme / notif / daily limit</span>
+        </a>
+        <a href="/screens/paywall.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">Paywall</span>
+          <span class="card-link__desc">Monthly vs Yearly + Stripe checkout</span>
+        </a>
+        <a href="/screens/more.html" class="card-link" data-status="pending">
+          <span class="card-link__badge">به‌زودی</span>
+          <span class="card-link__title">More</span>
+          <span class="card-link__desc">هاب دسترسی به همه‌چیز</span>
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
       <a href="https://github.com/amirj4m/jamlex-design">GitHub</a>
-      ·
       <a href="https://openjam.amirj4m.com">Openjam API</a>
-    </div>
-  </div>
+      <a href="/docs/SPEC.md">SPEC.md</a>
+      <span>· نسخه 0.1.0 · فاز تست</span>
+    </footer>
+  </main>
+
+  <script type="module" src="/js/app.js"></script>
 </body>
 </html>

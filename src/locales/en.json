@@ -1,0 +1,526 @@
+{
+  "_meta": {
+    "code": "en",
+    "name": "English",
+    "nativeName": "English",
+    "dir": "ltr",
+    "fontFamily": "Inter, Vazirmatn, system-ui, sans-serif"
+  },
+  "app": {
+    "name": "Jamlex",
+    "tagline": "Learn English, your way"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "continue": "Continue",
+    "retry": "Retry",
+    "loading": "Loading…",
+    "loadingError": "Loading error",
+    "tryAgain": "Try again",
+    "search": "Search",
+    "searchPlaceholder": "Search…",
+    "noResults": "No results found",
+    "more": "More",
+    "yes": "Yes",
+    "no": "No",
+    "confirm": "Confirm",
+    "skip": "Skip",
+    "done": "Done",
+    "send": "Send",
+    "verify": "Verify",
+    "submit": "Submit",
+    "or": "or"
+  },
+  "nav": {
+    "home": "Home",
+    "leitner": "Leitner",
+    "vocabulary": "Search",
+    "stats": "Stats",
+    "profile": "Profile"
+  },
+  "splash": {
+    "loading": "Loading…"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signUpTitle": "Create account",
+    "phoneAuthTitle": "Sign in with phone",
+    "forgotTitle": "Reset password",
+    "newPasswordTitle": "Set a new password",
+    "changePasswordTitle": "Change password",
+
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "currentPassword": "Current password",
+    "name": "Your name",
+    "namePlaceholder": "Full name",
+    "phone": "Phone number",
+    "phonePlaceholder": "9XX XXX XX XX",
+    "country": "Country",
+    "otpCode": "Verification code",
+
+    "signInBtn": "Sign in",
+    "signUpBtn": "Create account",
+    "sendCodeBtn": "Send code",
+    "verifyCodeBtn": "Verify",
+    "googleBtn": "Continue with Google",
+    "phoneBtn": "Sign in with phone",
+    "emailBtn": "Sign in with email",
+    "resetBtn": "Send reset link",
+    "savePasswordBtn": "Save password",
+    "changePasswordBtn": "Change password",
+
+    "noAccountQ": "Don't have an account?",
+    "haveAccountQ": "Already have an account?",
+    "forgotLink": "Forgot password?",
+    "termsPrefix": "By creating an account, you agree to our ",
+    "terms": "terms of use",
+    "andLinker": " and ",
+    "privacy": "privacy policy",
+    "rememberMe": "Remember me",
+    "agreeTerms": "I agree to the terms",
+
+    "resendCodeIn": "Resend in {seconds}s",
+    "resendCode": "Resend code",
+    "changeNumber": "Change number",
+
+    "validation": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email format is invalid",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordWeak": "Password too weak. Use at least 8 chars with letters and a digit/symbol.",
+      "passwordMismatch": "Passwords don't match",
+      "phoneRequired": "Phone number is required",
+      "phoneFormat": "Phone format is invalid. Expected {length} digits.",
+      "nameRequired": "Name is required",
+      "otpRequired": "Code is required",
+      "otpLength": "Code must be 6 digits",
+      "termsRequired": "Please accept the terms"
+    },
+
+    "errors": {
+      "wrongPassword": "Wrong email or password",
+      "wrongCurrentPassword": "Current password is wrong",
+      "emailTaken": "This email is already registered",
+      "phoneTaken": "This phone is already registered to another account",
+      "usernameTaken": "This username is already taken",
+      "tooManyRequests": "Too many requests. Please wait a moment.",
+      "rateLimitLong": "Too many requests. Wait a bit and try again.",
+      "smsUnavailable": "SMS is currently unavailable",
+      "smsFailed": "Could not send SMS. Check the number.",
+      "otpExpired": "Code expired. Request a new one.",
+      "otpWrong": "Wrong code",
+      "network": "Network problem. Please try again.",
+      "generic": "Something went wrong. Please try again.",
+      "newPasswordSameAsOld": "New password must be different from current"
+    },
+
+    "passwordStrength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong",
+      "requirements": "Password must include:",
+      "minLength": "At least 8 characters",
+      "upperLower": "Upper and lower case letters",
+      "digitSymbol": "A digit or symbol"
+    },
+
+    "verify": {
+      "phoneTitle": "Verify your phone",
+      "phoneSubtitle": "We sent a 6-digit code to {phone}",
+      "emailTitle": "Verify your email",
+      "emailSubtitle": "We sent a 6-digit code to {email}",
+      "googleAccountNotice": "Your account uses Google sign-in. For security, a code will be emailed."
+    },
+
+    "success": {
+      "passwordChanged": "Password changed successfully",
+      "passwordSet": "Password set successfully",
+      "emailConfirmed": "Your email has been verified",
+      "signedOut": "Signed out"
+    }
+  },
+  "home": {
+    "greetingHi": "Hi, {name}",
+    "greetingWelcome": "Welcome to Jamlex",
+    "streakTitle": "Learning streak",
+    "streakDays": "{n} days",
+    "wordOfDay": "Word of the day",
+    "addToLeitner": "Add to Leitner",
+    "alreadyInLeitner": "Already in Leitner",
+    "vocabProgress": "Vocabulary progress",
+    "overallProgress": "Overall progress",
+    "keepGoing": "Great! Keep going 🌱",
+    "library": "Library",
+    "readBook": "Read a book",
+    "myWords": "My Words",
+    "savedWords": "Saved words",
+    "quickActions": "Quick actions",
+    "guestSignInCTA": "Sign in to track your progress"
+  },
+  "leitner": {
+    "title": "Leitner",
+    "cardCount": "{n} cards",
+    "emptyTitle": "Your Leitner is empty",
+    "emptyBody": "No words to review yet.\nAdd words to your dictionary\nto see them here.",
+    "goToDictionary": "Go to dictionary",
+    "dueCount": "{n} cards to review",
+    "dueSubtitle": "Review to strengthen long-term memory",
+    "reviewBtn": "Start review",
+    "dailyReviewDone": "Today's review is done 🎉",
+    "backTomorrow": "Back tomorrow",
+    "todayDone": "Today's Leitner is done! 🎉",
+    "betterEveryDay": "Every day better than yesterday.",
+    "tomorrowNewWords": "Tomorrow, new day, new words 🌿",
+    "comeBackTomorrow": "Come back tomorrow!",
+    "addNewOrWait": "Add new words\nor wait for tomorrow 🌙",
+    "noCardsToday": "No cards to review today.\nNew cards await tomorrow! 👏",
+    "boxLabels": {
+      "1": "Box 1 — Daily",
+      "2": "Box 2 — Every 2 days",
+      "3": "Box 3 — Every 4 days",
+      "4": "Box 4 — Weekly",
+      "5": "Box 5 — Biweekly"
+    },
+    "review": {
+      "tapToFlip": "Tap card to see meaning",
+      "tapToSeeTranslation": "Tap to see translation",
+      "dontKnow": "Don't know",
+      "sortOf": "Sort of",
+      "know": "Know",
+      "knowWell": "Know well",
+      "recordAnswerFailed": "Failed to save answer",
+      "deleteTitle": "Remove from Leitner",
+      "deleteConfirmWord": "«{word}» will be removed from Leitner.",
+      "deleteConfirmCard": "This card will be removed from Leitner."
+    },
+    "summary": {
+      "title": "Great job! 🎉",
+      "consistency": "Your consistency builds your future!",
+      "studyTime": "Study time",
+      "underOneMinute": "Under 1 minute",
+      "wordsReviewed": "Words reviewed",
+      "accuracy": "Accuracy",
+      "continueBtn": "Continue",
+      "viewProgressStats": "View progress stats"
+    }
+  },
+  "vocabulary": {
+    "title": "Search",
+    "searchPlaceholder": "Search word or category…",
+    "recentSearches": "Recent searches",
+    "clearAll": "Clear all",
+    "noResultsFor": "No results found for \"{query}\"",
+    "searchError": "Search error",
+    "emptyDB": {
+      "title": "Vocabulary coming soon",
+      "body": "We're building a multilingual dictionary with 10,000+ words and audio pronunciations. Stay tuned."
+    },
+    "audioPlay": "Play pronunciation",
+    "audioPlaying": "Playing…",
+    "wordDetail": {
+      "synonyms": "Synonyms",
+      "antonyms": "Antonyms",
+      "examples": "Examples",
+      "senses": "Senses",
+      "addToMyWords": "Add to My Words",
+      "addToLeitner": "Add to Leitner",
+      "signInToAddLeitner": "Sign in to add to Leitner",
+      "signInToAddMyWords": "Sign in to add to My Words",
+      "leitnerPremiumOnly": "Adding to Leitner requires Premium",
+      "alreadyInLeitner": "This word is already in Leitner"
+    }
+  },
+  "myWords": {
+    "title": "My Words",
+    "guestTitle": "Sign in to view your words",
+    "guestSubtitle": "Sign in to sync your words and collections across all your devices.",
+    "newCategory": "New category",
+    "categoryName": "Category name",
+    "iconLabel": "Icon",
+    "colorLabel": "Color",
+    "categoriesLabel": "Categories",
+    "noCategoriesYet": "No categories yet",
+    "personalCollection": "A personal collection of words you save",
+    "yourSavedCollection": "Words you saved yourself",
+    "addWord": "Add word",
+    "typeEnglishWord": "Type the English word",
+    "noWordsAdded": "No words added yet",
+    "deleteCategoryTitle": "Delete category?",
+    "deleteCategoryConfirm": "All words in this category will be deleted. This cannot be undone.",
+    "searchInDictionary": "Search dictionary…"
+  },
+  "vocabLearning": {
+    "title": "Topic vocabulary",
+    "learnByLevel": "Learn by level",
+    "studyBooks": "Study books",
+    "selectCategory": "Pick a category"
+  },
+  "reading": {
+    "title": "Library",
+    "subtitle": "Public-domain books to read",
+    "levelAll": "All levels",
+    "categories": "Categories",
+    "featured": "Recommended",
+    "newest": "Newest",
+    "inProgress": "Continue reading",
+    "seeAll": "See all",
+    "bookDetail": {
+      "download": "Download",
+      "downloadFailed": "Download failed. Check your connection.",
+      "deleteCache": "Delete cached file?",
+      "deleteCacheConfirm": "The book file will be removed from this device.",
+      "read": "Read",
+      "fileNotUploaded": "This book file has not been uploaded yet",
+      "year": "Year",
+      "publisher": "Publisher",
+      "chapters": "Chapters",
+      "words": "Words",
+      "readingTime": "Reading time",
+      "minutes": "min",
+      "description": "About this book"
+    },
+    "reader": {
+      "wordLookup": "Word lookup",
+      "openInGoogle": "Open in Google Translate",
+      "chapter": "Chapter {n}"
+    },
+    "savedBooks": "Saved books",
+    "savedGuestTitle": "Sign in to view your saved books",
+    "noSavedBooks": "No saved books yet",
+    "browseLibrary": "Browse library"
+  },
+  "flashcards": {
+    "title": "Flashcards",
+    "levelTitle": "Flashcards — Level {level}",
+    "tapToFlip": "Tap card to see meaning",
+    "iKnow": "I know it",
+    "iDontKnow": "I don't know",
+    "endTitle": "All done!",
+    "pronunciation": "Pronunciation",
+    "oneMoreRound": "One more round",
+    "backToHome": "Back to home",
+    "needMoreWords": "More words needed to build the deck."
+  },
+  "quiz": {
+    "title": "Quiz",
+    "modes": {
+      "forwardMcq": "Translation quiz",
+      "reverseMcq": "Reverse translation quiz",
+      "spelling": "Spelling practice"
+    },
+    "prompts": {
+      "forwardMcq": "Pick the closest translation",
+      "reverseMcq": "Pick the English equivalent",
+      "spelling": "Type the English equivalent"
+    },
+    "answerInEnglish": "Answer in English",
+    "checkBtn": "Check",
+    "correctLabel": "Correct!",
+    "wrongLabel": "Wrong",
+    "correctAnswerWas": "Correct: {english}",
+    "nextQuestion": "Next question",
+    "endTitle": "Quiz complete",
+    "endScore": "You scored {correct} of {total}",
+    "endAccuracy": "{accuracy}% accuracy",
+    "restart": "Restart quiz",
+    "exit": "Exit"
+  },
+  "stats": {
+    "title": "Statistics",
+    "totalXp": "XP",
+    "currentStreak": "Streak",
+    "cardsLearned": "Cards learned",
+    "studyTime": "Study time",
+    "minutesUnit": "min",
+    "hoursUnit": "h",
+    "thisWeek": "This week",
+    "achievements": "Achievements",
+    "achievementsLocked": "{n} locked",
+    "achievementsUnlocked": "{n} unlocked",
+    "sessionBreakdown": "Sessions",
+    "sessionTypes": {
+      "flashcard": "Flashcards",
+      "leitner": "Leitner",
+      "quiz": "Quiz",
+      "reading": "Reading"
+    },
+    "compareWithOthers": "Compare with others"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "guestTitle": "Sign in to view the leaderboard",
+    "yourRank": "Your rank",
+    "ofTotalUsers": "of {total} users",
+    "betterThanPercent": "Better than {percent}% of users",
+    "noData": "No data yet",
+    "updatedEvery24h": "Updated every 24 hours",
+    "level": "Level",
+    "you": "You",
+    "loginOrRegister": "Sign in / Sign up"
+  },
+  "profile": {
+    "title": "Profile",
+    "guestTitle": "Sign in to view your profile",
+    "level": "Level {n}",
+    "xpToNext": "{xp} XP to level {next}",
+    "editProfile": "Edit profile",
+    "editAvatar": "Edit avatar",
+    "displayName": "Display name",
+    "username": "Username",
+    "email": "Email",
+    "phone": "Phone number",
+    "phoneNumberRemoved": "Phone number removed",
+    "activePhoneOnAccount": "{phone} is active on your account",
+    "logout": "Sign out",
+    "logoutConfirm": "Sign out of Jamlex?",
+    "deleteAccount": "Delete account",
+    "deleteAccountConfirm": "This will permanently delete your account and all data. This cannot be undone.",
+    "deleteAccountInput": "Type DELETE to confirm",
+    "sections": {
+      "leitner": "Leitner",
+      "notifications": "Notifications",
+      "appearance": "Appearance",
+      "account": "Account",
+      "other": "Other"
+    },
+    "leitnerSection": {
+      "dailyLimit": "Daily word limit",
+      "dailyLimitSubtitle": "{n} words per day",
+      "clearAll": "Clear all Leitner cards",
+      "clearAllSubtitle": "Reset your Leitner queue"
+    },
+    "notifSection": {
+      "title": "Daily reminder",
+      "onSubtitle": "{time} · {days} days/week",
+      "offSubtitle": "Off",
+      "manage": "Manage notifications"
+    },
+    "appearanceSection": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "Follow system"
+    },
+    "accountSection": {
+      "loginRequired": "Sign in",
+      "loginSubtitle": "Save your progress"
+    },
+    "otherSection": {
+      "language": "Language",
+      "guide": "How to use",
+      "about": "About Jamlex"
+    },
+    "weekStats": {
+      "title": "This week",
+      "cards": "Cards",
+      "minutes": "Minutes",
+      "streak": "Streak"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "languagePicker": {
+      "title": "App language",
+      "subtitle": "Pick the UI language",
+      "followSystem": "Follow system default",
+      "comingSoon": "Coming soon"
+    },
+    "themePicker": {
+      "title": "Theme",
+      "subtitle": "Light, dark, or system"
+    },
+    "notifDialog": {
+      "title": "Set reminder",
+      "subtitle": "Pick the reminder time and days",
+      "hour": "Hour",
+      "minute": "Minute",
+      "reminderDays": "Reminder days",
+      "reminderSound": "Reminder sound",
+      "pickSound": "Pick reminder sound",
+      "previewSound": "Tap ▶ to preview a sound.",
+      "weekdays": {
+        "sa": "Sa",
+        "su": "Su",
+        "mo": "Mo",
+        "tu": "Tu",
+        "we": "We",
+        "th": "Th",
+        "fr": "Fr"
+      }
+    }
+  },
+  "paywall": {
+    "title": "Go Premium",
+    "tagline": "Unlock everything",
+    "features": {
+      "unlimitedLeitner": "Unlimited Leitner cards",
+      "allLevels": "All CEFR levels (A1–C2)",
+      "allQuizzes": "Unlimited quizzes",
+      "fullReading": "Full reading library",
+      "audioPronunciation": "US + UK audio",
+      "adFree": "Ad-free experience"
+    },
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "monthlyPrice": "$2.99",
+    "yearlyPrice": "$19.99",
+    "yearlyMonthly": "$1.67/mo",
+    "yearlyBadge": "Save 44%",
+    "subscribeBtn": "Subscribe",
+    "restorePurchase": "Restore purchase",
+    "alreadyPremiumTitle": "You're Premium 🎉",
+    "alreadyPremiumSubtitle": "Thank you for supporting Jamlex.",
+    "manageSubscription": "Manage subscription"
+  },
+  "more": {
+    "title": "More",
+    "items": {
+      "flashcards": "Flashcards",
+      "quiz": "Quiz",
+      "reading": "Library",
+      "leaderboard": "Leaderboard",
+      "vocabLearning": "Topic vocabulary",
+      "settings": "Settings"
+    }
+  },
+  "authGate": {
+    "ctaSignIn": "Sign in to your account",
+    "useLeitner": "Sign in to use Leitner",
+    "viewMyWords": "Sign in to view your words",
+    "viewSavedBooks": "Sign in to view saved books",
+    "viewLeaderboard": "Sign in to view the leaderboard"
+  },
+  "pos": {
+    "noun": "Noun",
+    "verb": "Verb",
+    "adjective": "Adjective",
+    "adverb": "Adverb",
+    "pronoun": "Pronoun",
+    "preposition": "Preposition",
+    "conjunction": "Conjunction",
+    "interjection": "Interjection",
+    "phrase": "Phrase"
+  },
+  "cefr": {
+    "A1": "A1 — Beginner",
+    "A2": "A2 — Elementary",
+    "B1": "B1 — Intermediate",
+    "B2": "B2 — Upper-intermediate",
+    "C1": "C1 — Advanced",
+    "C2": "C2 — Mastery"
+  }
+}

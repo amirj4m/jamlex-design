@@ -1,0 +1,526 @@
+{
+  "_meta": {
+    "code": "fa",
+    "name": "Persian",
+    "nativeName": "فارسی",
+    "dir": "rtl",
+    "fontFamily": "Vazirmatn, system-ui, sans-serif"
+  },
+  "app": {
+    "name": "Jamlex",
+    "tagline": "انگلیسی یاد بگیر، به سبک خودت"
+  },
+  "common": {
+    "ok": "باشه",
+    "cancel": "انصراف",
+    "save": "ذخیره",
+    "delete": "حذف",
+    "edit": "ویرایش",
+    "close": "بستن",
+    "back": "بازگشت",
+    "next": "بعدی",
+    "previous": "قبلی",
+    "continue": "ادامه",
+    "retry": "تلاش مجدد",
+    "loading": "در حال بارگذاری…",
+    "loadingError": "خطا در بارگذاری",
+    "tryAgain": "تلاش مجدد",
+    "search": "جستجو",
+    "searchPlaceholder": "جستجو…",
+    "noResults": "نتیجه‌ای پیدا نشد",
+    "more": "بیشتر",
+    "yes": "بله",
+    "no": "خیر",
+    "confirm": "تأیید",
+    "skip": "رد شدن",
+    "done": "پایان",
+    "send": "ارسال",
+    "verify": "تأیید",
+    "submit": "ثبت",
+    "or": "یا"
+  },
+  "nav": {
+    "home": "خانه",
+    "leitner": "لایتنر",
+    "vocabulary": "جستجو",
+    "stats": "آمار",
+    "profile": "پروفایل"
+  },
+  "splash": {
+    "loading": "در حال بارگذاری…"
+  },
+  "auth": {
+    "signInTitle": "ورود به حساب",
+    "signUpTitle": "ساخت حساب کاربری",
+    "phoneAuthTitle": "ورود با شماره موبایل",
+    "forgotTitle": "بازیابی رمز عبور",
+    "newPasswordTitle": "تنظیم رمز عبور جدید",
+    "changePasswordTitle": "تغییر رمز عبور",
+
+    "email": "ایمیل",
+    "emailPlaceholder": "you@example.com",
+    "password": "رمز عبور",
+    "passwordPlaceholder": "رمز عبور شما",
+    "newPassword": "رمز عبور جدید",
+    "confirmPassword": "تکرار رمز عبور",
+    "currentPassword": "رمز عبور فعلی",
+    "name": "نام شما",
+    "namePlaceholder": "نام کامل",
+    "phone": "شماره موبایل",
+    "phonePlaceholder": "۹XX XXX XX XX",
+    "country": "کشور",
+    "otpCode": "کد تأیید",
+
+    "signInBtn": "ورود",
+    "signUpBtn": "ساخت حساب",
+    "sendCodeBtn": "ارسال کد",
+    "verifyCodeBtn": "تأیید",
+    "googleBtn": "ادامه با گوگل",
+    "phoneBtn": "ورود با شماره موبایل",
+    "emailBtn": "ورود با ایمیل",
+    "resetBtn": "ارسال لینک بازیابی",
+    "savePasswordBtn": "ذخیره رمز",
+    "changePasswordBtn": "تغییر رمز",
+
+    "noAccountQ": "حساب نداری؟",
+    "haveAccountQ": "حساب داری؟",
+    "forgotLink": "رمز را فراموش کرده‌ای؟",
+    "termsPrefix": "با ساخت حساب، با ",
+    "terms": "شرایط استفاده",
+    "andLinker": " و ",
+    "privacy": "سیاست حفظ حریم خصوصی",
+    "rememberMe": "مرا به خاطر بسپار",
+    "agreeTerms": "شرایط را می‌پذیرم",
+
+    "resendCodeIn": "ارسال مجدد تا {seconds} ثانیه دیگر",
+    "resendCode": "ارسال مجدد کد",
+    "changeNumber": "تغییر شماره",
+
+    "validation": {
+      "emailRequired": "ایمیل الزامی است",
+      "emailInvalid": "فرمت ایمیل صحیح نیست",
+      "passwordRequired": "رمز الزامی است",
+      "passwordMin": "رمز باید حداقل ۸ کاراکتر باشد",
+      "passwordWeak": "رمز ضعیف است. حداقل ۸ کاراکتر با حروف و یک عدد یا نماد.",
+      "passwordMismatch": "رمزها با هم مطابقت ندارند",
+      "phoneRequired": "شماره موبایل الزامی است",
+      "phoneFormat": "فرمت شماره صحیح نیست. {length} رقم لازم است.",
+      "nameRequired": "نام الزامی است",
+      "otpRequired": "کد الزامی است",
+      "otpLength": "کد باید ۶ رقم باشد",
+      "termsRequired": "لطفاً شرایط را بپذیر"
+    },
+
+    "errors": {
+      "wrongPassword": "ایمیل یا رمز اشتباه است",
+      "wrongCurrentPassword": "رمز عبور فعلی اشتباه است",
+      "emailTaken": "این ایمیل قبلاً ثبت شده است",
+      "phoneTaken": "این شماره روی حساب دیگری ثبت شده",
+      "usernameTaken": "این نام کاربری قبلاً استفاده شده",
+      "tooManyRequests": "درخواست‌های زیادی ارسال شد. کمی صبر کن.",
+      "rateLimitLong": "تعداد درخواست‌ها بیش از حد است. کمی صبر کن و دوباره تلاش کن.",
+      "smsUnavailable": "ارسال پیامک در حال حاضر در دسترس نیست",
+      "smsFailed": "ارسال پیامک موفق نبود. شماره را بررسی کن.",
+      "otpExpired": "کد منقضی شد. یه کد جدید بگیر.",
+      "otpWrong": "کد اشتباه است",
+      "network": "مشکل اتصال اینترنت. دوباره تلاش کن.",
+      "generic": "خطایی رخ داد. دوباره تلاش کن.",
+      "newPasswordSameAsOld": "رمز جدید نباید با رمز فعلی یکسان باشد"
+    },
+
+    "passwordStrength": {
+      "weak": "ضعیف",
+      "fair": "متوسط",
+      "good": "خوب",
+      "strong": "قوی",
+      "requirements": "رمز باید شامل موارد زیر باشد:",
+      "minLength": "حداقل ۸ کاراکتر",
+      "upperLower": "حروف بزرگ و کوچک",
+      "digitSymbol": "یک عدد یا نماد"
+    },
+
+    "verify": {
+      "phoneTitle": "تأیید شماره موبایل",
+      "phoneSubtitle": "یه کد ۶ رقمی به {phone} فرستادیم",
+      "emailTitle": "تأیید ایمیل",
+      "emailSubtitle": "یه کد ۶ رقمی به {email} فرستادیم",
+      "googleAccountNotice": "حساب شما با گوگل ساخته شده. برای امنیت، یه کد تأیید به ایمیلت می‌فرستیم."
+    },
+
+    "success": {
+      "passwordChanged": "رمز عبور با موفقیت تغییر کرد",
+      "passwordSet": "رمز عبور با موفقیت تنظیم شد",
+      "emailConfirmed": "ایمیل با موفقیت تأیید شد",
+      "signedOut": "خارج شدی"
+    }
+  },
+  "home": {
+    "greetingHi": "سلام، {name}",
+    "greetingWelcome": "به Jamlex خوش اومدی",
+    "streakTitle": "رکورد یادگیری",
+    "streakDays": "{n} روز",
+    "wordOfDay": "لغت روز",
+    "addToLeitner": "افزودن به لایتنر",
+    "alreadyInLeitner": "قبلاً در لایتنر است",
+    "vocabProgress": "پیشرفت واژگان",
+    "overallProgress": "پیشرفت کلی",
+    "keepGoing": "عالی! ادامه بده 🌱",
+    "library": "کتابخانه",
+    "readBook": "خواندن کتاب",
+    "myWords": "واژگان من",
+    "savedWords": "لغات ذخیره‌شده",
+    "quickActions": "دسترسی سریع",
+    "guestSignInCTA": "برای ذخیره پیشرفتت وارد حساب شو"
+  },
+  "leitner": {
+    "title": "لایتنر",
+    "cardCount": "{n} کارت",
+    "emptyTitle": "لایتنر شما خالی است",
+    "emptyBody": "هنوز هیچ واژه‌ای برای مرور نیست.\nبرای شروع، واژه‌های خودت رو به واژه‌نامه اضافه کن\nتا اینجا ظاهر بشن.",
+    "goToDictionary": "رفتن به واژه‌نامه",
+    "dueCount": "{n} کارت آماده مرور",
+    "dueSubtitle": "برای تقویت حافظه بلندمدت مرور کن",
+    "reviewBtn": "شروع مرور",
+    "dailyReviewDone": "مرور امروز تموم شد 🎉",
+    "backTomorrow": "فردا دوباره برمی‌گردیم",
+    "todayDone": "لایتنر امروز تمومه! 🎉",
+    "betterEveryDay": "هر روز بهتر از دیروزی.",
+    "tomorrowNewWords": "فردا روز جدید، واژه‌های جدید 🌿",
+    "comeBackTomorrow": "فردا برگرد و ادامه بده!",
+    "addNewOrWait": "لغت‌های جدید اضافه کن\nیا منتظر تکرار فردا باش 🌙",
+    "noCardsToday": "برای امروز هیچ کارتی برای مرور نداری.\nفردا کارت‌های جدیدی منتظرتن! 👏",
+    "boxLabels": {
+      "1": "جعبه ۱ — روزانه",
+      "2": "جعبه ۲ — هر ۲ روز",
+      "3": "جعبه ۳ — هر ۴ روز",
+      "4": "جعبه ۴ — هفتگی",
+      "5": "جعبه ۵ — دو هفته یکبار"
+    },
+    "review": {
+      "tapToFlip": "برای دیدن معنی، روی کارت بزن",
+      "tapToSeeTranslation": "برای دیدن ترجمه لمس کن",
+      "dontKnow": "بلد نیستم",
+      "sortOf": "تاحدی",
+      "know": "بلدم",
+      "knowWell": "کاملاً بلدم",
+      "recordAnswerFailed": "ثبت پاسخ ناموفق بود",
+      "deleteTitle": "حذف از لایتنر",
+      "deleteConfirmWord": "«{word}» از لایتنر حذف می‌شود.",
+      "deleteConfirmCard": "این کارت از لایتنر حذف می‌شود."
+    },
+    "summary": {
+      "title": "آفرین! عالی بود 🎉",
+      "consistency": "ثبات تو، آینده تو رو می‌سازه!",
+      "studyTime": "زمان مطالعه",
+      "underOneMinute": "کمتر از ۱ دقیقه",
+      "wordsReviewed": "واژه‌های مرور شده",
+      "accuracy": "دقت شما",
+      "continueBtn": "ادامه",
+      "viewProgressStats": "مشاهده آمار پیشرفت"
+    }
+  },
+  "vocabulary": {
+    "title": "جستجو",
+    "searchPlaceholder": "جستجوی لغت یا دسته‌بندی…",
+    "recentSearches": "جستجوهای اخیر",
+    "clearAll": "پاک کردن همه",
+    "noResultsFor": "نتیجه‌ای برای «{query}» پیدا نشد",
+    "searchError": "خطا در جستجو",
+    "emptyDB": {
+      "title": "واژه‌نامه به‌زودی",
+      "body": "در حال ساخت یک واژه‌نامه چندزبانه با بیش از ۱۰٬۰۰۰ لغت و تلفظ صوتی هستیم. به‌زودی برمی‌گردیم."
+    },
+    "audioPlay": "پخش تلفظ",
+    "audioPlaying": "در حال پخش…",
+    "wordDetail": {
+      "synonyms": "مترادف‌ها",
+      "antonyms": "متضادها",
+      "examples": "مثال‌ها",
+      "senses": "معانی",
+      "addToMyWords": "افزودن به واژگان من",
+      "addToLeitner": "افزودن به لایتنر",
+      "signInToAddLeitner": "برای افزودن به لایتنر باید وارد حساب شوی",
+      "signInToAddMyWords": "برای افزودن به واژگان من باید وارد حساب شوی",
+      "leitnerPremiumOnly": "افزودن به لایتنر فقط برای اشتراک پرمیوم",
+      "alreadyInLeitner": "این کلمه قبلاً در لایتنر شماست"
+    }
+  },
+  "myWords": {
+    "title": "واژگان من",
+    "guestTitle": "برای دیدن واژگانت وارد حساب شو",
+    "guestSubtitle": "با ورود به حساب، تمام واژه‌ها و لیست‌هات بین دستگاه‌های مختلف همگام می‌شه.",
+    "newCategory": "دسته‌بندی جدید",
+    "categoryName": "نام دسته‌بندی",
+    "iconLabel": "آیکون",
+    "colorLabel": "رنگ",
+    "categoriesLabel": "دسته‌بندی‌ها",
+    "noCategoriesYet": "هنوز دسته‌بندی‌ای نداری",
+    "personalCollection": "مجموعه‌ای شخصی از لغاتی که ذخیره می‌کنی",
+    "yourSavedCollection": "مجموعه‌ای از لغاتی که خودت ذخیره کردی",
+    "addWord": "افزودن لغت",
+    "typeEnglishWord": "نام لغت انگلیسی را تایپ کن",
+    "noWordsAdded": "هنوز لغتی اضافه نکردی",
+    "deleteCategoryTitle": "حذف دسته‌بندی؟",
+    "deleteCategoryConfirm": "تمام لغات این دسته‌بندی حذف می‌شوند. این عمل برگشت‌ناپذیر است.",
+    "searchInDictionary": "جستجو در واژه‌نامه…"
+  },
+  "vocabLearning": {
+    "title": "واژگان موضوعی",
+    "learnByLevel": "یادگیری بر اساس سطح",
+    "studyBooks": "کتاب‌های آموزشی",
+    "selectCategory": "یک دسته‌بندی انتخاب کن"
+  },
+  "reading": {
+    "title": "کتابخانه",
+    "subtitle": "کتاب‌های public-domain برای مطالعه",
+    "levelAll": "همه سطوح",
+    "categories": "دسته‌بندی‌ها",
+    "featured": "کتاب‌های پیشنهادی",
+    "newest": "جدیدترین",
+    "inProgress": "ادامه مطالعه",
+    "seeAll": "مشاهده همه",
+    "bookDetail": {
+      "download": "دانلود",
+      "downloadFailed": "دانلود ناموفق بود. اتصال اینترنت را بررسی کن.",
+      "deleteCache": "حذف فایل کش‌شده؟",
+      "deleteCacheConfirm": "فایل کتاب از این دستگاه حذف می‌شود.",
+      "read": "خواندن",
+      "fileNotUploaded": "فایل این کتاب هنوز آپلود نشده",
+      "year": "سال",
+      "publisher": "ناشر",
+      "chapters": "فصل‌ها",
+      "words": "کلمات",
+      "readingTime": "زمان مطالعه",
+      "minutes": "دقیقه",
+      "description": "درباره این کتاب"
+    },
+    "reader": {
+      "wordLookup": "جستجوی لغت",
+      "openInGoogle": "باز کردن در Google Translate",
+      "chapter": "فصل {n}"
+    },
+    "savedBooks": "کتاب‌های ذخیره‌شده",
+    "savedGuestTitle": "برای دیدن کتاب‌های ذخیره‌شده وارد حساب شو",
+    "noSavedBooks": "هنوز کتابی ذخیره نکردی",
+    "browseLibrary": "مشاهده کتابخانه"
+  },
+  "flashcards": {
+    "title": "فلش‌کارت",
+    "levelTitle": "فلش‌کارت — سطح {level}",
+    "tapToFlip": "برای دیدن معنی، روی کارت بزن",
+    "iKnow": "بلدم",
+    "iDontKnow": "بلد نیستم",
+    "endTitle": "تمام شد!",
+    "pronunciation": "تلفظ",
+    "oneMoreRound": "یک دور دیگر",
+    "backToHome": "برگشت به خانه",
+    "needMoreWords": "برای ساخت دسته به کلمات بیشتری نیاز است."
+  },
+  "quiz": {
+    "title": "آزمون",
+    "modes": {
+      "forwardMcq": "آزمون ترجمه",
+      "reverseMcq": "آزمون ترجمه معکوس",
+      "spelling": "تمرین املا"
+    },
+    "prompts": {
+      "forwardMcq": "نزدیک‌ترین گزینه به ترجمه را انتخاب کن",
+      "reverseMcq": "معادل انگلیسی کلمه را انتخاب کن",
+      "spelling": "معادل انگلیسی را تایپ کن"
+    },
+    "answerInEnglish": "پاسخ به انگلیسی",
+    "checkBtn": "بررسی",
+    "correctLabel": "درست!",
+    "wrongLabel": "اشتباه",
+    "correctAnswerWas": "درست: {english}",
+    "nextQuestion": "سؤال بعدی",
+    "endTitle": "آزمون تموم شد",
+    "endScore": "از {total} سؤال، {correct} درست",
+    "endAccuracy": "دقت {accuracy}٪",
+    "restart": "دوباره شروع",
+    "exit": "خروج"
+  },
+  "stats": {
+    "title": "آمار",
+    "totalXp": "XP",
+    "currentStreak": "رکورد",
+    "cardsLearned": "کارت‌های یادگرفته",
+    "studyTime": "زمان مطالعه",
+    "minutesUnit": "دقیقه",
+    "hoursUnit": "ساعت",
+    "thisWeek": "این هفته",
+    "achievements": "دستاوردها",
+    "achievementsLocked": "{n} قفل",
+    "achievementsUnlocked": "{n} باز",
+    "sessionBreakdown": "جلسات",
+    "sessionTypes": {
+      "flashcard": "فلش‌کارت",
+      "leitner": "لایتنر",
+      "quiz": "آزمون",
+      "reading": "مطالعه"
+    },
+    "compareWithOthers": "مقایسه با دیگران"
+  },
+  "leaderboard": {
+    "title": "رتبه‌بندی",
+    "guestTitle": "برای دیدن رتبه‌بندی وارد حساب شو",
+    "yourRank": "رتبه شما",
+    "ofTotalUsers": "از {total} نفر",
+    "betterThanPercent": "بهتر از {percent}٪ کاربران",
+    "noData": "هنوز داده‌ای ثبت نشده",
+    "updatedEvery24h": "هر ۲۴ ساعت یکبار بروزرسانی می‌شود",
+    "level": "سطح",
+    "you": "شما",
+    "loginOrRegister": "ورود / ثبت‌نام"
+  },
+  "profile": {
+    "title": "پروفایل",
+    "guestTitle": "برای دیدن پروفایلت وارد حساب شو",
+    "level": "سطح {n}",
+    "xpToNext": "{xp} XP تا سطح {next}",
+    "editProfile": "ویرایش پروفایل",
+    "editAvatar": "ویرایش آواتار",
+    "displayName": "نام نمایشی",
+    "username": "نام کاربری",
+    "email": "ایمیل",
+    "phone": "شماره موبایل",
+    "phoneNumberRemoved": "شماره موبایل حذف شد",
+    "activePhoneOnAccount": "شماره {phone} روی حساب شما فعال است",
+    "logout": "خروج از حساب",
+    "logoutConfirm": "از Jamlex خارج بشی؟",
+    "deleteAccount": "حذف حساب کاربری",
+    "deleteAccountConfirm": "این عمل حسابت و همه داده‌هات رو برای همیشه پاک می‌کنه. برگشت‌ناپذیره.",
+    "deleteAccountInput": "برای تأیید، DELETE تایپ کن",
+    "sections": {
+      "leitner": "لایتنر",
+      "notifications": "اعلان‌ها",
+      "appearance": "ظاهر",
+      "account": "حساب کاربری",
+      "other": "سایر"
+    },
+    "leitnerSection": {
+      "dailyLimit": "حد لغات روزانه",
+      "dailyLimitSubtitle": "{n} لغت در روز",
+      "clearAll": "پاک کردن تمام کارت‌های لایتنر",
+      "clearAllSubtitle": "صف لایتنر را reset کن"
+    },
+    "notifSection": {
+      "title": "یادآوری روزانه",
+      "onSubtitle": "{time} · {days} روز در هفته",
+      "offSubtitle": "خاموش",
+      "manage": "مدیریت اعلان‌ها"
+    },
+    "appearanceSection": {
+      "light": "روشن",
+      "dark": "تیره",
+      "system": "از سیستم پیروی کن"
+    },
+    "accountSection": {
+      "loginRequired": "ورود",
+      "loginSubtitle": "پیشرفتت رو ذخیره کن"
+    },
+    "otherSection": {
+      "language": "زبان",
+      "guide": "راهنما",
+      "about": "درباره Jamlex"
+    },
+    "weekStats": {
+      "title": "این هفته",
+      "cards": "کارت",
+      "minutes": "دقیقه",
+      "streak": "رکورد"
+    }
+  },
+  "settings": {
+    "title": "تنظیمات",
+    "languagePicker": {
+      "title": "زبان اپ",
+      "subtitle": "زبان رابط کاربری را انتخاب کن",
+      "followSystem": "از سیستم پیروی کن",
+      "comingSoon": "به‌زودی"
+    },
+    "themePicker": {
+      "title": "ظاهر",
+      "subtitle": "روشن، تیره یا از سیستم"
+    },
+    "notifDialog": {
+      "title": "تنظیم یادآوری",
+      "subtitle": "زمان و روزهای یادآوری را انتخاب کن",
+      "hour": "ساعت",
+      "minute": "دقیقه",
+      "reminderDays": "روزهای یادآوری",
+      "reminderSound": "صدای یادآور",
+      "pickSound": "انتخاب صدای یادآور",
+      "previewSound": "برای پیش‌نمایش، دکمه ▶ را بزن.",
+      "weekdays": {
+        "sa": "ش",
+        "su": "ی",
+        "mo": "د",
+        "tu": "س",
+        "we": "چ",
+        "th": "پ",
+        "fr": "ج"
+      }
+    }
+  },
+  "paywall": {
+    "title": "ارتقا به پرمیوم",
+    "tagline": "همه چیز را باز کن",
+    "features": {
+      "unlimitedLeitner": "لایتنر نامحدود",
+      "allLevels": "همه سطوح CEFR (A1–C2)",
+      "allQuizzes": "آزمون‌های نامحدود",
+      "fullReading": "کتابخانه کامل",
+      "audioPronunciation": "تلفظ بریتیش + آمریکن",
+      "adFree": "بدون تبلیغات"
+    },
+    "monthly": "ماهانه",
+    "yearly": "سالانه",
+    "monthlyPrice": "$2.99",
+    "yearlyPrice": "$19.99",
+    "yearlyMonthly": "$1.67/ماه",
+    "yearlyBadge": "۴۴٪ صرفه‌جویی",
+    "subscribeBtn": "خرید اشتراک",
+    "restorePurchase": "بازیابی خرید",
+    "alreadyPremiumTitle": "شما پرمیوم هستی 🎉",
+    "alreadyPremiumSubtitle": "از حمایتت ممنونیم.",
+    "manageSubscription": "مدیریت اشتراک"
+  },
+  "more": {
+    "title": "بیشتر",
+    "items": {
+      "flashcards": "فلش‌کارت",
+      "quiz": "آزمون",
+      "reading": "کتابخانه",
+      "leaderboard": "رتبه‌بندی",
+      "vocabLearning": "واژگان موضوعی",
+      "settings": "تنظیمات"
+    }
+  },
+  "authGate": {
+    "ctaSignIn": "ورود به حساب کاربری",
+    "useLeitner": "برای استفاده از لایتنر وارد حساب شو",
+    "viewMyWords": "برای دیدن واژگانت وارد حساب شو",
+    "viewSavedBooks": "برای دیدن کتاب‌های ذخیره‌شده وارد حساب شو",
+    "viewLeaderboard": "برای دیدن رتبه‌بندی وارد حساب شو"
+  },
+  "pos": {
+    "noun": "اسم",
+    "verb": "فعل",
+    "adjective": "صفت",
+    "adverb": "قید",
+    "pronoun": "ضمیر",
+    "preposition": "حرف اضافه",
+    "conjunction": "حرف ربط",
+    "interjection": "حرف ندا",
+    "phrase": "عبارت"
+  },
+  "cefr": {
+    "A1": "A1 — مبتدی",
+    "A2": "A2 — مقدماتی",
+    "B1": "B1 — متوسط",
+    "B2": "B2 — متوسط بالا",
+    "C1": "C1 — پیشرفته",
+    "C2": "C2 — مسلط"
+  }
+}

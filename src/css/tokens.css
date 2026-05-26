@@ -1,0 +1,172 @@
+/* ============================================================================
+   Jamlex — Design Tokens
+   ----------------------------------------------------------------------------
+   Single source of truth for colors, typography, spacing, shadows.
+   Translated 1:1 to Flutter ThemeData in the final app.
+
+   Light theme: :root  /  Dark theme: [data-theme="dark"]
+   "system" theme: prefers-color-scheme media query (handled by theme.js)
+   ============================================================================ */
+
+:root {
+  /* ── Brand ──────────────────────────────────────────────────────────── */
+  --jx-primary:        #00B4A6;
+  --jx-primary-dark:   #009688;
+  --jx-primary-light:  #4DCEC4;
+  --jx-primary-glow:   rgba(0, 180, 166, 0.18);
+  --jx-secondary:      #4A90D9;
+
+  /* ── Semantic ───────────────────────────────────────────────────────── */
+  --jx-success:        #4CAF50;
+  --jx-warning:        #FF9800;
+  --jx-danger:         #F44336;
+  --jx-danger-bg:      #FEF2F2;
+
+  /* ── Surfaces (light) ───────────────────────────────────────────────── */
+  --jx-bg:             #FFFFFF;
+  --jx-bg-app:         #F4FBFA;       /* off-white with teal tint, used as the page background */
+  --jx-surface:        #F5F7FA;
+  --jx-surface-alt:    #EBEEF3;
+  --jx-border:         #E3E8EE;
+  --jx-divider:        rgba(15, 23, 42, 0.06);
+
+  /* ── Text (light) ──────────────────────────────────────────────────── */
+  --jx-text:           #1A1A2E;
+  --jx-text-2:         #6B7280;
+  --jx-text-3:         #9CA3AF;
+  --jx-text-on-brand:  #FFFFFF;
+
+  /* ── Typography ────────────────────────────────────────────────────── */
+  --font-family:       'Vazirmatn', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-latin: 'Inter', 'Vazirmatn', system-ui, sans-serif;
+  --font-family-mono:  'JetBrains Mono', ui-monospace, monospace;
+  /* Roboto fallback is needed for currency symbols ($ €) in Persian — Vazirmatn renders them wrong */
+  --font-family-currency: 'Roboto', 'Vazirmatn', system-ui, sans-serif;
+
+  --fs-display-l:      2rem;     /* 32 */
+  --fs-display-m:      1.5rem;   /* 24 */
+  --fs-headline:       1.25rem;  /* 20 */
+  --fs-title:          1.125rem; /* 18 */
+  --fs-body-l:         1rem;     /* 16 */
+  --fs-body-m:         0.875rem; /* 14 */
+  --fs-body-s:         0.75rem;  /* 12 */
+  --fs-label:          0.8125rem;/* 13 */
+  --fs-caption:        0.6875rem;/* 11 */
+
+  --fw-light:          300;
+  --fw-regular:        400;
+  --fw-medium:         500;
+  --fw-semibold:       600;
+  --fw-bold:           700;
+  --fw-extrabold:      800;
+
+  --lh-tight:          1.2;
+  --lh-snug:           1.4;
+  --lh-normal:         1.6;
+  --lh-relaxed:        1.8;
+
+  /* ── Spacing scale ─────────────────────────────────────────────────── */
+  --sp-1:              0.25rem; /*  4 */
+  --sp-2:              0.5rem;  /*  8 */
+  --sp-3:              0.75rem; /* 12 */
+  --sp-4:              1rem;    /* 16 */
+  --sp-5:              1.25rem; /* 20 */
+  --sp-6:              1.5rem;  /* 24 */
+  --sp-8:              2rem;    /* 32 */
+  --sp-12:             3rem;    /* 48 */
+  --sp-16:             4rem;    /* 64 */
+
+  /* ── Border radius ─────────────────────────────────────────────────── */
+  --rd-1:              6px;
+  --rd-2:              8px;
+  --rd-3:              12px;
+  --rd-4:              14px;
+  --rd-5:              16px;
+  --rd-6:              20px;
+  --rd-pill:           999px;
+
+  /* ── Shadows ───────────────────────────────────────────────────────── */
+  --sh-sm:             0 1px 2px rgba(0,0,0,0.04);
+  --sh-md:             0 4px 12px rgba(0,0,0,0.06);
+  --sh-lg:             0 8px 24px rgba(0,0,0,0.10);
+  --sh-xl:             0 16px 48px rgba(0,0,0,0.14);
+  --sh-brand:          0 8px 16px rgba(0,180,166,0.18);
+  --sh-inset:          inset 0 1px 2px rgba(0,0,0,0.04);
+
+  /* ── Z-index ───────────────────────────────────────────────────────── */
+  --z-base:            1;
+  --z-nav:             10;
+  --z-sticky:          20;
+  --z-dropdown:        30;
+  --z-overlay:         50;
+  --z-dialog:          100;
+  --z-toast:           1000;
+
+  /* ── Motion ────────────────────────────────────────────────────────── */
+  --motion-fast:       120ms;
+  --motion-base:       180ms;
+  --motion-slow:       280ms;
+  --ease-out:          cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out:       cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Phone frame (preview only) ────────────────────────────────────── */
+  --phone-w:           414px;
+  --phone-h:           896px;
+  --phone-radius:      48px;
+  --phone-bezel:       12px;
+}
+
+/* ── Dark theme overrides ─────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --jx-primary:        #00C4B4;
+  --jx-primary-dark:   #00B4A6;
+  --jx-primary-light:  #4DDED4;
+  --jx-primary-glow:   rgba(0, 196, 180, 0.22);
+  --jx-secondary:      #5BA3E8;
+
+  --jx-success:        #5DD66A;
+  --jx-warning:        #FFB04C;
+  --jx-danger:         #FF5C50;
+  --jx-danger-bg:      rgba(244, 67, 54, 0.12);
+
+  --jx-bg:             #0F0F14;
+  --jx-bg-app:         #0F0F14;
+  --jx-surface:        #1A1A24;
+  --jx-surface-alt:    #242432;
+  --jx-border:         #2E2E3E;
+  --jx-divider:        rgba(255, 255, 255, 0.06);
+
+  --jx-text:           #F0F0F8;
+  --jx-text-2:         #9099A8;
+  --jx-text-3:         #5A6070;
+  --jx-text-on-brand:  #0F0F14;
+
+  --sh-sm:             0 1px 2px rgba(0,0,0,0.30);
+  --sh-md:             0 4px 12px rgba(0,0,0,0.40);
+  --sh-lg:             0 8px 24px rgba(0,0,0,0.50);
+  --sh-xl:             0 16px 48px rgba(0,0,0,0.60);
+}
+
+/* ── System-driven dark theme (when no manual override) ──────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --jx-primary:        #00C4B4;
+    --jx-primary-dark:   #00B4A6;
+    --jx-primary-light:  #4DDED4;
+    --jx-primary-glow:   rgba(0, 196, 180, 0.22);
+    --jx-secondary:      #5BA3E8;
+    --jx-bg:             #0F0F14;
+    --jx-bg-app:         #0F0F14;
+    --jx-surface:        #1A1A24;
+    --jx-surface-alt:    #242432;
+    --jx-border:         #2E2E3E;
+    --jx-divider:        rgba(255, 255, 255, 0.06);
+    --jx-text:           #F0F0F8;
+    --jx-text-2:         #9099A8;
+    --jx-text-3:         #5A6070;
+    --jx-text-on-brand:  #0F0F14;
+    --sh-sm:             0 1px 2px rgba(0,0,0,0.30);
+    --sh-md:             0 4px 12px rgba(0,0,0,0.40);
+    --sh-lg:             0 8px 24px rgba(0,0,0,0.50);
+  }
+}
