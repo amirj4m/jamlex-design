@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Register</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale">
+      <option value="fa">فارسی</option>
+      <option value="en">English</option>
+    </select>
+    <select data-theme-picker aria-label="Theme">
+      <option value="system">🖥 System</option>
+      <option value="light">☀ Light</option>
+      <option value="dark">🌙 Dark</option>
+    </select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <section class="auth-screen">
+          <header class="auth-screen__header">
+            <a href="/screens/login.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+          </header>
+
+          <div class="auth-screen__body">
+            <div class="auth-screen__title-block">
+              <h1 class="auth-screen__title" data-i18n="auth.signUpTitle"></h1>
+              <p class="auth-screen__subtitle" data-i18n="app.tagline"></p>
+            </div>
+
+            <form class="auth-screen__form" id="register-form" autocomplete="on" onsubmit="event.preventDefault();">
+              <div class="field">
+                <label class="field__label" for="reg-name" data-i18n="auth.name"></label>
+                <input
+                  id="reg-name"
+                  type="text"
+                  name="name"
+                  class="field__input"
+                  autocomplete="name"
+                  required
+                  minlength="2"
+                  data-i18n-attr="placeholder:auth.namePlaceholder"
+                />
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="reg-email" data-i18n="auth.email"></label>
+                <input
+                  id="reg-email"
+                  type="email"
+                  name="email"
+                  class="field__input"
+                  autocomplete="email"
+                  autocapitalize="off"
+                  inputmode="email"
+                  required
+                  data-i18n-attr="placeholder:auth.emailPlaceholder"
+                />
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="reg-pass" data-i18n="auth.password"></label>
+                <div class="field__control">
+                  <input
+                    id="reg-pass"
+                    type="password"
+                    name="new-password"
+                    class="field__input field__input--with-slot-end"
+                    autocomplete="new-password"
+                    required
+                    minlength="8"
+                    data-i18n-attr="placeholder:auth.passwordPlaceholder"
+                    oninput="updateStrength(this);"
+                  />
+                  <button type="button" class="field__slot-end btn-icon btn-icon--sm" aria-label="Show password" onclick="
+                    var i = this.parentElement.querySelector('input');
+                    i.type = i.type === 'password' ? 'text' : 'password';
+                    this.textContent = i.type === 'password' ? '👁' : '🙈';
+                  ">👁</button>
+                </div>
+                <div class="pw-meter" data-strength="">
+                  <span class="pw-meter__seg"></span>
+                  <span class="pw-meter__seg"></span>
+                  <span class="pw-meter__seg"></span>
+                  <span class="pw-meter__seg"></span>
+                </div>
+                <div class="pw-checklist">
+                  <div class="pw-checklist__item" data-rule="min" data-met="false" data-i18n="auth.passwordStrength.minLength"></div>
+                  <div class="pw-checklist__item" data-rule="case" data-met="false" data-i18n="auth.passwordStrength.upperLower"></div>
+                  <div class="pw-checklist__item" data-rule="digit" data-met="false" data-i18n="auth.passwordStrength.digitSymbol"></div>
+                </div>
+              </div>
+
+              <label class="check terms-row">
+                <input type="checkbox" class="check__input" name="terms" required />
+                <span data-i18n-html="auth.termsPrefix"></span>
+                <a href="#" data-i18n="auth.terms"></a>
+                <span data-i18n="auth.andLinker"></span>
+                <a href="#" data-i18n="auth.privacy"></a>
+              </label>
+
+              <button type="submit" class="btn btn--filled btn--block" data-i18n="auth.signUpBtn"></button>
+            </form>
+
+            <div class="auth-link-row">
+              <span data-i18n="auth.haveAccountQ"></span>
+              <a href="/screens/login.html" data-i18n="auth.signInBtn"></a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Password strength logic — defined inline so the script-shell stays
+    // generic; the real Flutter app re-implements this in Dart.
+    function updateStrength(input) {
+      var v = input.value || '';
+      var meter = document.querySelector('.pw-meter');
+      var items = document.querySelectorAll('.pw-checklist__item');
+      var hasMin   = v.length >= 8;
+      var hasCase  = /[a-z]/.test(v) && /[A-Z]/.test(v);
+      var hasDigit = /[0-9!@#$%^&*()_\-+=.,?]/.test(v);
+      items.forEach(function (it) {
+        var rule = it.dataset.rule;
+        it.dataset.met = String(
+          (rule === 'min' && hasMin) ||
+          (rule === 'case' && hasCase) ||
+          (rule === 'digit' && hasDigit)
+        );
+      });
+      var score = (hasMin ? 1 : 0) + (hasCase ? 1 : 0) + (hasDigit ? 1 : 0);
+      meter.dataset.strength = ['', 'weak', 'fair', 'good', 'strong'][score];
+    }
+  </script>
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>
