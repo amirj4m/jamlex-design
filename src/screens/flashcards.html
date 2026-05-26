@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Flashcards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="front">Front</option>
+      <option value="back">Back</option>
+      <option value="end">End summary</option>
+    </select>
+  </div>
+  <a href="/screens/vocab-learning.html" class="hub-ribbon">‹ Vocab</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/vocab-learning.html" class="btn-icon back-btn"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="flashcards.levelTitle" data-i18n-vars='{"level":"B1"}'></h1>
+          <div class="topbar__trailing">
+            <button class="btn-icon" aria-label="Close">✕</button>
+          </div>
+        </header>
+
+        <div class="screen__body">
+          <!-- Front -->
+          <div class="state" data-state="front">
+            <div class="fc-counter">5 / 20</div>
+            <div class="fc-progress"><div class="fc-progress__bar" style="width:25%"></div></div>
+
+            <div class="flip-card mt-5" onclick="
+              document.getElementById('state-picker').value='back';
+              document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'back';});
+            ">
+              <div class="flip-card__pos">verb · /B1/</div>
+              <div class="flip-card__english">accomplish</div>
+              <div class="flip-card__ipa">/əˈkʌmplɪʃ/</div>
+              <button class="audio-btn" data-audio="accomplish" aria-label="Play" onclick="event.stopPropagation();">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+              <div class="flip-card__hint" data-i18n="flashcards.tapToFlip"></div>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="state" data-state="back" hidden>
+            <div class="fc-counter">5 / 20</div>
+            <div class="fc-progress"><div class="fc-progress__bar" style="width:25%"></div></div>
+
+            <div class="flip-card mt-5">
+              <div class="flip-card__pos">verb · /B1/</div>
+              <div class="flip-card__english">accomplish</div>
+              <div class="flip-card__back-meaning">انجام دادن، به انجام رساندن</div>
+              <div class="flip-card__back-example">She managed to accomplish all her goals.</div>
+            </div>
+
+            <div class="kdk-row">
+              <button class="kdk-btn kdk-btn--dont">
+                ❌ <span data-i18n="flashcards.iDontKnow"></span>
+              </button>
+              <button class="kdk-btn kdk-btn--know">
+                ✅ <span data-i18n="flashcards.iKnow"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- End -->
+          <div class="state" data-state="end" hidden>
+            <div class="empty">
+              <div class="empty__icon">🎉</div>
+              <h2 class="empty__title" data-i18n="flashcards.endTitle"></h2>
+            </div>
+            <div class="tile-grid">
+              <div class="tile">
+                <div class="tile__icon" style="background:rgba(76,175,80,0.14);color:var(--jx-success);">✅</div>
+                <div class="tile__value">17</div>
+                <div class="tile__label" data-i18n="flashcards.iKnow"></div>
+              </div>
+              <div class="tile">
+                <div class="tile__icon" style="background:rgba(244,67,54,0.14);color:var(--jx-danger);">❌</div>
+                <div class="tile__value">3</div>
+                <div class="tile__label" data-i18n="flashcards.iDontKnow"></div>
+              </div>
+            </div>
+            <div class="stack gap-3 mt-4">
+              <button class="btn btn--filled btn--block">🔁 <span data-i18n="flashcards.oneMoreRound"></span></button>
+              <a href="/screens/home.html" class="btn btn--outlined btn--block" data-i18n="flashcards.backToHome"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

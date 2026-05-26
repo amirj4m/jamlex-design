@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Vocab Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/home.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="vocabLearning.title"></h1>
+          <div class="topbar__trailing"></div>
+        </header>
+
+        <div class="screen__body">
+          <div class="section-h"><div class="section-h__title" data-i18n="vocabLearning.learnByLevel"></div></div>
+          <div class="level-grid">
+            <a href="/screens/flashcards.html?level=A1" class="level-card" style="background:#E8F5E9;color:#2E7D32;">
+              <div class="level-card__code">A1</div>
+              <div class="level-card__label">مبتدی</div>
+            </a>
+            <a href="/screens/flashcards.html?level=A2" class="level-card" style="background:#DCEDC8;color:#558B2F;">
+              <div class="level-card__code">A2</div>
+              <div class="level-card__label">مقدماتی</div>
+            </a>
+            <a href="/screens/flashcards.html?level=B1" class="level-card" style="background:#FFF9C4;color:#F57F17;">
+              <div class="level-card__code">B1</div>
+              <div class="level-card__label">متوسط</div>
+            </a>
+            <a href="/screens/flashcards.html?level=B2" class="level-card" style="background:#FFE0B2;color:#E65100;">
+              <div class="level-card__code">B2</div>
+              <div class="level-card__label">متوسط بالا</div>
+            </a>
+            <a href="/screens/flashcards.html?level=C1" class="level-card" style="background:#FFCDD2;color:#C62828;">
+              <div class="level-card__code">C1</div>
+              <div class="level-card__label">پیشرفته</div>
+            </a>
+            <a href="/screens/flashcards.html?level=C2" class="level-card" style="background:#D1C4E9;color:#4527A0;">
+              <div class="level-card__code">C2</div>
+              <div class="level-card__label">مسلط</div>
+            </a>
+          </div>
+
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="myWords.categoriesLabel"></div>
+            <span class="section-h__action" style="color:var(--jx-text-3);">35 categories from openjam</span>
+          </div>
+          <div class="cat-grid">
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🍔</span><span class="cat-card__name">Food</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">☕</span><span class="cat-card__name">Drink</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">👤</span><span class="cat-card__name">Body</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">👔</span><span class="cat-card__name">Clothing</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏠</span><span class="cat-card__name">Home</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🐾</span><span class="cat-card__name">Animals</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🌿</span><span class="cat-card__name">Plants</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🌦</span><span class="cat-card__name">Nature</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🚗</span><span class="cat-card__name">Vehicles</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🔧</span><span class="cat-card__name">Tools</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">👨‍👩‍👧</span><span class="cat-card__name">Family</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">👥</span><span class="cat-card__name">People</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💼</span><span class="cat-card__name">Professions</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💞</span><span class="cat-card__name">Relationships</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">😊</span><span class="cat-card__name">Emotions</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏛</span><span class="cat-card__name">Society</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">📍</span><span class="cat-card__name">Places</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🌍</span><span class="cat-card__name">Countries</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏙</span><span class="cat-card__name">Cities</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">✈️</span><span class="cat-card__name">Travel</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💼</span><span class="cat-card__name">Work</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🎓</span><span class="cat-card__name">School</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">⚽</span><span class="cat-card__name">Sports</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🎨</span><span class="cat-card__name">Arts</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🕊</span><span class="cat-card__name">Religion</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">📺</span><span class="cat-card__name">Media</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏥</span><span class="cat-card__name">Health</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🔬</span><span class="cat-card__name">Science</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💻</span><span class="cat-card__name">Technology</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">⏰</span><span class="cat-card__name">Time</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💰</span><span class="cat-card__name">Money</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">✨</span><span class="cat-card__name">Qualities</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏃</span><span class="cat-card__name">Actions</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💭</span><span class="cat-card__name">Abstract</span></a>
+            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🎉</span><span class="cat-card__name">Events</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

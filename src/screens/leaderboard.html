@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Leaderboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="list">With data</option>
+      <option value="guest">Guest (auth gate)</option>
+    </select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/stats.html" class="btn-icon back-btn"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="leaderboard.title"></h1>
+          <div class="topbar__trailing"></div>
+        </header>
+
+        <div class="screen__body">
+          <!-- List state -->
+          <div class="state" data-state="list">
+            <!-- Top-3 podium -->
+            <div class="podium">
+              <div class="podium__col">
+                <span class="podium__rank-label">۳</span>
+                <div class="podium__avatar">س</div>
+                <div class="podium__name">سارا ک.</div>
+                <div class="podium__xp font-latin">2,140 XP</div>
+              </div>
+              <div class="podium__col">
+                <span class="podium__rank-label">۱ 🏆</span>
+                <div class="podium__avatar">ن</div>
+                <div class="podium__name">نگار م.</div>
+                <div class="podium__xp font-latin">3,250 XP</div>
+              </div>
+              <div class="podium__col">
+                <span class="podium__rank-label">۲</span>
+                <div class="podium__avatar">ع</div>
+                <div class="podium__name">علی ر.</div>
+                <div class="podium__xp font-latin">2,580 XP</div>
+              </div>
+            </div>
+
+            <!-- Your rank -->
+            <div class="card card--brand mb-5">
+              <div class="row--between">
+                <div>
+                  <div class="fs-body-s" style="opacity:0.9;" data-i18n="leaderboard.yourRank"></div>
+                  <div class="fs-display-m fw-extrabold">#42</div>
+                  <div class="fs-body-s mt-1" style="opacity:0.9;" data-i18n="leaderboard.betterThanPercent" data-i18n-vars='{"percent":78}'></div>
+                </div>
+                <div style="font-size:48px;">🚀</div>
+              </div>
+            </div>
+
+            <!-- Top list -->
+            <div class="section-h">
+              <div class="section-h__title">Top 100</div>
+            </div>
+            <div class="rank-row"><div class="rank-row__num">۴</div><div class="rank-row__avatar">ر</div><div class="rank-row__info"><div class="rank-row__name">رضا ع.</div><div class="rank-row__lvl"><span data-i18n="leaderboard.level"></span> 12</div></div><div class="rank-row__xp font-latin">1,920</div></div>
+            <div class="rank-row"><div class="rank-row__num">۵</div><div class="rank-row__avatar">م</div><div class="rank-row__info"><div class="rank-row__name">مریم ح.</div><div class="rank-row__lvl"><span data-i18n="leaderboard.level"></span> 11</div></div><div class="rank-row__xp font-latin">1,820</div></div>
+            <div class="rank-row"><div class="rank-row__num">۶</div><div class="rank-row__avatar">ک</div><div class="rank-row__info"><div class="rank-row__name">کاوه ف.</div><div class="rank-row__lvl"><span data-i18n="leaderboard.level"></span> 11</div></div><div class="rank-row__xp font-latin">1,690</div></div>
+            <div class="rank-row"><div class="rank-row__num">۷</div><div class="rank-row__avatar">ل</div><div class="rank-row__info"><div class="rank-row__name">لیلا ج.</div><div class="rank-row__lvl"><span data-i18n="leaderboard.level"></span> 10</div></div><div class="rank-row__xp font-latin">1,540</div></div>
+            <div class="rank-row" data-me="true"><div class="rank-row__num">۴۲</div><div class="rank-row__avatar">A</div><div class="rank-row__info"><div class="rank-row__name" data-i18n="leaderboard.you"></div><div class="rank-row__lvl"><span data-i18n="leaderboard.level"></span> 6</div></div><div class="rank-row__xp font-latin">1,247</div></div>
+
+            <div class="text-center fs-body-s txt-3 mt-4" data-i18n="leaderboard.updatedEvery24h"></div>
+          </div>
+
+          <!-- Guest -->
+          <div class="state" data-state="guest" hidden>
+            <div class="auth-gate">
+              <div class="auth-gate__lock">🔒</div>
+              <div class="auth-gate__title" data-i18n="leaderboard.guestTitle"></div>
+              <a href="/screens/login.html" class="btn btn--filled mt-3" data-i18n="leaderboard.loginOrRegister"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

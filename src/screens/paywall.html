@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Paywall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar topbar--transparent">
+          <div class="topbar__leading">
+            <a href="/screens/profile.html" class="btn-icon" aria-label="Close">✕</a>
+          </div>
+          <div></div>
+          <div></div>
+        </header>
+
+        <div class="screen__body">
+          <div class="paywall-hero">
+            <div class="paywall-hero__icon">✨</div>
+            <h1 class="paywall-hero__title" data-i18n="paywall.title"></h1>
+            <p class="paywall-hero__sub" data-i18n="paywall.tagline"></p>
+          </div>
+
+          <!-- Features list -->
+          <div class="feature-list">
+            <div class="feature-row">
+              <span class="feature-row__check">✓</span>
+              <span data-i18n="paywall.features.unlimitedLeitner"></span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-row__check">✓</span>
+              <span data-i18n="paywall.features.allLevels"></span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-row__check">✓</span>
+              <span data-i18n="paywall.features.allQuizzes"></span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-row__check">✓</span>
+              <span data-i18n="paywall.features.fullReading"></span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-row__check">✓</span>
+              <span data-i18n="paywall.features.audioPronunciation"></span>
+            </div>
+            <div class="feature-row">
+              <span class="feature-row__check">✓</span>
+              <span data-i18n="paywall.features.adFree"></span>
+            </div>
+          </div>
+
+          <!-- Plans -->
+          <div class="plan-row">
+            <div class="plan-card">
+              <div class="plan-card__plan" data-i18n="paywall.monthly"></div>
+              <div class="plan-card__price font-currency">$2.99</div>
+              <div class="plan-card__per font-currency">/mo</div>
+            </div>
+            <div class="plan-card" data-selected="true">
+              <span class="plan-card__badge" data-i18n="paywall.yearlyBadge"></span>
+              <div class="plan-card__plan" data-i18n="paywall.yearly"></div>
+              <div class="plan-card__price font-currency">$19.99</div>
+              <div class="plan-card__per font-currency">$1.67/mo</div>
+            </div>
+          </div>
+
+          <button class="btn btn--filled btn--block btn--lg" data-i18n="paywall.subscribeBtn"></button>
+
+          <div class="text-center mt-4">
+            <a href="#" class="fs-body-s" style="color:var(--jx-text-2);text-decoration:underline;" data-i18n="paywall.restorePurchase"></a>
+          </div>
+
+          <div class="text-center mt-4 fs-body-s txt-3" style="line-height:var(--lh-relaxed);">
+            <a href="#" class="txt-3" data-i18n="auth.terms"></a>
+            <span> · </span>
+            <a href="#" class="txt-3" data-i18n="auth.privacy"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+  <script>
+    document.addEventListener('click', function (e) {
+      var p = e.target.closest('.plan-card');
+      if (p) {
+        document.querySelectorAll('.plan-card').forEach(function (x) { x.dataset.selected = 'false'; });
+        p.dataset.selected = 'true';
+      }
+    });
+  </script>
+</body>
+</html>

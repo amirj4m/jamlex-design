@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar topbar--transparent">
+          <div></div>
+          <h1 class="topbar__title" data-i18n="profile.title"></h1>
+          <div class="topbar__trailing">
+            <a href="/screens/settings.html" class="btn-icon" aria-label="Settings">⚙</a>
+          </div>
+        </header>
+
+        <div class="screen__body">
+          <!-- Hero -->
+          <div class="profile-hero">
+            <div class="profile-avatar">
+              A
+              <div class="profile-avatar__edit">✎</div>
+            </div>
+            <div class="profile-name">آرین جوادی</div>
+            <div class="profile-username">@amirj4m</div>
+          </div>
+
+          <!-- XP bar -->
+          <div class="xp-bar">
+            <div class="xp-bar__head">
+              <span data-i18n="profile.level" data-i18n-vars='{"n":6}'></span>
+              <span class="font-latin">1,247 / 1,500 XP</span>
+            </div>
+            <div class="xp-bar__track"><div class="xp-bar__fill" style="width:82%"></div></div>
+            <div class="fs-body-s txt-2 mt-2" data-i18n="profile.xpToNext" data-i18n-vars='{"xp":253,"next":7}'></div>
+          </div>
+
+          <!-- This week stats -->
+          <div class="section-label" data-i18n="profile.weekStats.title"></div>
+          <div class="setting-list">
+            <div class="row" style="padding:var(--sp-3) var(--sp-4);gap:0;">
+              <div style="flex:1;text-align:center;">
+                <div class="fs-headline fw-extrabold">42</div>
+                <div class="fs-caption txt-2" data-i18n="profile.weekStats.cards"></div>
+              </div>
+              <div style="width:1px;background:var(--jx-divider);align-self:stretch;"></div>
+              <div style="flex:1;text-align:center;">
+                <div class="fs-headline fw-extrabold">128</div>
+                <div class="fs-caption txt-2" data-i18n="profile.weekStats.minutes"></div>
+              </div>
+              <div style="width:1px;background:var(--jx-divider);align-self:stretch;"></div>
+              <div style="flex:1;text-align:center;">
+                <div class="fs-headline fw-extrabold">7</div>
+                <div class="fs-caption txt-2" data-i18n="profile.weekStats.streak"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Leitner section -->
+          <div class="section-label" data-i18n="profile.sections.leitner"></div>
+          <div class="setting-list">
+            <button class="setting-item">
+              <span class="setting-item__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">📚</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.leitnerSection.dailyLimit"></div>
+                <div class="setting-item__sub" data-i18n="profile.leitnerSection.dailyLimitSubtitle" data-i18n-vars='{"n":20}'></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <button class="setting-item setting-item--danger">
+              <span class="setting-item__icon">🗑</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.leitnerSection.clearAll"></div>
+                <div class="setting-item__sub" data-i18n="profile.leitnerSection.clearAllSubtitle"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+          </div>
+
+          <!-- Notifications -->
+          <div class="section-label" data-i18n="profile.sections.notifications"></div>
+          <div class="setting-list">
+            <div class="setting-item" style="cursor:default;">
+              <span class="setting-item__icon" style="background:rgba(255,152,0,0.14);color:var(--jx-warning);">🔔</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.notifSection.title"></div>
+                <div class="setting-item__sub" data-i18n="profile.notifSection.onSubtitle" data-i18n-vars='{"time":"۲۰:۳۰","days":5}'></div>
+              </div>
+              <span class="switch" data-on="true"></span>
+            </div>
+          </div>
+
+          <!-- Appearance -->
+          <div class="section-label" data-i18n="profile.sections.appearance"></div>
+          <div class="setting-list">
+            <button class="setting-item">
+              <span class="setting-item__icon" style="background:rgba(74,144,217,0.14);color:var(--jx-secondary);">🎨</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.sections.appearance"></div>
+                <div class="setting-item__sub" data-i18n="profile.appearanceSection.system"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+          </div>
+
+          <!-- Account -->
+          <div class="section-label" data-i18n="profile.sections.account"></div>
+          <div class="setting-list">
+            <button class="setting-item">
+              <span class="setting-item__icon">📧</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.email"></div>
+                <div class="setting-item__sub font-latin">amir@example.com</div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <button class="setting-item">
+              <span class="setting-item__icon">📱</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.phone"></div>
+                <div class="setting-item__sub font-latin">+98 912 *** 67 89</div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <a href="/screens/change-password.html" class="setting-item" style="text-decoration:none;color:inherit;">
+              <span class="setting-item__icon">🔐</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="auth.changePasswordTitle"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </a>
+            <button class="setting-item setting-item--danger">
+              <span class="setting-item__icon">🚪</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.logout"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <button class="setting-item setting-item--danger">
+              <span class="setting-item__icon">⚠</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.deleteAccount"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+          </div>
+
+          <!-- Other -->
+          <div class="section-label" data-i18n="profile.sections.other"></div>
+          <div class="setting-list">
+            <button class="setting-item">
+              <span class="setting-item__icon">🌐</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.otherSection.language"></div>
+                <div class="setting-item__sub">فارسی</div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <button class="setting-item">
+              <span class="setting-item__icon">📖</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.otherSection.guide"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <button class="setting-item">
+              <span class="setting-item__icon">ℹ</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.otherSection.about"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+          </div>
+
+          <a href="/screens/paywall.html" class="btn btn--filled btn--block mt-5">
+            ✨ Premium
+          </a>
+        </div>
+
+        <nav class="bottomnav" aria-label="Bottom navigation">
+          <a href="/screens/home.html" class="bottomnav__item"><span class="bottomnav__icon">🏠</span><span data-i18n="nav.home"></span></a>
+          <a href="/screens/leitner.html" class="bottomnav__item"><span class="bottomnav__icon">🗂</span><span data-i18n="nav.leitner"></span></a>
+          <a href="/screens/vocabulary.html" class="bottomnav__item"><span class="bottomnav__icon">🔍</span><span data-i18n="nav.vocabulary"></span></a>
+          <a href="/screens/stats.html" class="bottomnav__item"><span class="bottomnav__icon">📊</span><span data-i18n="nav.stats"></span></a>
+          <a href="/screens/profile.html" class="bottomnav__item" data-active="true"><span class="bottomnav__icon">👤</span><span data-i18n="nav.profile"></span></a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+  <script>
+    document.addEventListener('click', function (e) {
+      var s = e.target.closest('.switch');
+      if (s) s.dataset.on = s.dataset.on === 'true' ? 'false' : 'true';
+    });
+  </script>
+</body>
+</html>

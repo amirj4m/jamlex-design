@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · More</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/home.html" class="btn-icon back-btn"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="more.title"></h1>
+          <div class="topbar__trailing"></div>
+        </header>
+
+        <div class="screen__body">
+          <div class="more-grid">
+            <a href="/screens/flashcards.html" class="more-card">
+              <span class="more-card__icon">🃏</span>
+              <span class="more-card__title" data-i18n="more.items.flashcards"></span>
+              <span class="fs-body-s txt-2" data-i18n="vocabLearning.learnByLevel"></span>
+            </a>
+            <a href="/screens/quiz-mcq.html" class="more-card">
+              <span class="more-card__icon">🎯</span>
+              <span class="more-card__title" data-i18n="more.items.quiz"></span>
+              <span class="fs-body-s txt-2">3 mode</span>
+            </a>
+            <a href="/screens/reading.html" class="more-card">
+              <span class="more-card__icon">📚</span>
+              <span class="more-card__title" data-i18n="more.items.reading"></span>
+              <span class="fs-body-s txt-2">public domain books</span>
+            </a>
+            <a href="/screens/leaderboard.html" class="more-card">
+              <span class="more-card__icon">🏆</span>
+              <span class="more-card__title" data-i18n="more.items.leaderboard"></span>
+              <span class="fs-body-s txt-2" data-i18n="leaderboard.updatedEvery24h"></span>
+            </a>
+            <a href="/screens/vocab-learning.html" class="more-card">
+              <span class="more-card__icon">📖</span>
+              <span class="more-card__title" data-i18n="more.items.vocabLearning"></span>
+              <span class="fs-body-s txt-2">35 categories</span>
+            </a>
+            <a href="/screens/settings.html" class="more-card">
+              <span class="more-card__icon">⚙</span>
+              <span class="more-card__title" data-i18n="more.items.settings"></span>
+              <span class="fs-body-s txt-2" data-i18n="profile.otherSection.language"></span>
+            </a>
+            <a href="/screens/saved-books.html" class="more-card">
+              <span class="more-card__icon">🔖</span>
+              <span class="more-card__title" data-i18n="reading.savedBooks"></span>
+            </a>
+            <a href="/screens/paywall.html" class="more-card" style="background:linear-gradient(135deg,var(--jx-primary),var(--jx-primary-dark));color:#fff;border:0;">
+              <span class="more-card__icon" style="background:rgba(255,255,255,0.2);color:#fff;">✨</span>
+              <span class="more-card__title">Premium</span>
+              <span class="fs-body-s" style="opacity:0.9;" data-i18n="paywall.tagline"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

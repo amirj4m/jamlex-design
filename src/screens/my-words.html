@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · My Words</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="list">With collections</option>
+      <option value="empty">Empty (no collections)</option>
+      <option value="create">Create dialog</option>
+    </select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/home.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="myWords.title"></h1>
+          <div class="topbar__trailing">
+            <button class="btn-icon" id="open-create" onclick="
+              document.getElementById('state-picker').value='create';
+              document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'create';});
+            " aria-label="New">+</button>
+          </div>
+        </header>
+
+        <div class="screen__body">
+          <!-- With collections -->
+          <div class="state" data-state="list">
+            <div class="search-input">
+              <span class="search-input__icon">🔍</span>
+              <input type="search" data-i18n-attr="placeholder:myWords.searchInDictionary" />
+            </div>
+
+            <div class="section-h">
+              <div class="section-h__title" data-i18n="myWords.categoriesLabel"></div>
+            </div>
+            <div class="collection-grid">
+              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
+                <span class="collection-card__icon" style="background:#9C27B0;">🎓</span>
+                <span class="collection-card__name">واژگان دانشگاهی</span>
+                <span class="collection-card__count">23 لغت</span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
+                <span class="collection-card__icon" style="background:#4CAF50;">💼</span>
+                <span class="collection-card__name">کار و کسب</span>
+                <span class="collection-card__count">15 لغت</span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
+                <span class="collection-card__icon" style="background:#4A90D9;">✈️</span>
+                <span class="collection-card__name">سفر</span>
+                <span class="collection-card__count">8 لغت</span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
+                <span class="collection-card__icon" style="background:#FF9800;">🍽</span>
+                <span class="collection-card__name">غذا و آشپزی</span>
+                <span class="collection-card__count">12 لغت</span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
+                <span class="collection-card__icon" style="background:#E91E63;">❤️</span>
+                <span class="collection-card__name">احساسات</span>
+                <span class="collection-card__count">6 لغت</span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
+                <span class="collection-card__icon" style="background:#00BCD4;">⚙️</span>
+                <span class="collection-card__name">فناوری</span>
+                <span class="collection-card__count">19 لغت</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Empty -->
+          <div class="state" data-state="empty" hidden>
+            <div class="empty">
+              <div class="empty__icon">📚</div>
+              <h2 class="empty__title" data-i18n="myWords.noCategoriesYet"></h2>
+              <p class="empty__body" data-i18n="myWords.personalCollection"></p>
+              <button class="btn btn--filled" onclick="
+                document.getElementById('state-picker').value='create';
+                document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'create';});
+              "><span>+</span> <span data-i18n="myWords.newCategory"></span></button>
+            </div>
+          </div>
+
+          <!-- Create dialog -->
+          <div class="state" data-state="create" hidden>
+            <div class="card mb-4">
+              <h3 class="mb-3" data-i18n="myWords.newCategory"></h3>
+              <div class="field mb-4">
+                <label class="field__label" for="cat-name" data-i18n="myWords.categoryName"></label>
+                <input id="cat-name" type="text" class="field__input" placeholder="مثلاً: لغات IELTS" />
+              </div>
+              <div class="section-h"><div class="section-h__title" data-i18n="myWords.iconLabel"></div></div>
+              <div class="icon-grid mb-4">
+                <div class="icon-pick" data-selected="true">📚</div>
+                <div class="icon-pick">🎓</div>
+                <div class="icon-pick">💼</div>
+                <div class="icon-pick">✈️</div>
+                <div class="icon-pick">🎬</div>
+                <div class="icon-pick">⚡</div>
+                <div class="icon-pick">💼</div>
+                <div class="icon-pick">🎵</div>
+                <div class="icon-pick">⭐</div>
+                <div class="icon-pick">🏆</div>
+                <div class="icon-pick">❤️</div>
+                <div class="icon-pick">⚽</div>
+              </div>
+              <div class="section-h"><div class="section-h__title" data-i18n="myWords.colorLabel"></div></div>
+              <div class="color-grid mb-4">
+                <div class="color-pick" data-selected="true" style="background:#9C27B0;"></div>
+                <div class="color-pick" style="background:#4CAF50;"></div>
+                <div class="color-pick" style="background:#4A90D9;"></div>
+                <div class="color-pick" style="background:#FF9800;"></div>
+                <div class="color-pick" style="background:#E91E63;"></div>
+                <div class="color-pick" style="background:#00BCD4;"></div>
+                <div class="color-pick" style="background:#F44336;"></div>
+                <div class="color-pick" style="background:#607D8B;"></div>
+              </div>
+              <button class="btn btn--filled btn--block" data-i18n="common.save"></button>
+            </div>
+          </div>
+        </div>
+
+        <nav class="bottomnav" aria-label="Bottom navigation">
+          <a href="/screens/home.html" class="bottomnav__item"><span class="bottomnav__icon">🏠</span><span data-i18n="nav.home"></span></a>
+          <a href="/screens/leitner.html" class="bottomnav__item"><span class="bottomnav__icon">🗂</span><span data-i18n="nav.leitner"></span></a>
+          <a href="/screens/vocabulary.html" class="bottomnav__item"><span class="bottomnav__icon">🔍</span><span data-i18n="nav.vocabulary"></span></a>
+          <a href="/screens/stats.html" class="bottomnav__item"><span class="bottomnav__icon">📊</span><span data-i18n="nav.stats"></span></a>
+          <a href="/screens/profile.html" class="bottomnav__item"><span class="bottomnav__icon">👤</span><span data-i18n="nav.profile"></span></a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+  <script>
+    document.addEventListener('click', function (e) {
+      var ip = e.target.closest('.icon-pick');
+      if (ip) {
+        ip.parentElement.querySelectorAll('.icon-pick').forEach(function (x) { x.dataset.selected = 'false'; });
+        ip.dataset.selected = 'true';
+      }
+      var cp = e.target.closest('.color-pick');
+      if (cp) {
+        cp.parentElement.querySelectorAll('.color-pick').forEach(function (x) { x.dataset.selected = 'false'; });
+        cp.dataset.selected = 'true';
+      }
+    });
+  </script>
+</body>
+</html>

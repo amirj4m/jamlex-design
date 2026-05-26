@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · My Words Detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/screens/my-words.html" class="hub-ribbon">‹ My Words</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/my-words.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+          </div>
+          <h1 class="topbar__title">واژگان دانشگاهی</h1>
+          <div class="topbar__trailing">
+            <button class="btn-icon" aria-label="Menu">⋮</button>
+          </div>
+        </header>
+
+        <div class="screen__body">
+          <div class="row gap-3 mb-4">
+            <span class="collection-card__icon" style="background:#9C27B0;width:56px;height:56px;font-size:28px;">🎓</span>
+            <div>
+              <div class="fw-bold fs-body-l">23 لغت</div>
+              <div class="fs-body-s txt-2">25% یاد گرفتی</div>
+            </div>
+          </div>
+
+          <button class="btn btn--outlined btn--block mb-4">
+            <span>+</span> <span data-i18n="myWords.addWord"></span>
+          </button>
+
+          <div class="word-row">
+            <div class="word-row__main">
+              <div class="word-row__english">academic</div>
+              <div class="word-row__ipa">/ˌækəˈdemɪk/</div>
+              <div class="word-row__meaning">دانشگاهی، آکادمیک</div>
+            </div>
+            <span class="chip" data-level="B2">B2</span>
+            <button class="audio-btn" data-audio="academic"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+          </div>
+          <div class="word-row">
+            <div class="word-row__main">
+              <div class="word-row__english">curriculum</div>
+              <div class="word-row__ipa">/kəˈrɪkjʊləm/</div>
+              <div class="word-row__meaning">برنامه درسی</div>
+            </div>
+            <span class="chip" data-level="B2">B2</span>
+            <button class="audio-btn" data-audio="curriculum"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+          </div>
+          <div class="word-row">
+            <div class="word-row__main">
+              <div class="word-row__english">hypothesis</div>
+              <div class="word-row__ipa">/haɪˈpɒθəsɪs/</div>
+              <div class="word-row__meaning">فرضیه</div>
+            </div>
+            <span class="chip" data-level="C1">C1</span>
+            <button class="audio-btn" data-audio="hypothesis"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+          </div>
+          <div class="word-row">
+            <div class="word-row__main">
+              <div class="word-row__english">methodology</div>
+              <div class="word-row__ipa">/ˌmeθəˈdɒlədʒi/</div>
+              <div class="word-row__meaning">روش‌شناسی</div>
+            </div>
+            <span class="chip" data-level="C1">C1</span>
+            <button class="audio-btn" data-audio="methodology"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+          </div>
+          <div class="word-row">
+            <div class="word-row__main">
+              <div class="word-row__english">analysis</div>
+              <div class="word-row__ipa">/əˈnæləsɪs/</div>
+              <div class="word-row__meaning">تحلیل، بررسی</div>
+            </div>
+            <span class="chip" data-level="B2">B2</span>
+            <button class="audio-btn" data-audio="analysis"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+          </div>
+
+          <button class="btn btn--outlined btn--block mt-4" style="color:var(--jx-danger);border-color:var(--jx-danger);">
+            🗑 <span data-i18n="myWords.deleteCategoryTitle"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

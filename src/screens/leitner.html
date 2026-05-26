@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Leitner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar topbar--transparent">
+          <div></div>
+          <h1 class="topbar__title" data-i18n="leitner.title"></h1>
+          <span class="leitner-counter"><span data-i18n="leitner.cardCount" data-i18n-vars='{"n":42}'></span></span>
+        </header>
+
+        <div class="screen__body">
+          <!-- 5-box row -->
+          <div class="box-row">
+            <div class="box-cell" data-box="1" data-active="true">
+              <div class="box-cell__label">جعبه ۱</div>
+              <div class="box-cell__count">12</div>
+            </div>
+            <div class="box-cell" data-box="2">
+              <div class="box-cell__label">جعبه ۲</div>
+              <div class="box-cell__count">8</div>
+            </div>
+            <div class="box-cell" data-box="3">
+              <div class="box-cell__label">جعبه ۳</div>
+              <div class="box-cell__count">15</div>
+            </div>
+            <div class="box-cell" data-box="4">
+              <div class="box-cell__label">جعبه ۴</div>
+              <div class="box-cell__count">5</div>
+            </div>
+            <div class="box-cell" data-box="5">
+              <div class="box-cell__label">جعبه ۵</div>
+              <div class="box-cell__count">2</div>
+            </div>
+          </div>
+
+          <!-- Today's review CTA -->
+          <a href="/screens/leitner-review.html" class="review-cta">
+            <div>
+              <div class="review-cta__title"><span data-i18n="leitner.dueCount" data-i18n-vars='{"n":15}'></span></div>
+              <div class="review-cta__sub" data-i18n="leitner.dueSubtitle"></div>
+            </div>
+            <span class="review-cta__arrow"></span>
+          </a>
+
+          <!-- Recently reviewed list -->
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="leitner.summary.wordsReviewed"></div>
+          </div>
+          <div class="word-row">
+            <div class="word-row__main">
+              <div class="word-row__english">resilience</div>
+              <div class="word-row__ipa">/rɪˈzɪliəns/</div>
+              <div class="word-row__meaning">تاب‌آوری</div>
+            </div>
+            <span class="chip" data-level="B2">B2</span>
+            <button class="audio-btn" data-audio="resilience" aria-label="Play">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+            </button>
+          </div>
+          <div class="word-row">
+            <div class="word-row__main">
+              <div class="word-row__english">ephemeral</div>
+              <div class="word-row__ipa">/ɪˈfemərəl/</div>
+              <div class="word-row__meaning">گذرا، زودگذر</div>
+            </div>
+            <span class="chip" data-level="C1">C1</span>
+            <button class="audio-btn" data-audio="ephemeral" aria-label="Play">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+            </button>
+          </div>
+          <div class="word-row">
+            <div class="word-row__main">
+              <div class="word-row__english">eloquent</div>
+              <div class="word-row__ipa">/ˈeləkwənt/</div>
+              <div class="word-row__meaning">شیوا، گویا</div>
+            </div>
+            <span class="chip" data-level="B2">B2</span>
+            <button class="audio-btn" data-audio="eloquent" aria-label="Play">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <nav class="bottomnav" aria-label="Bottom navigation">
+          <a href="/screens/home.html" class="bottomnav__item"><span class="bottomnav__icon">🏠</span><span data-i18n="nav.home"></span></a>
+          <a href="/screens/leitner.html" class="bottomnav__item" data-active="true"><span class="bottomnav__icon">🗂</span><span data-i18n="nav.leitner"></span></a>
+          <a href="/screens/vocabulary.html" class="bottomnav__item"><span class="bottomnav__icon">🔍</span><span data-i18n="nav.vocabulary"></span></a>
+          <a href="/screens/stats.html" class="bottomnav__item"><span class="bottomnav__icon">📊</span><span data-i18n="nav.stats"></span></a>
+          <a href="/screens/profile.html" class="bottomnav__item"><span class="bottomnav__icon">👤</span><span data-i18n="nav.profile"></span></a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

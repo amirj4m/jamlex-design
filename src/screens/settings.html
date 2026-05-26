@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/screens/profile.html" class="hub-ribbon">‹ Profile</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/profile.html" class="btn-icon back-btn"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="settings.title"></h1>
+          <div class="topbar__trailing"></div>
+        </header>
+
+        <div class="screen__body">
+          <!-- Language picker -->
+          <div class="section-label" data-i18n="settings.languagePicker.title"></div>
+          <div class="setting-list">
+            <button class="setting-item" data-on="true">
+              <span class="setting-item__icon">🇮🇷</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label">فارسی</div>
+              </div>
+              <span style="color:var(--jx-primary);font-size:20px;">●</span>
+            </button>
+            <button class="setting-item">
+              <span class="setting-item__icon">🇬🇧</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label">English</div>
+              </div>
+              <span style="color:var(--jx-text-3);font-size:20px;">○</span>
+            </button>
+            <button class="setting-item" disabled style="opacity:0.55;">
+              <span class="setting-item__icon">🇸🇦</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label">العربية</div>
+                <div class="setting-item__sub" data-i18n="settings.languagePicker.comingSoon"></div>
+              </div>
+            </button>
+            <button class="setting-item" disabled style="opacity:0.55;">
+              <span class="setting-item__icon">🇬🇷</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label">Ελληνικά</div>
+                <div class="setting-item__sub" data-i18n="settings.languagePicker.comingSoon"></div>
+              </div>
+            </button>
+            <button class="setting-item" disabled style="opacity:0.55;">
+              <span class="setting-item__icon">🇹🇷</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label">Türkçe</div>
+                <div class="setting-item__sub" data-i18n="settings.languagePicker.comingSoon"></div>
+              </div>
+            </button>
+            <button class="setting-item">
+              <span class="setting-item__icon">🖥</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="settings.languagePicker.followSystem"></div>
+              </div>
+              <span style="color:var(--jx-text-3);font-size:20px;">○</span>
+            </button>
+          </div>
+
+          <!-- Theme -->
+          <div class="section-label" data-i18n="settings.themePicker.title"></div>
+          <div class="setting-list">
+            <button class="setting-item">
+              <span class="setting-item__icon">☀</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.appearanceSection.light"></div>
+              </div>
+              <span style="color:var(--jx-text-3);font-size:20px;">○</span>
+            </button>
+            <button class="setting-item">
+              <span class="setting-item__icon">🌙</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.appearanceSection.dark"></div>
+              </div>
+              <span style="color:var(--jx-text-3);font-size:20px;">○</span>
+            </button>
+            <button class="setting-item">
+              <span class="setting-item__icon">🖥</span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="profile.appearanceSection.system"></div>
+              </div>
+              <span style="color:var(--jx-primary);font-size:20px;">●</span>
+            </button>
+          </div>
+
+          <!-- Daily limit slider -->
+          <div class="section-label" data-i18n="profile.leitnerSection.dailyLimit"></div>
+          <div class="card">
+            <div class="row--between mb-3">
+              <span class="fs-body-s txt-2" data-i18n="profile.leitnerSection.dailyLimitSubtitle" data-i18n-vars='{"n":20}'></span>
+              <span class="fw-bold fs-body-l font-latin">20</span>
+            </div>
+            <input type="range" min="1" max="100" value="20" style="width:100%;accent-color:var(--jx-primary);" />
+          </div>
+
+          <!-- Notif scheduler -->
+          <div class="section-label" data-i18n="settings.notifDialog.title"></div>
+          <div class="card">
+            <div class="row--center gap-4 mb-4">
+              <div class="text-center">
+                <div class="fs-caption txt-2 mb-1" data-i18n="settings.notifDialog.hour"></div>
+                <div class="fs-display-m fw-extrabold font-latin">20</div>
+              </div>
+              <div style="font-size:32px;color:var(--jx-text-3);">:</div>
+              <div class="text-center">
+                <div class="fs-caption txt-2 mb-1" data-i18n="settings.notifDialog.minute"></div>
+                <div class="fs-display-m fw-extrabold font-latin">30</div>
+              </div>
+            </div>
+            <div class="text-center fs-body-s txt-2 mb-3" data-i18n="settings.notifDialog.reminderDays"></div>
+            <div class="row gap-2" style="justify-content:center;">
+              <div class="chip" data-i18n="settings.notifDialog.weekdays.sa"></div>
+              <div class="chip" data-selected="true" data-i18n="settings.notifDialog.weekdays.su"></div>
+              <div class="chip" data-selected="true" data-i18n="settings.notifDialog.weekdays.mo"></div>
+              <div class="chip" data-selected="true" data-i18n="settings.notifDialog.weekdays.tu"></div>
+              <div class="chip" data-selected="true" data-i18n="settings.notifDialog.weekdays.we"></div>
+              <div class="chip" data-selected="true" data-i18n="settings.notifDialog.weekdays.th"></div>
+              <div class="chip" data-i18n="settings.notifDialog.weekdays.fr"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

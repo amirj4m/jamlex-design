@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Saved Books</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="list">With books</option>
+      <option value="empty">Empty</option>
+      <option value="guest">Guest (auth gate)</option>
+    </select>
+  </div>
+  <a href="/screens/reading.html" class="hub-ribbon">‹ Library</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/reading.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="reading.savedBooks"></h1>
+          <div class="topbar__trailing"></div>
+        </header>
+
+        <div class="screen__body">
+          <!-- With books -->
+          <div class="state" data-state="list" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4);">
+            <a href="/screens/book-detail.html" class="book-cover" style="width:auto;">
+              <div class="book-cover__img" style="width:100%;height:220px;background:linear-gradient(135deg,#5C6BC0,#3949AB);">
+                <span class="book-cover__badge">B1</span>
+                Pride and Prejudice
+              </div>
+              <div class="book-cover__title">Pride and Prejudice</div>
+              <div class="book-cover__author">Jane Austen</div>
+            </a>
+            <a href="/screens/book-detail.html" class="book-cover" style="width:auto;">
+              <div class="book-cover__img" style="width:100%;height:220px;background:linear-gradient(135deg,#EF5350,#C62828);">
+                <span class="book-cover__badge">B2</span>
+                The Great Gatsby
+              </div>
+              <div class="book-cover__title">The Great Gatsby</div>
+              <div class="book-cover__author">F. Scott Fitzgerald</div>
+            </a>
+            <a href="/screens/book-detail.html" class="book-cover" style="width:auto;">
+              <div class="book-cover__img" style="width:100%;height:220px;background:linear-gradient(135deg,#26A69A,#00695C);">
+                <span class="book-cover__badge">C1</span>
+                Crime and Punishment
+              </div>
+              <div class="book-cover__title">Crime and Punishment</div>
+              <div class="book-cover__author">Fyodor Dostoevsky</div>
+            </a>
+            <a href="/screens/book-detail.html" class="book-cover" style="width:auto;">
+              <div class="book-cover__img" style="width:100%;height:220px;background:linear-gradient(135deg,#FFA726,#EF6C00);">
+                <span class="book-cover__badge">B2</span>
+                A Tale of Two Cities
+              </div>
+              <div class="book-cover__title">A Tale of Two Cities</div>
+              <div class="book-cover__author">Charles Dickens</div>
+            </a>
+          </div>
+
+          <!-- Empty -->
+          <div class="state" data-state="empty" hidden>
+            <div class="empty">
+              <div class="empty__icon">🔖</div>
+              <h2 class="empty__title" data-i18n="reading.noSavedBooks"></h2>
+              <a href="/screens/reading.html" class="btn btn--filled" data-i18n="reading.browseLibrary"></a>
+            </div>
+          </div>
+
+          <!-- Guest -->
+          <div class="state" data-state="guest" hidden>
+            <div class="auth-gate">
+              <div class="auth-gate__lock">🔒</div>
+              <div class="auth-gate__title" data-i18n="reading.savedGuestTitle"></div>
+              <a href="/screens/login.html" class="btn btn--filled mt-3" data-i18n="authGate.ctaSignIn"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

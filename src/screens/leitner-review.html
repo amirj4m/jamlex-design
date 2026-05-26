@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Leitner Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="front">Front</option>
+      <option value="back">Back (flipped)</option>
+      <option value="summary">Summary</option>
+    </select>
+  </div>
+  <a href="/screens/leitner.html" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen review-screen">
+        <header class="review-screen__header">
+          <a href="/screens/leitner.html" class="btn-icon" aria-label="Close">✕</a>
+          <div class="review-screen__counter">3 / 15</div>
+          <div style="width:40px;"></div>
+        </header>
+
+        <!-- State: Front -->
+        <div class="review-body state" data-state="front">
+          <!-- Active box indicator -->
+          <div class="box-row">
+            <div class="box-cell" data-box="1" data-active="true"><div class="box-cell__label">جعبه ۱</div><div class="box-cell__count">12</div></div>
+            <div class="box-cell" data-box="2"><div class="box-cell__label">جعبه ۲</div><div class="box-cell__count">8</div></div>
+            <div class="box-cell" data-box="3"><div class="box-cell__label">جعبه ۳</div><div class="box-cell__count">15</div></div>
+            <div class="box-cell" data-box="4"><div class="box-cell__label">جعبه ۴</div><div class="box-cell__count">5</div></div>
+            <div class="box-cell" data-box="5"><div class="box-cell__label">جعبه ۵</div><div class="box-cell__count">2</div></div>
+          </div>
+
+          <div class="flip-card" onclick="
+            document.getElementById('state-picker').value='back';
+            document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'back';});
+          ">
+            <div class="flip-card__pos">noun · /B2/</div>
+            <div class="flip-card__english">resilience</div>
+            <div class="flip-card__ipa">/rɪˈzɪliəns/</div>
+            <button class="audio-btn" data-audio="resilience" aria-label="Play" onclick="event.stopPropagation();">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
+            </button>
+            <div class="flip-card__hint" data-i18n="leitner.review.tapToFlip"></div>
+          </div>
+
+          <div class="row--center">
+            <button class="btn-icon" aria-label="Delete" style="color:var(--jx-danger);">🗑</button>
+          </div>
+        </div>
+
+        <!-- State: Back -->
+        <div class="review-body state" data-state="back" hidden>
+          <div class="box-row">
+            <div class="box-cell" data-box="1" data-active="true"><div class="box-cell__label">جعبه ۱</div><div class="box-cell__count">12</div></div>
+            <div class="box-cell" data-box="2"><div class="box-cell__label">جعبه ۲</div><div class="box-cell__count">8</div></div>
+            <div class="box-cell" data-box="3"><div class="box-cell__label">جعبه ۳</div><div class="box-cell__count">15</div></div>
+            <div class="box-cell" data-box="4"><div class="box-cell__label">جعبه ۴</div><div class="box-cell__count">5</div></div>
+            <div class="box-cell" data-box="5"><div class="box-cell__label">جعبه ۵</div><div class="box-cell__count">2</div></div>
+          </div>
+
+          <div class="flip-card">
+            <div class="flip-card__pos">noun · /B2/</div>
+            <div class="flip-card__english">resilience</div>
+            <button class="audio-btn" data-audio="resilience" aria-label="Play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
+            </button>
+            <div class="flip-card__back-meaning">تاب‌آوری</div>
+            <div class="flip-card__back-example">She showed great resilience in the face of adversity.</div>
+          </div>
+
+          <div class="mastery-row">
+            <button class="mastery-btn mastery-btn--dont">
+              <span class="mastery-btn__emoji">😕</span>
+              <span data-i18n="leitner.review.dontKnow"></span>
+            </button>
+            <button class="mastery-btn mastery-btn--sort">
+              <span class="mastery-btn__emoji">🤔</span>
+              <span data-i18n="leitner.review.sortOf"></span>
+            </button>
+            <button class="mastery-btn mastery-btn--know">
+              <span class="mastery-btn__emoji">🙂</span>
+              <span data-i18n="leitner.review.know"></span>
+            </button>
+            <button class="mastery-btn mastery-btn--well">
+              <span class="mastery-btn__emoji">🤩</span>
+              <span data-i18n="leitner.review.knowWell"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- State: Summary -->
+        <div class="review-body state" data-state="summary" hidden>
+          <div class="empty">
+            <div class="empty__icon">🏆</div>
+            <h2 class="empty__title" data-i18n="leitner.summary.title"></h2>
+            <p class="empty__body" data-i18n="leitner.summary.consistency"></p>
+          </div>
+
+          <div class="tile-grid">
+            <div class="tile">
+              <div class="tile__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">⏱</div>
+              <div class="tile__value">12 <span class="tile__label">min</span></div>
+              <div class="tile__label" data-i18n="leitner.summary.studyTime"></div>
+            </div>
+            <div class="tile">
+              <div class="tile__icon" style="background:rgba(76,175,80,0.14);color:var(--jx-success);">🎯</div>
+              <div class="tile__value">87<span class="tile__label">%</span></div>
+              <div class="tile__label" data-i18n="leitner.summary.accuracy"></div>
+            </div>
+            <div class="tile">
+              <div class="tile__icon" style="background:rgba(74,144,217,0.14);color:var(--jx-secondary);">📚</div>
+              <div class="tile__value">15</div>
+              <div class="tile__label" data-i18n="leitner.summary.wordsReviewed"></div>
+            </div>
+            <div class="tile">
+              <div class="tile__icon" style="background:rgba(255,152,0,0.14);color:var(--jx-warning);">🔥</div>
+              <div class="tile__value">7</div>
+              <div class="tile__label" data-i18n="stats.currentStreak"></div>
+            </div>
+          </div>
+
+          <div class="stack gap-3">
+            <a href="/screens/home.html" class="btn btn--filled btn--block" data-i18n="leitner.summary.continueBtn"></a>
+            <a href="/screens/stats.html" class="btn btn--outlined btn--block" data-i18n="leitner.summary.viewProgressStats"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

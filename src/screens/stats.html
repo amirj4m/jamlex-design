@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Stats</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar topbar--transparent">
+          <div></div>
+          <h1 class="topbar__title" data-i18n="stats.title"></h1>
+          <div></div>
+        </header>
+
+        <div class="screen__body">
+          <!-- 4-tile grid -->
+          <div class="tile-grid">
+            <div class="tile">
+              <div class="tile__icon" style="background:rgba(74,144,217,0.14);color:var(--jx-secondary);">⚡</div>
+              <div class="tile__value font-latin">1,247</div>
+              <div class="tile__label" data-i18n="stats.totalXp"></div>
+            </div>
+            <div class="tile">
+              <div class="tile__icon" style="background:rgba(255,152,0,0.14);color:var(--jx-warning);">🔥</div>
+              <div class="tile__value">7 <span class="tile__label">روز</span></div>
+              <div class="tile__label" data-i18n="stats.currentStreak"></div>
+            </div>
+            <div class="tile">
+              <div class="tile__icon" style="background:rgba(76,175,80,0.14);color:var(--jx-success);">📚</div>
+              <div class="tile__value">142</div>
+              <div class="tile__label" data-i18n="stats.cardsLearned"></div>
+            </div>
+            <div class="tile">
+              <div class="tile__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">⏱</div>
+              <div class="tile__value">8.5 <span class="tile__label" data-i18n="stats.hoursUnit"></span></div>
+              <div class="tile__label" data-i18n="stats.studyTime"></div>
+            </div>
+          </div>
+
+          <!-- 7-day heatmap -->
+          <div class="section-h"><div class="section-h__title" data-i18n="stats.thisWeek"></div></div>
+          <div class="heatmap">
+            <div class="heatmap__cell" data-level="2"></div>
+            <div class="heatmap__cell" data-level="1"></div>
+            <div class="heatmap__cell" data-level="3"></div>
+            <div class="heatmap__cell" data-level="4"></div>
+            <div class="heatmap__cell" data-level="2"></div>
+            <div class="heatmap__cell" data-level="3"></div>
+            <div class="heatmap__cell" data-level="4"></div>
+          </div>
+
+          <!-- Session breakdown -->
+          <div class="section-h"><div class="section-h__title" data-i18n="stats.sessionBreakdown"></div></div>
+          <div class="card mb-5">
+            <div class="session-bars">
+              <div class="session-bar">
+                <div class="session-bar__label" data-i18n="stats.sessionTypes.leitner"></div>
+                <div class="session-bar__track"><div class="session-bar__fill" style="width:75%;background:var(--jx-primary);"></div></div>
+                <div class="session-bar__value">45 <span data-i18n="stats.minutesUnit"></span></div>
+              </div>
+              <div class="session-bar">
+                <div class="session-bar__label" data-i18n="stats.sessionTypes.flashcard"></div>
+                <div class="session-bar__track"><div class="session-bar__fill" style="width:55%;background:var(--jx-secondary);"></div></div>
+                <div class="session-bar__value">32 <span data-i18n="stats.minutesUnit"></span></div>
+              </div>
+              <div class="session-bar">
+                <div class="session-bar__label" data-i18n="stats.sessionTypes.quiz"></div>
+                <div class="session-bar__track"><div class="session-bar__fill" style="width:30%;background:var(--jx-warning);"></div></div>
+                <div class="session-bar__value">18 <span data-i18n="stats.minutesUnit"></span></div>
+              </div>
+              <div class="session-bar">
+                <div class="session-bar__label" data-i18n="stats.sessionTypes.reading"></div>
+                <div class="session-bar__track"><div class="session-bar__fill" style="width:42%;background:var(--jx-success);"></div></div>
+                <div class="session-bar__value">25 <span data-i18n="stats.minutesUnit"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Achievements -->
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="stats.achievements"></div>
+            <span class="section-h__action">6 / 24</span>
+          </div>
+          <div class="ach-grid">
+            <div class="ach"><div class="ach__emoji">🌱</div><div class="ach__name">شروع</div></div>
+            <div class="ach"><div class="ach__emoji">🔥</div><div class="ach__name">۳ روز</div></div>
+            <div class="ach"><div class="ach__emoji">⭐</div><div class="ach__name">۱۰ کارت</div></div>
+            <div class="ach"><div class="ach__emoji">🏆</div><div class="ach__name">۱۰۰ کارت</div></div>
+            <div class="ach"><div class="ach__emoji">📖</div><div class="ach__name">اولین کتاب</div></div>
+            <div class="ach"><div class="ach__emoji">🎯</div><div class="ach__name">دقت ۹۰٪</div></div>
+            <div class="ach" data-locked="true"><div class="ach__emoji">💎</div><div class="ach__name">پرمیوم</div></div>
+            <div class="ach" data-locked="true"><div class="ach__emoji">🚀</div><div class="ach__name">۳۰ روز</div></div>
+            <div class="ach" data-locked="true"><div class="ach__emoji">🦉</div><div class="ach__name">۱۰۰۰ کارت</div></div>
+          </div>
+
+          <a href="/screens/leaderboard.html" class="btn btn--outlined btn--block mt-5">
+            🏆 <span data-i18n="stats.compareWithOthers"></span>
+          </a>
+        </div>
+
+        <nav class="bottomnav" aria-label="Bottom navigation">
+          <a href="/screens/home.html" class="bottomnav__item"><span class="bottomnav__icon">🏠</span><span data-i18n="nav.home"></span></a>
+          <a href="/screens/leitner.html" class="bottomnav__item"><span class="bottomnav__icon">🗂</span><span data-i18n="nav.leitner"></span></a>
+          <a href="/screens/vocabulary.html" class="bottomnav__item"><span class="bottomnav__icon">🔍</span><span data-i18n="nav.vocabulary"></span></a>
+          <a href="/screens/stats.html" class="bottomnav__item" data-active="true"><span class="bottomnav__icon">📊</span><span data-i18n="nav.stats"></span></a>
+          <a href="/screens/profile.html" class="bottomnav__item"><span class="bottomnav__icon">👤</span><span data-i18n="nav.profile"></span></a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Book Detail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/screens/reading.html" class="hub-ribbon">‹ Library</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar topbar--transparent">
+          <div class="topbar__leading">
+            <a href="/screens/reading.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+          </div>
+          <div></div>
+          <div class="topbar__trailing">
+            <button class="btn-icon" aria-label="Bookmark" data-active="true">🔖</button>
+            <button class="btn-icon" aria-label="Share">↗</button>
+          </div>
+        </header>
+
+        <div class="screen__body">
+          <!-- Hero -->
+          <div style="display:flex;gap:var(--sp-4);margin-bottom:var(--sp-5);">
+            <div class="book-cover__img" style="width:130px;height:180px;flex:none;background:linear-gradient(135deg,#5C6BC0,#3949AB);">
+              <span class="book-cover__badge">B1</span>
+              Pride and Prejudice
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;flex:1;min-width:0;">
+              <h1 style="font-size:22px;font-weight:800;line-height:1.3;direction:ltr;text-align:start;">Pride and Prejudice</h1>
+              <div class="txt-2 fs-body-m mt-1" style="font-family:var(--font-family-latin);direction:ltr;text-align:start;">Jane Austen</div>
+              <div class="row gap-2 mt-3">
+                <span class="chip" data-level="B1">B1</span>
+                <span class="chip">📖 Fiction</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metadata grid -->
+          <div class="card mb-4">
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-3);">
+              <div>
+                <div class="fs-body-s txt-2" data-i18n="reading.bookDetail.year"></div>
+                <div class="fw-bold mt-1 font-latin">1813</div>
+              </div>
+              <div>
+                <div class="fs-body-s txt-2" data-i18n="reading.bookDetail.publisher"></div>
+                <div class="fw-bold mt-1">Project Gutenberg</div>
+              </div>
+              <div>
+                <div class="fs-body-s txt-2" data-i18n="reading.bookDetail.chapters"></div>
+                <div class="fw-bold mt-1">61</div>
+              </div>
+              <div>
+                <div class="fs-body-s txt-2" data-i18n="reading.bookDetail.words"></div>
+                <div class="fw-bold mt-1">122,189</div>
+              </div>
+              <div style="grid-column:1/-1;">
+                <div class="fs-body-s txt-2"><span data-i18n="reading.bookDetail.readingTime"></span></div>
+                <div class="fw-bold mt-1">≈ 8 ساعت 10 <span data-i18n="reading.bookDetail.minutes"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="section-h"><div class="section-h__title" data-i18n="reading.bookDetail.description"></div></div>
+          <p class="txt-2 fs-body-m" style="line-height:var(--lh-relaxed);">
+            رمانی کلاسیک از جین آستین که در سال ۱۸۱۳ منتشر شد. داستان عاشقانه‌ای از سوءتفاهم‌ها، تعصب، و بلوغ شخصی الیزابت بنت در انگلستان قرن نوزدهم.
+            (متن انگلیسی public-domain از Project Gutenberg، مناسب سطح B1 به بالا.)
+          </p>
+
+          <!-- CTAs -->
+          <div class="row gap-3 mt-5">
+            <button class="btn btn--outlined" style="flex:1;">
+              ⬇ <span data-i18n="reading.bookDetail.download"></span>
+            </button>
+            <a href="/screens/book-reader.html" class="btn btn--filled" style="flex:1;">
+              📖 <span data-i18n="reading.bookDetail.read"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Search</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css" />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/chrome.css" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="empty">DB empty (phase 1)</option>
+      <option value="history">With history</option>
+      <option value="results">With results</option>
+      <option value="detail">Word detail sheet</option>
+    </select>
+  </div>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar topbar--transparent">
+          <div></div>
+          <h1 class="topbar__title" data-i18n="vocabulary.title"></h1>
+          <div></div>
+        </header>
+
+        <div class="screen__body">
+          <div class="search-input">
+            <span class="search-input__icon">🔍</span>
+            <input type="search" data-i18n-attr="placeholder:vocabulary.searchPlaceholder" />
+          </div>
+
+          <!-- Phase-1 empty -->
+          <div class="state" data-state="empty">
+            <div class="empty">
+              <div class="empty__icon">📖</div>
+              <h2 class="empty__title" data-i18n="vocabulary.emptyDB.title"></h2>
+              <p class="empty__body" data-i18n="vocabulary.emptyDB.body"></p>
+            </div>
+          </div>
+
+          <!-- History -->
+          <div class="state" data-state="history" hidden>
+            <div class="section-h">
+              <div class="section-h__title" data-i18n="vocabulary.recentSearches"></div>
+              <span class="section-h__action" data-i18n="vocabulary.clearAll"></span>
+            </div>
+            <div class="history-row">
+              <span class="history-row__icon">🕓</span>
+              <span class="history-row__text" style="direction:ltr;font-family:var(--font-family-latin);">resilience</span>
+              <span class="history-row__remove">✕</span>
+            </div>
+            <div class="history-row">
+              <span class="history-row__icon">🕓</span>
+              <span class="history-row__text" style="direction:ltr;font-family:var(--font-family-latin);">ephemeral</span>
+              <span class="history-row__remove">✕</span>
+            </div>
+            <div class="history-row">
+              <span class="history-row__icon">🕓</span>
+              <span class="history-row__text">تاب‌آوری</span>
+              <span class="history-row__remove">✕</span>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="state" data-state="results" hidden>
+            <div class="word-row">
+              <div class="word-row__main">
+                <div class="word-row__english">resilience</div>
+                <div class="word-row__ipa">/rɪˈzɪliəns/</div>
+                <div class="word-row__meaning">تاب‌آوری، قابلیت بازگشت به حالت اول</div>
+              </div>
+              <span class="chip" data-level="B2">B2</span>
+              <button class="audio-btn" data-audio="resilience" aria-label="Play">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+            <div class="word-row">
+              <div class="word-row__main">
+                <div class="word-row__english">resilient</div>
+                <div class="word-row__ipa">/rɪˈzɪliənt/</div>
+                <div class="word-row__meaning">تاب‌آور، انعطاف‌پذیر</div>
+              </div>
+              <span class="chip" data-level="B2">B2</span>
+              <button class="audio-btn" data-audio="resilient" aria-label="Play">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Word detail sheet -->
+          <div class="state" data-state="detail" hidden style="position:relative;">
+            <div class="sheet-scrim" style="position:static;background:transparent;display:block;">
+              <div class="sheet" style="position:static;max-height:none;border-radius:var(--rd-5);">
+                <div class="row--between mb-3">
+                  <div>
+                    <h2 style="font-size:32px;font-weight:800;letter-spacing:-0.5px;direction:ltr;">resilience</h2>
+                    <div style="font-size:var(--fs-body-m);color:var(--jx-text-2);font-family:var(--font-family-latin);direction:ltr;">/rɪˈzɪliəns/ · /rɪˈzɪljəns/ (UK)</div>
+                  </div>
+                  <div class="row gap-2">
+                    <button class="audio-btn" data-audio="resilience" aria-label="US"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+                    <span class="chip" data-level="B2">B2</span>
+                    <span class="chip" data-i18n="pos.noun"></span>
+                  </div>
+                </div>
+
+                <div class="section-h"><div class="section-h__title" data-i18n="vocabulary.wordDetail.senses"></div></div>
+                <div class="sense-row">
+                  <div class="sense-row__head">
+                    <span class="sense-row__num">1</span>
+                    <span class="sense-row__meaning">تاب‌آوری، قابلیت بازگشت به حالت اولیه</span>
+                  </div>
+                  <div class="sense-row__example">She showed great resilience in the face of adversity.</div>
+                </div>
+                <div class="sense-row">
+                  <div class="sense-row__head">
+                    <span class="sense-row__num">2</span>
+                    <span class="sense-row__meaning">انعطاف‌پذیری (فیزیکی)</span>
+                  </div>
+                  <div class="sense-row__example">The resilience of rubber makes it ideal for shoe soles.</div>
+                </div>
+
+                <div class="row gap-2 mt-4">
+                  <button class="btn btn--outlined" style="flex:1;">
+                    <span>+</span> <span data-i18n="vocabulary.wordDetail.addToMyWords"></span>
+                  </button>
+                  <button class="btn btn--filled" style="flex:1;">
+                    <span>+</span> <span data-i18n="vocabulary.wordDetail.addToLeitner"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <nav class="bottomnav" aria-label="Bottom navigation">
+          <a href="/screens/home.html" class="bottomnav__item"><span class="bottomnav__icon">🏠</span><span data-i18n="nav.home"></span></a>
+          <a href="/screens/leitner.html" class="bottomnav__item"><span class="bottomnav__icon">🗂</span><span data-i18n="nav.leitner"></span></a>
+          <a href="/screens/vocabulary.html" class="bottomnav__item" data-active="true"><span class="bottomnav__icon">🔍</span><span data-i18n="nav.vocabulary"></span></a>
+          <a href="/screens/stats.html" class="bottomnav__item"><span class="bottomnav__icon">📊</span><span data-i18n="nav.stats"></span></a>
+          <a href="/screens/profile.html" class="bottomnav__item"><span class="bottomnav__icon">👤</span><span data-i18n="nav.profile"></span></a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js"></script>
+</body>
+</html>
