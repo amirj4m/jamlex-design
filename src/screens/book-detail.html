@@ -3,115 +3,115 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#00B4A6" />
+  <meta name="theme-color" content="#0F4C40" />
   <title>Jamlex · Book Detail</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/base.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/components.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/base.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/components.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpokn2nk" />
 </head>
-<body>
+<body data-library-screen="book-detail">
   <div class="preview-controls">
     <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
     <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
   </div>
-  <a href="/screens/reading.html" class="hub-ribbon">‹ Reading</a>
+  <a href="/screens/reading.html" class="hub-ribbon">‹ Library</a>
 
   <div class="shell">
     <div class="phone">
-      <div class="screen" style="overflow: hidden;">
-        <!-- Blurred green cover hero (matches reference) -->
-        <div class="book-hero" style="--book-hero-bg: linear-gradient(135deg, #1B5E20, #0D3F12);">
-          <div class="book-hero__topbar">
-            <a href="/screens/home.html" class="btn-icon" aria-label="Back">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            </a>
-            <div style="display:flex;gap:8px;">
-              <button class="btn-icon" aria-label="Bookmark">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-              </button>
-              <button class="btn-icon" aria-label="More">⋯</button>
-            </div>
-          </div>
+      <div class="screen">
+        <!-- Green hero -->
+        <section class="bd-hero">
+          <div class="bd-hero__deco bd-hero__deco--1"></div>
+          <div class="bd-hero__deco bd-hero__deco--2"></div>
+          <div class="bd-hero__deco bd-hero__deco--3"></div>
 
-          <div class="book-hero__body">
-            <div class="book-hero__cover" style="background: linear-gradient(135deg, #2E7D32, #1B5E20); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; padding: 16px; text-align: center; font-family: var(--font-family-latin);">
-              <div style="font-size:9px;font-weight:700;letter-spacing:1px;align-self:flex-start;">SECOND EDITION</div>
-              <div style="font-size:22px;font-weight:800;letter-spacing:-0.5px;margin-top:10px;">INSIDE</div>
-              <div style="font-size:22px;font-weight:800;letter-spacing:-0.5px;">READING</div>
-              <div style="font-size:8px;margin-top:10px;opacity:0.85;">The Academic Word List in Contest</div>
-              <div style="flex:1;"></div>
-              <div style="font-size:9px;opacity:0.85;">OXFORD</div>
+          <header class="bd-hero__top">
+            <a href="/screens/reading.html" class="btn-icon back-btn bd-hero__icon" aria-label="Back"></a>
+            <div></div>
+            <div class="bd-hero__top-trailing">
+              <a href="#" class="btn-icon bd-hero__icon" aria-label="Save">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </a>
             </div>
-            <div style="flex:1;min-width:0;">
-              <h1 class="book-hero__title">Inside Reading - 1</h1>
-              <div class="book-hero__sub">Second Edition</div>
-              <div class="book-hero__chips">
-                <span class="book-hero__chip">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-                  <span>Arline Burgmeier</span>
-                </span>
-                <span class="book-hero__chip">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                  <span>Oxford University Press</span>
-                </span>
+          </header>
+
+          <!-- Cover LEFT, info RIGHT — locked LTR -->
+          <div class="bd-hero__body" dir="ltr">
+            <div class="bd-cover" data-bd-cover>
+              <div class="bd-cover__title" data-bd-cover-title></div>
+            </div>
+            <div class="bd-info">
+              <h1 class="bd-info__title" data-bd-title></h1>
+              <p class="bd-info__edition" data-bd-edition></p>
+              <div class="bd-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+                <span data-bd-author></span>
+              </div>
+              <div class="bd-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <span data-bd-publisher>Standard Ebooks</span>
               </div>
             </div>
           </div>
 
-          <div class="book-hero__meta">
-            <div class="book-hero__metaCell">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l3 3 8-8"/><path d="M3 14h12M3 18h7"/></svg>
-              <span data-i18n="v3.bookDetail.languageRow"></span>
+          <!-- Meta row: language | level | year -->
+          <div class="bd-meta">
+            <div class="bd-meta__cell">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
+              <span><span data-i18n="v3.bookDetail.language"></span>: <span data-bd-lang></span></span>
             </div>
-            <div class="book-hero__metaCell">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              <span data-i18n="v3.bookDetail.levelRow"></span>
+            <div class="bd-meta__cell">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span><span data-i18n="v3.bookDetail.level"></span>: <span data-bd-level></span></span>
             </div>
-            <div class="book-hero__metaCell">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span data-i18n="v3.bookDetail.yearRow"></span>
+            <div class="bd-meta__cell">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span><span data-i18n="v3.bookDetail.year"></span>: <span data-bd-year class="font-latin"></span></span>
             </div>
+          </div>
+        </section>
+
+        <!-- 4-cell stat card overlapping the bottom of the hero -->
+        <div class="bd-stats">
+          <div class="bd-stat">
+            <div class="bd-stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+            <div class="bd-stat__val" data-bd-chapters></div>
+            <div class="bd-stat__label" data-i18n="v3.bookDetail.chapters"></div>
+          </div>
+          <div class="bd-stat">
+            <div class="bd-stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg></div>
+            <div class="bd-stat__val" data-bd-lessons></div>
+            <div class="bd-stat__label" data-i18n="v3.bookDetail.lessons"></div>
+          </div>
+          <div class="bd-stat">
+            <div class="bd-stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="bd-stat__val" data-bd-studytime></div>
+            <div class="bd-stat__label" data-i18n="v3.bookDetail.readingTime"></div>
+          </div>
+          <div class="bd-stat">
+            <div class="bd-stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div class="bd-stat__val" data-bd-progress></div>
+            <div class="bd-stat__label" data-i18n="v3.bookDetail.progress"></div>
           </div>
         </div>
 
-        <div class="screen__body" style="padding-top: 0;">
-          <div class="book-stats">
-            <div class="book-stat">
-              <div class="book-stat__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-              <div class="book-stat__val">12</div>
-              <div class="book-stat__lbl" data-i18n="v3.bookDetail.chapters"></div>
-            </div>
-            <div class="book-stat">
-              <div class="book-stat__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div>
-              <div class="book-stat__val">120</div>
-              <div class="book-stat__lbl" data-i18n="v3.bookDetail.lessons"></div>
-            </div>
-            <div class="book-stat">
-              <div class="book-stat__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-              <div class="book-stat__val">24h 30m</div>
-              <div class="book-stat__lbl" data-i18n="v3.bookDetail.readingTime"></div>
-            </div>
-            <div class="book-stat">
-              <div class="book-stat__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-              <div class="book-stat__val">65%</div>
-              <div class="book-stat__lbl" data-i18n="v3.bookDetail.progress"></div>
-            </div>
-          </div>
+        <!-- About this book -->
+        <div class="bd-about">
+          <h2 class="bd-about__title" data-i18n="v3.bookDetail.aboutTitle"></h2>
+          <p class="bd-about__body" data-bd-about></p>
+        </div>
 
-          <div style="padding: 0 var(--sp-2);">
-            <h3 style="font-size:18px;font-weight:var(--fw-extrabold);text-align:end;margin-bottom:var(--sp-3);" data-i18n="v3.bookDetail.aboutTitle"></h3>
-            <p style="color:var(--jx-text-2);font-size:var(--fs-body-m);line-height:var(--lh-relaxed);text-align:end;" data-i18n="v3.bookDetail.aboutSampleBody"></p>
-          </div>
-
-          <a href="/screens/book-reader.html" class="btn btn--filled btn--block btn--lg" style="margin-top: var(--sp-5);">
+        <!-- Continue reading CTA -->
+        <div class="bd-cta">
+          <a href="/screens/book-reader.html" class="btn btn--filled btn--block btn--lg">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             <span data-i18n="v3.bookDetail.continueRead"></span>
           </a>
@@ -120,6 +120,50 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpojz86z"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpokn2nk"></script>
+  <script type="module">
+    import { findBook, FEATURED, localizeNum, formatYear } from '/data/books.js?v=mpokn2nk';
+    import { applyToDom, t } from '/js/i18n.js?v=mpokn2nk';
+
+    const LEVEL_LABEL_FA = { A1:'مبتدی', A2:'پایه', B1:'متوسط', B2:'فوق‌متوسط', C1:'پیشرفته', C2:'مسلط' };
+    const LEVEL_LABEL_EN = { A1:'Beginner', A2:'Elementary', B1:'Intermediate', B2:'Upper-Int.', C1:'Advanced', C2:'Mastery' };
+
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id') || 'pride-and-prejudice';
+    const book = findBook(id) || FEATURED[0];
+
+    function paint () {
+      const lang = document.documentElement.lang || 'en';
+      const levelMap = lang === 'fa' ? LEVEL_LABEL_FA : LEVEL_LABEL_EN;
+
+      const cover = document.querySelector('[data-bd-cover]');
+      cover.style.background = book.cover;
+      document.querySelector('[data-bd-cover-title]').textContent = book.title;
+
+      document.querySelector('[data-bd-title]').textContent = book.title;
+      document.querySelector('[data-bd-edition]').textContent = `${formatYear(book.year)} · Standard Ebooks`;
+      document.querySelector('[data-bd-author]').textContent = book.author;
+
+      document.querySelector('[data-bd-lang]').textContent = t('v3.bookDetail.languageEn');
+      document.querySelector('[data-bd-level]').textContent = levelMap[book.level] || book.level;
+      document.querySelector('[data-bd-year]').textContent = formatYear(book.year);
+
+      const chapters = Math.max(6, Math.round(book.pages / 30));
+      const lessons  = Math.round(book.pages / 4);
+      const minutes  = Math.round(book.pages * 3);
+      const hours = Math.floor(minutes / 60);
+      const mins  = minutes % 60;
+      document.querySelector('[data-bd-chapters]').textContent  = localizeNum(chapters);
+      document.querySelector('[data-bd-lessons]').textContent   = localizeNum(lessons);
+      document.querySelector('[data-bd-studytime]').textContent = `${localizeNum(hours)}h ${localizeNum(mins)}m`;
+      document.querySelector('[data-bd-progress]').textContent  = `${localizeNum(0)}%`;
+
+      document.querySelector('[data-bd-about]').textContent = t('v3.bookDetail.aboutSampleBody');
+
+      applyToDom(document);
+    }
+
+    document.addEventListener('i18n:changed', paint);
+  </script>
 </body>
 </html>

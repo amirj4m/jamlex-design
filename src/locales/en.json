@@ -739,6 +739,8 @@
         "books": "{n} books"
       },
       "pages": "{n} pages",
+      "pagesUnit": "pages",
+      "byAuthor": "by {name}",
       "continueAction": "Continue reading",
       "lastReadYesterday": "Last read: yesterday",
       "newBadge": "New",
@@ -761,6 +763,15 @@
       "aboutTitle": "About the book",
       "aboutSampleBody": "The Inside Reading series uses an academic, interactive approach to strengthen your reading-comprehension skills. With varied texts and targeted exercises, this book prepares you for success in academic settings.",
       "continueRead": "Continue reading"
+    },
+    "booksAll": {
+      "title": "All books",
+      "subtitleCat": "{n} books in this category",
+      "subtitleAll": "{n} books in library"
+    },
+    "categoriesAll": {
+      "title": "All categories",
+      "subtitle": "{n} categories · {b} books"
     },
     "savedBooks": {
       "title": "Saved books",

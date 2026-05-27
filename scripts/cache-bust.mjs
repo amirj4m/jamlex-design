@@ -30,6 +30,11 @@ function bust (html) {
     /(from\s+["'])(\/js\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
     `$1$2?v=${version}$4`
   );
+  // Same for /data/*.js imports
+  html = html.replace(
+    /(from\s+["'])(\/data\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
+    `$1$2?v=${version}$4`
+  );
   return html;
 }
 
@@ -64,6 +69,11 @@ for (const f of readdirSync(JS)) {
   // `import X from './foo.js'`
   after = after.replace(
     /(from\s+["'])(\.\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
+    `$1$2?v=${version}$4`
+  );
+  // `import X from '/data/foo.js'` (absolute paths into /data/ from JS)
+  after = after.replace(
+    /(from\s+["'])(\/data\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
     `$1$2?v=${version}$4`
   );
   // Bare side-effect imports: `import './foo.js'`

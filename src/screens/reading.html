@@ -8,16 +8,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/base.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/components.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpojz86z" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/base.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/components.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpokn2nk" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpokn2nk" />
 </head>
-<body>
+<body data-library-screen="reading">
   <div class="preview-controls">
     <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
     <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
@@ -32,7 +32,7 @@
           <h1 class="topbar__title" data-i18n="v3.reading.title"></h1>
           <div class="topbar__trailing">
             <a href="/screens/saved-books.html" class="btn-icon" aria-label="Saved" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
             </a>
           </div>
         </header>
@@ -54,133 +54,50 @@
           </div>
 
           <!-- Categories row -->
-          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.categories"></div><a href="#" class="section-h__action" data-i18n="v3.reading.seeAll"></a></div>
-          <div class="cat-h-scroll">
-            <a href="/screens/saved-books.html" class="cat-disc">
-              <span class="cat-disc__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">📖</span>
-              <span class="cat-disc__name" data-i18n="v3.reading.category.fiction"></span>
-              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۳۴۶"}'></span>
-            </a>
-            <a href="/screens/saved-books.html" class="cat-disc">
-              <span class="cat-disc__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">🌱</span>
-              <span class="cat-disc__name" data-i18n="v3.reading.category.selfHelp"></span>
-              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۱۸۳"}'></span>
-            </a>
-            <a href="/screens/saved-books.html" class="cat-disc">
-              <span class="cat-disc__icon" style="background:rgba(244,67,54,0.16);color:#C62828;">💼</span>
-              <span class="cat-disc__name" data-i18n="v3.reading.category.business"></span>
-              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۱۳۰"}'></span>
-            </a>
-            <a href="/screens/saved-books.html" class="cat-disc">
-              <span class="cat-disc__icon" style="background:rgba(0,180,166,0.16);color:#1F9389;">🎓</span>
-              <span class="cat-disc__name" data-i18n="v3.reading.category.science"></span>
-              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۳۳۸"}'></span>
-            </a>
-            <a href="/screens/saved-books.html" class="cat-disc">
-              <span class="cat-disc__icon" style="background:rgba(245,185,69,0.18);color:#B27A12;">🏛</span>
-              <span class="cat-disc__name" data-i18n="v3.reading.category.history"></span>
-              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۱۵۹"}'></span>
-            </a>
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="v3.reading.categories"></div>
+            <a href="/screens/categories-all.html" class="section-h__action" data-i18n="v3.reading.seeAll"></a>
           </div>
+          <div class="cat-h-scroll" data-render="categories"></div>
 
-          <!-- Featured books -->
-          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.featured"></div><a href="#" class="section-h__action" data-i18n="v3.reading.seeAll"></a></div>
-          <div class="book-h-scroll">
-            <a href="/screens/book-detail.html" class="bcard">
-              <div class="bcard__cover" style="background:linear-gradient(180deg,#1A2138,#3D4566);">
-                <span class="bcard__badge">B1</span>
-                <div style="color:#fff;font-family:'Times New Roman',serif;text-align:center;padding:14px 8px;font-size:11px;">The Little Prince</div>
-              </div>
-              <div class="bcard__title">The Little Prince</div>
-              <div class="bcard__author">Antoine de Saint…</div>
-              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.8</span><span data-i18n="v3.reading.pages" data-i18n-vars='{"n":"۱۳۲"}'></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-            </a>
-            <a href="/screens/book-detail.html" class="bcard">
-              <div class="bcard__cover" style="background:linear-gradient(180deg,#8B5E2A,#D4A574);">
-                <span class="bcard__badge">B2</span>
-                <div style="color:#fff;font-family:'Times New Roman',serif;text-align:center;padding:14px 8px;font-size:11px;">The Alchemist</div>
-              </div>
-              <div class="bcard__title">The Alchemist</div>
-              <div class="bcard__author">Paulo Coelho</div>
-              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.7</span><span data-i18n="v3.reading.pages" data-i18n-vars='{"n":"۱۸۰"}'></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-            </a>
-            <a href="/screens/book-detail.html" class="bcard">
-              <div class="bcard__cover" style="background:linear-gradient(180deg,#3D2A1E,#7A5B40);">
-                <span class="bcard__badge">C1</span>
-                <div style="color:#fff;font-family:'Times New Roman',serif;text-align:center;padding:14px 8px;font-size:11px;">The Time Machine</div>
-              </div>
-              <div class="bcard__title">The Time Machine</div>
-              <div class="bcard__author">H. G. Wells</div>
-              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.5</span><span data-i18n="v3.reading.pages" data-i18n-vars='{"n":"۱۴۹"}'></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-            </a>
-            <a href="/screens/book-detail.html" class="bcard">
-              <div class="bcard__cover" style="background:linear-gradient(180deg,#465670,#7A8FA8);">
-                <span class="bcard__badge">A2</span>
-                <div style="color:#fff;font-family:'Times New Roman',serif;text-align:center;padding:14px 8px;font-size:11px;">Aesop's Fables</div>
-              </div>
-              <div class="bcard__title">Aesop's Fables</div>
-              <div class="bcard__author">Aesop</div>
-              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.5</span><span data-i18n="v3.reading.pages" data-i18n-vars='{"n":"۹۸"}'></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-            </a>
+          <!-- Featured books (top 10 by downloads) -->
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="v3.reading.featured"></div>
+            <a href="/screens/books-all.html?list=featured" class="section-h__action" data-i18n="v3.reading.seeAll"></a>
           </div>
+          <div class="book-h-scroll" data-render="featured"></div>
 
-          <!-- In progress -->
-          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.continueReading"></div><a href="#" class="section-h__action" data-i18n="v3.reading.seeAll"></a></div>
+          <!-- In progress (kept as a single sample for the design preview) -->
+          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.continueReading"></div></div>
           <a href="/screens/book-reader.html" class="continue-card">
-            <div class="continue-card__cover" style="background:linear-gradient(180deg,#F5F1E8,#D4C9B0);font-family:'Times New Roman',serif;color:#3D2A1E;font-weight:bold;font-size:10px;text-align:center;padding:8px;">Atomic Habits</div>
+            <div class="continue-card__cover" style="background:linear-gradient(180deg,#6E3A85,#D4A8C8);font-family:'Times New Roman',serif;color:#fff;font-weight:bold;font-size:10px;text-align:center;padding:8px;">Pride and Prejudice</div>
             <div class="continue-card__body">
-              <div class="continue-card__title">Atomic Habits</div>
-              <div class="continue-card__author">James Clear</div>
+              <div class="continue-card__title">Pride and Prejudice</div>
+              <div class="continue-card__author">Jane Austen</div>
               <div class="continue-card__progress">
                 <div class="continue-card__track"><div class="continue-card__fill" style="width:65%;"></div></div>
-                <span class="continue-card__pct">۶۵<span style="font-family:var(--font-family-latin);">%</span></span>
+                <span class="continue-card__pct"><span class="font-latin">65%</span></span>
               </div>
               <div class="continue-card__last" data-i18n="v3.reading.lastReadYesterday"></div>
             </div>
             <button class="continue-card__cta">📖 <span data-i18n="v3.reading.continueAction"></span></button>
           </a>
 
-          <!-- Newest -->
-          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.newest"></div><a href="#" class="section-h__action" data-i18n="v3.reading.seeAll"></a></div>
-          <div class="book-h-scroll">
-            <a href="/screens/book-detail.html" class="bcard">
-              <div class="bcard__cover" style="background:linear-gradient(135deg,#D85838,#FF6B35);position:relative;">
-                <span class="bcard__badge bcard__badge--new" data-i18n="v3.reading.newBadge"></span>
-                <div style="color:#fff;font-weight:800;text-align:center;padding:14px 8px;font-size:12px;">The 5 AM Club</div>
-              </div>
-              <div class="bcard__title">The 5 AM Club</div>
-              <div class="bcard__author">Robin Sharma</div>
-            </a>
-            <a href="/screens/book-detail.html" class="bcard">
-              <div class="bcard__cover" style="background:#FFEB3B;">
-                <span class="bcard__badge bcard__badge--new" data-i18n="v3.reading.newBadge"></span>
-                <div style="color:#1A2138;font-weight:900;text-align:center;padding:14px 8px;font-size:18px;line-height:1;">Deep<br/>Work</div>
-              </div>
-              <div class="bcard__title">Deep Work</div>
-              <div class="bcard__author">Cal Newport</div>
-            </a>
-            <a href="/screens/book-detail.html" class="bcard">
-              <div class="bcard__cover" style="background:linear-gradient(180deg,#E0D5C0,#9C8B6E);">
-                <span class="bcard__badge bcard__badge--new" data-i18n="v3.reading.newBadge"></span>
-                <div style="color:#3D2A1E;font-family:'Times New Roman',serif;font-weight:bold;text-align:center;padding:14px 8px;font-size:11px;">The Power of Now</div>
-              </div>
-              <div class="bcard__title">The Power of Now</div>
-              <div class="bcard__author">Eckhart Tolle</div>
-            </a>
-            <a href="/screens/book-detail.html" class="bcard">
-              <div class="bcard__cover" style="background:linear-gradient(180deg,#1A2138,#5F5F5F);">
-                <span class="bcard__badge bcard__badge--new" data-i18n="v3.reading.newBadge"></span>
-                <div style="color:#fff;font-family:'Times New Roman',serif;font-weight:bold;text-align:center;padding:14px 6px;font-size:10px;">Thinking, Fast and Slow</div>
-              </div>
-              <div class="bcard__title">Thinking, Fast and Slow</div>
-              <div class="bcard__author">Daniel Kahneman</div>
-            </a>
+          <!-- Newest (20 remaining sorted by downloads, shown horizontally) -->
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="v3.reading.newest"></div>
+            <a href="/screens/books-all.html?list=newest" class="section-h__action" data-i18n="v3.reading.seeAll"></a>
           </div>
+          <div class="book-h-scroll" data-render="newest"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpojz86z"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpokn2nk"></script>
+  <script type="module">
+    import { mountReadingScreen } from '/js/library.js?v=mpokn2nk';
+    document.addEventListener('i18n:changed', mountReadingScreen, { once: true });
+  </script>
 </body>
 </html>
