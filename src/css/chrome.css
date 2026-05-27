@@ -113,10 +113,30 @@
 }
 .topbar__trailing { justify-content: flex-end; }
 
-/* Back chevron auto-flips (uses CSS pseudo + content rotation per dir) */
-.back-btn { font-size: 22px; line-height: 1; }
-[dir="ltr"] .back-btn::before { content: "‹"; }
-[dir="rtl"] .back-btn::before { content: "›"; }
+/* Back button — proper SVG chevron (mask-image, so it inherits currentColor),
+   subtle surface pill background so it stays visible on transparent topbars,
+   44×44 tap target (HIG min), auto-mirrors for RTL. Placement is handled by
+   .topbar__leading + flexbox: in RTL it sits on the right, in LTR on the left. */
+.back-btn {
+  width: 44px;
+  height: 44px;
+  background: var(--jx-surface);
+  color: var(--jx-text);
+  font-size: 0;
+}
+.back-btn::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polyline points='15 18 9 12 15 6' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / 22px no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polyline points='15 18 9 12 15 6' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / 22px no-repeat;
+}
+[dir="rtl"] .back-btn::before { transform: scaleX(-1); }
+.back-btn:hover { background: var(--jx-primary-glow); color: var(--jx-primary); }
+[data-theme="dark"] .back-btn { background: rgba(255,255,255,0.08); }
+[data-theme="dark"] .back-btn:hover { background: rgba(0,180,166,0.18); color: var(--jx-primary); }
 
 /* ── Bottom nav (5 tabs) ─────────────────────────────────────────────── */
 .bottomnav {
