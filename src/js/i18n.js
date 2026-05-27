@@ -83,11 +83,13 @@ export function applyToDom(root = document) {
     const vars = parseVars(el.dataset.i18nVars);
     el.textContent = t(key, vars);
   }
-  // data-i18n-html="key.path"  →  set innerHTML (use carefully, for links inside copy)
+  // data-i18n-html="key.path"  →  set innerHTML (use carefully, for links inside copy).
+  // Also converts \n in the translation to <br/> for multi-line copy.
   for (const el of root.querySelectorAll('[data-i18n-html]')) {
     const key = el.dataset.i18nHtml;
     const vars = parseVars(el.dataset.i18nVars);
-    el.innerHTML = t(key, vars);
+    const value = t(key, vars);
+    el.innerHTML = value.replace(/\n/g, '<br/>');
   }
   // data-i18n-attr="placeholder:key.path; aria-label:key.path"
   for (const el of root.querySelectorAll('[data-i18n-attr]')) {

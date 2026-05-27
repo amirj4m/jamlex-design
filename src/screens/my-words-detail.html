@@ -41,14 +41,14 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2 12h2M5 8h2v8H5zm4-2h2v12H9zm4-3h2v15h-2zm4 3h2v9h-2zm4 4h2v5h-2z"/></svg>
             </span>
             <div>
-              <h1 class="coll-header__name">هم‌لفظ‌ها</h1>
-              <p class="coll-header__count">۲۴ لغت</p>
+              <h1 class="coll-header__name" data-i18n="v3.myWords.collections.homonyms"></h1>
+              <p class="coll-header__count" data-i18n="v3.myWords.collections.homonymsCount"></p>
             </div>
           </div>
 
           <!-- Progress -->
           <div class="coll-progress">
-            <span class="coll-progress__val">۱۸٪ پیشرفت</span>
+            <span class="coll-progress__val" data-i18n="v3.myWords.detailProgress" data-i18n-vars='{"pct":18}'></span>
             <div class="coll-progress__track"><div class="coll-progress__fill" style="width: 18%;"></div></div>
           </div>
 
@@ -56,7 +56,7 @@
             <span class="search-input__icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16" y2="16"/></svg>
             </span>
-            <input type="search" placeholder="جستجوی لغت یا دسته‌بندی..." />
+            <input type="search" data-i18n-attr="placeholder:v3.myWords.searchInDict" />
           </div>
 
           <!-- Word rows (bookmark in start, audio in end, no level chip) -->
@@ -161,7 +161,7 @@
 
           <button class="btn btn--outlined btn--block btn--lg" style="margin-top: var(--sp-4); color: var(--jx-danger); border-color: rgba(244, 67, 54, 0.35); background: rgba(244, 67, 54, 0.06);">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m4 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
-            <span>حذف دسته‌بندی</span>
+            <span data-i18n="v3.myWords.deleteCategoryTitle"></span>
           </button>
         </div>
       </div>

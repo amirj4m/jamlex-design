@@ -37,7 +37,7 @@
           <div class="topbar__leading">
             <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title">آزمون ترجمه</h1>
+          <h1 class="topbar__title" data-i18n="v3.quiz.mcqTitle"></h1>
           <div class="topbar__trailing">
             <button class="btn-icon" aria-label="Close">✕</button>
           </div>
@@ -50,7 +50,7 @@
             <div class="fc-progress-v3"><div class="fc-progress-v3__bar" style="width:30%;"></div></div>
 
             <div class="qprompt-v3">
-              <div class="qprompt-v3__copy">نزدیک‌ترین گزینه به ترجمه را انتخاب کنید</div>
+              <div class="qprompt-v3__copy" data-i18n="v3.quiz.mcqPrompt"></div>
               <div class="qprompt-v3__word qprompt-v3__word--en">resilience</div>
               <button class="audio-btn audio-btn--lg" style="margin-top:var(--sp-3);" data-audio="resilience">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
@@ -58,13 +58,13 @@
             </div>
 
             <div class="q-opts">
-              <button class="q-opt"><span class="q-opt__letter">۱</span><span>سرعت</span></button>
-              <button class="q-opt" data-state="selected"><span class="q-opt__letter">۲</span><span>تاب‌آوری</span></button>
-              <button class="q-opt"><span class="q-opt__letter">۳</span><span>درخشش</span></button>
-              <button class="q-opt"><span class="q-opt__letter">۴</span><span>سکوت</span></button>
+              <button class="q-opt"><span class="q-opt__letter">۱</span><span data-i18n="v3.quiz.options.speed"></span></button>
+              <button class="q-opt" data-state="selected"><span class="q-opt__letter">۲</span><span data-i18n="v3.quiz.options.resilience"></span></button>
+              <button class="q-opt"><span class="q-opt__letter">۳</span><span data-i18n="v3.quiz.options.brilliance"></span></button>
+              <button class="q-opt"><span class="q-opt__letter">۴</span><span data-i18n="v3.quiz.options.silence"></span></button>
             </div>
 
-            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);">بررسی</button>
+            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);" data-i18n="v3.quiz.checkBtn"></button>
           </div>
 
           <!-- CORRECT feedback -->
@@ -73,35 +73,35 @@
             <div class="fc-progress-v3"><div class="fc-progress-v3__bar" style="width:30%;"></div></div>
 
             <div class="qprompt-v3">
-              <div class="qprompt-v3__copy">نزدیک‌ترین گزینه به ترجمه را انتخاب کنید</div>
+              <div class="qprompt-v3__copy" data-i18n="v3.quiz.mcqPrompt"></div>
               <div class="qprompt-v3__word qprompt-v3__word--en">resilience</div>
             </div>
 
             <div class="q-opts">
-              <button class="q-opt"><span class="q-opt__letter">۱</span><span>سرعت</span></button>
-              <button class="q-opt" data-state="correct"><span class="q-opt__letter">۲</span><span>تاب‌آوری</span><span style="margin-inline-start:auto;">✓</span></button>
-              <button class="q-opt"><span class="q-opt__letter">۳</span><span>درخشش</span></button>
-              <button class="q-opt"><span class="q-opt__letter">۴</span><span>سکوت</span></button>
+              <button class="q-opt"><span class="q-opt__letter">۱</span><span data-i18n="v3.quiz.options.speed"></span></button>
+              <button class="q-opt" data-state="correct"><span class="q-opt__letter">۲</span><span data-i18n="v3.quiz.options.resilience"></span><span style="margin-inline-start:auto;">✓</span></button>
+              <button class="q-opt"><span class="q-opt__letter">۳</span><span data-i18n="v3.quiz.options.brilliance"></span></button>
+              <button class="q-opt"><span class="q-opt__letter">۴</span><span data-i18n="v3.quiz.options.silence"></span></button>
             </div>
 
             <div class="card" style="background:#DCF4E2;border-color:#C9EDD2;color:#2A8E4D;text-align:center;margin-top:var(--sp-4);">
-              <div style="font-size:18px;font-weight:800;">درست! 🎉</div>
-              <div style="font-size:var(--fs-body-s);margin-top:4px;">پاسخ صحیح: resilience</div>
+              <div style="font-size:18px;font-weight:800;" data-i18n="v3.quiz.correctTitle"></div>
+              <div style="font-size:var(--fs-body-s);margin-top:4px;" data-i18n="v3.quiz.correctSub"></div>
             </div>
 
-            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-3);">سؤال بعدی</button>
+            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-3);" data-i18n="v3.quiz.next"></button>
           </div>
 
           <!-- END -->
           <div class="state" data-state="end" hidden>
             <div class="lottie-stage lottie-stage--lg" data-lottie="hero-trophy" style="margin:var(--sp-3) auto;"></div>
-            <h1 class="summary-title">پایان آزمون!</h1>
+            <h1 class="summary-title" data-i18n="v3.quiz.endTitle"></h1>
             <div style="text-align:center;margin-top:var(--sp-4);">
               <div style="font-size:48px;font-weight:800;color:var(--jx-primary);font-family:var(--font-family-latin);">8 / 10</div>
-              <div style="color:var(--jx-text-2);margin-top:6px;">دقت ۸۰%</div>
+              <div style="color:var(--jx-text-2);margin-top:6px;" data-i18n="v3.quiz.endAccuracy" data-i18n-vars='{"pct":80}'></div>
             </div>
-            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);">🔁 شروع مجدد</button>
-            <a href="/screens/home.html" class="btn btn--outlined btn--block btn--lg" style="margin-top:var(--sp-3);">خروج</a>
+            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);" data-i18n="v3.quiz.endRestart"></button>
+            <a href="/screens/home.html" class="btn btn--outlined btn--block btn--lg" style="margin-top:var(--sp-3);" data-i18n="v3.quiz.endExit"></a>
           </div>
         </div>
       </div>

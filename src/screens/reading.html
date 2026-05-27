@@ -30,7 +30,7 @@
           <div class="topbar__leading">
             <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title">خواندن کتاب</h1>
+          <h1 class="topbar__title" data-i18n="v3.reading.title"></h1>
           <div class="topbar__trailing">
             <a href="/screens/saved-books.html" class="btn-icon" aria-label="Saved" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
@@ -39,53 +39,53 @@
         </header>
 
         <div class="screen__body">
-          <p style="text-align:end;color:var(--jx-text-2);font-size:var(--fs-body-s);margin-bottom:var(--sp-3);">هزاران کتاب رایگان در دسته‌بندی‌های مختلف</p>
+          <p style="text-align:end;color:var(--jx-text-2);font-size:var(--fs-body-s);margin-bottom:var(--sp-3);" data-i18n="v3.reading.subtitle"></p>
 
           <!-- Level chips -->
           <div class="reading-levels">
             <button class="reading-level reading-level--active">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-              <span>همه سطوح</span>
+              <span data-i18n="v3.reading.level.all"></span>
             </button>
-            <button class="reading-level"><span class="reading-level__code">C2</span><span>پیشرفته</span></button>
-            <button class="reading-level"><span class="reading-level__code">C1</span><span>بالا</span></button>
-            <button class="reading-level"><span class="reading-level__code">B2</span><span>متوسط بالا</span></button>
-            <button class="reading-level"><span class="reading-level__code">B1</span><span>متوسط</span></button>
-            <button class="reading-level"><span class="reading-level__code">A2</span><span>مبتدی</span></button>
+            <button class="reading-level"><span class="reading-level__code">C2</span><span data-i18n="v3.reading.level.advanced"></span></button>
+            <button class="reading-level"><span class="reading-level__code">C1</span><span data-i18n="v3.reading.level.upper"></span></button>
+            <button class="reading-level"><span class="reading-level__code">B2</span><span data-i18n="v3.reading.level.upperMid"></span></button>
+            <button class="reading-level"><span class="reading-level__code">B1</span><span data-i18n="v3.reading.level.mid"></span></button>
+            <button class="reading-level"><span class="reading-level__code">A2</span><span data-i18n="v3.reading.level.starter"></span></button>
           </div>
 
           <!-- Categories row -->
-          <div class="section-h"><div class="section-h__title">دسته‌بندی‌ها</div><a href="#" class="section-h__action">مشاهده همه</a></div>
+          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.categories"></div><a href="#" class="section-h__action" data-i18n="v3.reading.seeAll"></a></div>
           <div class="cat-h-scroll">
             <a href="/screens/saved-books.html" class="cat-disc">
               <span class="cat-disc__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">📖</span>
-              <span class="cat-disc__name">داستان و رمان</span>
-              <span class="cat-disc__count">۳۴۶ کتاب</span>
+              <span class="cat-disc__name" data-i18n="v3.reading.category.fiction"></span>
+              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۳۴۶"}'></span>
             </a>
             <a href="/screens/saved-books.html" class="cat-disc">
               <span class="cat-disc__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">🌱</span>
-              <span class="cat-disc__name">توسعه فردی</span>
-              <span class="cat-disc__count">۱۸۳ کتاب</span>
+              <span class="cat-disc__name" data-i18n="v3.reading.category.selfHelp"></span>
+              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۱۸۳"}'></span>
             </a>
             <a href="/screens/saved-books.html" class="cat-disc">
               <span class="cat-disc__icon" style="background:rgba(244,67,54,0.16);color:#C62828;">💼</span>
-              <span class="cat-disc__name">کسب‌وکار</span>
-              <span class="cat-disc__count">۱۳۰ کتاب</span>
+              <span class="cat-disc__name" data-i18n="v3.reading.category.business"></span>
+              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۱۳۰"}'></span>
             </a>
             <a href="/screens/saved-books.html" class="cat-disc">
               <span class="cat-disc__icon" style="background:rgba(0,180,166,0.16);color:#1F9389;">🎓</span>
-              <span class="cat-disc__name">علمی و آموزشی</span>
-              <span class="cat-disc__count">۳۳۸ کتاب</span>
+              <span class="cat-disc__name" data-i18n="v3.reading.category.science"></span>
+              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۳۳۸"}'></span>
             </a>
             <a href="/screens/saved-books.html" class="cat-disc">
               <span class="cat-disc__icon" style="background:rgba(245,185,69,0.18);color:#B27A12;">🏛</span>
-              <span class="cat-disc__name">تاریخ و زندگی‌نامه</span>
-              <span class="cat-disc__count">۱۵۹ کتاب</span>
+              <span class="cat-disc__name" data-i18n="v3.reading.category.history"></span>
+              <span class="cat-disc__count" data-i18n="v3.reading.category.books" data-i18n-vars='{"n":"۱۵۹"}'></span>
             </a>
           </div>
 
           <!-- Featured books -->
-          <div class="section-h"><div class="section-h__title">کتاب‌های پیشنهادی</div><a href="#" class="section-h__action">مشاهده همه</a></div>
+          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.featured"></div><a href="#" class="section-h__action" data-i18n="v3.reading.seeAll"></a></div>
           <div class="book-h-scroll">
             <a href="/screens/book-detail.html" class="bcard">
               <div class="bcard__cover" style="background:linear-gradient(180deg,#1A2138,#3D4566);">
@@ -94,7 +94,7 @@
               </div>
               <div class="bcard__title">The Little Prince</div>
               <div class="bcard__author">Antoine de Saint…</div>
-              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.8</span><span>۱۳۲ صفحه</span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.8</span><span data-i18n="v3.reading.pages" data-i18n-vars='{"n":"۱۳۲"}'></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
             </a>
             <a href="/screens/book-detail.html" class="bcard">
               <div class="bcard__cover" style="background:linear-gradient(180deg,#8B5E2A,#D4A574);">
@@ -103,7 +103,7 @@
               </div>
               <div class="bcard__title">The Alchemist</div>
               <div class="bcard__author">Paulo Coelho</div>
-              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.7</span><span>۱۸۰ صفحه</span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.7</span><span data-i18n="v3.reading.pages" data-i18n-vars='{"n":"۱۸۰"}'></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
             </a>
             <a href="/screens/book-detail.html" class="bcard">
               <div class="bcard__cover" style="background:linear-gradient(180deg,#3D2A1E,#7A5B40);">
@@ -112,7 +112,7 @@
               </div>
               <div class="bcard__title">The Time Machine</div>
               <div class="bcard__author">H. G. Wells</div>
-              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.5</span><span>۱۴۹ صفحه</span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.5</span><span data-i18n="v3.reading.pages" data-i18n-vars='{"n":"۱۴۹"}'></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
             </a>
             <a href="/screens/book-detail.html" class="bcard">
               <div class="bcard__cover" style="background:linear-gradient(180deg,#465670,#7A8FA8);">
@@ -121,12 +121,12 @@
               </div>
               <div class="bcard__title">Aesop's Fables</div>
               <div class="bcard__author">Aesop</div>
-              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.5</span><span>۹۸ صفحه</span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.5</span><span data-i18n="v3.reading.pages" data-i18n-vars='{"n":"۹۸"}'></span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
             </a>
           </div>
 
           <!-- In progress -->
-          <div class="section-h"><div class="section-h__title">ادامه مطالعه</div><a href="#" class="section-h__action">مشاهده همه</a></div>
+          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.continueReading"></div><a href="#" class="section-h__action" data-i18n="v3.reading.seeAll"></a></div>
           <a href="/screens/book-reader.html" class="continue-card">
             <div class="continue-card__cover" style="background:linear-gradient(180deg,#F5F1E8,#D4C9B0);font-family:'Times New Roman',serif;color:#3D2A1E;font-weight:bold;font-size:10px;text-align:center;padding:8px;">Atomic Habits</div>
             <div class="continue-card__body">
@@ -134,19 +134,19 @@
               <div class="continue-card__author">James Clear</div>
               <div class="continue-card__progress">
                 <div class="continue-card__track"><div class="continue-card__fill" style="width:65%;"></div></div>
-                <span class="continue-card__pct">۶۵%</span>
+                <span class="continue-card__pct">۶۵<span style="font-family:var(--font-family-latin);">%</span></span>
               </div>
-              <div class="continue-card__last">آخرین مطالعه: دیروز</div>
+              <div class="continue-card__last" data-i18n="v3.reading.lastReadYesterday"></div>
             </div>
-            <button class="continue-card__cta">📖 ادامه مطالعه</button>
+            <button class="continue-card__cta">📖 <span data-i18n="v3.reading.continueAction"></span></button>
           </a>
 
           <!-- Newest -->
-          <div class="section-h"><div class="section-h__title">جدیدترین کتاب‌ها</div><a href="#" class="section-h__action">مشاهده همه</a></div>
+          <div class="section-h"><div class="section-h__title" data-i18n="v3.reading.newest"></div><a href="#" class="section-h__action" data-i18n="v3.reading.seeAll"></a></div>
           <div class="book-h-scroll">
             <a href="/screens/book-detail.html" class="bcard">
               <div class="bcard__cover" style="background:linear-gradient(135deg,#D85838,#FF6B35);position:relative;">
-                <span class="bcard__badge bcard__badge--new">جدید</span>
+                <span class="bcard__badge bcard__badge--new" data-i18n="v3.reading.newBadge"></span>
                 <div style="color:#fff;font-weight:800;text-align:center;padding:14px 8px;font-size:12px;">The 5 AM Club</div>
               </div>
               <div class="bcard__title">The 5 AM Club</div>
@@ -154,7 +154,7 @@
             </a>
             <a href="/screens/book-detail.html" class="bcard">
               <div class="bcard__cover" style="background:#FFEB3B;">
-                <span class="bcard__badge bcard__badge--new">جدید</span>
+                <span class="bcard__badge bcard__badge--new" data-i18n="v3.reading.newBadge"></span>
                 <div style="color:#1A2138;font-weight:900;text-align:center;padding:14px 8px;font-size:18px;line-height:1;">Deep<br/>Work</div>
               </div>
               <div class="bcard__title">Deep Work</div>
@@ -162,7 +162,7 @@
             </a>
             <a href="/screens/book-detail.html" class="bcard">
               <div class="bcard__cover" style="background:linear-gradient(180deg,#E0D5C0,#9C8B6E);">
-                <span class="bcard__badge bcard__badge--new">جدید</span>
+                <span class="bcard__badge bcard__badge--new" data-i18n="v3.reading.newBadge"></span>
                 <div style="color:#3D2A1E;font-family:'Times New Roman',serif;font-weight:bold;text-align:center;padding:14px 8px;font-size:11px;">The Power of Now</div>
               </div>
               <div class="bcard__title">The Power of Now</div>
@@ -170,7 +170,7 @@
             </a>
             <a href="/screens/book-detail.html" class="bcard">
               <div class="bcard__cover" style="background:linear-gradient(180deg,#1A2138,#5F5F5F);">
-                <span class="bcard__badge bcard__badge--new">جدید</span>
+                <span class="bcard__badge bcard__badge--new" data-i18n="v3.reading.newBadge"></span>
                 <div style="color:#fff;font-family:'Times New Roman',serif;font-weight:bold;text-align:center;padding:14px 6px;font-size:10px;">Thinking, Fast and Slow</div>
               </div>
               <div class="bcard__title">Thinking, Fast and Slow</div>

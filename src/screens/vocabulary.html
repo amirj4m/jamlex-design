@@ -46,14 +46,14 @@
             <span class="search-pill__icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16" y2="16"/></svg>
             </span>
-            <input type="search" placeholder="جستجوی لغت..." />
+            <input type="search" data-i18n-attr="placeholder:v3.vocab.searchPlaceholder" />
           </div>
 
           <!-- STATE: history -->
           <div class="state" data-state="history">
             <div class="section-h" style="margin-top: var(--sp-4);">
-              <div class="section-h__title">تاریخچه جستجو</div>
-              <button class="section-h__action" style="background:transparent;border:0;color:var(--jx-primary);font-weight:var(--fw-semibold);cursor:pointer;">پاک کردن همه</button>
+              <div class="section-h__title" data-i18n="v3.vocab.historyTitle"></div>
+              <button class="section-h__action" style="background:transparent;border:0;color:var(--jx-primary);font-weight:var(--fw-semibold);cursor:pointer;" data-i18n="v3.vocab.clearAll"></button>
             </div>
             <div class="hist-list">
               <button class="hist-row">
@@ -95,8 +95,8 @@
 
             <div class="advisory-card">
               <div class="advisory-card__icon">✨</div>
-              <div class="advisory-card__title">جستجو سریع‌تر، یادگیری بهتر</div>
-              <div class="advisory-card__sub">واژه‌های مورد نظر خود را جستجو کنید و دانش خود را گسترش دهید.</div>
+              <div class="advisory-card__title" data-i18n="v3.vocab.advisoryTitle"></div>
+              <div class="advisory-card__sub" data-i18n="v3.vocab.advisorySub"></div>
             </div>
           </div>
 
@@ -104,11 +104,8 @@
           <div class="state" data-state="empty" hidden>
             <div class="empty-block" style="margin-top: var(--sp-7);">
               <div class="lottie-stage lottie-stage--lg" data-lottie="empty-box-plane"></div>
-              <h2 class="empty-block__title">واژه‌نامه آماده!</h2>
-              <p class="empty-block__sub">
-                واژه‌های مورد نظر خود را جستجو کنید<br/>
-                و دانش خود را گسترش دهید.
-              </p>
+              <h2 class="empty-block__title" data-i18n="v3.vocab.readyTitle"></h2>
+              <p class="empty-block__sub" data-i18n-html="v3.vocab.readyBody"></p>
             </div>
           </div>
 
@@ -142,33 +139,33 @@
                 </div>
               </div>
 
-              <div class="section-h"><div class="section-h__title">معنی‌ها</div></div>
+              <div class="section-h"><div class="section-h__title" data-i18n="v3.vocab.wordDetail.meanings"></div></div>
               <div style="background:var(--jx-input-bg);border-radius:14px;padding:var(--sp-3) var(--sp-4);font-size:var(--fs-body-m);">
-                <div style="margin-bottom:6px;">۱. ضربه زدن آرام با انگشت یا وسیله‌ای سبک</div>
-                <div>۲. مانع گوش دادن مخفیانه (تلفنی یا الکترونیکی)</div>
+                <div style="margin-bottom:6px;" data-i18n="v3.bookReader.lookup.tapMeaning1"></div>
+                <div data-i18n="v3.bookReader.lookup.tapMeaning2"></div>
               </div>
 
-              <div class="section-h"><div class="section-h__title">مثال</div></div>
+              <div class="section-h"><div class="section-h__title" data-i18n="v3.vocab.wordDetail.example"></div></div>
               <div style="background:var(--jx-primary-glow);border-radius:14px;padding:var(--sp-3) var(--sp-4);">
                 <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--sp-2);">
                   <button class="audio-btn" style="background:#E2EBFA;color:#2E64C0;flex:none;" data-audio="tap"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
                   <div style="flex:1;text-align:start;direction:ltr;font-family:var(--font-family-latin);">She <span style="color:var(--jx-secondary);font-weight:bold;">tapped</span> the table to get his attention.</div>
                 </div>
-                <div style="margin-top:8px;color:var(--jx-text-2);font-size:var(--fs-body-s);">او برای جلب توجهش، روی میز ضربه زد.</div>
+                <div style="margin-top:8px;color:var(--jx-text-2);font-size:var(--fs-body-s);" data-i18n="v3.bookReader.lookup.tapExampleFa"></div>
               </div>
 
               <div class="lookup-actions">
                 <button class="pbtn pbtn--blue">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                  <span>مشاهده کامل</span>
+                  <span data-i18n="v3.vocab.wordDetail.viewFull"></span>
                 </button>
                 <button class="pbtn pbtn--mint">
                   <span style="font-weight:bold;">+</span>
-                  <span>افزودن به لایتنر</span>
+                  <span data-i18n="v3.vocab.wordDetail.addToLeitner"></span>
                 </button>
                 <button class="pbtn pbtn--sky">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
-                  <span>تلفظ</span>
+                  <span data-i18n="v3.vocab.wordDetail.pronunciation"></span>
                 </button>
               </div>
             </div>

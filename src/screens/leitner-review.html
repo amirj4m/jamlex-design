@@ -95,26 +95,26 @@
 
             <div class="flip-card-v3 flip-card-v3--back">
               <div class="flip-card-v3__english">ours</div>
-              <div class="flip-card-v3__meaning">مال ما</div>
+              <div class="flip-card-v3__meaning" data-i18n="v3.flashcards.meaning"></div>
               <div class="flip-card-v3__example">This house is ours now.</div>
             </div>
 
             <div class="mastery-buttons">
               <button class="mbtn mbtn--dont">
                 <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
-                <span>بلد نیستم</span>
+                <span data-i18n="v3.leitner.review.dontKnow"></span>
               </button>
               <button class="mbtn mbtn--sort">
                 <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="14"/><circle cx="12" cy="19" r="1.4" fill="currentColor"/></svg>
-                <span>تاحدی بلدم</span>
+                <span data-i18n="v3.leitner.review.sortOf"></span>
               </button>
               <button class="mbtn mbtn--know">
                 <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>بلدم</span>
+                <span data-i18n="v3.leitner.review.know"></span>
               </button>
               <button class="mbtn mbtn--well">
                 <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 8 17 21 4"/><polyline points="9 12 14 17 21 10"/></svg>
-                <span>کاملاً بلدم</span>
+                <span data-i18n="v3.leitner.review.knowWell"></span>
               </button>
             </div>
           </div>
@@ -125,51 +125,48 @@
           <div class="screen__body" style="text-align:center;">
             <div class="lottie-stage lottie-stage--lg" data-lottie="hero-trophy" style="margin: var(--sp-3) auto;"></div>
 
-            <h1 class="summary-title">🎉 آفرین! عالی بود</h1>
-            <p class="summary-sub">
-              تمام لایترن های امروز رو با موفقیت تموم کردی.<br/>
-              به خودت افتخار کن! 👏
-            </p>
+            <h1 class="summary-title" data-i18n="v3.leitner.review.summary.title"></h1>
+            <p class="summary-sub" data-i18n-html="v3.leitner.review.summary.subtitle"></p>
 
             <div class="stats-card">
               <div class="stat-cell">
                 <div class="stat-cell__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
                 </div>
-                <div class="stat-cell__label">دقت شما</div>
+                <div class="stat-cell__label" data-i18n="v3.leitner.review.summary.accuracy"></div>
                 <div class="stat-cell__val" style="color:#6C5CE7;">92%</div>
               </div>
               <div class="stat-cell">
                 <div class="stat-cell__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                 </div>
-                <div class="stat-cell__label">واژه‌های مرور شده</div>
+                <div class="stat-cell__label" data-i18n="v3.leitner.review.summary.wordsReviewed"></div>
                 <div class="stat-cell__val" style="color:#4A90D9;">75</div>
               </div>
               <div class="stat-cell">
                 <div class="stat-cell__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 16 13"/></svg>
                 </div>
-                <div class="stat-cell__label">زمان مطالعه</div>
-                <div class="stat-cell__val" style="color:#2A8E4D;">۲۲ دقیقه</div>
+                <div class="stat-cell__label" data-i18n="v3.leitner.review.summary.studyTime"></div>
+                <div class="stat-cell__val" style="color:#2A8E4D;" data-i18n="v3.leitner.review.summary.minutesUnit" data-i18n-vars='{"n":22}'></div>
               </div>
             </div>
 
             <div class="quote-card">
               <div class="lottie-stage lottie-stage--sm" data-lottie="quote-plant"></div>
               <div class="quote-card__body">
-                <div class="quote-card__title">ثبات تو، آینده تو رو می‌سازه!</div>
-                <div class="quote-card__sub">هر روز بهتر از دیروزی.<br/>فردا روز جدید، واژه‌های جدید 🌱</div>
+                <div class="quote-card__title" data-i18n="v3.leitner.review.summary.quote"></div>
+                <div class="quote-card__sub" data-i18n-html="v3.leitner.review.summary.quoteSub"></div>
               </div>
             </div>
 
             <a href="/screens/home.html" class="btn btn--filled btn--block btn--lg" style="margin-top: var(--sp-4);">
-              <span>ادامه مسیر</span>
+              <span data-i18n="v3.leitner.review.summary.continueBtn"></span>
               <span>←</span>
             </a>
             <a href="/screens/stats.html" class="btn btn--outlined btn--block btn--lg" style="margin-top: var(--sp-3);">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="14"/></svg>
-              <span>مشاهده آمار پیشرفت</span>
+              <span data-i18n="v3.leitner.review.summary.viewStats"></span>
             </a>
           </div>
         </div>

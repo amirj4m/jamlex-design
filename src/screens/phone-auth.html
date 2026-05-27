@@ -44,7 +44,7 @@
           <div class="lottie-stage lottie-stage--in-disc" data-lottie="hero-phone"></div>
 
           <h1 class="auth-title" data-i18n="auth.phoneAuthTitle"></h1>
-          <p class="auth-subtitle">برای ورود شماره موبایلت رو وارد کن</p>
+          <p class="auth-subtitle" data-i18n="auth.phoneEnterSub"></p>
 
           <form class="auth-form" autocomplete="on">
             <div class="field field--phone">
@@ -88,7 +88,7 @@
           <div class="lottie-stage lottie-stage--in-disc" data-lottie="hero-otp"></div>
 
           <h1 class="auth-title" data-i18n="auth.otpCode"></h1>
-          <p class="auth-subtitle">کد ۶ رقمی به <span style="direction:ltr;font-family:var(--font-family-latin);">+1 555 123 4567</span> ارسال شد</p>
+          <p class="auth-subtitle" data-i18n-html="auth.otpSentTo" data-i18n-vars='{"phone":"<span style=\"direction:ltr;font-family:var(--font-family-latin);\">+1 555 123 4567</span>"}'></p>
 
           <form class="auth-form" autocomplete="on">
             <div class="otp" data-otp>
@@ -108,7 +108,7 @@
                 document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'phone';});
               " data-i18n="auth.changeNumber"></button>
               <span style="color:var(--jx-text-3);">·</span>
-              <span style="color:var(--jx-text-3);font-size:var(--fs-body-s);">ارسال مجدد تا 45 ثانیه</span>
+              <span style="color:var(--jx-text-3);font-size:var(--fs-body-s);" data-i18n="auth.resendCodeIn2" data-i18n-vars='{"seconds":45}'></span>
             </div>
           </form>
         </div>

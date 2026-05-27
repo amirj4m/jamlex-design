@@ -37,7 +37,7 @@
           <div class="lottie-stage lottie-stage--in-disc" data-lottie="hero-profile"></div>
 
           <h1 class="auth-title" data-i18n="auth.signUpTitle"></h1>
-          <p class="auth-subtitle">به مسیر یادگیری خود خوش آمدید! 🎉</p>
+          <p class="auth-subtitle" data-i18n="auth.welcomeSubtitle"></p>
 
           <form class="auth-form" autocomplete="on">
             <div class="field">
@@ -82,7 +82,7 @@
                 <input
                   type="tel"
                   class="field__input"
-                  placeholder="شماره موبایل (اختیاری)"
+                  data-i18n-attr="placeholder:auth.phonePlaceholderOptional"
                   autocomplete="tel"
                   inputmode="tel"
                   dir="ltr"
@@ -143,22 +143,22 @@
             </div>
 
             <div class="pw-rules">
-              <div class="pw-rules__title">رمز عبور باید شامل موارد زیر باشد:</div>
+              <div class="pw-rules__title" data-i18n="auth.pwRulesTitle"></div>
               <ul class="pw-rules__list">
-                <li class="pw-rules__item"><span class="pw-rules__dot"></span><span>حداقل ۸ کاراکتر</span></li>
-                <li class="pw-rules__item"><span class="pw-rules__dot"></span><span>شامل حرف بزرگ و کوچک</span></li>
-                <li class="pw-rules__item"><span class="pw-rules__dot"></span><span>شامل عدد یا نماد</span></li>
+                <li class="pw-rules__item"><span class="pw-rules__dot"></span><span data-i18n="auth.pwRuleMin8"></span></li>
+                <li class="pw-rules__item"><span class="pw-rules__dot"></span><span data-i18n="auth.pwRuleCase"></span></li>
+                <li class="pw-rules__item"><span class="pw-rules__dot"></span><span data-i18n="auth.pwRuleNumOrSym"></span></li>
               </ul>
             </div>
 
             <label class="auth-terms">
               <input type="checkbox" class="check__input" />
               <span class="auth-terms__text">
-                با ثبت‌نام، شما با
-                <a href="#" class="auth-terms__link">سیاست حفظ حریم خصوصی</a>
-                و
-                <a href="#" class="auth-terms__link">شرایط استفاده</a>
-                موافقت می‌کنید.
+                <span data-i18n="auth.termsAgreement"></span>
+                <a href="#" class="auth-terms__link" data-i18n="auth.termsLinkPrivacy"></a>
+                <span data-i18n="auth.termsAgreementJoin"></span>
+                <a href="#" class="auth-terms__link" data-i18n="auth.termsLinkTerms"></a>
+                <span data-i18n="auth.termsAgreementSuffix"></span>
               </span>
             </label>
 

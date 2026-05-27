@@ -28,7 +28,7 @@
       <div class="screen">
         <header class="topbar topbar--transparent">
           <div></div>
-          <h1 class="topbar__title">پروفایل</h1>
+          <h1 class="topbar__title" data-i18n="v3.profile.title"></h1>
           <div class="topbar__trailing">
             <a href="/screens/settings.html" class="btn-icon" aria-label="Settings">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -40,19 +40,19 @@
           <!-- Hero: avatar + name + level chip -->
           <div class="profile-hero-v3">
             <div class="profile-avatar-lg">
-              <span>ر</span>
+              <span data-i18n="v3.profile.avatarLetter"></span>
               <div class="profile-avatar-lg__edit">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
               </div>
             </div>
-            <h2 class="profile-name-v3">رضا محمدی</h2>
-            <span class="profile-level-chip">سطح ۶</span>
+            <h2 class="profile-name-v3" data-i18n="v3.profile.name"></h2>
+            <span class="profile-level-chip" data-i18n="v3.profile.levelChip" data-i18n-vars='{"n":6}'></span>
           </div>
 
           <!-- XP card with progress -->
           <div class="xp-card-v3">
             <div class="xp-card-v3__head">
-              <span>پیشرفت تا سطح ۷</span>
+              <span data-i18n="v3.profile.xpProgressLabel" data-i18n-vars='{"n":7}'></span>
               <span class="font-latin xp-card-v3__val">1,247 / 1,500 XP</span>
             </div>
             <div class="xp-card-v3__track"><div class="xp-card-v3__fill" style="width:82%;"></div></div>
@@ -62,30 +62,30 @@
           <div class="week-card">
             <div class="week-card__cell">
               <div class="week-card__val">42</div>
-              <div class="week-card__label">کارت این هفته</div>
+              <div class="week-card__label" data-i18n="v3.profile.weekCards"></div>
             </div>
             <div class="week-card__divider"></div>
             <div class="week-card__cell">
               <div class="week-card__val">128</div>
-              <div class="week-card__label">دقیقه</div>
+              <div class="week-card__label" data-i18n="v3.profile.weekMinutes"></div>
             </div>
             <div class="week-card__divider"></div>
             <div class="week-card__cell">
               <div class="week-card__val">7</div>
-              <div class="week-card__label">روز پیاپی</div>
+              <div class="week-card__label" data-i18n="v3.profile.weekStreak"></div>
             </div>
           </div>
 
           <!-- Section list -->
-          <div class="section-label">لایتنر</div>
+          <div class="section-label" data-i18n="v3.profile.sec.leitner"></div>
           <div class="setting-list">
             <button class="setting-item">
               <span class="setting-item__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label">سقف روزانه</div>
-                <div class="setting-item__sub">۲۰ کارت در روز</div>
+                <div class="setting-item__label" data-i18n="v3.profile.dailyLimit"></div>
+                <div class="setting-item__sub" data-i18n="v3.profile.dailyLimitSub"></div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
@@ -94,35 +94,35 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label">پاک کردن کل لایتنر</div>
-                <div class="setting-item__sub">شروع از صفر</div>
+                <div class="setting-item__label" data-i18n="v3.profile.clearLeitner"></div>
+                <div class="setting-item__sub" data-i18n="v3.profile.clearLeitnerSub"></div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
           </div>
 
-          <div class="section-label">اعلان‌ها</div>
+          <div class="section-label" data-i18n="v3.profile.sec.notif"></div>
           <div class="setting-list">
             <div class="setting-item" style="cursor:default;">
               <span class="setting-item__icon" style="background:rgba(255,152,0,0.16);color:#E59A1A;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label">یادآور روزانه</div>
-                <div class="setting-item__sub">روشن — ۲۰:۳۰ · ۵ روز در هفته</div>
+                <div class="setting-item__label" data-i18n="v3.profile.notifTitle"></div>
+                <div class="setting-item__sub" data-i18n="v3.profile.notifOnSub"></div>
               </div>
               <span class="switch" data-on="true"></span>
             </div>
           </div>
 
-          <div class="section-label">حساب کاربری</div>
+          <div class="section-label" data-i18n="v3.profile.sec.account"></div>
           <div class="setting-list">
             <button class="setting-item">
               <span class="setting-item__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3,7 12,13 21,7"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label">ایمیل</div>
+                <div class="setting-item__label" data-i18n="v3.profile.email"></div>
                 <div class="setting-item__sub font-latin">reza@example.com</div>
               </div>
               <span class="setting-item__chevron"></span>
@@ -132,7 +132,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label">شماره موبایل</div>
+                <div class="setting-item__label" data-i18n="v3.profile.phone"></div>
                 <div class="setting-item__sub font-latin">+98 912 *** 67 89</div>
               </div>
               <span class="setting-item__chevron"></span>
@@ -142,7 +142,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label">تغییر رمز عبور</div>
+                <div class="setting-item__label" data-i18n="v3.profile.changePwd"></div>
               </div>
               <span class="setting-item__chevron"></span>
             </a>
@@ -151,7 +151,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label">خروج از حساب</div>
+                <div class="setting-item__label" data-i18n="v3.profile.logout"></div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
@@ -159,7 +159,7 @@
 
           <a href="/screens/paywall.html" class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);background:linear-gradient(135deg,#4ECDC4,#00B4A6);">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
-            <span>ارتقا به پریمیوم</span>
+            <span data-i18n="v3.profile.premiumCta"></span>
           </a>
         </div>
 

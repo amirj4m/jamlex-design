@@ -37,7 +37,7 @@
           <div class="topbar__leading">
             <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title">فلش‌کارت — B1</h1>
+          <h1 class="topbar__title" data-i18n="v3.flashcards.title" data-i18n-vars='{"level":"B1"}'></h1>
           <div class="topbar__trailing">
             <button class="btn-icon" aria-label="Close">✕</button>
           </div>
@@ -60,7 +60,7 @@
               </button>
             </div>
 
-            <p style="text-align:center;color:var(--jx-text-3);font-size:var(--fs-body-s);margin-top:var(--sp-3);">برای دیدن معنی، روی کارت بزن</p>
+            <p style="text-align:center;color:var(--jx-text-3);font-size:var(--fs-body-s);margin-top:var(--sp-3);" data-i18n="v3.flashcards.tapToFlip"></p>
           </div>
 
           <!-- BACK -->
@@ -70,18 +70,18 @@
 
             <div class="flip-card-v3" style="margin-top:var(--sp-5);">
               <div class="flip-card-v3__english">accomplish</div>
-              <div class="flip-card-v3__meaning">انجام دادن، به انجام رساندن</div>
+              <div class="flip-card-v3__meaning" data-i18n="v3.flashcards.meaning"></div>
               <div class="flip-card-v3__example">She managed to accomplish all her goals.</div>
             </div>
 
             <div class="mastery-buttons" style="grid-template-columns:1fr 1fr;">
               <button class="mbtn mbtn--dont">
                 <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
-                <span>بلد نیستم</span>
+                <span data-i18n="v3.flashcards.dontKnow"></span>
               </button>
               <button class="mbtn mbtn--well">
                 <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>بلدم</span>
+                <span data-i18n="v3.flashcards.know"></span>
               </button>
             </div>
           </div>
@@ -89,28 +89,28 @@
           <!-- END -->
           <div class="state" data-state="end" hidden>
             <div class="lottie-stage lottie-stage--lg" data-lottie="hero-trophy" style="margin:var(--sp-3) auto;"></div>
-            <h1 class="summary-title">🎉 تمام شد!</h1>
-            <p class="summary-sub">۲۰ فلش‌کارت رو دیدی</p>
+            <h1 class="summary-title" data-i18n="v3.flashcards.summary.title"></h1>
+            <p class="summary-sub" data-i18n="v3.flashcards.summary.subtitle"></p>
 
             <div class="stats-card" style="grid-template-columns:1fr 1fr;">
               <div class="stat-cell">
                 <div class="stat-cell__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
-                <div class="stat-cell__label">بلدم</div>
+                <div class="stat-cell__label" data-i18n="v3.flashcards.know"></div>
                 <div class="stat-cell__val" style="color:#2A8E4D;">17</div>
               </div>
               <div class="stat-cell">
                 <div class="stat-cell__icon" style="background:rgba(244,67,54,0.16);color:#E15858;">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
                 </div>
-                <div class="stat-cell__label">بلد نیستم</div>
+                <div class="stat-cell__label" data-i18n="v3.flashcards.dontKnow"></div>
                 <div class="stat-cell__val" style="color:#E15858;">3</div>
               </div>
             </div>
 
-            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-4);">🔁 یک دور دیگر</button>
-            <a href="/screens/home.html" class="btn btn--outlined btn--block btn--lg" style="margin-top:var(--sp-3);">برگشت به خانه</a>
+            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-4);" data-i18n="v3.flashcards.summary.again"></button>
+            <a href="/screens/home.html" class="btn btn--outlined btn--block btn--lg" style="margin-top:var(--sp-3);" data-i18n="v3.flashcards.summary.back"></a>
           </div>
         </div>
       </div>

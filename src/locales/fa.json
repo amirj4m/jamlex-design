@@ -96,6 +96,32 @@
     "resendCode": "ارسال مجدد کد",
     "changeNumber": "تغییر شماره",
 
+    "welcomeSubtitle": "به مسیر یادگیری خود خوش آمدید 🎉",
+    "phonePlaceholderOptional": "شماره موبایل (اختیاری)",
+    "phoneEnterSub": "برای ورود شماره موبایلت رو وارد کن",
+    "otpSentTo": "کد ۶ رقمی به {phone} ارسال شد",
+    "resendCodeIn2": "ارسال مجدد تا {seconds} ثانیه",
+
+    "forgotSubtitle": "ایمیلت رو وارد کن، لینک بازیابی برات بفرستیم",
+    "emailSentTitle": "ایمیل ارسال شد!",
+    "emailSentSub": "لینک بازیابی رمز عبور به ایمیل شما ارسال شد.",
+    "emailSentSpamHint": "اگر ایمیل را در صندوق ورودی مشاهده نکردید،\\nپوشه اسپم را بررسی کنید.",
+    "backToLogin": "بازگشت به ورود",
+
+    "newPasswordSub": "رمز جدیدت رو وارد کن",
+    "changePwdSecurePrompt": "برای امنیت، ابتدا رمز فعلی خود را وارد کنید.",
+
+    "pwRulesTitle": "رمز عبور باید شامل موارد زیر باشد:",
+    "pwRuleMin8": "حداقل ۸ کاراکتر",
+    "pwRuleCase": "شامل حرف بزرگ و کوچک",
+    "pwRuleNumOrSym": "شامل عدد یا نماد",
+
+    "termsAgreement": "با ثبت‌نام، شما با",
+    "termsLinkPrivacy": "سیاست حفظ خصوصی",
+    "termsLinkTerms": "شرایط استفاده",
+    "termsAgreementJoin": "و",
+    "termsAgreementSuffix": "موافقت می‌کنید.",
+
     "validation": {
       "emailRequired": "ایمیل الزامی است",
       "emailInvalid": "فرمت ایمیل صحیح نیست",
@@ -522,5 +548,438 @@
     "B2": "B2 — متوسط بالا",
     "C1": "C1 — پیشرفته",
     "C2": "C2 — مسلط"
+  },
+  "v3": {
+    "home": {
+      "greetingHi": "سلام {name}!",
+      "welcomeBack": "خوش اومدی به Jamlex",
+      "streakDays": "{n} روز",
+      "streakLabel": "رکورد یادگیری",
+      "wodLabel": "لغت روز",
+      "wodMeaning": "راست",
+      "wodExample": "'a direct route'",
+      "addToLeitner": "افزودن به لایتنر",
+      "vocabProgressTitle": "واژه‌آموزی",
+      "vocabProgressSub": "مسیر یادگیری شما",
+      "vocabProgressCheer": "🌱 خیلی خوب! ادامه بده",
+      "readBook": "خواندن کتاب",
+      "readBookSub": "مطالعه و یادگیری",
+      "myWords": "واژگان من",
+      "myWordsSub": "لغات ذخیره‌شده"
+    },
+    "leitner": {
+      "title": "لایتنر",
+      "dueCount": "{n} کارت آماده مرور",
+      "dueSub": "برای تقویت حافظه‌ی بلندمدت مرور کن",
+      "recentlyReviewed": "آخرین مرور شده‌ها",
+      "emptyTitle": "لایتنر شما خالیه!",
+      "emptyBody": "هنوز هیچ واژه‌ای برای مرور نداری.\nبرای شروع، واژه‌های خودت رو به واژه‌نامه اضافه کن\nتا اینجا ظاهر بشن.",
+      "emptyCta": "رفتن به واژه‌نامه",
+      "infoHint": "هر واژه‌ای که به <strong>واژه‌نامه</strong> اضافه کنی، به صورت خودکار در لایتنر قرار می‌گیره.",
+      "review": {
+        "dontKnow": "بلد نیستم",
+        "sortOf": "تاحدی بلدم",
+        "know": "بلدم",
+        "knowWell": "کاملاً بلدم",
+        "saveAnswer": "ثبت پاسخ ناموفق بود",
+        "summary": {
+          "title": "🎉 آفرین! عالی بود",
+          "subtitle": "تمام لایترن‌های امروز رو با موفقیت تموم کردی.\nبه خودت افتخار کن! 👏",
+          "accuracy": "دقت شما",
+          "wordsReviewed": "واژه‌های مرور شده",
+          "studyTime": "زمان مطالعه",
+          "minutesUnit": "{n} دقیقه",
+          "quote": "ثبات تو، آینده تو رو می‌سازه!",
+          "quoteSub": "هر روز بهتر از دیروزی.\nفردا روز جدید، واژه‌های جدید 🌱",
+          "continueBtn": "ادامه مسیر",
+          "viewStats": "مشاهده آمار پیشرفت"
+        }
+      }
+    },
+    "vocab": {
+      "searchPlaceholder": "جستجوی لغت...",
+      "historyTitle": "تاریخچه جستجو",
+      "clearAll": "پاک کردن همه",
+      "advisoryTitle": "جستجو سریع‌تر، یادگیری بهتر",
+      "advisorySub": "واژه‌های مورد نظر خود را جستجو کنید و دانش خود را گسترش دهید.",
+      "readyTitle": "واژه‌نامه آماده!",
+      "readyBody": "واژه‌های مورد نظر خود را جستجو کنید\nو دانش خود را گسترش دهید.",
+      "wordDetail": {
+        "meanings": "معنی‌ها",
+        "example": "مثال",
+        "viewFull": "مشاهده کامل",
+        "addToLeitner": "افزودن به لایتنر",
+        "pronunciation": "تلفظ"
+      }
+    },
+    "myWords": {
+      "title": "واژگان من",
+      "subList": "مجموعه‌ای لغاتی که خودت ذخیره کردی",
+      "subEmpty": "مجموعه‌ای شخصی از لغاتی که ذخیره می‌کنید",
+      "searchInDict": "جستجوی لغت یا دسته‌بندی...",
+      "categoriesLabel": "دسته‌بندی‌ها",
+      "newCategory": "دسته‌بندی جدید",
+      "addWord": "افزودن لغت",
+      "deleteCategoryTitle": "حذف دسته‌بندی",
+      "deleteConfirm": "آیا مطمئنید؟ تمام لغات این دسته‌بندی حذف می‌شوند.",
+      "noCategoriesTitle": "هنوز دسته‌بندی‌ای ندارید",
+      "noCategoriesSub": "لغات خود را در دسته‌بندی‌های دلخواه ذخیره کنید\nتا همیشه در دسترس باشند.",
+      "detailProgress": "{pct}% پیشرفت",
+      "guestTitle": "برای مشاهده واژگان خود\nابتدا وارد حساب کاربری شوید",
+      "guestSub": "با ورود به حساب کاربری، تمام واژه‌ها و لیست‌های شما\nدر دستگاه‌های مختلف همگام می‌شود.",
+      "collections": {
+        "homonyms": "هم‌لفظ‌ها",
+        "homonymsCount": "۲۴ لغت",
+        "verbs": "افعال مهم",
+        "verbsCount": "۱۸ لغت",
+        "atomic": "لغات کتاب Atomic Habits",
+        "atomicCount": "۴۲ لغت",
+        "toefl": "لغات آزمون تافل",
+        "toeflCount": "۳۶ لغت",
+        "movies": "لغات فیلم و سریال",
+        "moviesCount": "۲۷ لغت",
+        "travel": "لغات سفر",
+        "travelCount": "۱۶ لغت"
+      },
+      "wordsCount": "{n} لغت"
+    },
+    "vocabLearning": {
+      "title": "واژه‌آموزی",
+      "searchPlaceholder": "جستجو به انگلیسی یا فارسی...",
+      "byLevel": "یادگیری بر اساس سطح",
+      "studyBooks": "کتاب‌های آموزشی",
+      "topicWords": "واژگان موضوعی",
+      "level": {
+        "A1Label": "مبتدی",
+        "A2Label": "پایه",
+        "B1Label": "متوسط",
+        "B2Label": "فوق‌متوسط",
+        "C1Label": "پیشرفته",
+        "C2Label": "مسلط"
+      },
+      "book": {
+        "ieltsRange": "B1 - B2",
+        "fiveHundredRange": "A1 - A2",
+        "fiveHundredTitle": "504 لغت ضروری",
+        "greRange": "C1 - C2",
+        "toeflRange": "B2 - C1",
+        "progress": "پیشرفت"
+      },
+      "topic": {
+        "nature": "طبیعت",
+        "body": "بدن انسان",
+        "business": "کسب‌وکار",
+        "health": "سلامت",
+        "animals": "حیوانات",
+        "travel": "سفر",
+        "home": "خانه",
+        "feelings": "احساسات"
+      },
+      "wordCount": "{n} واژه",
+      "footer": {
+        "dailyGoal": "هدف روزانه",
+        "dailyGoalValue": "۴۰ واژه",
+        "todayLabel": "واژه‌های امروز",
+        "todayValue": "۲۴",
+        "todayDelta": "+12%",
+        "totalLabel": "مجموع واژه‌های یادگرفته‌شده",
+        "totalValue": "۲,۸۴۰"
+      },
+      "category": {
+        "indicator": "واژگان سطح مبتدی",
+        "overall": "پیشرفت کلی",
+        "lessonOf": "درس ۷ از ۲۰",
+        "lessonOrdinal": "درس",
+        "lessonName1": "درس اول",
+        "lessonName2": "درس دوم",
+        "lessonName3": "درس سوم",
+        "lessonName4": "درس چهارم",
+        "lessonName5": "درس پنجم",
+        "lessonName6": "درس ششم"
+      },
+      "modal": {
+        "addToLeitner": "افزودن به لایتنر",
+        "lessonCount": "Lesson 1 · تعداد کلمات: ۳۱",
+        "pickMethod": "انتخاب روش مطالعه",
+        "review": "مرور لغات",
+        "reviewSub": "کلمات و معنی آن‌ها را مرور کنید",
+        "flashcard": "فلش کارت",
+        "flashcardSub": "با فلش کارت‌ها تمرین کنید",
+        "quiz": "آزمون",
+        "quizSub": "دانش خود را بسنجید"
+      }
+    },
+    "reading": {
+      "title": "خواندن کتاب",
+      "subtitle": "هزاران کتاب رایگان در دسته‌بندی‌های مختلف",
+      "categories": "دسته‌بندی‌ها",
+      "seeAll": "مشاهده همه",
+      "featured": "کتاب‌های پیشنهادی",
+      "continueReading": "ادامه مطالعه",
+      "newest": "جدیدترین کتاب‌ها",
+      "level": {
+        "all": "همه سطوح",
+        "advanced": "پیشرفته",
+        "upper": "بالا",
+        "upperMid": "متوسط بالا",
+        "mid": "متوسط",
+        "starter": "مبتدی"
+      },
+      "category": {
+        "fiction": "داستان و رمان",
+        "selfHelp": "توسعه فردی",
+        "business": "کسب‌وکار",
+        "science": "علمی و آموزشی",
+        "history": "تاریخ و زندگی‌نامه",
+        "books": "{n} کتاب"
+      },
+      "pages": "{n} صفحه",
+      "continueAction": "ادامه مطالعه",
+      "lastReadYesterday": "آخرین مطالعه: دیروز",
+      "newBadge": "جدید",
+      "guestTitle": "برای مشاهده کتابخانه\nابتدا وارد حساب کاربری شوید",
+      "guestSub": "با ورود به حساب کاربری، کتاب‌ها رو ذخیره کنید و پیشرفتتون رو پیگیری کنید."
+    },
+    "bookDetail": {
+      "language": "زبان",
+      "languageEn": "انگلیسی",
+      "languageRow": "زبان: انگلیسی",
+      "level": "سطح",
+      "levelMid": "متوسط",
+      "levelRow": "سطح: متوسط",
+      "year": "سال انتشار",
+      "yearRow": "سال انتشار: 2012",
+      "chapters": "فصل",
+      "lessons": "درس",
+      "readingTime": "زمان مطالعه",
+      "progress": "پیشرفت",
+      "aboutTitle": "درباره کتاب",
+      "aboutSampleBody": "مجموعه Inside Reading با رویکردی آکادمیک و تعاملی، مهارت‌های درک مطلب شما را تقویت می‌کند. این کتاب با متون متنوع و تمرین‌های هدفمند، شما را برای موفقیت در محیط‌های دانشگاهی آماده می‌سازد.",
+      "continueRead": "ادامه مطالعه"
+    },
+    "savedBooks": {
+      "title": "کتاب‌های ذخیره شده",
+      "sort": "مرتب‌سازی",
+      "booksCount": "{n} کتاب",
+      "emptyTitle": "هنوز کتابی ذخیره نکرده‌اید",
+      "emptyBody": "کتاب‌هایی که برای مطالعه انتخاب می‌کنید\nاینجا نمایش داده می‌شوند.",
+      "searchBook": "جستجوی کتاب",
+      "tags": {
+        "english": "زبان انگلیسی",
+        "selfHelp": "توسعه فردی",
+        "finance": "مالی و سرمایه‌گذاری",
+        "timeMgmt": "مدیریت زمان"
+      },
+      "titleAtomic": "عادت‌های اتمی",
+      "authorAtomic": "جیمز کلیر",
+      "titleCompound": "اثر مرکب",
+      "authorCompound": "دارن هاردی"
+    },
+    "bookReader": {
+      "chapterProgress": "فصل ۱ · ۴۲٪",
+      "ofChapters": "{pct}٪ از {total} فصل",
+      "lookup": {
+        "viewFull": "مشاهده کامل",
+        "addToLeitner": "افزودن به لایتنر",
+        "pronounce": "تلفظ",
+        "meanings": "معنی‌ها",
+        "example": "مثال",
+        "tapMeaning1": "۱. ضربه زدن آرام با انگشت یا وسیله‌ای سبک",
+        "tapMeaning2": "۲. مانع گوش دادن مخفیانه (تلفنی یا الکترونیکی)",
+        "tapExampleFa": "او برای جلب توجهش، روی میز ضربه زد.",
+        "tapExampleNote": "She tapped the table to get his attention."
+      }
+    },
+    "flashcards": {
+      "title": "فلش‌کارت — {level}",
+      "tapToFlip": "برای دیدن معنی، روی کارت بزن",
+      "dontKnow": "بلد نیستم",
+      "know": "بلدم",
+      "summary": {
+        "title": "🎉 تمام شد!",
+        "subtitle": "۲۰ فلش‌کارت رو دیدی",
+        "know": "بلدم",
+        "dontKnow": "بلد نیستم",
+        "again": "🔁 یک دور دیگر",
+        "back": "برگشت به خانه"
+      },
+      "exampleSentence": "She managed to accomplish all her goals.",
+      "meaning": "انجام دادن، به انجام رساندن"
+    },
+    "quiz": {
+      "mcqTitle": "آزمون ترجمه",
+      "reverseTitle": "آزمون ترجمه معکوس",
+      "spellingTitle": "تمرین املا",
+      "mcqPrompt": "نزدیک‌ترین گزینه به ترجمه را انتخاب کنید",
+      "reversePrompt": "معادل انگلیسی کلمه را انتخاب کنید",
+      "spellingPrompt": "معادل انگلیسی را تایپ کنید",
+      "checkBtn": "بررسی",
+      "next": "سؤال بعدی",
+      "correctTitle": "درست! 🎉",
+      "correctSub": "پاسخ صحیح: resilience",
+      "endTitle": "پایان آزمون!",
+      "endAccuracy": "دقت {pct}%",
+      "endRestart": "🔁 شروع مجدد",
+      "endExit": "خروج",
+      "spellingHint": "یه typo قبول می‌شه (Levenshtein-tolerant)",
+      "options": {
+        "speed": "سرعت",
+        "resilience": "تاب‌آوری",
+        "brilliance": "درخشش",
+        "silence": "سکوت"
+      }
+    },
+    "stats": {
+      "title": "آمار",
+      "totalXp": "مجموع XP",
+      "currentStreak": "رکورد فعلی",
+      "streakUnit": "روز",
+      "cardsLearned": "کارت یاد گرفته",
+      "studyTime": "زمان مطالعه",
+      "hoursUnit": "ساعت",
+      "thisWeek": "این هفته",
+      "sessionBreakdown": "تفکیک جلسات",
+      "session": {
+        "leitner": "لایتنر",
+        "flashcard": "فلش‌کارت",
+        "quiz": "آزمون",
+        "reading": "مطالعه",
+        "minutesUnit": "{n} دقیقه"
+      },
+      "achievements": "دستاوردها",
+      "ach": {
+        "start": "شروع",
+        "streak3": "۳ روز",
+        "cards10": "۱۰ کارت",
+        "cards100": "۱۰۰ کارت",
+        "firstBook": "اولین کتاب",
+        "acc90": "دقت ۹۰٪",
+        "premium": "پرمیوم",
+        "streak30": "۳۰ روز",
+        "cards1000": "۱۰۰۰ کارت"
+      },
+      "compareWithOthers": "مقایسه با دیگران"
+    },
+    "leaderboard": {
+      "subtitle": "جایگاه شما در بین همه کاربران",
+      "percentAbove": "درصد کاربران\nبالاتر از شما",
+      "yourRank": "جایگاه شما",
+      "ofUsers": "از بین {n} نفر",
+      "topTitle": "برترین‌ها 🏆",
+      "updatedHint": "هر ۲۴ ساعت یکبار بروزرسانی می‌شود",
+      "you": "(شما)",
+      "level": "سطح {n}",
+      "guestTitle": "برای مشاهده رتبه‌بندی\nابتدا وارد حساب کاربری شوید",
+      "guestSub": "با ورود به حساب کاربری، در رتبه‌بندی هفتگی\nقرار می‌گیرید و با دیگران رقابت می‌کنید.",
+      "loginCta": "ورود به حساب کاربری"
+    },
+    "profile": {
+      "title": "پروفایل",
+      "name": "رضا محمدی",
+      "avatarLetter": "ر",
+      "level": "سطح {n}",
+      "levelChip": "سطح {n}",
+      "xpProgressLabel": "پیشرفت تا سطح {n}",
+      "weekCards": "کارت این هفته",
+      "weekMinutes": "دقیقه",
+      "weekStreak": "روز پیاپی",
+      "sec": {
+        "leitner": "لایتنر",
+        "notif": "اعلان‌ها",
+        "account": "حساب کاربری",
+        "appearance": "ظاهر",
+        "lang": "زبان",
+        "other": "درباره"
+      },
+      "dailyLimit": "سقف روزانه",
+      "dailyLimitSub": "۲۰ کارت در روز",
+      "clearLeitner": "پاک کردن کل لایتنر",
+      "clearLeitnerSub": "شروع از صفر",
+      "notifTitle": "یادآور روزانه",
+      "notifOnSub": "روشن — ۲۰:۳۰ · ۵ روز در هفته",
+      "displayMode": "حالت نمایش",
+      "displaySystem": "سیستم",
+      "email": "ایمیل",
+      "phone": "شماره موبایل",
+      "changePwd": "تغییر رمز عبور",
+      "logout": "خروج از حساب",
+      "deleteAccount": "حذف حساب کاربری",
+      "uiLanguage": "زبان رابط کاربری",
+      "uiLangValue": "فارسی",
+      "aboutApp": "درباره Jamlex",
+      "appVersion": "v1.0.0",
+      "premiumCta": "ارتقا به پریمیوم",
+      "deleteAccountSub": "پاک شدن دائمی همه داده‌ها"
+    },
+    "settings": {
+      "title": "تنظیمات",
+      "secAppearance": "ظاهر",
+      "secLearning": "یادگیری",
+      "secLang": "زبان",
+      "secAccount": "حساب",
+      "secAbout": "درباره",
+      "notif": {
+        "title": "تنظیم یادآوری",
+        "sub": "زمان و روزهای یادآوری را انتخاب کنید",
+        "days": "روزهای یادآوری",
+        "sound": "صدای یادآور",
+        "soundDefault": "پیش‌فرض",
+        "cancel": "لغو",
+        "save": "ذخیره"
+      },
+      "day": {
+        "sa": "ش",
+        "su": "ی",
+        "mo": "د",
+        "tu": "س",
+        "we": "چ",
+        "th": "پ",
+        "fr": "ج"
+      }
+    },
+    "paywall": {
+      "headline": "به {brand} پریمیوم بروید",
+      "sub": "یادگیری بدون محدودیت، هر جا، هر زمان",
+      "feat": {
+        "unlimitedTop": "دسترسی نامحدود",
+        "unlimitedBot": "به همه واژه‌ها",
+        "searchTop": "جستجوی پیشرفته",
+        "searchBot": "در تمام محتوا",
+        "reportsTop": "گزارش‌های دقیق",
+        "reportsBot": "از روند یادگیری",
+        "categoriesTop": "دسته‌بندی نامحدود",
+        "categoriesBot": "و مدیریت کامل"
+      },
+      "pickPlan": "انتخاب پلن مناسب شما",
+      "popular": "محبوب‌ترین",
+      "yearlyName": "سالانه",
+      "yearlySub": "بهترین انتخاب و بیشترین صرفه‌جویی",
+      "perMonth": "در ماه",
+      "monthlyName": "ماهانه",
+      "monthlySub": "انعطاف‌پذیری بیشتر",
+      "checkoutBtn": "ادامه و پرداخت",
+      "secureNote": "پرداخت امن و اطلاعات شما محفوظ است"
+    },
+    "more": {
+      "title": "بیشتر",
+      "flashcardsTitle": "فلش‌کارت",
+      "flashcardsSub": "یادگیری بر اساس سطح",
+      "quizTitle": "آزمون",
+      "quizSub": "۳ حالت — انتخابی و املا",
+      "readingTitle": "خواندن کتاب",
+      "readingSub": "هزاران کتاب رایگان",
+      "leaderboardTitle": "رتبه‌بندی",
+      "leaderboardSub": "بروزرسانی هر ۲۴ ساعت",
+      "vocabLearningTitle": "واژه‌آموزی",
+      "vocabLearningSub": "۳۵ دسته‌بندی موضوعی",
+      "settingsTitle": "تنظیمات",
+      "settingsSub": "زبان، تم و یادآور",
+      "savedBooksTitle": "کتاب‌های ذخیره",
+      "premiumTitle": "Premium",
+      "premiumSub": "یادگیری بدون محدودیت"
+    },
+    "common": {
+      "level": "سطح {n}"
+    }
   }
 }

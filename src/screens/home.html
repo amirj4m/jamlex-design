@@ -30,14 +30,14 @@
           <!-- Top: greeting + streak chip on opposite side -->
           <header class="home-top home-top--v3">
             <div class="home-greet">
-              <div class="home-greet__hi">سلام رضا!</div>
-              <div class="home-greet__sub">خوش اومدی به Jamlex</div>
+              <div class="home-greet__hi" data-i18n="v3.home.greetingHi" data-i18n-vars='{"name":"رضا"}'></div>
+              <div class="home-greet__sub" data-i18n="v3.home.welcomeBack"></div>
             </div>
             <div class="streak-chip">
               <div class="streak-chip__icon"><span style="font-size:18px;">🔥</span></div>
               <div>
-                <div class="streak-chip__count">7 روز</div>
-                <div class="streak-chip__label">رکورد یادگیری</div>
+                <div class="streak-chip__count" data-i18n="v3.home.streakDays" data-i18n-vars='{"n":7}'></div>
+                <div class="streak-chip__label" data-i18n="v3.home.streakLabel"></div>
               </div>
             </div>
             <div class="home-avatar-photo">
@@ -65,7 +65,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
               </button>
             </div>
-            <div class="wod-card__meaning">راست</div>
+            <div class="wod-card__meaning" data-i18n="v3.home.wodMeaning"></div>
             <div class="wod-card__example">'a direct route'</div>
 
             <!-- Floating Lottie paper-plane decoration -->
@@ -89,8 +89,8 @@
             </div>
             <div class="vocab-banner__body">
               <div class="vocab-banner__title" data-i18n="vocabLearning.title"></div>
-              <div class="vocab-banner__sub">مسیر یادگیری شما</div>
-              <div class="vocab-banner__cheer">🌱 خیلی خوب! ادامه بده</div>
+              <div class="vocab-banner__sub" data-i18n="v3.home.vocabProgressSub"></div>
+              <div class="vocab-banner__cheer" data-i18n="v3.home.vocabProgressCheer"></div>
             </div>
             <div class="lottie-stage lottie-stage--sm vocab-banner__lottie" data-lottie="vocab-banner-book"></div>
           </a>
@@ -101,7 +101,7 @@
               <div class="lottie-stage lottie-stage--sm" data-lottie="qa-book" style="margin: 0; width: 60px; height: 60px;"></div>
               <div class="qa-tile__body">
                 <div class="qa-tile__title" data-i18n="home.readBook"></div>
-                <div class="qa-tile__sub">مطالعه و یادگیری</div>
+                <div class="qa-tile__sub" data-i18n="v3.home.readBookSub"></div>
               </div>
               <span class="qa-tile__arrow qa-tile__arrow--amber">›</span>
             </a>
@@ -109,7 +109,7 @@
               <div class="lottie-stage lottie-stage--sm" data-lottie="qa-mywords" style="margin: 0; width: 60px; height: 60px;"></div>
               <div class="qa-tile__body">
                 <div class="qa-tile__title" data-i18n="home.myWords"></div>
-                <div class="qa-tile__sub">لغات ذخیره شده</div>
+                <div class="qa-tile__sub" data-i18n="v3.home.myWordsSub"></div>
               </div>
               <span class="qa-tile__arrow qa-tile__arrow--purple">›</span>
             </a>

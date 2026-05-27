@@ -96,6 +96,32 @@
     "resendCode": "Resend code",
     "changeNumber": "Change number",
 
+    "welcomeSubtitle": "Welcome to your learning journey 🎉",
+    "phonePlaceholderOptional": "Phone number (optional)",
+    "phoneEnterSub": "Enter your phone number to sign in",
+    "otpSentTo": "A 6-digit code was sent to {phone}",
+    "resendCodeIn2": "Resend in {seconds} sec",
+
+    "forgotSubtitle": "Enter your email and we'll send a recovery link",
+    "emailSentTitle": "Email sent!",
+    "emailSentSub": "A password reset link was sent to your email.",
+    "emailSentSpamHint": "If you don't see it in your inbox,\\ncheck the spam folder.",
+    "backToLogin": "Back to sign in",
+
+    "newPasswordSub": "Enter your new password",
+    "changePwdSecurePrompt": "For security, please enter your current password first.",
+
+    "pwRulesTitle": "Password must include:",
+    "pwRuleMin8": "At least 8 characters",
+    "pwRuleCase": "Uppercase and lowercase",
+    "pwRuleNumOrSym": "A number or symbol",
+
+    "termsAgreement": "By creating an account, you agree to the",
+    "termsLinkPrivacy": "privacy policy",
+    "termsLinkTerms": "terms of use",
+    "termsAgreementJoin": "and",
+    "termsAgreementSuffix": ".",
+
     "validation": {
       "emailRequired": "Email is required",
       "emailInvalid": "Email format is invalid",
@@ -522,5 +548,438 @@
     "B2": "B2 — Upper-intermediate",
     "C1": "C1 — Advanced",
     "C2": "C2 — Mastery"
+  },
+  "v3": {
+    "home": {
+      "greetingHi": "Hi {name}!",
+      "welcomeBack": "Welcome to Jamlex",
+      "streakDays": "{n} days",
+      "streakLabel": "Learning streak",
+      "wodLabel": "Word of the day",
+      "wodMeaning": "right",
+      "wodExample": "'a direct route'",
+      "addToLeitner": "Add to Leitner",
+      "vocabProgressTitle": "Vocab Learning",
+      "vocabProgressSub": "Your learning path",
+      "vocabProgressCheer": "🌱 Great! Keep going",
+      "readBook": "Read a book",
+      "readBookSub": "Study & learn",
+      "myWords": "My Words",
+      "myWordsSub": "Saved words"
+    },
+    "leitner": {
+      "title": "Leitner",
+      "dueCount": "{n} cards to review",
+      "dueSub": "Review to strengthen long-term memory",
+      "recentlyReviewed": "Recently reviewed",
+      "emptyTitle": "Your Leitner is empty!",
+      "emptyBody": "You don't have any words to review yet.\nAdd words to your dictionary\nto see them here.",
+      "emptyCta": "Go to dictionary",
+      "infoHint": "Every word you add to <strong>the dictionary</strong> is automatically placed in Leitner.",
+      "review": {
+        "dontKnow": "Don't know",
+        "sortOf": "Kind of",
+        "know": "Know it",
+        "knowWell": "Know well",
+        "saveAnswer": "Failed to save answer",
+        "summary": {
+          "title": "🎉 Awesome!",
+          "subtitle": "You finished all your Leitner cards today.\nBe proud! 👏",
+          "accuracy": "Accuracy",
+          "wordsReviewed": "Words reviewed",
+          "studyTime": "Study time",
+          "minutesUnit": "{n} min",
+          "quote": "Your consistency builds your future!",
+          "quoteSub": "Every day better than yesterday.\nTomorrow, new day, new words 🌱",
+          "continueBtn": "Continue",
+          "viewStats": "View progress stats"
+        }
+      }
+    },
+    "vocab": {
+      "searchPlaceholder": "Search a word…",
+      "historyTitle": "Search history",
+      "clearAll": "Clear all",
+      "advisoryTitle": "Search faster, learn better",
+      "advisorySub": "Search your target words and expand your knowledge.",
+      "readyTitle": "Your dictionary is ready!",
+      "readyBody": "Search your target words\nand expand your knowledge.",
+      "wordDetail": {
+        "meanings": "Meanings",
+        "example": "Example",
+        "viewFull": "View full",
+        "addToLeitner": "Add to Leitner",
+        "pronunciation": "Pronunciation"
+      }
+    },
+    "myWords": {
+      "title": "My Words",
+      "subList": "Words you saved",
+      "subEmpty": "A personal collection of saved words",
+      "searchInDict": "Search word or category...",
+      "categoriesLabel": "Categories",
+      "newCategory": "New category",
+      "addWord": "Add word",
+      "deleteCategoryTitle": "Delete category",
+      "deleteConfirm": "Are you sure? All words in this category will be deleted.",
+      "noCategoriesTitle": "You don't have any categories yet",
+      "noCategoriesSub": "Save words into custom categories\nso they're always at your fingertips.",
+      "detailProgress": "{pct}% learned",
+      "guestTitle": "Sign in to view your words",
+      "guestSub": "Once you sign in, all your words & lists sync across devices.",
+      "collections": {
+        "homonyms": "Homonyms",
+        "homonymsCount": "24 words",
+        "verbs": "Key verbs",
+        "verbsCount": "18 words",
+        "atomic": "Atomic Habits words",
+        "atomicCount": "42 words",
+        "toefl": "TOEFL words",
+        "toeflCount": "36 words",
+        "movies": "Movie & series words",
+        "moviesCount": "27 words",
+        "travel": "Travel words",
+        "travelCount": "16 words"
+      },
+      "wordsCount": "{n} words"
+    },
+    "vocabLearning": {
+      "title": "Vocab Learning",
+      "searchPlaceholder": "Search in English or Persian...",
+      "byLevel": "Learn by level",
+      "studyBooks": "Study books",
+      "topicWords": "Topic vocabulary",
+      "level": {
+        "A1Label": "Starter",
+        "A2Label": "Elementary",
+        "B1Label": "Intermediate",
+        "B2Label": "Upper-int.",
+        "C1Label": "Advanced",
+        "C2Label": "Mastery"
+      },
+      "book": {
+        "ieltsRange": "B1 - B2",
+        "fiveHundredRange": "A1 - A2",
+        "fiveHundredTitle": "504 Essential",
+        "greRange": "C1 - C2",
+        "toeflRange": "B2 - C1",
+        "progress": "Progress"
+      },
+      "topic": {
+        "nature": "Nature",
+        "body": "Body",
+        "business": "Business",
+        "health": "Health",
+        "animals": "Animals",
+        "travel": "Travel",
+        "home": "Home",
+        "feelings": "Feelings"
+      },
+      "wordCount": "{n} words",
+      "footer": {
+        "dailyGoal": "Daily goal",
+        "dailyGoalValue": "40 words",
+        "todayLabel": "Today",
+        "todayValue": "24",
+        "todayDelta": "+12%",
+        "totalLabel": "Total words learned",
+        "totalValue": "2,840"
+      },
+      "category": {
+        "indicator": "Beginner-level vocabulary",
+        "overall": "Overall progress",
+        "lessonOf": "Lesson 7 of 20",
+        "lessonOrdinal": "Lesson",
+        "lessonName1": "Lesson 1",
+        "lessonName2": "Lesson 2",
+        "lessonName3": "Lesson 3",
+        "lessonName4": "Lesson 4",
+        "lessonName5": "Lesson 5",
+        "lessonName6": "Lesson 6"
+      },
+      "modal": {
+        "addToLeitner": "Add to Leitner",
+        "lessonCount": "Lesson 1 · 31 words",
+        "pickMethod": "Choose study method",
+        "review": "Word review",
+        "reviewSub": "Review words and meanings",
+        "flashcard": "Flashcards",
+        "flashcardSub": "Practice with flashcards",
+        "quiz": "Quiz",
+        "quizSub": "Test your knowledge"
+      }
+    },
+    "reading": {
+      "title": "Library",
+      "subtitle": "Thousands of free books in many categories",
+      "categories": "Categories",
+      "seeAll": "See all",
+      "featured": "Featured books",
+      "continueReading": "Continue reading",
+      "newest": "Newest books",
+      "level": {
+        "all": "All levels",
+        "advanced": "Advanced",
+        "upper": "Upper",
+        "upperMid": "Upper-mid",
+        "mid": "Intermediate",
+        "starter": "Starter"
+      },
+      "category": {
+        "fiction": "Fiction & Novel",
+        "selfHelp": "Self-help",
+        "business": "Business",
+        "science": "Science & education",
+        "history": "History & biography",
+        "books": "{n} books"
+      },
+      "pages": "{n} pages",
+      "continueAction": "Continue reading",
+      "lastReadYesterday": "Last read: yesterday",
+      "newBadge": "New",
+      "guestTitle": "Sign in to view your library",
+      "guestSub": "Sign in to bookmark books, track progress, and continue across devices."
+    },
+    "bookDetail": {
+      "language": "Language",
+      "languageEn": "English",
+      "languageRow": "Language: English",
+      "level": "Level",
+      "levelMid": "Intermediate",
+      "levelRow": "Level: Intermediate",
+      "year": "Published",
+      "yearRow": "Published: 2012",
+      "chapters": "Chapters",
+      "lessons": "Lessons",
+      "readingTime": "Reading time",
+      "progress": "Progress",
+      "aboutTitle": "About the book",
+      "aboutSampleBody": "The Inside Reading series uses an academic, interactive approach to strengthen your reading-comprehension skills. With varied texts and targeted exercises, this book prepares you for success in academic settings.",
+      "continueRead": "Continue reading"
+    },
+    "savedBooks": {
+      "title": "Saved books",
+      "sort": "Sort",
+      "booksCount": "{n} books",
+      "emptyTitle": "No saved books yet",
+      "emptyBody": "Books you pick for reading\nshow up here.",
+      "searchBook": "Search a book",
+      "tags": {
+        "english": "English language",
+        "selfHelp": "Self-help",
+        "finance": "Finance & investing",
+        "timeMgmt": "Time management"
+      },
+      "titleAtomic": "Atomic Habits",
+      "authorAtomic": "James Clear",
+      "titleCompound": "The Compound Effect",
+      "authorCompound": "Darren Hardy"
+    },
+    "bookReader": {
+      "chapterProgress": "Chapter 1 · 42%",
+      "ofChapters": "{pct}% of {total} chapters",
+      "lookup": {
+        "viewFull": "View full",
+        "addToLeitner": "Add to Leitner",
+        "pronounce": "Pronounce",
+        "meanings": "Meanings",
+        "example": "Example",
+        "tapMeaning1": "1. Tapping lightly with a finger or light object",
+        "tapMeaning2": "2. Secretly listening in (phone or electronic)",
+        "tapExampleFa": "She tapped the table to get his attention.",
+        "tapExampleNote": "She tapped the table to get his attention."
+      }
+    },
+    "flashcards": {
+      "title": "Flashcards — {level}",
+      "tapToFlip": "Tap the card to see the meaning",
+      "dontKnow": "Don't know",
+      "know": "Know it",
+      "summary": {
+        "title": "🎉 All done!",
+        "subtitle": "You went through 20 flashcards",
+        "know": "Know",
+        "dontKnow": "Don't know",
+        "again": "🔁 One more round",
+        "back": "Back to home"
+      },
+      "exampleSentence": "She managed to accomplish all her goals.",
+      "meaning": "to perform, to complete"
+    },
+    "quiz": {
+      "mcqTitle": "Translation quiz",
+      "reverseTitle": "Reverse translation",
+      "spellingTitle": "Spelling practice",
+      "mcqPrompt": "Pick the closest translation",
+      "reversePrompt": "Pick the English equivalent",
+      "spellingPrompt": "Type the English equivalent",
+      "checkBtn": "Check",
+      "next": "Next question",
+      "correctTitle": "Correct! 🎉",
+      "correctSub": "Correct answer: resilience",
+      "endTitle": "Quiz complete!",
+      "endAccuracy": "Accuracy {pct}%",
+      "endRestart": "🔁 Restart",
+      "endExit": "Exit",
+      "spellingHint": "Levenshtein-tolerant — one typo is OK",
+      "options": {
+        "speed": "speed",
+        "resilience": "resilience",
+        "brilliance": "brilliance",
+        "silence": "silence"
+      }
+    },
+    "stats": {
+      "title": "Stats",
+      "totalXp": "Total XP",
+      "currentStreak": "Current streak",
+      "streakUnit": "days",
+      "cardsLearned": "Cards learned",
+      "studyTime": "Study time",
+      "hoursUnit": "h",
+      "thisWeek": "This week",
+      "sessionBreakdown": "Session breakdown",
+      "session": {
+        "leitner": "Leitner",
+        "flashcard": "Flashcards",
+        "quiz": "Quiz",
+        "reading": "Reading",
+        "minutesUnit": "{n} min"
+      },
+      "achievements": "Achievements",
+      "ach": {
+        "start": "Start",
+        "streak3": "3 days",
+        "cards10": "10 cards",
+        "cards100": "100 cards",
+        "firstBook": "First book",
+        "acc90": "90% accuracy",
+        "premium": "Premium",
+        "streak30": "30 days",
+        "cards1000": "1000 cards"
+      },
+      "compareWithOthers": "Compare with others"
+    },
+    "leaderboard": {
+      "subtitle": "Your rank among all users",
+      "percentAbove": "Percent of users\nabove you",
+      "yourRank": "Your rank",
+      "ofUsers": "of {n} users",
+      "topTitle": "Top players 🏆",
+      "updatedHint": "Updated every 24 hours",
+      "you": "(you)",
+      "level": "Lv {n}",
+      "guestTitle": "Sign in to see the leaderboard",
+      "guestSub": "Once signed in, you join the weekly ranking and compete with others.",
+      "loginCta": "Sign in"
+    },
+    "profile": {
+      "title": "Profile",
+      "name": "Reza Mohammadi",
+      "avatarLetter": "R",
+      "level": "Level {n}",
+      "levelChip": "Level {n}",
+      "xpProgressLabel": "Progress to level {n}",
+      "weekCards": "Cards this week",
+      "weekMinutes": "Minutes",
+      "weekStreak": "Day streak",
+      "sec": {
+        "leitner": "Leitner",
+        "notif": "Notifications",
+        "account": "Account",
+        "appearance": "Appearance",
+        "lang": "Language",
+        "other": "About"
+      },
+      "dailyLimit": "Daily limit",
+      "dailyLimitSub": "20 cards per day",
+      "clearLeitner": "Clear my Leitner",
+      "clearLeitnerSub": "Start from scratch",
+      "notifTitle": "Daily reminder",
+      "notifOnSub": "On — 20:30 · 5 days/week",
+      "displayMode": "Display mode",
+      "displaySystem": "System",
+      "email": "Email",
+      "phone": "Phone number",
+      "changePwd": "Change password",
+      "logout": "Sign out",
+      "deleteAccount": "Delete account",
+      "uiLanguage": "Interface language",
+      "uiLangValue": "English",
+      "aboutApp": "About Jamlex",
+      "appVersion": "v1.0.0",
+      "premiumCta": "Upgrade to Premium",
+      "deleteAccountSub": "Permanent deletion of all data"
+    },
+    "settings": {
+      "title": "Settings",
+      "secAppearance": "Appearance",
+      "secLearning": "Learning",
+      "secLang": "Language",
+      "secAccount": "Account",
+      "secAbout": "About",
+      "notif": {
+        "title": "Set reminder",
+        "sub": "Choose the reminder time and days",
+        "days": "Reminder days",
+        "sound": "Reminder sound",
+        "soundDefault": "Default",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
+      "day": {
+        "sa": "Sa",
+        "su": "Su",
+        "mo": "Mo",
+        "tu": "Tu",
+        "we": "We",
+        "th": "Th",
+        "fr": "Fr"
+      }
+    },
+    "paywall": {
+      "headline": "Go {brand} Premium",
+      "sub": "Unlimited learning, anywhere, anytime",
+      "feat": {
+        "unlimitedTop": "Unlimited access",
+        "unlimitedBot": "to all words",
+        "searchTop": "Advanced search",
+        "searchBot": "across all content",
+        "reportsTop": "Detailed reports",
+        "reportsBot": "of your learning",
+        "categoriesTop": "Unlimited categories",
+        "categoriesBot": "and full control"
+      },
+      "pickPlan": "Pick the plan that suits you",
+      "popular": "Most popular",
+      "yearlyName": "Yearly",
+      "yearlySub": "Best value & biggest savings",
+      "perMonth": "/mo",
+      "monthlyName": "Monthly",
+      "monthlySub": "More flexibility",
+      "checkoutBtn": "Continue & pay",
+      "secureNote": "Secure payment & your data is protected"
+    },
+    "more": {
+      "title": "More",
+      "flashcardsTitle": "Flashcards",
+      "flashcardsSub": "Learn by level",
+      "quizTitle": "Quiz",
+      "quizSub": "3 modes — MCQ & spelling",
+      "readingTitle": "Library",
+      "readingSub": "Thousands of free books",
+      "leaderboardTitle": "Leaderboard",
+      "leaderboardSub": "Updated every 24h",
+      "vocabLearningTitle": "Vocab Learning",
+      "vocabLearningSub": "35 topic categories",
+      "settingsTitle": "Settings",
+      "settingsSub": "Language, theme, reminders",
+      "savedBooksTitle": "Saved books",
+      "premiumTitle": "Premium",
+      "premiumSub": "Unlimited learning"
+    },
+    "common": {
+      "level": "Lv {n}"
+    }
   }
 }
