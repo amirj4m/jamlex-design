@@ -551,6 +551,8 @@
   },
   "v3": {
     "home": {
+      "userName": "Reza",
+      "userInitial": "R",
       "greetingHi": "Hi {name}!",
       "welcomeBack": "Welcome to Jamlex",
       "streakDays": "{n} days",

@@ -551,9 +551,11 @@
   },
   "v3": {
     "home": {
+      "userName": "رضا",
+      "userInitial": "ر",
       "greetingHi": "سلام {name}!",
       "welcomeBack": "خوش اومدی به Jamlex",
-      "streakDays": "{n} روز",
+      "streakDays": "۷ روز",
       "streakLabel": "رکورد یادگیری",
       "wodLabel": "لغت روز",
       "wodMeaning": "راست",

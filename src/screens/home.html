@@ -30,7 +30,7 @@
           <!-- Top: greeting + streak chip on opposite side -->
           <header class="home-top home-top--v3">
             <div class="home-greet">
-              <div class="home-greet__hi" data-i18n="v3.home.greetingHi" data-i18n-vars='{"name":"رضا"}'></div>
+              <div class="home-greet__hi" data-greeting></div>
               <div class="home-greet__sub" data-i18n="v3.home.welcomeBack"></div>
             </div>
             <div class="streak-chip">
@@ -41,7 +41,7 @@
               </div>
             </div>
             <div class="home-avatar-photo">
-              <span>R</span>
+              <span data-i18n="v3.home.userInitial"></span>
             </div>
           </header>
 
@@ -98,7 +98,7 @@
           <!-- 2 quick action tiles -->
           <div class="quick-actions">
             <a href="/screens/reading.html" class="qa-tile">
-              <div class="lottie-stage lottie-stage--sm" data-lottie="qa-book" style="margin: 0; width: 60px; height: 60px;"></div>
+              <div class="lottie-stage qa-tile__lottie" data-lottie="qa-book"></div>
               <div class="qa-tile__body">
                 <div class="qa-tile__title" data-i18n="home.readBook"></div>
                 <div class="qa-tile__sub" data-i18n="v3.home.readBookSub"></div>
@@ -106,7 +106,7 @@
               <span class="qa-tile__arrow qa-tile__arrow--amber">›</span>
             </a>
             <a href="/screens/my-words.html" class="qa-tile">
-              <div class="lottie-stage lottie-stage--sm" data-lottie="qa-mywords" style="margin: 0; width: 60px; height: 60px;"></div>
+              <div class="lottie-stage qa-tile__lottie" data-lottie="qa-mywords"></div>
               <div class="qa-tile__body">
                 <div class="qa-tile__title" data-i18n="home.myWords"></div>
                 <div class="qa-tile__sub" data-i18n="v3.home.myWordsSub"></div>
@@ -121,6 +121,17 @@
     </div>
   </div>
 
+  <script type="module">
+    // Compose the greeting after i18n is ready, pulling the demo "userName"
+    // from the active locale so the name follows the language (Reza / رضا).
+    import { t } from '/js/i18n.js';
+    document.addEventListener('i18n:changed', fillGreeting);
+    function fillGreeting () {
+      const el = document.querySelector('[data-greeting]');
+      if (!el) return;
+      el.textContent = t('v3.home.greetingHi', { name: t('v3.home.userName') });
+    }
+  </script>
   <script type="module" src="/js/screen-shell.js"></script>
 </body>
 </html>

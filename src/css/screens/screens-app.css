@@ -1560,28 +1560,69 @@
 }
 [data-theme="dark"] .streak-chip { background: rgba(255, 152, 0, 0.10); border-color: rgba(255, 152, 0, 0.25); }
 
-/* Lottie inside Word-of-day card, floating in top-end corner */
-.wod-card { position: relative; padding-inline-end: 100px; }
+/* Word-of-day card layout: reserve a comfortable column for the Lottie so
+   the multi-line English word never collides with the decoration, and
+   keep the head (label + chips) on a layer ABOVE the Lottie so the chips
+   always remain readable. */
+.wod-card { position: relative; }
+.wod-card__head { position: relative; z-index: 2; }
+.wod-card__english,
+.wod-card__ipa,
+.wod-card__meaning,
+.wod-card__example {
+  position: relative;
+  z-index: 2;
+  max-width: calc(100% - 110px);
+}
 .wod-card__lottie {
-  position: absolute;
-  top: 18px;
-  inset-inline-end: -10px;
-  width: 130px;
-  height: 130px;
-  margin: 0;
+  position: absolute !important;
+  top: 56px;
+  inset-inline-end: 4px;
+  width: 96px !important;
+  height: 96px !important;
+  margin: 0 !important;
   pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
 }
 
-/* Lottie inside vocab banner (3D book) */
+/* Lottie inside vocab banner (3D book) — explicit grid so the 3 children
+   line up: ring | body | book Lottie. The middle column flexes; the
+   ring + book stay fixed at 70px each. */
 .vocab-banner { padding: var(--sp-4); }
 .vocab-banner__lottie {
-  width: 76px !important;
-  height: 76px !important;
+  width: 64px !important;
+  height: 64px !important;
   margin: 0 !important;
+  flex: none;
 }
 
 /* QA tile — use Lottie at start, chevron at trailing corner */
-.qa-tile { padding: var(--sp-3); min-height: 116px; }
+/* QA tile v4 — 2-row layout: top row has Lottie, bottom row has text+arrow */
+.qa-tile {
+  padding: var(--sp-3);
+  min-height: 126px;
+  display: grid;
+  grid-template-areas:
+    "art arrow"
+    "body body";
+  grid-template-columns: 1fr auto;
+  gap: var(--sp-2);
+  align-items: start;
+}
+.qa-tile__lottie {
+  grid-area: art;
+  width: 48px !important;
+  height: 48px !important;
+  margin: 0 !important;
+  justify-self: start;
+}
+.qa-tile__body { grid-area: body; }
+.qa-tile__arrow {
+  grid-area: arrow;
+  position: static;
+  align-self: start;
+}
 .qa-tile__arrow--purple {
   background: rgba(108, 92, 231, 0.14);
   color: #6C5CE7;

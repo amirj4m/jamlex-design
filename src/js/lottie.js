@@ -39,6 +39,10 @@ async function mountStage (el) {
   const key = el.dataset.lottie;
   if (!key) return;
 
+  // Mark the element so CSS can show a graceful gradient-disc placeholder
+  // until lottie-web finishes rendering (or, if it can't, indefinitely).
+  el.classList.add('lottie-stage--pending');
+
   try {
     const lib = await loadLib();
     const url = `/lottie/${encodeURIComponent(key)}.json`;
@@ -54,24 +58,19 @@ async function mountStage (el) {
     });
     anim.setSpeed(speed);
 
-    // If the JSON 404s the player silently no-ops. Show a soft fallback chip
-    // with the key so we can spot missing assets during preview.
-    setTimeout(() => {
-      if (!el.querySelector('svg')) {
-        el.innerHTML = `<div style="
-          width:100%;height:100%;display:flex;align-items:center;
-          justify-content:center;background:var(--jx-stamp-bg);
-          border-radius:28px;color:var(--jx-text-2);font-size:11px;
-          font-family:var(--font-family-mono);text-align:center;
-          padding:8px;">[lottie missing]<br/>${key}</div>`;
-      }
-    }, 1200);
+    // The DOM_LOADED event fires only when the SVG is actually painted.
+    // Until then, the CSS placeholder fills the space.
+    anim.addEventListener('DOMLoaded', () => {
+      el.classList.remove('lottie-stage--pending');
+    });
+    // If lottie can't make sense of the JSON, the data_failed event fires
+    // and we just leave the CSS placeholder in place — no ugly red text.
+    anim.addEventListener('data_failed', () => {
+      // Stay in the --pending visual; do not flash an error.
+    });
   } catch (err) {
-    el.innerHTML = `<div style="
-      width:100%;height:100%;display:flex;align-items:center;
-      justify-content:center;background:var(--jx-stamp-bg);
-      border-radius:28px;color:var(--jx-danger);font-size:11px;">
-      ⚠ lottie load failed</div>`;
+    // Network down or the lottie-web library itself failed to load.
+    // The CSS placeholder stays visible — silent graceful degradation.
   }
 }
 

@@ -1,12 +1,8 @@
-// Generates minimal valid Lottie JSON files for every slot. Each placeholder
-// is a 200×200 canvas with a tinted disc that gently breathes. The format
-// uses only shape layers (ty=4) with a single ellipse — no text layers,
-// no fonts, no missing glyphs — so lottie-web renders them without
-// needing any font assets.
-//
-// Real animations come later from lottiefiles.com.
-//
-// Run: node scripts/gen-placeholders.mjs
+// Generates minimal valid Lottie JSON files. Static (no animation) discs —
+// guaranteed to render in lottie-web with zero keyframe / font / asset
+// dependencies. They look identical when paused so a still placeholder is
+// fine; the moment the owner drops a real lottiefiles.com JSON into
+// /lottie/ with the matching filename, the animation comes to life.
 
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -16,8 +12,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = join(__dirname, '..', 'src', 'lottie');
 mkdirSync(outDir, { recursive: true });
 
-// Slot → tint color. Real animation arrives later; this just keeps the
-// stage filled with a colored disc that pulses, matching its purpose.
 const SLOTS = [
   { name: 'hero-lock',           tint: '#4ECDC4' },
   { name: 'hero-profile',        tint: '#00B4A6' },
@@ -43,7 +37,7 @@ const SLOTS = [
   { name: 'splash-logo',         tint: '#00B4A6' },
 ];
 
-function hexToRgbArr (hex) {
+function hexToRgb (hex) {
   const h = hex.replace('#', '');
   return [
     parseInt(h.slice(0, 2), 16) / 255,
@@ -53,21 +47,14 @@ function hexToRgbArr (hex) {
   ];
 }
 
-/**
- * Build a tiny but VALID Lottie animation. One shape layer holding a single
- * grouped ellipse with a fill, animated with a subtle scale "breath" so it
- * looks alive while the real Lottie isn't loaded.
- *
- * Why a Group: lottie-web requires shape items to live inside a group
- * (`ty:"gr"`) with an `it` array. Top-level shapes get silently dropped.
- */
+/** Minimal valid Lottie — single shape layer with one grouped ellipse. */
 function buildLottie ({ tint }) {
-  const [r, g, b, a] = hexToRgbArr(tint);
+  const [r, g, b, a] = hexToRgb(tint);
   return {
     v: '5.7.4',
     fr: 30,
     ip: 0,
-    op: 60,
+    op: 30,
     w: 200,
     h: 200,
     nm: 'Placeholder',
@@ -85,16 +72,13 @@ function buildLottie ({ tint }) {
           r: { a: 0, k: 0 },
           p: { a: 0, k: [100, 100, 0] },
           a: { a: 0, k: [0, 0, 0] },
-          s: {
-            a: 1,
-            k: [
-              { t: 0,  s: [92, 92, 100],   i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] } },
-              { t: 30, s: [106, 106, 100], i: { x: [0.4], y: [1] }, o: { x: [0.6], y: [0] } },
-              { t: 60, s: [92, 92, 100] },
-            ],
-          },
+          s: { a: 0, k: [100, 100, 100] },
         },
         ao: 0,
+        ip: 0,
+        op: 30,
+        st: 0,
+        bm: 0,
         shapes: [
           {
             ty: 'gr',
@@ -129,10 +113,6 @@ function buildLottie ({ tint }) {
             ],
           },
         ],
-        ip: 0,
-        op: 60,
-        st: 0,
-        bm: 0,
       },
     ],
     markers: [],
@@ -145,4 +125,4 @@ for (const slot of SLOTS) {
   writeFileSync(join(outDir, slot.name + '.json'), JSON.stringify(json));
   count++;
 }
-console.log(`Wrote ${count} placeholder lottie files to ${outDir}`);
+console.log(`Wrote ${count} static placeholder lottie files`);
