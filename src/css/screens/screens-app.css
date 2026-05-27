@@ -1252,3 +1252,237 @@
   font-style: italic;
   padding-inline-start: 32px;
 }
+
+/* ============================================================================
+   Home v2 — matches Jamlex reference screenshot exactly
+   ============================================================================ */
+.home-top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0 var(--sp-4);
+}
+.home-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--jx-primary-glow);
+  color: var(--jx-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--fw-bold);
+  font-size: 20px;
+  border: 1.5px solid var(--jx-primary-glow);
+}
+.home-brand {
+  font-size: 20px;
+  font-weight: var(--fw-extrabold);
+  color: var(--jx-text);
+}
+
+/* ─── Word of Day card v2 ───────────────────────────────────────────── */
+.wod-card {
+  position: relative;
+  background: var(--jx-bg);
+  border-radius: 22px;
+  padding: var(--sp-5);
+  margin-bottom: var(--sp-4);
+  box-shadow: 0 6px 24px rgba(15, 30, 40, 0.06);
+  overflow: hidden;
+}
+[data-theme="dark"] .wod-card { background: var(--jx-bg); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
+
+.wod-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--sp-3);
+}
+.wod-card__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-bold);
+  color: var(--jx-text);
+}
+.wod-card__tags {
+  display: flex;
+  gap: var(--sp-1);
+}
+
+.wod-card__english {
+  font-size: 36px;
+  font-weight: var(--fw-extrabold);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  direction: ltr;
+  text-align: start;
+  font-family: var(--font-family-latin);
+  margin-bottom: var(--sp-1);
+}
+.wod-card__ipa {
+  font-size: var(--fs-body-m);
+  color: var(--jx-text-2);
+  direction: ltr;
+  text-align: start;
+  font-family: var(--font-family-latin);
+  margin-bottom: var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.wod-card__meaning {
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-1);
+}
+.wod-card__example {
+  font-size: var(--fs-body-m);
+  color: var(--jx-text-2);
+  font-style: italic;
+  font-family: var(--font-family-latin);
+  direction: ltr;
+  text-align: start;
+}
+
+/* Floating paper-plane decoration in top-end corner */
+.wod-card__deco {
+  position: absolute;
+  top: 30px;
+  inset-inline-end: -10px;
+  width: 110px;
+  height: 110px;
+  opacity: 0.95;
+  pointer-events: none;
+}
+[dir="rtl"] .wod-card__deco { transform: scaleX(-1); }
+
+.wod-card__divider {
+  border: 0;
+  height: 1px;
+  background: var(--jx-divider);
+  margin: var(--sp-4) 0 var(--sp-2);
+}
+.wod-card__cta {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  background: transparent;
+  color: var(--jx-primary);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body-m);
+  padding: var(--sp-2);
+  border: 0;
+  cursor: pointer;
+}
+.wod-card__cta:hover { color: var(--jx-primary-dark); }
+
+.audio-btn--inline {
+  width: 24px; height: 24px;
+  background: var(--jx-primary-glow);
+  flex: none;
+}
+
+/* ─── Vocab learning gradient banner ─────────────────────────────────── */
+.vocab-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: linear-gradient(135deg, #4A90D9, #00B4A6);
+  color: #fff;
+  border-radius: 22px;
+  padding: var(--sp-5);
+  margin-bottom: var(--sp-4);
+  text-decoration: none;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(74, 144, 217, 0.30);
+}
+.vocab-banner:hover { text-decoration: none; }
+
+.vocab-banner__ring {
+  flex: none;
+  width: 78px;
+  height: 78px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.vocab-banner__ring svg { width: 100%; height: 100%; }
+
+.vocab-banner__body { flex: 1; min-width: 0; }
+.vocab-banner__title {
+  font-size: 18px;
+  font-weight: var(--fw-extrabold);
+  margin-bottom: 2px;
+}
+.vocab-banner__sub {
+  font-size: var(--fs-body-s);
+  opacity: 0.92;
+  margin-bottom: var(--sp-2);
+}
+.vocab-banner__cheer {
+  font-size: var(--fs-body-s);
+  opacity: 0.95;
+  font-weight: var(--fw-semibold);
+}
+.vocab-banner__icon {
+  flex: none;
+  width: 70px;
+  height: 70px;
+}
+
+/* ─── Quick action tiles v2 ──────────────────────────────────────────── */
+.quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+}
+.qa-tile {
+  position: relative;
+  background: var(--jx-bg);
+  border-radius: 20px;
+  padding: var(--sp-3) var(--sp-4) var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  text-decoration: none;
+  color: var(--jx-text);
+  box-shadow: 0 4px 16px rgba(15, 30, 40, 0.05);
+  min-height: 130px;
+}
+.qa-tile:hover { text-decoration: none; transform: translateY(-2px); transition: transform var(--motion-fast); }
+
+.qa-tile__art {
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--sp-1);
+}
+.qa-tile__title { font-weight: var(--fw-bold); font-size: var(--fs-body-l); }
+.qa-tile__sub { font-size: var(--fs-body-s); color: var(--jx-text-2); }
+
+.qa-tile__arrow {
+  position: absolute;
+  bottom: var(--sp-3);
+  inset-inline-end: var(--sp-3);
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+}
+.qa-tile__arrow--amber {
+  background: rgba(245, 185, 69, 0.18);
+  color: #E59A1A;
+}
+.qa-tile__arrow--mute {
+  background: var(--jx-input-bg);
+  color: var(--jx-text-2);
+}
+[dir="rtl"] .qa-tile__arrow { transform: scaleX(-1); }

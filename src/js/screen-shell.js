@@ -8,11 +8,15 @@
 import { initI18n, setLocale, getLocale, supportedLocales } from './i18n.js';
 import { initTheme, setTheme, getTheme } from './theme.js';
 import { initAudio } from './audio.js';
+import { injectStamps } from './hero.js';
+import { injectNavs } from './bottomnav.js';
 
 (async function bootstrap() {
   initTheme();
+  injectNavs();         // before i18n so the injected i18n attrs get applied
   await initI18n();
   initAudio();
+  injectStamps();
   wireControls();
 })();
 

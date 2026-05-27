@@ -1,0 +1,74 @@
+/* ============================================================================
+   Jamlex — Hero stamps + auth-gate illustration
+   ============================================================================ */
+
+/* ─── Hero stamp (auth screen variant) ──────────────────────────────── */
+.hero-stamp {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: var(--sp-4) auto var(--sp-5);
+  flex: none;
+}
+.hero-stamp__shape {
+  position: absolute;
+  inset: 30px;
+  background: #E8F0F2;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(30, 50, 60, 0.08);
+}
+[data-theme="dark"] .hero-stamp__shape {
+  background: rgba(255,255,255,0.06);
+}
+.hero-stamp__shape--teal {
+  background: linear-gradient(135deg, #4ECDC4, #00B4A6);
+  box-shadow: 0 10px 30px rgba(0,180,166,0.30);
+}
+[data-theme="dark"] .hero-stamp__shape--teal { background: linear-gradient(135deg, #4ECDC4, #00B4A6); }
+.hero-stamp__shape svg {
+  width: 90px;
+  height: 90px;
+}
+.hero-stamp__shape--teal svg path,
+.hero-stamp__shape--teal svg circle,
+.hero-stamp__shape--teal svg line { stroke: #fff; }
+
+.hero-stamp .deco { position: absolute; }
+.hero-stamp .deco-1 { width: 22px; height: 22px; top: 18px;  inset-inline-start: 24px; }
+.hero-stamp .deco-2 { width: 54px; height: 54px; top: 88px;  inset-inline-start: -6px; }
+.hero-stamp .deco-3 { width: 48px; height: 48px; top: 14px;  inset-inline-end:  14px;  }
+.hero-stamp .deco-4 { width: 14px; height: 14px; top: 96px;  inset-inline-end:  -2px;  }
+.hero-stamp--profile .deco-4 { width: 48px; height: 48px; top: auto; bottom: -8px; inset-inline-end: -4px; }
+
+/* ─── Auth gate illustration (bigger, standalone) ────────────────────── */
+.auth-gate-illo {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin: var(--sp-6) auto var(--sp-5);
+  flex: none;
+}
+.auth-gate-illo > svg { position: absolute; }
+.auth-gate-illo__bg-card {
+  width: 220px; height: 240px;
+  top: 10px; inset-inline-start: 20px;
+}
+.auth-gate-illo__lock {
+  width: 150px; height: 170px;
+  top: 30px; inset-inline-start: 55px;
+}
+.auth-gate-illo__plant {
+  width: 76px; height: 96px;
+  bottom: 0; inset-inline-end: 0;
+}
+.auth-gate-illo__books {
+  width: 70px; height: 56px;
+  bottom: 4px; inset-inline-start: 4px;
+}
+.auth-gate-illo__sparkle { width: 16px; height: 16px; }
+.auth-gate-illo__sparkle--1 { top: 30px; inset-inline-start: 70px; }
+.auth-gate-illo__sparkle--2 { top: 60px; inset-inline-end: 50px; }
+.auth-gate-illo__sparkle--3 { top: 130px; inset-inline-start: 30px; }

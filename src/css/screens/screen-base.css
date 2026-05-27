@@ -261,3 +261,164 @@
   color: var(--jx-text-2);
 }
 .auth-link-row a { font-weight: var(--fw-semibold); margin-inline-start: var(--sp-1); }
+
+/* ============================================================================
+   v2 — Jamlex visual language (replaces older patterns above)
+   ============================================================================ */
+
+/* Auth screens use a centered body that contains: hero stamp, title, fields,
+   divider, social buttons, footer link. No top bar. */
+.screen__body--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--sp-4) var(--sp-5) var(--sp-6);
+}
+
+/* Auth title block */
+.auth-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: var(--fw-extrabold);
+  letter-spacing: -0.3px;
+  margin: var(--sp-3) 0 var(--sp-5);
+}
+.auth-subtitle {
+  text-align: center;
+  font-size: var(--fs-body-m);
+  color: var(--jx-text-2);
+  margin-bottom: var(--sp-5);
+  margin-top: calc(-1 * var(--sp-3));
+}
+
+/* The vertical stack of fields */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* Remember + Forgot row (between password & main button) */
+.auth-aux-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--sp-1) var(--sp-1);
+  font-size: var(--fs-body-s);
+}
+.auth-aux-row__link {
+  color: var(--jx-primary);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+}
+.auth-aux-row__link::before {
+  content: "›";
+  margin-inline-end: 4px;
+  font-size: 16px;
+  vertical-align: -1px;
+}
+[dir="ltr"] .auth-aux-row__link::before { content: "‹"; }
+
+/* "OR" divider with horizontal lines */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: var(--sp-5) 0 var(--sp-3);
+}
+.auth-divider__line {
+  flex: 1;
+  height: 1px;
+  background: var(--jx-divider);
+}
+.auth-divider__text {
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-3);
+  font-weight: var(--fw-semibold);
+}
+
+/* Auth social/alt button gets its own gap stacking */
+.btn--social + .btn--social { margin-top: var(--sp-3); }
+
+/* "Don't have an account? Sign up" footer link */
+.auth-footer-link {
+  text-align: center;
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  margin-top: var(--sp-5);
+}
+.auth-footer-link a {
+  color: var(--jx-primary);
+  font-weight: var(--fw-bold);
+  margin-inline-start: var(--sp-1);
+}
+
+/* Password requirements card (register screen) */
+.pw-rules {
+  background: var(--jx-input-bg);
+  border-radius: var(--rd-4);
+  padding: var(--sp-4);
+  margin: var(--sp-2) 0;
+}
+.pw-rules__title {
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-bold);
+  color: var(--jx-text);
+  margin-bottom: var(--sp-2);
+}
+.pw-rules__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pw-rules__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+}
+.pw-rules__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--jx-text-3);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pw-rules__item[data-met="true"] { color: var(--jx-success); }
+.pw-rules__item[data-met="true"] .pw-rules__dot {
+  background: var(--jx-success);
+  border-color: var(--jx-success);
+}
+.pw-rules__item[data-met="true"] .pw-rules__dot::after {
+  content: "";
+  width: 6px; height: 6px;
+  background: #fff;
+  border-radius: 50%;
+}
+[data-theme="dark"] .pw-rules { background: rgba(255,255,255,0.06); }
+
+/* Terms agreement row (register) — checkbox at the trailing end, text with inline links */
+.auth-terms {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  line-height: 1.7;
+  margin: var(--sp-1) 0 var(--sp-2);
+  cursor: pointer;
+}
+.auth-terms .check__input { flex: none; margin-top: 2px; }
+.auth-terms__text { flex: 1; }
+.auth-terms__link {
+  color: var(--jx-primary);
+  font-weight: var(--fw-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

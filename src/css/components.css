@@ -6,16 +6,17 @@
    ============================================================================ */
 
 /* ── Buttons ──────────────────────────────────────────────────────────── */
+/* Signature Jamlex button: fully pill-shaped, big, bold. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--sp-2);
   padding: var(--sp-3) var(--sp-5);
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-bold);
   font-size: var(--fs-body-l);
   line-height: 1;
-  border-radius: var(--rd-3);
+  border-radius: var(--rd-pill);
   cursor: pointer;
   transition: background var(--motion-fast) var(--ease-out),
               color var(--motion-fast) var(--ease-out),
@@ -23,7 +24,7 @@
               box-shadow var(--motion-fast) var(--ease-out);
   user-select: none;
   white-space: nowrap;
-  min-height: 44px; /* touch target */
+  min-height: 54px; /* signature large touch target */
 }
 .btn:disabled,
 .btn[aria-disabled="true"] {
@@ -38,16 +39,36 @@
 .btn--filled {
   background: var(--jx-primary);
   color: var(--jx-text-on-brand);
-  box-shadow: var(--sh-brand);
+  box-shadow: 0 6px 18px rgba(0, 180, 166, 0.32);
 }
 .btn--filled:hover:not(:disabled) { background: var(--jx-primary-dark); }
 
 .btn--outlined {
-  background: transparent;
-  color: var(--jx-primary);
-  border: 1px solid var(--jx-primary);
+  background: var(--jx-bg);
+  color: var(--jx-text);
+  border: 1px solid var(--jx-border);
+  font-weight: var(--fw-bold);
 }
-.btn--outlined:hover:not(:disabled) { background: var(--jx-primary-glow); }
+.btn--outlined:hover:not(:disabled) { border-color: var(--jx-primary); }
+
+/* Social/alt outlined button (Google, phone, Apple) — same pill shape but
+   uses neutral text color and brings the brand icon to the start. */
+.btn--social {
+  background: var(--jx-bg);
+  color: var(--jx-text);
+  border: 1px solid var(--jx-border);
+  position: relative;
+  font-weight: var(--fw-bold);
+  padding-inline: var(--sp-12);
+}
+.btn--social .btn__icon {
+  position: absolute;
+  inset-inline-end: var(--sp-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn--social:hover:not(:disabled) { border-color: var(--jx-text-3); background: var(--jx-bg-app); }
 
 .btn--text {
   background: transparent;
@@ -67,8 +88,8 @@
 .btn--danger:hover:not(:disabled) { filter: brightness(0.94); }
 
 .btn--block { width: 100%; }
-.btn--sm { padding: var(--sp-2) var(--sp-3); font-size: var(--fs-body-m); min-height: 36px; }
-.btn--lg { padding: var(--sp-4) var(--sp-6); font-size: var(--fs-body-l); min-height: 52px; }
+.btn--sm { padding: var(--sp-2) var(--sp-3); font-size: var(--fs-body-m); min-height: 40px; }
+.btn--lg { padding: var(--sp-4) var(--sp-6); font-size: var(--fs-body-l); min-height: 60px; }
 
 .btn--loading { color: transparent !important; position: relative; }
 .btn--loading::after {
@@ -119,19 +140,21 @@
   display: flex;
   align-items: center;
 }
+/* Signature Jamlex pill input — soft gray fill, NO BORDER, icon at start. */
 .field__input {
   flex: 1;
   width: 100%;
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--jx-surface);
-  border: 1px solid var(--jx-border);
-  border-radius: var(--rd-3);
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--jx-input-bg);
+  border: 1.5px solid transparent;
+  border-radius: var(--rd-pill);
   color: var(--jx-text);
   font-size: var(--fs-body-l);
+  font-weight: var(--fw-medium);
   transition: border-color var(--motion-fast), box-shadow var(--motion-fast), background var(--motion-fast);
-  min-height: 48px;
+  min-height: 54px;
 }
-.field__input::placeholder { color: var(--jx-text-3); }
+.field__input::placeholder { color: var(--jx-text-3); font-weight: var(--fw-regular); }
 .field__input:focus {
   outline: none;
   border-color: var(--jx-primary);
@@ -145,6 +168,8 @@
 .field__input[aria-invalid="true"]:focus {
   box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.18);
 }
+[data-theme="dark"] .field__input { background: rgba(255,255,255,0.06); color: var(--jx-text); }
+[data-theme="dark"] .field__input:focus { background: rgba(255,255,255,0.10); }
 .field__error {
   font-size: var(--fs-body-s);
   color: var(--jx-danger);
@@ -154,9 +179,12 @@
   color: var(--jx-text-2);
 }
 
-/* Inputs with leading/trailing slots (e.g. eye toggle, clear-X, country pick) */
-.field__input--with-slot-end  { padding-inline-end: var(--sp-12); }
-.field__input--with-slot-start { padding-inline-start: var(--sp-12); }
+/* Pill inputs with icon slots inside.
+   Signature Jamlex layout: icon SITS at the START of the pill, placeholder
+   sits at the opposite end (so the eye looks at the icon, then reads the
+   placeholder). This is the rhythm in every auth screen reference. */
+.field__input--with-slot-start { padding-inline-start: 52px; }
+.field__input--with-slot-end   { padding-inline-end:   52px; }
 
 .field__slot-end,
 .field__slot-start {
@@ -167,9 +195,46 @@
   align-items: center;
   justify-content: center;
   color: var(--jx-text-2);
+  pointer-events: none;
 }
-.field__slot-end   { inset-inline-end:   var(--sp-3); }
-.field__slot-start { inset-inline-start: var(--sp-3); }
+.field__slot-start { inset-inline-start: var(--sp-4); }
+.field__slot-end   { inset-inline-end:   var(--sp-4); pointer-events: auto; cursor: pointer; }
+
+.field__slot-end button,
+.field__slot-start button {
+  background: none;
+  border: 0;
+  color: inherit;
+  padding: 4px;
+  cursor: pointer;
+}
+.field__slot-end button:hover { color: var(--jx-text); }
+
+/* Phone field: country chip + divider on start, phone icon next to it. */
+.field--phone .field__country {
+  position: absolute;
+  inset-inline-start: var(--sp-3);
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 0;
+  color: var(--jx-text);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  font-family: var(--font-family-latin);
+}
+.field--phone .field__country::after {
+  content: "";
+  width: 1px;
+  height: 24px;
+  background: var(--jx-divider);
+  margin-inline-start: var(--sp-2);
+}
+.field--phone .field__input { padding-inline-start: 100px; padding-inline-end: 52px; }
+.field--phone .field__slot-end { color: var(--jx-text-2); }
 
 /* OTP boxes */
 .otp {

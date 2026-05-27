@@ -58,7 +58,7 @@
     "changePasswordTitle": "Change password",
 
     "email": "Email",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "Email or phone number",
     "password": "Password",
     "passwordPlaceholder": "Your password",
     "newPassword": "New password",

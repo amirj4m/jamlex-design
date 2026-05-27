@@ -58,7 +58,7 @@
     "changePasswordTitle": "تغییر رمز عبور",
 
     "email": "ایمیل",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "ایمیل یا شماره موبایل",
     "password": "رمز عبور",
     "passwordPlaceholder": "رمز عبور شما",
     "newPassword": "رمز عبور جدید",

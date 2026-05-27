@@ -23,12 +23,14 @@
   --jx-danger-bg:      #FEF2F2;
 
   /* ── Surfaces (light) ───────────────────────────────────────────────── */
-  --jx-bg:             #FFFFFF;
-  --jx-bg-app:         #F4FBFA;       /* off-white with teal tint, used as the page background */
-  --jx-surface:        #F5F7FA;
+  --jx-bg:             #FFFFFF;       /* card/sheet bg */
+  --jx-bg-app:         #F4FBFA;       /* page background — pale mint, signature Jamlex bg */
+  --jx-surface:        #F1F3F6;       /* pill input bg — light gray */
   --jx-surface-alt:    #EBEEF3;
   --jx-border:         #E3E8EE;
   --jx-divider:        rgba(15, 23, 42, 0.06);
+  --jx-stamp-bg:       #E8F0F2;       /* hero stamp gray-teal */
+  --jx-input-bg:       #F1F3F6;       /* signature pill input bg */
 
   /* ── Text (light) ──────────────────────────────────────────────────── */
   --jx-text:           #1A1A2E;

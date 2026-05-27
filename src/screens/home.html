@@ -17,15 +17,8 @@
 </head>
 <body>
   <div class="preview-controls">
-    <select data-locale-picker aria-label="Locale">
-      <option value="fa">فارسی</option>
-      <option value="en">English</option>
-    </select>
-    <select data-theme-picker aria-label="Theme">
-      <option value="system">🖥 System</option>
-      <option value="light">☀ Light</option>
-      <option value="dark">🌙 Dark</option>
-    </select>
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
   </div>
   <a href="/" class="hub-ribbon">‹ Hub</a>
 
@@ -33,100 +26,111 @@
     <div class="phone">
       <div class="screen">
         <div class="screen__body">
-          <header class="home-header">
-            <div class="home-greet">
-              <span class="home-greet__hi" data-i18n="home.greetingHi" data-i18n-vars='{"name":""}'></span>
-              <span class="home-greet__name">آرین</span>
+          <!-- Top: small avatar + Jamlex brand -->
+          <header class="home-top">
+            <div class="home-avatar">
+              <span>?</span>
             </div>
-            <div class="streak-badge">
-              🔥 <span data-i18n="home.streakDays" data-i18n-vars='{"n":7}'></span>
-            </div>
+            <span class="home-brand">Jamlex</span>
           </header>
 
-          <!-- Word of the day -->
-          <div class="wod">
-            <div class="wod__label" data-i18n="home.wordOfDay"></div>
-            <div class="wod__english">
-              <span>resilience</span>
-              <button class="audio-btn" data-audio="resilience" aria-label="Play">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06A7 7 0 0 1 14 18.7v2.06A9 9 0 0 0 14 3.23z"/></svg>
+          <!-- Word of Day card (v2 — matches reference exactly) -->
+          <article class="wod-card">
+            <div class="wod-card__head">
+              <span class="wod-card__label">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#F5B945"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+                <span data-i18n="home.wordOfDay"></span>
+              </span>
+              <div class="wod-card__tags">
+                <span class="chip" data-level="B1">B1</span>
+                <span class="chip">noun</span>
+              </div>
+            </div>
+
+            <div class="wod-card__english">
+              <span>hostel</span>
+              <br/>
+              <span>dormitory</span>
+            </div>
+            <div class="wod-card__ipa">
+              <span>/ˈhɒstl ˈdɔ:mɪtri/</span>
+              <button class="audio-btn audio-btn--inline" data-audio="hostel dormitory" aria-label="Play">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
               </button>
             </div>
-            <div class="wod__ipa">/rɪˈzɪliəns/</div>
-            <div class="wod__meaning">تاب‌آوری، قابلیت بازگشت به حالت اول</div>
-            <div class="wod__actions">
-              <button class="wod__btn" data-i18n="home.addToLeitner">
-                <span>+</span> <span data-i18n="home.addToLeitner"></span>
-              </button>
+
+            <div class="wod-card__meaning">اتاق مشترک</div>
+            <div class="wod-card__example">'The hostel dormitory sleeps twelve people.'</div>
+
+            <!-- Floating paper plane decoration -->
+            <svg class="wod-card__deco" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+              <circle cx="80" cy="50" r="36" fill="#E8F0F2"/>
+              <path d="M50 50l36-14-14 36-8-14-14-8z" fill="#6C5CE7"/>
+              <circle cx="34" cy="74" r="4" fill="#26D07C"/>
+              <circle cx="98" cy="80" r="3" fill="#6C5CE7"/>
+            </svg>
+
+            <hr class="wod-card__divider"/>
+            <button class="wod-card__cta">
+              <span style="font-size:18px;">+</span>
+              <span data-i18n="home.addToLeitner"></span>
+            </button>
+          </article>
+
+          <!-- Vocab learning gradient card -->
+          <a href="/screens/vocab-learning.html" class="vocab-banner">
+            <div class="vocab-banner__ring">
+              <svg viewBox="0 0 60 60" fill="none">
+                <circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,0.30)" stroke-width="4"/>
+                <text x="30" y="36" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter">0%</text>
+              </svg>
             </div>
-          </div>
-
-          <!-- Progress card -->
-          <div class="prog-card">
-            <div class="prog-card__head">
-              <span class="prog-card__title" data-i18n="home.vocabProgress"></span>
-              <span class="prog-card__value">23%</span>
+            <div class="vocab-banner__body">
+              <div class="vocab-banner__title" data-i18n="vocabLearning.title"></div>
+              <div class="vocab-banner__sub">مسیر یادگیری شما</div>
+              <div class="vocab-banner__cheer">خیلی خوب! ادامه بده 🌱</div>
             </div>
-            <div class="prog-bar"><div class="prog-bar__fill" style="width:23%"></div></div>
-            <div class="prog-card__hint" data-i18n="home.keepGoing"></div>
-          </div>
+            <svg class="vocab-banner__icon" viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="26" fill="rgba(255,255,255,0.18)"/>
+              <path d="M14 18v22c0 1 1 2 2 2h28c1 0 2-1 2-2V18H14z" fill="#fff"/>
+              <path d="M30 18v24M14 20a4 4 0 0 1 4-2h8c2 0 4 2 4 4M46 20a4 4 0 0 0-4-2h-8c-2 0-4 2-4 4" stroke="#7ECCC4" stroke-width="2" fill="none"/>
+              <circle cx="50" cy="14" r="3" fill="#F5B945"/>
+              <circle cx="12" cy="48" r="2" fill="#6C5CE7"/>
+            </svg>
+          </a>
 
-          <!-- Quick actions -->
+          <!-- Two quick actions -->
           <div class="quick-actions">
-            <a href="/screens/reading.html" class="qa">
-              <div class="qa__icon qa__icon--blue">📚</div>
-              <div class="qa__title" data-i18n="home.library"></div>
-              <div class="qa__desc" data-i18n="home.readBook"></div>
+            <a href="/screens/reading.html" class="qa-tile">
+              <svg class="qa-tile__art" viewBox="0 0 80 80" fill="none">
+                <path d="M16 22h24v36H16zM40 22h24v36H40z" fill="#E8F0F2"/>
+                <path d="M28 32h-6m6 6h-6m6 6h-6M58 32h-6m6 6h-6" stroke="#7ECCC4" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <div class="qa-tile__body">
+                <div class="qa-tile__title" data-i18n="home.readBook"></div>
+                <div class="qa-tile__sub">مطالعه و یادگیری</div>
+              </div>
+              <span class="qa-tile__arrow qa-tile__arrow--amber">›</span>
             </a>
-            <a href="/screens/my-words.html" class="qa">
-              <div class="qa__icon qa__icon--teal">⭐</div>
-              <div class="qa__title" data-i18n="home.myWords"></div>
-              <div class="qa__desc" data-i18n="home.savedWords"></div>
-            </a>
-          </div>
-
-          <!-- Section: continue learning -->
-          <div class="section-h">
-            <div class="section-h__title" data-i18n="vocabLearning.title"></div>
-            <a href="/screens/vocab-learning.html" class="section-h__action" data-i18n="reading.seeAll"></a>
-          </div>
-          <div class="quick-actions">
-            <a href="/screens/leitner.html" class="qa">
-              <div class="qa__icon qa__icon--teal">🗂</div>
-              <div class="qa__title" data-i18n="nav.leitner"></div>
-              <div class="qa__desc" data-i18n="leitner.dueSubtitle"></div>
-            </a>
-            <a href="/screens/flashcards.html" class="qa">
-              <div class="qa__icon qa__icon--blue">🃏</div>
-              <div class="qa__title" data-i18n="flashcards.title"></div>
-              <div class="qa__desc" data-i18n="vocabLearning.learnByLevel"></div>
+            <a href="/screens/my-words.html" class="qa-tile">
+              <svg class="qa-tile__art" viewBox="0 0 80 80" fill="none">
+                <rect x="20" y="20" width="36" height="40" rx="4" fill="#D4D0FF"/>
+                <rect x="24" y="24" width="28" height="32" rx="2" fill="#6C5CE7"/>
+                <line x1="30" y1="34" x2="46" y2="34" stroke="#fff" stroke-width="2"/>
+                <line x1="30" y1="42" x2="46" y2="42" stroke="#fff" stroke-width="2"/>
+                <line x1="30" y1="50" x2="40" y2="50" stroke="#fff" stroke-width="2"/>
+              </svg>
+              <div class="qa-tile__body">
+                <div class="qa-tile__title" data-i18n="home.myWords"></div>
+                <div class="qa-tile__sub">لغات ذخیره‌شده</div>
+              </div>
+              <span class="qa-tile__arrow qa-tile__arrow--mute">›</span>
             </a>
           </div>
         </div>
 
-        <!-- Bottom Nav -->
-        <nav class="bottomnav" aria-label="Bottom navigation">
-          <a href="/screens/home.html" class="bottomnav__item" data-active="true">
-            <span class="bottomnav__icon">🏠</span>
-            <span data-i18n="nav.home"></span>
-          </a>
-          <a href="/screens/leitner.html" class="bottomnav__item">
-            <span class="bottomnav__icon">🗂</span>
-            <span data-i18n="nav.leitner"></span>
-          </a>
-          <a href="/screens/vocabulary.html" class="bottomnav__item">
-            <span class="bottomnav__icon">🔍</span>
-            <span data-i18n="nav.vocabulary"></span>
-          </a>
-          <a href="/screens/stats.html" class="bottomnav__item">
-            <span class="bottomnav__icon">📊</span>
-            <span data-i18n="nav.stats"></span>
-          </a>
-          <a href="/screens/profile.html" class="bottomnav__item">
-            <span class="bottomnav__icon">👤</span>
-            <span data-i18n="nav.profile"></span>
-          </a>
-        </nav>
+        <!-- Bottom Nav (auto-injected by bottomnav.js) -->
+        <div data-bottomnav="home"></div>
       </div>
     </div>
   </div>

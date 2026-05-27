@@ -135,37 +135,37 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: var(--sp-2);
-  border-radius: var(--rd-3);
+  gap: 4px;
+  padding: var(--sp-1) var(--sp-2) var(--sp-2);
   color: var(--jx-text-2);
   text-decoration: none;
   font-size: var(--fs-caption);
   font-weight: var(--fw-semibold);
-  transition: color var(--motion-fast), background var(--motion-fast);
+  transition: color var(--motion-fast);
   position: relative;
 }
 .bottomnav__item:hover { color: var(--jx-text); text-decoration: none; }
-.bottomnav__item[data-active="true"] {
-  color: var(--jx-primary);
-}
-.bottomnav__item[data-active="true"]::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 28px;
-  height: 3px;
-  background: var(--jx-primary);
-  border-radius: var(--rd-pill);
-}
+.bottomnav__item[data-active="true"] { color: var(--jx-primary); }
+
+/* Signature Jamlex active-tab indicator: a teal-tinted PILL background
+   that wraps ONLY the icon — not the label. The label below stays in
+   its inactive grey. This is the distinctive bottom-nav signature. */
 .bottomnav__icon {
-  width: 22px; height: 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 48px;
+  height: 30px;
+  border-radius: var(--rd-pill);
+  transition: background var(--motion-fast);
 }
+.bottomnav__item[data-active="true"] .bottomnav__icon {
+  background: var(--jx-primary-glow);
+}
+[data-theme="dark"] .bottomnav__item[data-active="true"] .bottomnav__icon {
+  background: rgba(0, 196, 180, 0.20);
+}
+.bottomnav__icon svg { width: 22px; height: 22px; }
 
 /* ── Section header ──────────────────────────────────────────────────── */
 .section-h {

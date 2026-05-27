@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/hero-stamps.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
 </head>
@@ -27,204 +28,107 @@
       <option value="light">☀ Light</option>
       <option value="dark">🌙 Dark</option>
     </select>
-    <select id="phase-picker" aria-label="Phase" onchange="
-      document.querySelectorAll('.phase').forEach(function(p){p.hidden = p.dataset.phase !== event.target.value;});
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
     ">
-      <option value="enter">Step 1: Enter phone</option>
-      <option value="verify">Step 2: Verify OTP</option>
+      <option value="phone">Enter phone</option>
+      <option value="otp">Enter OTP</option>
     </select>
   </div>
-  <a href="/" class="hub-ribbon">‹ Hub</a>
+  <a href="/screens/login.html" class="hub-ribbon">‹ Login</a>
 
   <div class="shell">
     <div class="phone">
       <div class="screen">
-        <!-- Phase 1: enter phone -->
-        <section class="auth-screen phase" data-phase="enter">
-          <header class="auth-screen__header">
-            <a href="/screens/login.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
-          </header>
+        <div class="screen__body screen__body--centered">
+          <div data-hero="phone"></div>
 
-          <div class="auth-screen__body">
-            <div class="auth-screen__title-block">
-              <h1 class="auth-screen__title" data-i18n="auth.phoneAuthTitle"></h1>
-              <p class="auth-screen__subtitle">
-                <span data-i18n="auth.verify.phoneSubtitle" data-i18n-vars='{"phone":"——"}'></span>
-              </p>
-            </div>
+          <!-- State: enter phone -->
+          <div class="state" data-state="phone">
+            <h1 class="auth-title" data-i18n="auth.phoneAuthTitle"></h1>
+            <p class="auth-subtitle">برای ورود شماره موبایلت رو وارد کن</p>
 
-            <form class="auth-screen__form" onsubmit="event.preventDefault(); document.getElementById('phase-picker').value='verify'; document.querySelectorAll('.phase').forEach(function(p){p.hidden = p.dataset.phase !== 'verify';});">
-              <div class="field">
-                <label class="field__label" for="phone-num" data-i18n="auth.phone"></label>
-                <div class="phone-row">
-                  <button type="button" class="country-pick" id="country-btn" onclick="document.getElementById('country-dialog').showModal();">
-                    <span class="country-pick__flag">🇮🇷</span>
-                    <span>+98</span>
+            <form class="auth-form" autocomplete="on">
+              <div class="field field--phone">
+                <div class="field__control">
+                  <button type="button" class="field__country">
+                    🇺🇸 <span>+1</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
                   </button>
                   <input
-                    id="phone-num"
                     type="tel"
-                    name="phone"
                     class="field__input"
+                    placeholder="9XX XXX XX XX"
                     autocomplete="tel"
-                    inputmode="numeric"
-                    pattern="[0-9 ]+"
-                    minlength="9"
-                    maxlength="14"
-                    required
-                    data-i18n-attr="placeholder:auth.phonePlaceholder"
+                    inputmode="tel"
+                    dir="ltr"
+                    style="text-align: start;"
                   />
-                </div>
-                <div class="field__help">
-                  <span data-i18n="auth.validation.phoneFormat" data-i18n-vars='{"length":10}'></span>
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn--filled btn--block" data-i18n="auth.sendCodeBtn"></button>
-            </form>
-
-            <div class="auth-link-row">
-              <span data-i18n="auth.haveAccountQ"></span>
-              <a href="/screens/login.html" data-i18n="auth.emailBtn"></a>
-            </div>
-          </div>
-        </section>
-
-        <!-- Phase 2: verify OTP -->
-        <section class="auth-screen phase" data-phase="verify" hidden>
-          <header class="auth-screen__header">
-            <button class="btn-icon back-btn" data-i18n-attr="aria-label:common.back" onclick="
-              document.getElementById('phase-picker').value='enter';
-              document.querySelectorAll('.phase').forEach(function(p){p.hidden = p.dataset.phase !== 'enter';});
-            "></button>
-          </header>
-
-          <div class="auth-screen__body">
-            <div class="auth-screen__title-block">
-              <h1 class="auth-screen__title otp-screen__title" data-i18n="auth.verify.phoneTitle"></h1>
-              <p class="otp-screen__subtitle" data-i18n="auth.verify.phoneSubtitle" data-i18n-vars='{"phone":"+98 912 345 67 89"}'></p>
-            </div>
-
-            <form class="auth-screen__form" onsubmit="event.preventDefault();">
-              <div class="field">
-                <label class="field__label sr-only" for="otp-1" data-i18n="auth.otpCode"></label>
-                <div class="otp" id="otp-row">
-                  <input id="otp-1" class="otp__box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code" />
-                  <input class="otp__box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code" />
-                  <input class="otp__box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code" />
-                  <input class="otp__box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code" />
-                  <input class="otp__box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code" />
-                  <input class="otp__box" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="one-time-code" />
+                  <span class="field__slot-end">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+                    </svg>
+                  </span>
                 </div>
               </div>
 
-              <button type="submit" class="btn btn--filled btn--block" data-i18n="auth.verifyCodeBtn"></button>
+              <button type="button" class="btn btn--filled btn--block btn--lg" onclick="
+                document.getElementById('state-picker').value='otp';
+                document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'otp';});
+              " data-i18n="auth.sendCodeBtn"></button>
             </form>
 
-            <div class="otp-screen__resend">
-              <span data-i18n="auth.resendCodeIn" data-i18n-vars='{"seconds":60}' id="resend-countdown"></span>
-            </div>
-
-            <div class="auth-link-row">
-              <a href="#" data-i18n="auth.changeNumber" onclick="
-                event.preventDefault();
-                document.getElementById('phase-picker').value='enter';
-                document.querySelectorAll('.phase').forEach(function(p){p.hidden = p.dataset.phase !== 'enter';});
-              "></a>
+            <div class="auth-footer-link">
+              <a href="/screens/login.html" data-i18n="auth.signInBtn"></a>
+              <span style="margin: 0 4px;">·</span>
+              <a href="/screens/register.html" data-i18n="auth.signUpBtn"></a>
             </div>
           </div>
-        </section>
+
+          <!-- State: enter OTP -->
+          <div class="state" data-state="otp" hidden>
+            <h1 class="auth-title" data-i18n="auth.otpCode"></h1>
+            <p class="auth-subtitle">کد ۶ رقمی به <span style="direction:ltr;font-family:var(--font-family-latin);">+1 555 123 4567</span> ارسال شد</p>
+
+            <form class="auth-form" autocomplete="on">
+              <div class="otp" data-otp>
+                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+              </div>
+
+              <button type="submit" class="btn btn--filled btn--block btn--lg" data-i18n="auth.verifyCodeBtn"></button>
+
+              <div class="auth-aux-row" style="justify-content:center;gap:var(--sp-4);">
+                <button type="button" class="auth-aux-row__link" onclick="
+                  document.getElementById('state-picker').value='phone';
+                  document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'phone';});
+                " data-i18n="auth.changeNumber"></button>
+                <span style="color:var(--jx-text-3);">·</span>
+                <span style="color:var(--jx-text-3);font-size:var(--fs-body-s);">ارسال مجدد تا 45 ثانیه</span>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Country picker dialog (simplified — top countries only for preview) -->
-  <dialog id="country-dialog" style="border:0;border-radius:var(--rd-6);padding:0;max-width:340px;width:90%;background:var(--jx-bg);color:var(--jx-text);box-shadow:var(--sh-xl);">
-    <div style="padding:var(--sp-5);">
-      <div class="row--between" style="margin-bottom:var(--sp-4);">
-        <strong data-i18n="auth.country"></strong>
-        <button class="btn-icon" onclick="document.getElementById('country-dialog').close();">✕</button>
-      </div>
-      <input class="field__input" type="search" data-i18n-attr="placeholder:common.searchPlaceholder" style="margin-bottom:var(--sp-3);" />
-      <div style="max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:2px;">
-        <button type="button" class="row--between" style="padding:var(--sp-3);border-radius:var(--rd-2);background:transparent;width:100%;cursor:pointer;" onclick="picked(this,'🇮🇷','+98');"><span>🇮🇷 Iran</span><span class="txt-2">+98</span></button>
-        <button type="button" class="row--between" style="padding:var(--sp-3);border-radius:var(--rd-2);background:transparent;width:100%;cursor:pointer;" onclick="picked(this,'🇹🇷','+90');"><span>🇹🇷 Turkey</span><span class="txt-2">+90</span></button>
-        <button type="button" class="row--between" style="padding:var(--sp-3);border-radius:var(--rd-2);background:transparent;width:100%;cursor:pointer;" onclick="picked(this,'🇺🇸','+1');"><span>🇺🇸 United States</span><span class="txt-2">+1</span></button>
-        <button type="button" class="row--between" style="padding:var(--sp-3);border-radius:var(--rd-2);background:transparent;width:100%;cursor:pointer;" onclick="picked(this,'🇨🇦','+1');"><span>🇨🇦 Canada</span><span class="txt-2">+1</span></button>
-        <button type="button" class="row--between" style="padding:var(--sp-3);border-radius:var(--rd-2);background:transparent;width:100%;cursor:pointer;" onclick="picked(this,'🇩🇪','+49');"><span>🇩🇪 Germany</span><span class="txt-2">+49</span></button>
-        <button type="button" class="row--between" style="padding:var(--sp-3);border-radius:var(--rd-2);background:transparent;width:100%;cursor:pointer;" onclick="picked(this,'🇬🇷','+30');"><span>🇬🇷 Greece</span><span class="txt-2">+30</span></button>
-        <button type="button" class="row--between" style="padding:var(--sp-3);border-radius:var(--rd-2);background:transparent;width:100%;cursor:pointer;" onclick="picked(this,'🇫🇷','+33');"><span>🇫🇷 France</span><span class="txt-2">+33</span></button>
-        <button type="button" class="row--between" style="padding:var(--sp-3);border-radius:var(--rd-2);background:transparent;width:100%;cursor:pointer;" onclick="picked(this,'🇬🇧','+44');"><span>🇬🇧 United Kingdom</span><span class="txt-2">+44</span></button>
-      </div>
-    </div>
-  </dialog>
-
-  <script>
-    function picked(el, flag, code) {
-      var btn = document.getElementById('country-btn');
-      btn.querySelector('.country-pick__flag').textContent = flag;
-      btn.querySelector('span:last-child').textContent = code;
-      document.getElementById('country-dialog').close();
-    }
-
-    // OTP box auto-advance + paste support
-    document.addEventListener('input', function (e) {
-      if (!e.target.classList.contains('otp__box')) return;
-      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 1);
-      if (e.target.value) {
-        var next = e.target.nextElementSibling;
-        if (next && next.classList.contains('otp__box')) next.focus();
-      }
-    });
-    document.addEventListener('keydown', function (e) {
-      if (!e.target.classList.contains('otp__box')) return;
-      if (e.key === 'Backspace' && !e.target.value) {
-        var prev = e.target.previousElementSibling;
-        if (prev && prev.classList.contains('otp__box')) prev.focus();
-      }
-    });
-    document.addEventListener('paste', function (e) {
-      if (!e.target.classList.contains('otp__box')) return;
-      var digits = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
-      if (!digits.length) return;
-      e.preventDefault();
-      var boxes = document.querySelectorAll('.otp__box');
-      digits.split('').forEach(function (d, i) { if (boxes[i]) boxes[i].value = d; });
-      if (boxes[digits.length - 1]) boxes[digits.length - 1].focus();
-    });
-
-    // Resend countdown demo
-    var resendSeconds = 60;
-    var resendNode = document.getElementById('resend-countdown');
-    var tickI = setInterval(function () {
-      resendSeconds--;
-      if (resendSeconds <= 0) {
-        clearInterval(tickI);
-        resendNode.textContent = '';
-        var btn = document.createElement('button');
-        btn.className = 'btn--text';
-        btn.style.padding = '0';
-        btn.setAttribute('data-i18n', 'auth.resendCode');
-        btn.onclick = function () { resendSeconds = 60; location.reload(); };
-        resendNode.appendChild(btn);
-      } else {
-        // Re-apply with new seconds — easiest is just to call i18n directly
-        // The i18n engine will re-resolve placeholders when language changes
-        if (window.__updateResend) window.__updateResend(resendSeconds);
-      }
-    }, 1000);
-
-    window.__updateResend = function (s) {
-      // Quick re-render in current locale
-      resendNode.setAttribute('data-i18n-vars', JSON.stringify({ seconds: s }));
-      document.dispatchEvent(new CustomEvent('i18n:refresh'));
-    };
-  </script>
   <script type="module" src="/js/screen-shell.js"></script>
-  <script type="module">
-    // Listen to i18n:refresh and re-apply translations to the countdown
-    import { applyToDom } from '/js/i18n.js';
-    document.addEventListener('i18n:refresh', function () { applyToDom(document.getElementById('resend-countdown').parentElement); });
+  <script>
+    // OTP auto-advance + backspace
+    var boxes = document.querySelectorAll('[data-otp] input');
+    boxes.forEach(function (box, i) {
+      box.addEventListener('input', function () {
+        if (box.value && i < boxes.length - 1) boxes[i + 1].focus();
+      });
+      box.addEventListener('keydown', function (e) {
+        if (e.key === 'Backspace' && !box.value && i > 0) boxes[i - 1].focus();
+      });
+    });
   </script>
 </body>
 </html>
