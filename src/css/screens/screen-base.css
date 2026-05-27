@@ -520,6 +520,39 @@
   font-size: 12px;
 }
 
+/* Email / Phone segmented tabs — used on login + forgot-password to let the
+   user pick which credential they're using. Pill bg with active pill inside. */
+.auth-tabs {
+  display: flex;
+  background: var(--jx-input-bg);
+  border-radius: var(--rd-pill);
+  padding: 4px;
+  gap: 4px;
+  margin: 0 0 var(--sp-3);
+}
+.auth-tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px var(--sp-3);
+  border-radius: var(--rd-pill);
+  background: transparent;
+  color: var(--jx-text-2);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body-s);
+  cursor: pointer;
+  transition: background var(--motion-fast), color var(--motion-fast);
+}
+.auth-tab svg { width: 16px; height: 16px; }
+.auth-tab--active {
+  background: var(--jx-bg);
+  color: var(--jx-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+[data-theme="dark"] .auth-tab--active { background: rgba(255,255,255,0.10); }
+
 /* Single-line password rule indicator (replaces the 3-rule card).
    Phase 1 only enforces 8-character minimum, so we use a single inline
    row instead of a separate card with 3 checklist items. */

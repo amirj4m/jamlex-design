@@ -109,6 +109,9 @@
     "backToLogin": "Back to sign in",
 
     "newPasswordSub": "Enter your new password",
+    "tabEmail": "Email",
+    "tabPhone": "Phone",
+    "forgotSubtitlePhone": "Enter your phone number and we'll text you a verification code",
     "changePwdSecurePrompt": "For security, please enter your current password first.",
 
     "pwRulesTitle": "Password must include:",

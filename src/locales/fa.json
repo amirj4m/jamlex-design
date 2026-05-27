@@ -109,6 +109,9 @@
     "backToLogin": "بازگشت به ورود",
 
     "newPasswordSub": "رمز جدیدت رو وارد کن",
+    "tabEmail": "ایمیل",
+    "tabPhone": "شماره موبایل",
+    "forgotSubtitlePhone": "شماره موبایلت رو وارد کن، کد تأیید برات بفرستیم",
     "changePwdSecurePrompt": "برای امنیت، ابتدا رمز فعلی خود را وارد کنید.",
 
     "pwRulesTitle": "رمز عبور باید شامل موارد زیر باشد:",

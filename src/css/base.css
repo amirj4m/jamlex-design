@@ -53,6 +53,11 @@ a:hover { color: var(--jx-primary-dark); text-decoration: underline; }
 /* Reset list bullets where we use lists structurally */
 ul, ol { padding: 0; margin: 0; list-style: none; }
 
+/* HTML5 [hidden] must always win over component display rules.
+   Without this, `.screen__body { display:flex }` overrode [hidden] and made
+   state divs stack on top of each other. */
+[hidden] { display: none !important; }
+
 /* Default button reset — actual button styles come from components.css */
 button {
   font-family: inherit;
