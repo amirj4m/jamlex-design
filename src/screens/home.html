@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpojnx89" />
-  <link rel="stylesheet" href="/css/base.css?v=mpojnx89" />
-  <link rel="stylesheet" href="/css/components.css?v=mpojnx89" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpojnx89" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpojnx89" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpojnx89" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpojnx89" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpojnx89" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/base.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/components.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpojz86z" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpojz86z" />
 </head>
 <body>
   <div class="preview-controls">
@@ -27,9 +27,13 @@
   <div class="shell">
     <div class="phone">
       <div class="screen">
-        <div class="screen__body">
-          <!-- Top: greeting + streak chip on opposite side -->
+        <div class="screen__body home-screen" dir="ltr">
+          <!-- Top row — LOCKED LTR: avatar (left) + greeting + streak chip (right).
+               This row's position MUST NOT mirror when locale switches. -->
           <header class="home-top home-top--v3">
+            <div class="home-avatar-photo">
+              <span data-i18n="v3.home.userInitial"></span>
+            </div>
             <div class="home-greet">
               <div class="home-greet__hi" data-greeting></div>
               <div class="home-greet__sub" data-i18n="v3.home.welcomeBack"></div>
@@ -41,9 +45,6 @@
                 <div class="streak-chip__label" data-i18n="v3.home.streakLabel"></div>
               </div>
             </div>
-            <div class="home-avatar-photo">
-              <span data-i18n="v3.home.userInitial"></span>
-            </div>
           </header>
 
           <!-- Word of Day card (the centerpiece) -->
@@ -54,8 +55,8 @@
                 <span data-i18n="home.wordOfDay"></span>
               </span>
               <div class="wod-card__tags">
-                <span class="chip" data-level="B1">B1</span>
                 <span class="chip">verb</span>
+                <span class="chip" data-level="B1">B1</span>
               </div>
             </div>
 
@@ -69,7 +70,7 @@
             <div class="wod-card__meaning" data-i18n="v3.home.wodMeaning"></div>
             <div class="wod-card__example">'a direct route'</div>
 
-            <!-- Floating Lottie paper-plane decoration -->
+            <!-- Floating Lottie paper-plane decoration (right side of card) -->
             <div class="lottie-stage wod-card__lottie" data-lottie="wod-paper-plane"></div>
 
             <hr class="wod-card__divider"/>
@@ -79,13 +80,15 @@
             </button>
           </article>
 
-          <!-- Gradient vocab banner with 3D book -->
+          <!-- Gradient vocab banner — sprout on left, text middle, 3D book right.
+               The sprout icon is a placeholder; the product owner will replace it. -->
           <a href="/screens/vocab-learning.html" class="vocab-banner">
-            <div class="vocab-banner__ring">
-              <svg viewBox="0 0 60 60" fill="none">
-                <circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,0.30)" stroke-width="4"/>
-                <circle cx="30" cy="30" r="26" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="46" transform="rotate(-90 30 30)"/>
-                <text x="30" y="36" text-anchor="middle" font-size="14" font-weight="800" fill="#fff" font-family="Inter">72%</text>
+            <div class="vocab-banner__sprout" aria-hidden="true">
+              <svg viewBox="0 0 64 64" width="56" height="56" fill="none">
+                <ellipse cx="32" cy="54" rx="14" ry="3" fill="rgba(255,255,255,0.20)"/>
+                <path d="M32 50 L32 26" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                <path d="M32 32 C 22 32, 16 24, 16 14 C 26 14, 32 22, 32 32 Z" fill="#fff" opacity="0.95"/>
+                <path d="M32 26 C 42 26, 48 18, 48 8 C 38 8, 32 16, 32 26 Z" fill="#fff" opacity="0.85"/>
               </svg>
             </div>
             <div class="vocab-banner__body">
@@ -125,7 +128,7 @@
   <script type="module">
     // Compose the greeting after i18n is ready, pulling the demo "userName"
     // from the active locale so the name follows the language (Reza / رضا).
-    import { t } from '/js/i18n.js?v=mpojnx89';
+    import { t } from '/js/i18n.js?v=mpojz86z';
     document.addEventListener('i18n:changed', fillGreeting);
     function fillGreeting () {
       const el = document.querySelector('[data-greeting]');
@@ -133,6 +136,6 @@
       el.textContent = t('v3.home.greetingHi', { name: t('v3.home.userName') });
     }
   </script>
-  <script type="module" src="/js/screen-shell.js?v=mpojnx89"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpojz86z"></script>
 </body>
 </html>

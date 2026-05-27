@@ -1414,6 +1414,18 @@
 }
 .vocab-banner__ring svg { width: 100%; height: 100%; }
 
+/* Sprout placeholder (replaces the progress ring) — product owner will
+   swap this for the final illustration later. */
+.vocab-banner__sprout {
+  flex: none;
+  width: 72px;
+  height: 72px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.vocab-banner__sprout svg { display: block; }
+
 .vocab-banner__body { flex: 1; min-width: 0; }
 .vocab-banner__title {
   font-size: 18px;
@@ -1488,19 +1500,27 @@
 [dir="rtl"] .qa-tile__arrow { transform: scaleX(-1); }
 
 /* ============================================================================
-   v3 Home — match exact reference (avatar + greeting + streak chip)
+   v3 Home — LAYOUT IS LOCKED. The home screen body has dir="ltr" and the
+   .home-screen class so positions never mirror when locale flips between
+   fa and en. HTML order = visual order, always.
    ============================================================================ */
+
+/* Locked-LTR home screen — kill any [dir="rtl"] mirror transforms inherited
+   from <html dir="rtl">. */
+.home-screen .qa-tile__arrow { transform: none !important; }
+.home-screen .wod-card__deco { transform: none !important; }
+
+/* Top row: avatar | greeting (expanding) | streak chip */
 .home-top--v3 {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: var(--sp-3);
   padding: var(--sp-2) 0 var(--sp-4);
 }
-/* Greeting block in the center (between streak chip on start and avatar on end) */
 .home-top--v3 .home-greet {
   text-align: start;
-  order: 2;
+  min-width: 0;
 }
 .home-top--v3 .home-greet__hi {
   font-size: 18px;
@@ -1524,7 +1544,6 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 6px 16px rgba(15, 30, 40, 0.12);
-  order: 1;
   flex: none;
 }
 
@@ -1537,7 +1556,6 @@
   border: 1px solid #FAE3B4;
   border-radius: 14px;
   padding: 6px 12px 6px 10px;
-  order: 3;
 }
 .streak-chip__icon {
   width: 28px; height: 28px;
