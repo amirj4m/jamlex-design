@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -23,8 +24,8 @@
       document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
     ">
       <option value="list">With collections</option>
-      <option value="empty">Empty (no collections)</option>
-      <option value="create">Create dialog</option>
+      <option value="empty">Empty</option>
+      <option value="gate">Auth gate (guest)</option>
     </select>
   </div>
   <a href="/" class="hub-ribbon">‹ Hub</a>
@@ -32,135 +33,142 @@
   <div class="shell">
     <div class="phone">
       <div class="screen">
-        <header class="topbar">
+        <header class="topbar topbar--transparent">
           <div class="topbar__leading">
-            <a href="/screens/home.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title" data-i18n="myWords.title"></h1>
-          <div class="topbar__trailing">
-            <button class="btn-icon" id="open-create" onclick="
-              document.getElementById('state-picker').value='create';
-              document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'create';});
-            " aria-label="New">+</button>
-          </div>
+          <div></div>
+          <div></div>
         </header>
 
-        <div class="screen__body">
-          <!-- With collections -->
-          <div class="state" data-state="list">
-            <div class="search-input">
-              <span class="search-input__icon">🔍</span>
-              <input type="search" data-i18n-attr="placeholder:myWords.searchInDictionary" />
+        <!-- STATE: with collections -->
+        <div class="state" data-state="list">
+          <div class="screen__body">
+            <div class="page-title">
+              <h1 class="page-title__main">واژگان من</h1>
+              <p class="page-title__sub">مجموعه‌ای لغاتی که خودت ذخیره کردی</p>
+            </div>
+
+            <div class="search-input" style="margin-top: var(--sp-3);">
+              <span class="search-input__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16" y2="16"/></svg>
+              </span>
+              <input type="search" placeholder="جستجوی لغت یا دسته‌بندی..." />
             </div>
 
             <div class="section-h">
-              <div class="section-h__title" data-i18n="myWords.categoriesLabel"></div>
+              <div class="section-h__title">دسته‌بندی‌ها</div>
+              <button class="section-h__action" style="display:inline-flex;align-items:center;gap:6px;">
+                <span style="display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--jx-primary-glow);color:var(--jx-primary);align-items:center;justify-content:center;font-size:14px;font-weight:bold;">+</span>
+                <span>دسته‌بندی جدید</span>
+              </button>
             </div>
-            <div class="collection-grid">
-              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
-                <span class="collection-card__icon" style="background:#9C27B0;">🎓</span>
-                <span class="collection-card__name">واژگان دانشگاهی</span>
-                <span class="collection-card__count">23 لغت</span>
-              </a>
-              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
-                <span class="collection-card__icon" style="background:#4CAF50;">💼</span>
-                <span class="collection-card__name">کار و کسب</span>
-                <span class="collection-card__count">15 لغت</span>
-              </a>
-              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
-                <span class="collection-card__icon" style="background:#4A90D9;">✈️</span>
-                <span class="collection-card__name">سفر</span>
-                <span class="collection-card__count">8 لغت</span>
-              </a>
-              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
-                <span class="collection-card__icon" style="background:#FF9800;">🍽</span>
-                <span class="collection-card__name">غذا و آشپزی</span>
-                <span class="collection-card__count">12 لغت</span>
-              </a>
-              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
-                <span class="collection-card__icon" style="background:#E91E63;">❤️</span>
-                <span class="collection-card__name">احساسات</span>
-                <span class="collection-card__count">6 لغت</span>
-              </a>
-              <a href="/screens/my-words-detail.html" class="collection-card" style="text-decoration:none;color:inherit;">
-                <span class="collection-card__icon" style="background:#00BCD4;">⚙️</span>
-                <span class="collection-card__name">فناوری</span>
-                <span class="collection-card__count">19 لغت</span>
-              </a>
-            </div>
-          </div>
 
-          <!-- Empty -->
-          <div class="state" data-state="empty" hidden>
-            <div class="empty">
-              <div class="empty__icon">📚</div>
-              <h2 class="empty__title" data-i18n="myWords.noCategoriesYet"></h2>
-              <p class="empty__body" data-i18n="myWords.personalCollection"></p>
-              <button class="btn btn--filled" onclick="
-                document.getElementById('state-picker').value='create';
-                document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'create';});
-              "><span>+</span> <span data-i18n="myWords.newCategory"></span></button>
-            </div>
-          </div>
-
-          <!-- Create dialog -->
-          <div class="state" data-state="create" hidden>
-            <div class="card mb-4">
-              <h3 class="mb-3" data-i18n="myWords.newCategory"></h3>
-              <div class="field mb-4">
-                <label class="field__label" for="cat-name" data-i18n="myWords.categoryName"></label>
-                <input id="cat-name" type="text" class="field__input" placeholder="مثلاً: لغات IELTS" />
-              </div>
-              <div class="section-h"><div class="section-h__title" data-i18n="myWords.iconLabel"></div></div>
-              <div class="icon-grid mb-4">
-                <div class="icon-pick" data-selected="true">📚</div>
-                <div class="icon-pick">🎓</div>
-                <div class="icon-pick">💼</div>
-                <div class="icon-pick">✈️</div>
-                <div class="icon-pick">🎬</div>
-                <div class="icon-pick">⚡</div>
-                <div class="icon-pick">💼</div>
-                <div class="icon-pick">🎵</div>
-                <div class="icon-pick">⭐</div>
-                <div class="icon-pick">🏆</div>
-                <div class="icon-pick">❤️</div>
-                <div class="icon-pick">⚽</div>
-              </div>
-              <div class="section-h"><div class="section-h__title" data-i18n="myWords.colorLabel"></div></div>
-              <div class="color-grid mb-4">
-                <div class="color-pick" data-selected="true" style="background:#9C27B0;"></div>
-                <div class="color-pick" style="background:#4CAF50;"></div>
-                <div class="color-pick" style="background:#4A90D9;"></div>
-                <div class="color-pick" style="background:#FF9800;"></div>
-                <div class="color-pick" style="background:#E91E63;"></div>
-                <div class="color-pick" style="background:#00BCD4;"></div>
-                <div class="color-pick" style="background:#F44336;"></div>
-                <div class="color-pick" style="background:#607D8B;"></div>
-              </div>
-              <button class="btn btn--filled btn--block" data-i18n="common.save"></button>
+            <div class="coll-list">
+              <a href="/screens/my-words-detail.html" class="coll-row">
+                <span class="coll-row__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2 12h2M5 8h2v8H5zm4-2h2v12H9zm4-3h2v15h-2zm4 3h2v9h-2zm4 4h2v5h-2z"/></svg>
+                </span>
+                <div class="coll-row__body">
+                  <div class="coll-row__name">هم‌لفظ‌ها</div>
+                  <div class="coll-row__count">۲۴ لغت</div>
+                </div>
+                <span class="coll-row__chevron"></span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="coll-row">
+                <span class="coll-row__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+                </span>
+                <div class="coll-row__body">
+                  <div class="coll-row__name">افعال مهم</div>
+                  <div class="coll-row__count">۱۸ لغت</div>
+                </div>
+                <span class="coll-row__chevron"></span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="coll-row">
+                <span class="coll-row__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V6z"/></svg>
+                </span>
+                <div class="coll-row__body">
+                  <div class="coll-row__name">لغات کتاب Atomic Habits</div>
+                  <div class="coll-row__count">۴۲ لغت</div>
+                </div>
+                <span class="coll-row__chevron"></span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="coll-row">
+                <span class="coll-row__icon" style="background:rgba(255,152,0,0.16);color:#E59A1A;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                </span>
+                <div class="coll-row__body">
+                  <div class="coll-row__name">لغات آزمون تافل</div>
+                  <div class="coll-row__count">۳۶ لغت</div>
+                </div>
+                <span class="coll-row__chevron"></span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="coll-row">
+                <span class="coll-row__icon" style="background:rgba(233,30,99,0.16);color:#D63878;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><polygon points="10,10 16,13 10,16"/></svg>
+                </span>
+                <div class="coll-row__body">
+                  <div class="coll-row__name">لغات فیلم و سریال</div>
+                  <div class="coll-row__count">۲۷ لغت</div>
+                </div>
+                <span class="coll-row__chevron"></span>
+              </a>
+              <a href="/screens/my-words-detail.html" class="coll-row">
+                <span class="coll-row__icon" style="background:rgba(0,180,166,0.16);color:#1F9389;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73L11 21.73a2 2 0 0 0 2 0L20 17.73A2 2 0 0 0 21 16z"/></svg>
+                </span>
+                <div class="coll-row__body">
+                  <div class="coll-row__name">لغات سفر</div>
+                  <div class="coll-row__count">۱۶ لغت</div>
+                </div>
+                <span class="coll-row__chevron"></span>
+              </a>
             </div>
           </div>
         </div>
 
-        <div data-bottomnav="home"></div>
+        <!-- STATE: empty -->
+        <div class="state" data-state="empty" hidden>
+          <div class="screen__body" style="display:flex;flex-direction:column;">
+            <div class="page-title">
+              <h1 class="page-title__main">واژگان من</h1>
+              <p class="page-title__sub">مجموعه‌ای شخصی از لغاتی که ذخیره می‌کنید</p>
+            </div>
+
+            <div class="search-input" style="margin-top: var(--sp-3);">
+              <span class="search-input__icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16" y2="16"/></svg>
+              </span>
+              <input type="search" placeholder="جستجوی لغت یا دسته‌بندی..." />
+            </div>
+
+            <div class="empty-block" style="margin-top: auto; margin-bottom: auto;">
+              <div class="lottie-stage lottie-stage--lg" data-lottie="empty-box-plane"></div>
+              <h2 class="empty-block__title">هنوز دسته‌بندی‌ای ندارید</h2>
+              <p class="empty-block__sub">لغات خود را در دسته‌بندی‌های دلخواه ذخیره کنید<br/>تا همیشه در دسترس باشند.</p>
+              <button class="btn btn--outlined btn--lg" style="margin-top: var(--sp-5); min-width: 220px;">
+                <span style="font-size:18px;color:var(--jx-primary);">+</span>
+                <span>دسته‌بندی جدید</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATE: auth gate -->
+        <div class="state" data-state="gate" hidden>
+          <div class="gate">
+            <div class="lottie-stage lottie-stage--lg" data-lottie="gate-lock-leaves"></div>
+            <h2 class="gate__title">برای مشاهده واژگان خود<br/>ابتدا وارد حساب کاربری شوید</h2>
+            <p class="gate__sub">با ورود به حساب کاربری، تمام واژه‌ها و لیست‌های شما<br/>در دستگاه‌های مختلف همگام می‌شود.</p>
+            <a href="/screens/login.html" class="btn btn--filled btn--block btn--lg">ورود به حساب کاربری</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <script type="module" src="/js/screen-shell.js"></script>
-  <script>
-    document.addEventListener('click', function (e) {
-      var ip = e.target.closest('.icon-pick');
-      if (ip) {
-        ip.parentElement.querySelectorAll('.icon-pick').forEach(function (x) { x.dataset.selected = 'false'; });
-        ip.dataset.selected = 'true';
-      }
-      var cp = e.target.closest('.color-pick');
-      if (cp) {
-        cp.parentElement.querySelectorAll('.color-pick').forEach(function (x) { x.dataset.selected = 'false'; });
-        cp.dataset.selected = 'true';
-      }
-    });
-  </script>
 </body>
 </html>

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -25,83 +26,165 @@
   <div class="shell">
     <div class="phone">
       <div class="screen">
-        <header class="topbar">
+        <header class="topbar topbar--transparent">
           <div class="topbar__leading">
-            <a href="/screens/home.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title" data-i18n="vocabLearning.title"></h1>
-          <div class="topbar__trailing"></div>
+          <h1 class="topbar__title" style="display:inline-flex;align-items:center;gap:6px;">
+            <span style="display:inline-flex;width:28px;height:28px;border-radius:8px;background:rgba(108,92,231,0.16);align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </span>
+            <span>واژه‌آموزی</span>
+          </h1>
+          <div></div>
         </header>
 
         <div class="screen__body">
-          <div class="section-h"><div class="section-h__title" data-i18n="vocabLearning.learnByLevel"></div></div>
-          <div class="level-grid">
-            <a href="/screens/flashcards.html?level=A1" class="level-card" style="background:#E8F5E9;color:#2E7D32;">
-              <div class="level-card__code">A1</div>
-              <div class="level-card__label">مبتدی</div>
+          <div class="search-input">
+            <span class="search-input__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16" y2="16"/></svg>
+            </span>
+            <input type="search" placeholder="جستجو به انگلیسی یا فارسی..." />
+          </div>
+
+          <div class="section-h">
+            <div class="section-h__title">یادگیری بر اساس سطح</div>
+          </div>
+
+          <div class="level-chips" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
+            <button class="lvl-chip lvl-chip--c1" style="background:#FCE4E4;color:#C62828;">
+              <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">C1</span>
+              <span>پیشرفته</span>
+            </button>
+            <button class="lvl-chip lvl-chip--b2" style="background:#FCEEDC;color:#E65100;">
+              <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">B2</span>
+              <span>فوق‌متوسط</span>
+            </button>
+            <button class="lvl-chip lvl-chip--b1" style="background:#E3F2FD;color:#1565C0;">
+              <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">B1</span>
+              <span>متوسط</span>
+            </button>
+            <button class="lvl-chip lvl-chip--a2" style="background:#E0F2F1;color:#00897B;">
+              <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">A2</span>
+              <span>پایه</span>
+            </button>
+            <button class="lvl-chip lvl-chip--a1" data-selected="true" style="background:#E0F2EC;color:#1F9389;border-color:#1F9389;">
+              <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">A1</span>
+              <span>مبتدی</span>
+              <span class="lvl-chip__check">✓</span>
+            </button>
+          </div>
+
+          <div class="section-h">
+            <div class="section-h__title">کتاب‌های آموزشی</div>
+          </div>
+
+          <div class="bookcard-grid">
+            <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
+              <div class="bookcard__head">
+                <div class="bookcard__title">IELTS</div>
+                <div class="bookcard__sub">B1 - B2</div>
+              </div>
+              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-ielts"></div>
+              <div class="bookcard__progress">
+                <span class="bookcard__progress-val">پیشرفت</span>
+                <span class="bookcard__progress-pct">72%</span>
+              </div>
+              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:72%;background:#43A047;"></div></div>
             </a>
-            <a href="/screens/flashcards.html?level=A2" class="level-card" style="background:#DCEDC8;color:#558B2F;">
-              <div class="level-card__code">A2</div>
-              <div class="level-card__label">مقدماتی</div>
+            <a href="/screens/category-words.html" class="bookcard bookcard--504">
+              <div class="bookcard__head">
+                <div class="bookcard__title">504 لغت ضروری</div>
+                <div class="bookcard__sub">A1 - A2</div>
+              </div>
+              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-504"></div>
+              <div class="bookcard__progress">
+                <span class="bookcard__progress-val">پیشرفت</span>
+                <span class="bookcard__progress-pct">45%</span>
+              </div>
+              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:45%;background:#E53935;"></div></div>
             </a>
-            <a href="/screens/flashcards.html?level=B1" class="level-card" style="background:#FFF9C4;color:#F57F17;">
-              <div class="level-card__code">B1</div>
-              <div class="level-card__label">متوسط</div>
+            <a href="/screens/category-words.html" class="bookcard bookcard--gre">
+              <div class="bookcard__head">
+                <div class="bookcard__title">GRE</div>
+                <div class="bookcard__sub">C1 - C2</div>
+              </div>
+              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-gre"></div>
+              <div class="bookcard__progress">
+                <span class="bookcard__progress-val">پیشرفت</span>
+                <span class="bookcard__progress-pct">38%</span>
+              </div>
+              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:38%;background:#F57C00;"></div></div>
             </a>
-            <a href="/screens/flashcards.html?level=B2" class="level-card" style="background:#FFE0B2;color:#E65100;">
-              <div class="level-card__code">B2</div>
-              <div class="level-card__label">متوسط بالا</div>
-            </a>
-            <a href="/screens/flashcards.html?level=C1" class="level-card" style="background:#FFCDD2;color:#C62828;">
-              <div class="level-card__code">C1</div>
-              <div class="level-card__label">پیشرفته</div>
-            </a>
-            <a href="/screens/flashcards.html?level=C2" class="level-card" style="background:#D1C4E9;color:#4527A0;">
-              <div class="level-card__code">C2</div>
-              <div class="level-card__label">مسلط</div>
+            <a href="/screens/category-words.html" class="bookcard bookcard--toefl">
+              <div class="bookcard__head">
+                <div class="bookcard__title">TOEFL</div>
+                <div class="bookcard__sub">B2 - C1</div>
+              </div>
+              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-toefl"></div>
+              <div class="bookcard__progress">
+                <span class="bookcard__progress-val">پیشرفت</span>
+                <span class="bookcard__progress-pct">61%</span>
+              </div>
+              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:61%;background:#1976D2;"></div></div>
             </a>
           </div>
 
           <div class="section-h">
-            <div class="section-h__title" data-i18n="myWords.categoriesLabel"></div>
-            <span class="section-h__action" style="color:var(--jx-text-3);">35 categories from openjam</span>
+            <div class="section-h__title">واژگان موضوعی</div>
           </div>
-          <div class="cat-grid">
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🍔</span><span class="cat-card__name">Food</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">☕</span><span class="cat-card__name">Drink</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">👤</span><span class="cat-card__name">Body</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">👔</span><span class="cat-card__name">Clothing</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏠</span><span class="cat-card__name">Home</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🐾</span><span class="cat-card__name">Animals</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🌿</span><span class="cat-card__name">Plants</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🌦</span><span class="cat-card__name">Nature</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🚗</span><span class="cat-card__name">Vehicles</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🔧</span><span class="cat-card__name">Tools</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">👨‍👩‍👧</span><span class="cat-card__name">Family</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">👥</span><span class="cat-card__name">People</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💼</span><span class="cat-card__name">Professions</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💞</span><span class="cat-card__name">Relationships</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">😊</span><span class="cat-card__name">Emotions</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏛</span><span class="cat-card__name">Society</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">📍</span><span class="cat-card__name">Places</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🌍</span><span class="cat-card__name">Countries</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏙</span><span class="cat-card__name">Cities</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">✈️</span><span class="cat-card__name">Travel</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💼</span><span class="cat-card__name">Work</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🎓</span><span class="cat-card__name">School</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">⚽</span><span class="cat-card__name">Sports</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🎨</span><span class="cat-card__name">Arts</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🕊</span><span class="cat-card__name">Religion</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">📺</span><span class="cat-card__name">Media</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏥</span><span class="cat-card__name">Health</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🔬</span><span class="cat-card__name">Science</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💻</span><span class="cat-card__name">Technology</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">⏰</span><span class="cat-card__name">Time</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💰</span><span class="cat-card__name">Money</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">✨</span><span class="cat-card__name">Qualities</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🏃</span><span class="cat-card__name">Actions</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">💭</span><span class="cat-card__name">Abstract</span></a>
-            <a href="/screens/category-words.html" class="cat-card"><span class="cat-card__emoji">🎉</span><span class="cat-card__name">Events</span></a>
+
+          <div class="cat-2col">
+            <a href="/screens/category-words.html" class="cat-row" style="background:#E0F2F1;color:#00897B;">
+              <span style="font-size:22px;">🌿</span>
+              <div><div style="font-weight:800;">طبیعت</div><div style="font-size:11px;opacity:0.8;">85 واژه</div></div>
+            </a>
+            <a href="/screens/category-words.html" class="cat-row" style="background:#FCE4EC;color:#C2185B;">
+              <span style="font-size:22px;">❤️</span>
+              <div><div style="font-weight:800;">بدن انسان</div><div style="font-size:11px;opacity:0.8;">128 واژه</div></div>
+            </a>
+            <a href="/screens/category-words.html" class="cat-row" style="background:#E3F2FD;color:#1565C0;">
+              <span style="font-size:22px;">💼</span>
+              <div><div style="font-weight:800;">کسب‌وکار</div><div style="font-size:11px;opacity:0.8;">142 واژه</div></div>
+            </a>
+            <a href="/screens/category-words.html" class="cat-row" style="background:#FCE4E4;color:#C62828;">
+              <span style="font-size:22px;">❤️‍🩹</span>
+              <div><div style="font-weight:800;">سلامت</div><div style="font-size:11px;opacity:0.8;">112 واژه</div></div>
+            </a>
+            <a href="/screens/category-words.html" class="cat-row" style="background:#E0F2F1;color:#00695C;">
+              <span style="font-size:22px;">🌳</span>
+              <div><div style="font-weight:800;">حیوانات</div><div style="font-size:11px;opacity:0.8;">96 واژه</div></div>
+            </a>
+            <a href="/screens/category-words.html" class="cat-row" style="background:#E3F2FD;color:#1565C0;">
+              <span style="font-size:22px;">✈️</span>
+              <div><div style="font-weight:800;">سفر</div><div style="font-size:11px;opacity:0.8;">98 واژه</div></div>
+            </a>
+            <a href="/screens/category-words.html" class="cat-row" style="background:#FFF8E1;color:#F57F17;">
+              <span style="font-size:22px;">🏠</span>
+              <div><div style="font-weight:800;">خانه</div><div style="font-size:11px;opacity:0.8;">76 واژه</div></div>
+            </a>
+            <a href="/screens/category-words.html" class="cat-row" style="background:#FFF3E0;color:#E65100;">
+              <span style="font-size:22px;">😊</span>
+              <div><div style="font-weight:800;">احساسات</div><div style="font-size:11px;opacity:0.8;">64 واژه</div></div>
+            </a>
+          </div>
+
+          <div class="vlearn-footer">
+            <div style="flex:1;">
+              <div class="vlearn-footer__row">
+                <span>هدف روزانه</span>
+                <span class="vlearn-footer__value">40 واژه</span>
+              </div>
+              <div class="vlearn-footer__row">
+                <span>واژه‌های امروز</span>
+                <span class="vlearn-footer__value">24 <span style="color:#9CFFC5;font-size:11px;">+12%</span></span>
+              </div>
+              <div class="vlearn-footer__row">
+                <span>مجموع واژه‌های یادگرفته‌شده</span>
+                <span class="vlearn-footer__value">2,840</span>
+              </div>
+            </div>
+            <div class="lottie-stage lottie-stage--sm vlearn-footer__icon" data-lottie="vocab-footer-trophy"></div>
           </div>
         </div>
       </div>

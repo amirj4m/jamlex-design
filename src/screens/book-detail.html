@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -20,81 +21,101 @@
     <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
     <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
   </div>
-  <a href="/screens/reading.html" class="hub-ribbon">‹ Library</a>
+  <a href="/screens/reading.html" class="hub-ribbon">‹ Reading</a>
 
   <div class="shell">
     <div class="phone">
-      <div class="screen">
-        <header class="topbar topbar--transparent">
-          <div class="topbar__leading">
-            <a href="/screens/reading.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
-          </div>
-          <div></div>
-          <div class="topbar__trailing">
-            <button class="btn-icon" aria-label="Bookmark" data-active="true">🔖</button>
-            <button class="btn-icon" aria-label="Share">↗</button>
-          </div>
-        </header>
-
-        <div class="screen__body">
-          <!-- Hero -->
-          <div style="display:flex;gap:var(--sp-4);margin-bottom:var(--sp-5);">
-            <div class="book-cover__img" style="width:130px;height:180px;flex:none;background:linear-gradient(135deg,#5C6BC0,#3949AB);">
-              <span class="book-cover__badge">B1</span>
-              Pride and Prejudice
-            </div>
-            <div style="display:flex;flex-direction:column;justify-content:center;flex:1;min-width:0;">
-              <h1 style="font-size:22px;font-weight:800;line-height:1.3;direction:ltr;text-align:start;">Pride and Prejudice</h1>
-              <div class="txt-2 fs-body-m mt-1" style="font-family:var(--font-family-latin);direction:ltr;text-align:start;">Jane Austen</div>
-              <div class="row gap-2 mt-3">
-                <span class="chip" data-level="B1">B1</span>
-                <span class="chip">📖 Fiction</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Metadata grid -->
-          <div class="card mb-4">
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-3);">
-              <div>
-                <div class="fs-body-s txt-2" data-i18n="reading.bookDetail.year"></div>
-                <div class="fw-bold mt-1 font-latin">1813</div>
-              </div>
-              <div>
-                <div class="fs-body-s txt-2" data-i18n="reading.bookDetail.publisher"></div>
-                <div class="fw-bold mt-1">Project Gutenberg</div>
-              </div>
-              <div>
-                <div class="fs-body-s txt-2" data-i18n="reading.bookDetail.chapters"></div>
-                <div class="fw-bold mt-1">61</div>
-              </div>
-              <div>
-                <div class="fs-body-s txt-2" data-i18n="reading.bookDetail.words"></div>
-                <div class="fw-bold mt-1">122,189</div>
-              </div>
-              <div style="grid-column:1/-1;">
-                <div class="fs-body-s txt-2"><span data-i18n="reading.bookDetail.readingTime"></span></div>
-                <div class="fw-bold mt-1">≈ 8 ساعت 10 <span data-i18n="reading.bookDetail.minutes"></span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Description -->
-          <div class="section-h"><div class="section-h__title" data-i18n="reading.bookDetail.description"></div></div>
-          <p class="txt-2 fs-body-m" style="line-height:var(--lh-relaxed);">
-            رمانی کلاسیک از جین آستین که در سال ۱۸۱۳ منتشر شد. داستان عاشقانه‌ای از سوءتفاهم‌ها، تعصب، و بلوغ شخصی الیزابت بنت در انگلستان قرن نوزدهم.
-            (متن انگلیسی public-domain از Project Gutenberg، مناسب سطح B1 به بالا.)
-          </p>
-
-          <!-- CTAs -->
-          <div class="row gap-3 mt-5">
-            <button class="btn btn--outlined" style="flex:1;">
-              ⬇ <span data-i18n="reading.bookDetail.download"></span>
-            </button>
-            <a href="/screens/book-reader.html" class="btn btn--filled" style="flex:1;">
-              📖 <span data-i18n="reading.bookDetail.read"></span>
+      <div class="screen" style="overflow: hidden;">
+        <!-- Blurred green cover hero (matches reference) -->
+        <div class="book-hero" style="--book-hero-bg: linear-gradient(135deg, #1B5E20, #0D3F12);">
+          <div class="book-hero__topbar">
+            <a href="/screens/home.html" class="btn-icon" aria-label="Back">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             </a>
+            <div style="display:flex;gap:8px;">
+              <button class="btn-icon" aria-label="Bookmark">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <button class="btn-icon" aria-label="More">⋯</button>
+            </div>
           </div>
+
+          <div class="book-hero__body">
+            <div class="book-hero__cover" style="background: linear-gradient(135deg, #2E7D32, #1B5E20); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; padding: 16px; text-align: center; font-family: var(--font-family-latin);">
+              <div style="font-size:9px;font-weight:700;letter-spacing:1px;align-self:flex-start;">SECOND EDITION</div>
+              <div style="font-size:22px;font-weight:800;letter-spacing:-0.5px;margin-top:10px;">INSIDE</div>
+              <div style="font-size:22px;font-weight:800;letter-spacing:-0.5px;">READING</div>
+              <div style="font-size:8px;margin-top:10px;opacity:0.85;">The Academic Word List in Contest</div>
+              <div style="flex:1;"></div>
+              <div style="font-size:9px;opacity:0.85;">OXFORD</div>
+            </div>
+            <div style="flex:1;min-width:0;">
+              <h1 class="book-hero__title">Inside Reading - 1</h1>
+              <div class="book-hero__sub">Second Edition</div>
+              <div class="book-hero__chips">
+                <span class="book-hero__chip">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+                  <span>Arline Burgmeier</span>
+                </span>
+                <span class="book-hero__chip">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  <span>Oxford University Press</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="book-hero__meta">
+            <div class="book-hero__metaCell">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l3 3 8-8"/><path d="M3 14h12M3 18h7"/></svg>
+              <span>زبان: انگلیسی</span>
+            </div>
+            <div class="book-hero__metaCell">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              <span>سطح: متوسط</span>
+            </div>
+            <div class="book-hero__metaCell">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>سال انتشار: 2012</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen__body" style="padding-top: 0;">
+          <div class="book-stats">
+            <div class="book-stat">
+              <div class="book-stat__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+              <div class="book-stat__val">12</div>
+              <div class="book-stat__lbl">فصل</div>
+            </div>
+            <div class="book-stat">
+              <div class="book-stat__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div>
+              <div class="book-stat__val">120</div>
+              <div class="book-stat__lbl">درس</div>
+            </div>
+            <div class="book-stat">
+              <div class="book-stat__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <div class="book-stat__val">24h 30m</div>
+              <div class="book-stat__lbl">زمان مطالعه</div>
+            </div>
+            <div class="book-stat">
+              <div class="book-stat__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <div class="book-stat__val">65%</div>
+              <div class="book-stat__lbl">پیشرفت</div>
+            </div>
+          </div>
+
+          <div style="padding: 0 var(--sp-2);">
+            <h3 style="font-size:18px;font-weight:var(--fw-extrabold);text-align:end;margin-bottom:var(--sp-3);">درباره کتاب</h3>
+            <p style="color:var(--jx-text-2);font-size:var(--fs-body-m);line-height:var(--lh-relaxed);text-align:end;">
+              مجموعه Inside Reading با رویکردی آکادمیک و تعاملی، مهارت‌های درک مطلب شما را تقویت می‌کند. این کتاب با متون متنوع و تمرین‌های هدفمند، شما را برای موفقیت در محیط‌های دانشگاهی آماده می‌سازد.
+            </p>
+          </div>
+
+          <a href="/screens/book-reader.html" class="btn btn--filled btn--block btn--lg" style="margin-top: var(--sp-5);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            <span>ادامه مطالعه</span>
+          </a>
         </div>
       </div>
     </div>

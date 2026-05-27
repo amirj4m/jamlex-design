@@ -10,13 +10,15 @@ import { initTheme, setTheme, getTheme } from './theme.js';
 import { initAudio } from './audio.js';
 import { injectStamps } from './hero.js';
 import { injectNavs } from './bottomnav.js';
+import { mountAllStages } from './lottie.js';
 
 (async function bootstrap() {
   initTheme();
   injectNavs();         // before i18n so the injected i18n attrs get applied
   await initI18n();
   initAudio();
-  injectStamps();
+  injectStamps();       // SVG fallback hero stamps (legacy, will be retired)
+  mountAllStages();     // Lottie stages (the new way)
   wireControls();
 })();
 

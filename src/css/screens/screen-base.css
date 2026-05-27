@@ -422,3 +422,51 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* ============================================================================
+   v3 — auth/single-page screens that MUST NOT scroll
+   ============================================================================ */
+
+/* Auth screen variant: no bottom nav, no overflow scroll on the phone frame */
+.screen--auth { overflow: hidden; }
+.screen--auth .screen__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-3) var(--sp-5) var(--sp-5);
+  overflow-y: auto;   /* allow scroll on truly tiny phones, fits on standard */
+  scrollbar-width: none;
+}
+.screen--auth .screen__body::-webkit-scrollbar { display: none; }
+
+/* Auth body uses centered column with tight rhythm */
+.screen__body--auth {
+  gap: var(--sp-3);
+}
+.screen__body--auth .lottie-stage {
+  margin: 0 auto var(--sp-2);
+  width: 180px;
+  height: 180px;
+}
+.screen__body--auth .auth-title {
+  margin: 0 0 var(--sp-3);
+  font-size: 22px;
+}
+.screen__body--auth .auth-subtitle {
+  margin: calc(-1 * var(--sp-2)) 0 var(--sp-3);
+  font-size: var(--fs-body-s);
+}
+.screen__body--auth .auth-form {
+  gap: var(--sp-2);
+}
+.screen__body--auth .auth-aux-row {
+  margin-top: 4px;
+  margin-bottom: var(--sp-1);
+}
+.screen__body--auth .auth-divider {
+  margin: var(--sp-3) 0 var(--sp-2);
+}
+.screen__body--auth .auth-footer-link {
+  margin-top: auto;
+  padding-top: var(--sp-4);
+}

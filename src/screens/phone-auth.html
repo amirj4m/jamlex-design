@@ -5,29 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#00B4A6" />
   <title>Jamlex · Phone Auth</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
-  <link rel="stylesheet" href="/css/components/hero-stamps.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
 </head>
 <body>
   <div class="preview-controls">
-    <select data-locale-picker aria-label="Locale">
-      <option value="fa">فارسی</option>
-      <option value="en">English</option>
-    </select>
-    <select data-theme-picker aria-label="Theme">
-      <option value="system">🖥 System</option>
-      <option value="light">☀ Light</option>
-      <option value="dark">🌙 Dark</option>
-    </select>
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
     <select id="state-picker" aria-label="State" onchange="
       document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
     ">
@@ -39,79 +30,87 @@
 
   <div class="shell">
     <div class="phone">
-      <div class="screen">
-        <div class="screen__body screen__body--centered">
-          <div data-hero="phone"></div>
+      <div class="screen screen--auth">
+        <header class="topbar topbar--transparent">
+          <div class="topbar__leading">
+            <a href="/screens/login.html" class="btn-icon back-btn" aria-label="Back"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="auth.phoneAuthTitle"></h1>
+          <div></div>
+        </header>
 
-          <!-- State: enter phone -->
-          <div class="state" data-state="phone">
-            <h1 class="auth-title" data-i18n="auth.phoneAuthTitle"></h1>
-            <p class="auth-subtitle">برای ورود شماره موبایلت رو وارد کن</p>
+        <!-- State: enter phone -->
+        <div class="screen__body screen__body--auth state" data-state="phone">
+          <div class="lottie-stage lottie-stage--in-disc" data-lottie="hero-phone"></div>
 
-            <form class="auth-form" autocomplete="on">
-              <div class="field field--phone">
-                <div class="field__control">
-                  <button type="button" class="field__country">
-                    🇺🇸 <span>+1</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                  </button>
-                  <input
-                    type="tel"
-                    class="field__input"
-                    placeholder="9XX XXX XX XX"
-                    autocomplete="tel"
-                    inputmode="tel"
-                    dir="ltr"
-                    style="text-align: start;"
-                  />
-                  <span class="field__slot-end">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/>
-                    </svg>
-                  </span>
-                </div>
+          <h1 class="auth-title" data-i18n="auth.phoneAuthTitle"></h1>
+          <p class="auth-subtitle">برای ورود شماره موبایلت رو وارد کن</p>
+
+          <form class="auth-form" autocomplete="on">
+            <div class="field field--phone">
+              <div class="field__control">
+                <button type="button" class="field__country">
+                  🇺🇸 <span>+1</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <input
+                  type="tel"
+                  class="field__input"
+                  placeholder="9XX XXX XX XX"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  dir="ltr"
+                  style="text-align: start;"
+                />
+                <span class="field__slot-end">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+                  </svg>
+                </span>
               </div>
-
-              <button type="button" class="btn btn--filled btn--block btn--lg" onclick="
-                document.getElementById('state-picker').value='otp';
-                document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'otp';});
-              " data-i18n="auth.sendCodeBtn"></button>
-            </form>
-
-            <div class="auth-footer-link">
-              <a href="/screens/login.html" data-i18n="auth.signInBtn"></a>
-              <span style="margin: 0 4px;">·</span>
-              <a href="/screens/register.html" data-i18n="auth.signUpBtn"></a>
             </div>
+
+            <button type="button" class="btn btn--filled btn--block btn--lg" onclick="
+              document.getElementById('state-picker').value='otp';
+              document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'otp';});
+            " data-i18n="auth.sendCodeBtn"></button>
+          </form>
+
+          <div class="auth-footer-link">
+            <a href="/screens/login.html" data-i18n="auth.signInBtn"></a>
+            <span style="margin: 0 4px;">·</span>
+            <a href="/screens/register.html" data-i18n="auth.signUpBtn"></a>
           </div>
+        </div>
 
-          <!-- State: enter OTP -->
-          <div class="state" data-state="otp" hidden>
-            <h1 class="auth-title" data-i18n="auth.otpCode"></h1>
-            <p class="auth-subtitle">کد ۶ رقمی به <span style="direction:ltr;font-family:var(--font-family-latin);">+1 555 123 4567</span> ارسال شد</p>
+        <!-- State: enter OTP -->
+        <div class="screen__body screen__body--auth state" data-state="otp" hidden>
+          <div class="lottie-stage lottie-stage--in-disc" data-lottie="hero-otp"></div>
 
-            <form class="auth-form" autocomplete="on">
-              <div class="otp" data-otp>
-                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
-                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
-                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
-                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
-                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
-                <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
-              </div>
+          <h1 class="auth-title" data-i18n="auth.otpCode"></h1>
+          <p class="auth-subtitle">کد ۶ رقمی به <span style="direction:ltr;font-family:var(--font-family-latin);">+1 555 123 4567</span> ارسال شد</p>
 
-              <button type="submit" class="btn btn--filled btn--block btn--lg" data-i18n="auth.verifyCodeBtn"></button>
+          <form class="auth-form" autocomplete="on">
+            <div class="otp" data-otp>
+              <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+              <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+              <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+              <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+              <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+              <input type="text" class="otp__box" inputmode="numeric" maxlength="1" autocomplete="one-time-code" />
+            </div>
 
-              <div class="auth-aux-row" style="justify-content:center;gap:var(--sp-4);">
-                <button type="button" class="auth-aux-row__link" onclick="
-                  document.getElementById('state-picker').value='phone';
-                  document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'phone';});
-                " data-i18n="auth.changeNumber"></button>
-                <span style="color:var(--jx-text-3);">·</span>
-                <span style="color:var(--jx-text-3);font-size:var(--fs-body-s);">ارسال مجدد تا 45 ثانیه</span>
-              </div>
-            </form>
-          </div>
+            <button type="submit" class="btn btn--filled btn--block btn--lg" data-i18n="auth.verifyCodeBtn"></button>
+
+            <div class="auth-aux-row" style="justify-content:center;gap:var(--sp-4);">
+              <button type="button" class="auth-aux-row__link" onclick="
+                document.getElementById('state-picker').value='phone';
+                document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'phone';});
+              " data-i18n="auth.changeNumber"></button>
+              <span style="color:var(--jx-text-3);">·</span>
+              <span style="color:var(--jx-text-3);font-size:var(--fs-body-s);">ارسال مجدد تا 45 ثانیه</span>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -119,7 +118,6 @@
 
   <script type="module" src="/js/screen-shell.js"></script>
   <script>
-    // OTP auto-advance + backspace
     var boxes = document.querySelectorAll('[data-otp] input');
     boxes.forEach(function (box, i) {
       box.addEventListener('input', function () {

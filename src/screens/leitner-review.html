@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -27,120 +28,149 @@
       <option value="summary">Summary</option>
     </select>
   </div>
-  <a href="/screens/leitner.html" class="hub-ribbon">‹ Hub</a>
+  <a href="/screens/leitner.html" class="hub-ribbon">‹ Leitner</a>
 
   <div class="shell">
     <div class="phone">
-      <div class="screen review-screen">
-        <header class="review-screen__header">
-          <a href="/screens/leitner.html" class="btn-icon" aria-label="Close">✕</a>
-          <div class="review-screen__counter">3 / 15</div>
-          <div style="width:40px;"></div>
+      <div class="screen">
+        <header class="topbar topbar--transparent">
+          <div class="topbar__leading">
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
+          </div>
+          <div></div>
+          <div></div>
         </header>
 
-        <!-- State: Front -->
-        <div class="review-body state" data-state="front">
-          <!-- Active box indicator -->
-          <div class="box-row">
-            <div class="box-cell" data-box="1" data-active="true"><div class="box-cell__label">جعبه ۱</div><div class="box-cell__count">12</div></div>
-            <div class="box-cell" data-box="2"><div class="box-cell__label">جعبه ۲</div><div class="box-cell__count">8</div></div>
-            <div class="box-cell" data-box="3"><div class="box-cell__label">جعبه ۳</div><div class="box-cell__count">15</div></div>
-            <div class="box-cell" data-box="4"><div class="box-cell__label">جعبه ۴</div><div class="box-cell__count">5</div></div>
-            <div class="box-cell" data-box="5"><div class="box-cell__label">جعبه ۵</div><div class="box-cell__count">2</div></div>
-          </div>
+        <!-- FRONT -->
+        <div class="state" data-state="front">
+          <div class="screen__body">
+            <div class="leitner-boxes">
+              <div class="lboxer" data-box="1"><div class="lboxer__shape"><span class="lboxer__num">1</span></div><span class="lboxer__count">43</span></div>
+              <div class="lboxer" data-box="2"><div class="lboxer__shape"><span class="lboxer__num">2</span></div><span class="lboxer__count">61</span></div>
+              <div class="lboxer" data-box="3"><div class="lboxer__shape"><span class="lboxer__num">3</span></div><span class="lboxer__count">10</span></div>
+              <div class="lboxer" data-box="4"><div class="lboxer__shape"><span class="lboxer__num">4</span></div><span class="lboxer__count">89</span></div>
+              <div class="lboxer" data-box="5" data-active="true"><div class="lboxer__shape"><span class="lboxer__num">5</span></div><span class="lboxer__count">233</span></div>
+            </div>
 
-          <div class="flip-card" onclick="
-            document.getElementById('state-picker').value='back';
-            document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'back';});
-          ">
-            <div class="flip-card__pos">noun · /B2/</div>
-            <div class="flip-card__english">resilience</div>
-            <div class="flip-card__ipa">/rɪˈzɪliəns/</div>
-            <button class="audio-btn" data-audio="resilience" aria-label="Play" onclick="event.stopPropagation();">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
-            </button>
-            <div class="flip-card__hint" data-i18n="leitner.review.tapToFlip"></div>
-          </div>
+            <div class="review-pill-bar">
+              <button class="audio-btn audio-btn--lg" aria-label="Play" data-audio="ours">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+              <div class="review-pill-bar__count">1 / 75</div>
+              <button class="audio-btn audio-btn--lg" aria-label="Delete" style="background:rgba(244,67,54,0.10);color:var(--jx-danger);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              </button>
+            </div>
 
-          <div class="row--center">
-            <button class="btn-icon" aria-label="Delete" style="color:var(--jx-danger);">🗑</button>
+            <div class="flip-card-v3" onclick="
+              document.getElementById('state-picker').value='back';
+              document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'back';});
+            ">
+              <div class="flip-card-v3__english">ours</div>
+              <div class="flip-card-v3__ipa">/aʊrz/</div>
+            </div>
           </div>
         </div>
 
-        <!-- State: Back -->
-        <div class="review-body state" data-state="back" hidden>
-          <div class="box-row">
-            <div class="box-cell" data-box="1" data-active="true"><div class="box-cell__label">جعبه ۱</div><div class="box-cell__count">12</div></div>
-            <div class="box-cell" data-box="2"><div class="box-cell__label">جعبه ۲</div><div class="box-cell__count">8</div></div>
-            <div class="box-cell" data-box="3"><div class="box-cell__label">جعبه ۳</div><div class="box-cell__count">15</div></div>
-            <div class="box-cell" data-box="4"><div class="box-cell__label">جعبه ۴</div><div class="box-cell__count">5</div></div>
-            <div class="box-cell" data-box="5"><div class="box-cell__label">جعبه ۵</div><div class="box-cell__count">2</div></div>
-          </div>
+        <!-- BACK (flipped + 4 mastery buttons) -->
+        <div class="state" data-state="back" hidden>
+          <div class="screen__body">
+            <div class="leitner-boxes">
+              <div class="lboxer" data-box="1"><div class="lboxer__shape"><span class="lboxer__num">1</span></div><span class="lboxer__count">43</span></div>
+              <div class="lboxer" data-box="2"><div class="lboxer__shape"><span class="lboxer__num">2</span></div><span class="lboxer__count">61</span></div>
+              <div class="lboxer" data-box="3"><div class="lboxer__shape"><span class="lboxer__num">3</span></div><span class="lboxer__count">10</span></div>
+              <div class="lboxer" data-box="4"><div class="lboxer__shape"><span class="lboxer__num">4</span></div><span class="lboxer__count">89</span></div>
+              <div class="lboxer" data-box="5" data-active="true"><div class="lboxer__shape"><span class="lboxer__num">5</span></div><span class="lboxer__count">233</span></div>
+            </div>
 
-          <div class="flip-card">
-            <div class="flip-card__pos">noun · /B2/</div>
-            <div class="flip-card__english">resilience</div>
-            <button class="audio-btn" data-audio="resilience" aria-label="Play">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
-            </button>
-            <div class="flip-card__back-meaning">تاب‌آوری</div>
-            <div class="flip-card__back-example">She showed great resilience in the face of adversity.</div>
-          </div>
+            <div class="review-pill-bar">
+              <button class="audio-btn audio-btn--lg" aria-label="Play" data-audio="ours">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+              <div class="review-pill-bar__count">1 / 75</div>
+              <button class="audio-btn audio-btn--lg" aria-label="Delete" style="background:rgba(244,67,54,0.10);color:var(--jx-danger);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              </button>
+            </div>
 
-          <div class="mastery-row">
-            <button class="mastery-btn mastery-btn--dont">
-              <span class="mastery-btn__emoji">😕</span>
-              <span data-i18n="leitner.review.dontKnow"></span>
-            </button>
-            <button class="mastery-btn mastery-btn--sort">
-              <span class="mastery-btn__emoji">🤔</span>
-              <span data-i18n="leitner.review.sortOf"></span>
-            </button>
-            <button class="mastery-btn mastery-btn--know">
-              <span class="mastery-btn__emoji">🙂</span>
-              <span data-i18n="leitner.review.know"></span>
-            </button>
-            <button class="mastery-btn mastery-btn--well">
-              <span class="mastery-btn__emoji">🤩</span>
-              <span data-i18n="leitner.review.knowWell"></span>
-            </button>
+            <div class="flip-card-v3 flip-card-v3--back">
+              <div class="flip-card-v3__english">ours</div>
+              <div class="flip-card-v3__meaning">مال ما</div>
+              <div class="flip-card-v3__example">This house is ours now.</div>
+            </div>
+
+            <div class="mastery-buttons">
+              <button class="mbtn mbtn--dont">
+                <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                <span>بلد نیستم</span>
+              </button>
+              <button class="mbtn mbtn--sort">
+                <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="14"/><circle cx="12" cy="19" r="1.4" fill="currentColor"/></svg>
+                <span>تاحدی بلدم</span>
+              </button>
+              <button class="mbtn mbtn--know">
+                <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>بلدم</span>
+              </button>
+              <button class="mbtn mbtn--well">
+                <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 8 17 21 4"/><polyline points="9 12 14 17 21 10"/></svg>
+                <span>کاملاً بلدم</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- State: Summary -->
-        <div class="review-body state" data-state="summary" hidden>
-          <div class="empty">
-            <div class="empty__icon">🏆</div>
-            <h2 class="empty__title" data-i18n="leitner.summary.title"></h2>
-            <p class="empty__body" data-i18n="leitner.summary.consistency"></p>
-          </div>
+        <!-- SUMMARY -->
+        <div class="state" data-state="summary" hidden>
+          <div class="screen__body" style="text-align:center;">
+            <div class="lottie-stage lottie-stage--lg" data-lottie="hero-trophy" style="margin: var(--sp-3) auto;"></div>
 
-          <div class="tile-grid">
-            <div class="tile">
-              <div class="tile__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">⏱</div>
-              <div class="tile__value">12 <span class="tile__label">min</span></div>
-              <div class="tile__label" data-i18n="leitner.summary.studyTime"></div>
-            </div>
-            <div class="tile">
-              <div class="tile__icon" style="background:rgba(76,175,80,0.14);color:var(--jx-success);">🎯</div>
-              <div class="tile__value">87<span class="tile__label">%</span></div>
-              <div class="tile__label" data-i18n="leitner.summary.accuracy"></div>
-            </div>
-            <div class="tile">
-              <div class="tile__icon" style="background:rgba(74,144,217,0.14);color:var(--jx-secondary);">📚</div>
-              <div class="tile__value">15</div>
-              <div class="tile__label" data-i18n="leitner.summary.wordsReviewed"></div>
-            </div>
-            <div class="tile">
-              <div class="tile__icon" style="background:rgba(255,152,0,0.14);color:var(--jx-warning);">🔥</div>
-              <div class="tile__value">7</div>
-              <div class="tile__label" data-i18n="stats.currentStreak"></div>
-            </div>
-          </div>
+            <h1 class="summary-title">🎉 آفرین! عالی بود</h1>
+            <p class="summary-sub">
+              تمام لایترن های امروز رو با موفقیت تموم کردی.<br/>
+              به خودت افتخار کن! 👏
+            </p>
 
-          <div class="stack gap-3">
-            <a href="/screens/home.html" class="btn btn--filled btn--block" data-i18n="leitner.summary.continueBtn"></a>
-            <a href="/screens/stats.html" class="btn btn--outlined btn--block" data-i18n="leitner.summary.viewProgressStats"></a>
+            <div class="stats-card">
+              <div class="stat-cell">
+                <div class="stat-cell__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                </div>
+                <div class="stat-cell__label">دقت شما</div>
+                <div class="stat-cell__val" style="color:#6C5CE7;">92%</div>
+              </div>
+              <div class="stat-cell">
+                <div class="stat-cell__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <div class="stat-cell__label">واژه‌های مرور شده</div>
+                <div class="stat-cell__val" style="color:#4A90D9;">75</div>
+              </div>
+              <div class="stat-cell">
+                <div class="stat-cell__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 16 13"/></svg>
+                </div>
+                <div class="stat-cell__label">زمان مطالعه</div>
+                <div class="stat-cell__val" style="color:#2A8E4D;">۲۲ دقیقه</div>
+              </div>
+            </div>
+
+            <div class="quote-card">
+              <div class="lottie-stage lottie-stage--sm" data-lottie="quote-plant"></div>
+              <div class="quote-card__body">
+                <div class="quote-card__title">ثبات تو، آینده تو رو می‌سازه!</div>
+                <div class="quote-card__sub">هر روز بهتر از دیروزی.<br/>فردا روز جدید، واژه‌های جدید 🌱</div>
+              </div>
+            </div>
+
+            <a href="/screens/home.html" class="btn btn--filled btn--block btn--lg" style="margin-top: var(--sp-4);">
+              <span>ادامه مسیر</span>
+              <span>←</span>
+            </a>
+            <a href="/screens/stats.html" class="btn btn--outlined btn--block btn--lg" style="margin-top: var(--sp-3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="14"/></svg>
+              <span>مشاهده آمار پیشرفت</span>
+            </a>
           </div>
         </div>
       </div>

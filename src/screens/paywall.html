@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css" />
 </head>
 <body>
   <div class="preview-controls">
@@ -27,72 +27,88 @@
       <div class="screen">
         <header class="topbar topbar--transparent">
           <div class="topbar__leading">
-            <a href="/screens/profile.html" class="btn-icon" aria-label="Close">✕</a>
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
           <div></div>
           <div></div>
         </header>
 
-        <div class="screen__body">
-          <div class="paywall-hero">
-            <div class="paywall-hero__icon">✨</div>
-            <h1 class="paywall-hero__title" data-i18n="paywall.title"></h1>
-            <p class="paywall-hero__sub" data-i18n="paywall.tagline"></p>
-          </div>
+        <div class="screen__body" style="text-align:center;">
+          <div class="lottie-stage" data-lottie="hero-crown"></div>
 
-          <!-- Features list -->
-          <div class="feature-list">
-            <div class="feature-row">
-              <span class="feature-row__check">✓</span>
-              <span data-i18n="paywall.features.unlimitedLeitner"></span>
-            </div>
-            <div class="feature-row">
-              <span class="feature-row__check">✓</span>
-              <span data-i18n="paywall.features.allLevels"></span>
-            </div>
-            <div class="feature-row">
-              <span class="feature-row__check">✓</span>
-              <span data-i18n="paywall.features.allQuizzes"></span>
-            </div>
-            <div class="feature-row">
-              <span class="feature-row__check">✓</span>
-              <span data-i18n="paywall.features.fullReading"></span>
-            </div>
-            <div class="feature-row">
-              <span class="feature-row__check">✓</span>
-              <span data-i18n="paywall.features.audioPronunciation"></span>
-            </div>
-            <div class="feature-row">
-              <span class="feature-row__check">✓</span>
-              <span data-i18n="paywall.features.adFree"></span>
-            </div>
-          </div>
+          <h1 style="font-size:24px;font-weight:800;line-height:1.5;margin-top:var(--sp-2);">به <span style="color:var(--jx-primary);font-family:var(--font-family-latin);">Jamlex</span> پریمیوم بروید</h1>
+          <p style="color:var(--jx-text-2);margin-top:var(--sp-2);font-size:var(--fs-body-s);">یادگیری بدون محدودیت، هر جا، هر زمان</p>
 
-          <!-- Plans -->
-          <div class="plan-row">
-            <div class="plan-card">
-              <div class="plan-card__plan" data-i18n="paywall.monthly"></div>
-              <div class="plan-card__price font-currency">$2.99</div>
-              <div class="plan-card__per font-currency">/mo</div>
+          <div class="paywall-features">
+            <div class="paywall-feat">
+              <div class="paywall-feat__icon paywall-feat__icon--purple">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18.6 6.6C16.7 4.7 13.4 4.7 11.5 6.6L8 10.1c-1.9 1.9-1.9 5.1 0 7l.5.5"/><path d="M5.4 17.4c1.9 1.9 5.2 1.9 7.1 0L16 13.9c1.9-1.9 1.9-5.1 0-7"/></svg>
+              </div>
+              <div class="paywall-feat__top">دسترسی نامحدود</div>
+              <div class="paywall-feat__bot">به همه واژه‌ها</div>
             </div>
-            <div class="plan-card" data-selected="true">
-              <span class="plan-card__badge" data-i18n="paywall.yearlyBadge"></span>
-              <div class="plan-card__plan" data-i18n="paywall.yearly"></div>
-              <div class="plan-card__price font-currency">$19.99</div>
-              <div class="plan-card__per font-currency">$1.67/mo</div>
+            <div class="paywall-feat">
+              <div class="paywall-feat__icon paywall-feat__icon--blue">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16" y2="16"/></svg>
+              </div>
+              <div class="paywall-feat__top">جستجوی پیشرفته</div>
+              <div class="paywall-feat__bot">در تمام محتوا</div>
+            </div>
+            <div class="paywall-feat">
+              <div class="paywall-feat__icon paywall-feat__icon--mint">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="14"/></svg>
+              </div>
+              <div class="paywall-feat__top">گزارش‌های دقیق</div>
+              <div class="paywall-feat__bot">از روند یادگیری</div>
+            </div>
+            <div class="paywall-feat">
+              <div class="paywall-feat__icon paywall-feat__icon--orange">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73L11 21.73a2 2 0 0 0 2 0L20 17.73A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div class="paywall-feat__top">دسته‌بندی نامحدود</div>
+              <div class="paywall-feat__bot">و مدیریت کامل</div>
             </div>
           </div>
 
-          <button class="btn btn--filled btn--block btn--lg" data-i18n="paywall.subscribeBtn"></button>
+          <h2 style="font-size:18px;font-weight:800;margin-bottom:var(--sp-3);">انتخاب پلن مناسب شما</h2>
 
-          <div class="text-center mt-4">
-            <a href="#" class="fs-body-s" style="color:var(--jx-text-2);text-decoration:underline;" data-i18n="paywall.restorePurchase"></a>
+          <div class="pw-plan" data-selected="true">
+            <span class="pw-plan__badge">محبوب‌ترین</span>
+            <div class="pw-plan__icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+            </div>
+            <div style="flex:1;text-align:end;">
+              <div class="pw-plan__name">سالانه</div>
+              <div class="pw-plan__sub">بهترین انتخاب و بیشترین صرفه‌جویی</div>
+            </div>
+            <div style="text-align:start;">
+              <div class="pw-plan__price">$29.99</div>
+              <div class="pw-plan__per">$2.50 در ماه</div>
+            </div>
           </div>
 
-          <div class="text-center mt-4 fs-body-s txt-3" style="line-height:var(--lh-relaxed);">
-            <a href="#" class="txt-3" data-i18n="auth.terms"></a>
-            <span> · </span>
-            <a href="#" class="txt-3" data-i18n="auth.privacy"></a>
+          <div class="pw-plan pw-plan--monthly">
+            <div class="pw-plan__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div style="flex:1;text-align:end;">
+              <div class="pw-plan__name">ماهانه</div>
+              <div class="pw-plan__sub">انعطاف‌پذیری بیشتر</div>
+            </div>
+            <div style="text-align:start;">
+              <div class="pw-plan__price">$4.99</div>
+              <div class="pw-plan__per">$4.99 در ماه</div>
+            </div>
+          </div>
+
+          <button class="btn btn--filled btn--block btn--lg" style="margin-top: var(--sp-5);">
+            <span>ادامه و پرداخت</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+          </button>
+
+          <div style="display:inline-flex;align-items:center;gap:6px;margin-top:var(--sp-4);font-size:var(--fs-body-s);color:var(--jx-text-2);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>پرداخت امن و اطلاعات شما محفوظ است</span>
           </div>
         </div>
       </div>
@@ -102,9 +118,9 @@
   <script type="module" src="/js/screen-shell.js"></script>
   <script>
     document.addEventListener('click', function (e) {
-      var p = e.target.closest('.plan-card');
+      var p = e.target.closest('.pw-plan');
       if (p) {
-        document.querySelectorAll('.plan-card').forEach(function (x) { x.dataset.selected = 'false'; });
+        document.querySelectorAll('.pw-plan').forEach(function (x) { x.dataset.selected = 'false'; });
         p.dataset.selected = 'true';
       }
     });

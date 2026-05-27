@@ -1,0 +1,703 @@
+/* ============================================================================
+   Jamlex v2 patterns
+   ----------------------------------------------------------------------------
+   Lottie stage container + the rest of the components that match the
+   2026-05-27 reference batch from the owner.
+   ============================================================================ */
+
+/* ── Lottie stage (replaces SVG hero stamps) ─────────────────────────── */
+.lottie-stage {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lottie-stage--lg { width: 260px; height: 260px; }
+.lottie-stage--sm { width: 80px;  height: 80px;  }
+.lottie-stage--md { width: 140px; height: 140px; }
+.lottie-stage svg { width: 100%; height: 100%; display: block; }
+
+/* Auth hero — Lottie stage sits in a tinted disc background (matches the
+   pale-mint backdrop seen in the references behind every hero) */
+.lottie-stage--in-disc {
+  background: radial-gradient(circle at 50% 50%, rgba(168, 222, 215, 0.30) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* ── Envelope-shaped Leitner boxes ───────────────────────────────────── */
+.leitner-boxes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-2);
+  align-items: end;
+  padding: var(--sp-2) 0 var(--sp-3);
+}
+.lboxer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+.lboxer__shape {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--jx-bg);
+  border: 1.5px solid var(--jx-border);
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+  overflow: visible;
+}
+/* The envelope flap (V-shape on top) */
+.lboxer__shape::before {
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  right: -1.5px;
+  height: 50%;
+  border: inherit;
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--jx-border) calc(50% - 1px), var(--jx-border) calc(50% + 1px), transparent calc(50% + 1px)) no-repeat 0 100% / 50% 100%,
+    linear-gradient(to bottom left,  transparent calc(50% - 1px), var(--jx-border) calc(50% - 1px), var(--jx-border) calc(50% + 1px), transparent calc(50% + 1px)) no-repeat 100% 100% / 50% 100%,
+    var(--jx-bg);
+}
+.lboxer__shape > .lboxer__num {
+  font-size: 17px;
+  font-weight: var(--fw-extrabold);
+  color: var(--jx-text);
+  font-family: var(--font-family-latin);
+  z-index: 1;
+}
+.lboxer__count {
+  position: absolute;
+  top: -8px;
+  inset-inline-end: -8px;
+  min-width: 30px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: var(--rd-pill);
+  background: var(--jx-bg);
+  border: 1px solid var(--jx-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  font-family: var(--font-family-latin);
+  z-index: 2;
+}
+/* Per-box accent colors */
+.lboxer[data-box="1"] .lboxer__count { color: #6C5CE7; background: rgba(108, 92, 231, 0.10); border-color: rgba(108, 92, 231, 0.25); }
+.lboxer[data-box="2"] .lboxer__count { color: #00B4A6; background: rgba(0, 180, 166, 0.10);   border-color: rgba(0, 180, 166, 0.25); }
+.lboxer[data-box="3"] .lboxer__count { color: #FF9800; background: rgba(255, 152, 0, 0.10);   border-color: rgba(255, 152, 0, 0.25); }
+.lboxer[data-box="4"] .lboxer__count { color: #4A90D9; background: rgba(74, 144, 217, 0.10);  border-color: rgba(74, 144, 217, 0.25); }
+.lboxer[data-box="5"] .lboxer__count { color: #26D07C; background: rgba(38, 208, 124, 0.12);  border-color: rgba(38, 208, 124, 0.25); }
+.lboxer[data-active="true"] .lboxer__shape { border-color: #26D07C; }
+.lboxer[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #26D07C;
+}
+
+/* ── Pastel mastery buttons ──────────────────────────────────────────── */
+.mastery-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+}
+.mbtn {
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: var(--sp-3) var(--sp-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body-s);
+  cursor: pointer;
+  transition: transform var(--motion-fast);
+  min-height: 76px;
+}
+.mbtn:active { transform: scale(0.97); }
+.mbtn__icon { width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; }
+.mbtn--dont { background: #FCE4E4; color: #E15858; border-color: #F9D2D2; }
+.mbtn--sort { background: #FCEEDC; color: #E08F38; border-color: #F8E2C5; }
+.mbtn--know { background: #DBF4F1; color: #1F9389; border-color: #C6EDE7; }
+.mbtn--well { background: #DCF4E2; color: #2A8E4D; border-color: #C9EDD2; }
+
+/* ── Notif dialog day chips as circles ───────────────────────────────── */
+.day-circles {
+  display: flex;
+  gap: 8px;
+  flex-direction: row-reverse; /* visual order matches week reading right→left */
+  justify-content: center;
+}
+.day-circles__btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--jx-surface);
+  color: var(--jx-text-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body-s);
+  cursor: pointer;
+  border: 0;
+  transition: background var(--motion-fast), color var(--motion-fast);
+}
+.day-circles__btn[data-selected="true"] {
+  background: var(--jx-primary);
+  color: #fff;
+}
+
+/* ── Word lookup tri-button row (in book reader) ─────────────────────── */
+.lookup-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+}
+.lookup-actions .pbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1);
+  padding: 12px 6px;
+  border: 0;
+  border-radius: 16px;
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  text-align: center;
+}
+.pbtn--blue { background: #E2EBFA; color: #2E64C0; }
+.pbtn--mint { background: #DBF4F1; color: #1F9389; }
+.pbtn--sky  { background: #E2F0F5; color: #2E7AA8; }
+
+/* ── Lesson row in vocab learning (10 lessons list) ─────────────────── */
+.lesson-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.lesson-row {
+  display: grid;
+  grid-template-columns: 36px 1fr 44px;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-3);
+  background: var(--jx-bg);
+  border: 1px solid var(--jx-border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--jx-text);
+}
+.lesson-row:hover { text-decoration: none; }
+.lesson-row__num {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--jx-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-latin);
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-body-m);
+}
+.lesson-row__title { text-align: end; }
+.lesson-row__name { font-weight: var(--fw-bold); }
+.lesson-row__sub  { font-size: var(--fs-caption); color: var(--jx-text-2); font-family: var(--font-family-latin); }
+.lesson-row__status {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.lesson-row[data-status="done"] .lesson-row__status {
+  background: var(--jx-primary-glow);
+  color: var(--jx-primary);
+}
+.lesson-row[data-status="active"] .lesson-row__status {
+  background: var(--jx-primary-glow);
+  color: var(--jx-primary);
+  position: relative;
+}
+.lesson-row[data-status="active"] {
+  background: var(--jx-primary-glow);
+  border-color: rgba(0, 180, 166, 0.30);
+}
+.lesson-row[data-status="locked"] {
+  opacity: 0.6;
+}
+.lesson-row[data-status="locked"] .lesson-row__status {
+  background: var(--jx-surface);
+  color: var(--jx-text-3);
+}
+
+/* ── Vocab learning footer purple summary card ──────────────────────── */
+.vlearn-footer {
+  background: linear-gradient(135deg, #8B7EE0, #6C5CE7);
+  color: #fff;
+  border-radius: 20px;
+  padding: var(--sp-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--sp-5);
+  box-shadow: 0 8px 22px rgba(108, 92, 231, 0.30);
+}
+.vlearn-footer__col { flex: 1; min-width: 0; }
+.vlearn-footer__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: 6px;
+  font-size: var(--fs-body-s);
+  opacity: 0.92;
+}
+.vlearn-footer__row:last-child { margin-bottom: 0; }
+.vlearn-footer__value { font-weight: var(--fw-extrabold); font-family: var(--font-family-latin); }
+.vlearn-footer__icon { flex: none; width: 76px; height: 76px; }
+
+/* ── Top-3 podium (Leaderboard) ──────────────────────────────────────── */
+.podium-3 {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  gap: var(--sp-2);
+  align-items: end;
+  margin-bottom: var(--sp-5);
+}
+.pod {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-5) var(--sp-2) var(--sp-3);
+  border-radius: 20px;
+  border: 1.5px solid;
+  text-align: center;
+}
+.pod--1 { background: #FFF4D8; border-color: #F5D77A; padding-top: var(--sp-6); }
+.pod--2 { background: #E5EFFB; border-color: #B7CAE5; }
+.pod--3 { background: #FCE7D5; border-color: #F0BE92; }
+.pod__rank {
+  position: absolute;
+  top: -14px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--fw-extrabold);
+  font-family: var(--font-family-latin);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+}
+.pod--1 .pod__rank { background: #F5B945; }
+.pod--2 .pod__rank { background: #6C8DC1; }
+.pod--3 .pod__rank { background: #E59A4F; }
+.pod__crown {
+  font-size: 18px;
+  margin-top: -4px;
+}
+.pod__avatar {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: var(--jx-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jx-text);
+  font-weight: var(--fw-bold);
+  border: 2.5px solid #fff;
+  overflow: hidden;
+  font-family: var(--font-family-latin);
+}
+.pod--1 .pod__avatar { width: 70px; height: 70px; font-size: 22px; }
+.pod__name { font-weight: var(--fw-bold); font-size: var(--fs-body-s); font-family: var(--font-family-latin); }
+.pod__level-chip {
+  font-size: var(--fs-caption);
+  padding: 2px 10px;
+  border-radius: var(--rd-pill);
+  background: var(--jx-bg);
+  color: var(--jx-text-2);
+  font-weight: var(--fw-bold);
+}
+.pod--1 .pod__level-chip { background: #FFE8AC; color: #B27A12; }
+.pod--2 .pod__level-chip { background: #D7E4F5; color: #3B5F8E; }
+.pod--3 .pod__level-chip { background: #F7D9BB; color: #B25F1E; }
+.pod__xp { font-weight: var(--fw-bold); font-family: var(--font-family-latin); font-size: var(--fs-body-s); }
+.pod--1 .pod__xp { color: #B27A12; }
+.pod--2 .pod__xp { color: #3B5F8E; }
+.pod--3 .pod__xp { color: #B25F1E; }
+
+/* ── Saved Books — list row with cover + progress + chip + dots ──── */
+.sb-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 80px;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--jx-bg);
+  border: 1px solid var(--jx-border);
+  border-radius: 18px;
+  padding: var(--sp-3) var(--sp-3);
+  margin-bottom: var(--sp-2);
+  text-decoration: none;
+  color: var(--jx-text);
+}
+.sb-row:hover { text-decoration: none; }
+.sb-row__menu {
+  width: 28px; height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jx-text-3);
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: 0; background: transparent;
+}
+.sb-row__main { display: flex; flex-direction: column; gap: 6px; min-width: 0; text-align: end; }
+.sb-row__title { font-weight: var(--fw-bold); font-size: var(--fs-body-l); }
+.sb-row__author { font-size: var(--fs-body-s); color: var(--jx-text-2); }
+.sb-row__progress {
+  display: flex; align-items: center; gap: var(--sp-2);
+  justify-content: flex-end;
+}
+.sb-row__progress-val { font-family: var(--font-family-latin); font-weight: var(--fw-bold); font-size: var(--fs-body-s); color: var(--jx-primary); }
+.sb-row__progress-track {
+  flex: 1;
+  height: 6px;
+  background: var(--jx-surface);
+  border-radius: var(--rd-pill);
+  overflow: hidden;
+}
+.sb-row__progress-fill { height: 100%; background: var(--jx-primary); border-radius: var(--rd-pill); }
+.sb-row__cover {
+  width: 80px;
+  height: 110px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #5C6BC0, #3949AB);
+  box-shadow: 0 6px 16px rgba(15, 30, 40, 0.18);
+  background-size: cover;
+  background-position: center;
+}
+
+/* ── Book Detail — hero with blurred-cover background ───────────────── */
+.book-hero {
+  position: relative;
+  padding: var(--sp-4) var(--sp-5) var(--sp-7);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+.book-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--book-hero-bg, linear-gradient(135deg, #2E5F4F, #143728));
+  filter: blur(0px);
+  z-index: -2;
+}
+.book-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(0,0,0,0.55));
+  z-index: -1;
+}
+.book-hero__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.book-hero__topbar .btn-icon { color: #fff; background: rgba(255,255,255,0.15); }
+.book-hero__body {
+  display: flex;
+  gap: var(--sp-4);
+  margin-top: var(--sp-5);
+  align-items: center;
+}
+.book-hero__cover {
+  flex: none;
+  width: 140px;
+  height: 200px;
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.34);
+  background-size: cover;
+  background-position: center;
+  background-color: #fff;
+}
+.book-hero__title {
+  font-size: 22px;
+  font-weight: var(--fw-extrabold);
+  letter-spacing: -0.5px;
+}
+.book-hero__sub {
+  font-size: var(--fs-body-m);
+  opacity: 0.8;
+  margin-top: 4px;
+}
+.book-hero__chips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+.book-hero__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.20);
+  border-radius: var(--rd-pill);
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-semibold);
+  align-self: flex-start;
+}
+.book-hero__meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: var(--sp-4);
+  gap: var(--sp-3);
+}
+.book-hero__metaCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-caption);
+  opacity: 0.94;
+}
+.book-hero__metaCell svg { opacity: 0.95; }
+
+.book-stats {
+  background: var(--jx-bg);
+  border-radius: 22px 22px 0 0;
+  margin-top: calc(-1 * var(--sp-4));
+  padding: var(--sp-5) var(--sp-4);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-3);
+}
+.book-stat { text-align: center; }
+.book-stat__icon { color: var(--jx-primary); font-size: 22px; }
+.book-stat__val { font-weight: var(--fw-extrabold); margin-top: 4px; font-family: var(--font-family-latin); }
+.book-stat__lbl { font-size: var(--fs-caption); color: var(--jx-text-2); margin-top: 2px; }
+
+/* ── Paywall plan card (the selected/teal-border variant) ──────────── */
+.paywall-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--jx-bg);
+  border: 1px solid var(--jx-border);
+  border-radius: 18px;
+  padding: var(--sp-3) var(--sp-2);
+  margin-bottom: var(--sp-5);
+}
+.paywall-feat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+.paywall-feat__icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.paywall-feat__icon--purple { background: rgba(108,92,231,0.12); color: #6C5CE7; }
+.paywall-feat__icon--blue   { background: rgba(74,144,217,0.12); color: #4A90D9; }
+.paywall-feat__icon--mint   { background: var(--jx-primary-glow); color: var(--jx-primary); }
+.paywall-feat__icon--orange { background: rgba(255,152,0,0.14);  color: #FF9800; }
+.paywall-feat__top { font-size: var(--fs-caption); font-weight: var(--fw-bold); color: var(--jx-text); }
+.paywall-feat__bot { font-size: var(--fs-caption); color: var(--jx-text-2); }
+
+.pw-plan {
+  position: relative;
+  background: var(--jx-bg);
+  border: 1.5px solid var(--jx-border);
+  border-radius: 18px;
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.pw-plan[data-selected="true"] {
+  border-color: var(--jx-primary);
+  box-shadow: 0 0 0 4px rgba(0,180,166,0.10);
+}
+.pw-plan__badge {
+  position: absolute;
+  top: -12px;
+  inset-inline-start: var(--sp-4);
+  background: var(--jx-primary);
+  color: #fff;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  padding: 4px 10px;
+  border-radius: var(--rd-pill);
+}
+.pw-plan__price {
+  font-size: 28px;
+  font-weight: var(--fw-extrabold);
+  font-family: var(--font-family-latin);
+  color: var(--jx-text);
+}
+.pw-plan[data-selected="true"] .pw-plan__price { color: var(--jx-primary); }
+.pw-plan__per {
+  font-family: var(--font-family-latin);
+  font-size: var(--fs-caption);
+  color: var(--jx-text-2);
+}
+.pw-plan__name { font-weight: var(--fw-bold); font-size: var(--fs-body-l); margin-bottom: 4px; }
+.pw-plan__sub  { font-size: var(--fs-body-s); color: var(--jx-text-2); }
+.pw-plan__icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--jx-primary-glow);
+  color: var(--jx-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex: none;
+}
+.pw-plan--monthly .pw-plan__icon { background: rgba(108,92,231,0.14); color: #6C5CE7; }
+
+/* ── Info advisory card (Leitner empty etc.) ─────────────────────── */
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--jx-primary-glow);
+  border-radius: 16px;
+  padding: var(--sp-3) var(--sp-4);
+  margin-top: var(--sp-4);
+  color: var(--jx-text);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-relaxed);
+}
+.info-card__icon {
+  flex: none;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--jx-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jx-primary);
+}
+.info-card__text strong {
+  color: var(--jx-primary);
+  font-weight: var(--fw-bold);
+}
+
+/* ── Auth gate (block CTA + Lottie illustration) ────────────────── */
+.gate {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  padding: var(--sp-5);
+  flex: 1;
+  justify-content: center;
+}
+.gate__lottie { margin: 0 auto var(--sp-3); }
+.gate__title {
+  font-size: 18px;
+  font-weight: var(--fw-extrabold);
+  line-height: 1.7;
+  margin: var(--sp-3) 0;
+}
+.gate__sub {
+  color: var(--jx-text-2);
+  font-size: var(--fs-body-s);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-6);
+}
+
+/* ── Google sign-in button (official styling) ──────────────────── */
+.gbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: var(--sp-3);
+  height: 56px;
+  background: #fff;
+  border: 1px solid #DADCE0;
+  border-radius: 28px;
+  color: #3C4043;
+  font-family: 'Roboto', 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: box-shadow var(--motion-fast);
+}
+.gbtn:hover { box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+.gbtn:active { background: #F8F9FA; }
+.gbtn__icon { width: 20px; height: 20px; flex: none; }
+[data-theme="dark"] .gbtn { background: #131314; border-color: #8E918F; color: #E3E3E3; }
+
+/* ── Phone sign-in alt button (matches gbtn shape, generic) ───── */
+.altbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: var(--sp-3);
+  height: 56px;
+  background: var(--jx-bg);
+  border: 1px solid var(--jx-border);
+  border-radius: 28px;
+  color: var(--jx-text);
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--motion-fast);
+}
+.altbtn:hover { border-color: var(--jx-text-3); text-decoration: none; }
+.altbtn__icon { color: var(--jx-text-2); }
+
+/* ── Email pill card (forgot-password success) ─────────────────── */
+.email-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--jx-primary-glow);
+  color: var(--jx-text);
+  font-family: var(--font-family-latin);
+  font-weight: var(--fw-semibold);
+  padding: 10px 22px;
+  border-radius: var(--rd-pill);
+  margin: var(--sp-4) auto;
+}

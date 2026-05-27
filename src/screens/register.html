@@ -5,44 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#00B4A6" />
   <title>Jamlex · Register</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
-  <link rel="stylesheet" href="/css/components/hero-stamps.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
 </head>
 <body>
   <div class="preview-controls">
-    <select data-locale-picker aria-label="Locale">
-      <option value="fa">فارسی</option>
-      <option value="en">English</option>
-    </select>
-    <select data-theme-picker aria-label="Theme">
-      <option value="system">🖥 System</option>
-      <option value="light">☀ Light</option>
-      <option value="dark">🌙 Dark</option>
-    </select>
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
   </div>
   <a href="/" class="hub-ribbon">‹ Hub</a>
 
   <div class="shell">
     <div class="phone">
-      <div class="screen">
-        <div class="screen__body screen__body--centered">
-          <!-- Hero stamp: profile -->
-          <div data-hero="profile"></div>
+      <div class="screen screen--auth">
+        <header class="topbar topbar--transparent">
+          <div class="topbar__leading">
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
+          </div>
+          <div></div>
+          <div></div>
+        </header>
+
+        <div class="screen__body screen__body--auth">
+          <div class="lottie-stage lottie-stage--in-disc" data-lottie="hero-profile"></div>
 
           <h1 class="auth-title" data-i18n="auth.signUpTitle"></h1>
           <p class="auth-subtitle">به مسیر یادگیری خود خوش آمدید! 🎉</p>
 
           <form class="auth-form" autocomplete="on">
-            <!-- Username -->
             <div class="field">
               <div class="field__control">
                 <span class="field__slot-start">
@@ -59,7 +56,6 @@
               </div>
             </div>
 
-            <!-- Email -->
             <div class="field">
               <div class="field__control">
                 <span class="field__slot-start">
@@ -77,7 +73,6 @@
               </div>
             </div>
 
-            <!-- Phone with country picker -->
             <div class="field field--phone">
               <div class="field__control">
                 <button type="button" class="field__country">
@@ -101,7 +96,6 @@
               </div>
             </div>
 
-            <!-- Password -->
             <div class="field">
               <div class="field__control">
                 <span class="field__slot-start">
@@ -114,7 +108,6 @@
                   class="field__input field__input--with-slot-start field__input--with-slot-end"
                   data-i18n-attr="placeholder:auth.password"
                   autocomplete="new-password"
-                  id="pw1"
                 />
                 <span class="field__slot-end">
                   <button type="button" data-pwd-toggle aria-label="Toggle">
@@ -126,7 +119,6 @@
               </div>
             </div>
 
-            <!-- Confirm password -->
             <div class="field">
               <div class="field__control">
                 <span class="field__slot-start">
@@ -139,7 +131,6 @@
                   class="field__input field__input--with-slot-start field__input--with-slot-end"
                   data-i18n-attr="placeholder:auth.confirmPassword"
                   autocomplete="new-password"
-                  id="pw2"
                 />
                 <span class="field__slot-end">
                   <button type="button" data-pwd-toggle aria-label="Toggle">
@@ -151,7 +142,6 @@
               </div>
             </div>
 
-            <!-- Password requirements card -->
             <div class="pw-rules">
               <div class="pw-rules__title">رمز عبور باید شامل موارد زیر باشد:</div>
               <ul class="pw-rules__list">
@@ -161,7 +151,6 @@
               </ul>
             </div>
 
-            <!-- Terms agreement (checkbox at end, links inline) -->
             <label class="auth-terms">
               <input type="checkbox" class="check__input" />
               <span class="auth-terms__text">
@@ -176,7 +165,6 @@
             <button type="submit" class="btn btn--filled btn--block btn--lg" data-i18n="auth.signUpTitle"></button>
           </form>
 
-          <!-- Footer link -->
           <div class="auth-footer-link">
             <span data-i18n="auth.haveAccountQ"></span>
             <a href="/screens/login.html" data-i18n="auth.signInBtn"></a>

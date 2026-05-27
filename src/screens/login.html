@@ -5,43 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#00B4A6" />
   <title>Jamlex · Login</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
-  <link rel="stylesheet" href="/css/components/hero-stamps.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
 </head>
 <body>
   <div class="preview-controls">
-    <select data-locale-picker aria-label="Locale">
-      <option value="fa">فارسی</option>
-      <option value="en">English</option>
-    </select>
-    <select data-theme-picker aria-label="Theme">
-      <option value="system">🖥 System</option>
-      <option value="light">☀ Light</option>
-      <option value="dark">🌙 Dark</option>
-    </select>
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
   </div>
   <a href="/" class="hub-ribbon">‹ Hub</a>
 
   <div class="shell">
     <div class="phone">
-      <div class="screen">
-        <div class="screen__body screen__body--centered">
-          <!-- Hero stamp -->
-          <div data-hero="lock"></div>
+      <div class="screen screen--auth">
+        <!-- Push-screen back: goes to home (soft-exit pattern, not OS-exit) -->
+        <header class="topbar topbar--transparent">
+          <div class="topbar__leading">
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
+          </div>
+          <div></div>
+          <div></div>
+        </header>
+
+        <div class="screen__body screen__body--auth">
+          <div class="lottie-stage lottie-stage--in-disc" data-lottie="hero-lock"></div>
 
           <h1 class="auth-title" data-i18n="auth.signInTitle"></h1>
 
           <form class="auth-form" autocomplete="on">
-            <!-- Email/phone field -->
             <div class="field">
               <div class="field__control">
                 <span class="field__slot-start">
@@ -59,7 +57,6 @@
               </div>
             </div>
 
-            <!-- Password field -->
             <div class="field">
               <div class="field__control">
                 <span class="field__slot-start">
@@ -74,7 +71,7 @@
                   autocomplete="current-password"
                 />
                 <span class="field__slot-end">
-                  <button type="button" data-pwd-toggle aria-label="Toggle password visibility">
+                  <button type="button" data-pwd-toggle aria-label="Toggle">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
                     </svg>
@@ -83,7 +80,6 @@
               </div>
             </div>
 
-            <!-- Remember + Forgot row -->
             <div class="auth-aux-row">
               <label class="check">
                 <input type="checkbox" class="check__input" />
@@ -95,36 +91,30 @@
             <button type="submit" class="btn btn--filled btn--block btn--lg" data-i18n="auth.signInTitle"></button>
           </form>
 
-          <!-- Divider -->
           <div class="auth-divider">
             <span class="auth-divider__line"></span>
             <span class="auth-divider__text" data-i18n="common.or"></span>
             <span class="auth-divider__line"></span>
           </div>
 
-          <!-- Social buttons -->
-          <button class="btn btn--social btn--block">
+          <!-- Official Google sign-in -->
+          <button class="gbtn">
+            <svg class="gbtn__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <path d="M44.5 20H24v8.5h11.7C34.7 33.4 30 36.5 24 36.5c-6.9 0-12.5-5.6-12.5-12.5S17.1 11.5 24 11.5c3.1 0 5.9 1.1 8.1 3l5.7-5.7C34.4 5.6 29.4 3.5 24 3.5 12.7 3.5 3.5 12.7 3.5 24S12.7 44.5 24 44.5c11.3 0 20.5-9.2 20.5-20.5 0-1.4-.2-2.7-.5-4z" fill="#FFC107"/>
+              <path d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.9 1.1 8.1 3l5.7-5.7C34.4 6.6 29.4 4.5 24 4.5c-7.6 0-14.2 4.2-17.7 10.2z" fill="#FF3D00"/>
+              <path d="M24 44c5.3 0 10.1-2 13.7-5.3l-6.3-5.3c-1.9 1.5-4.4 2.4-7.4 2.4-6 0-10.7-3.9-12.5-9l-6.5 5C8.1 39.5 15.4 44 24 44z" fill="#4CAF50"/>
+              <path d="M44.5 20H24v8.5h11.7c-.8 2.3-2.3 4.3-4.3 5.8l6.3 5.3C42.5 35.5 45 30 45 24c0-1.4-.2-2.7-.5-4z" fill="#1976D2"/>
+            </svg>
             <span data-i18n="auth.googleBtn"></span>
-            <span class="btn__icon">
-              <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
-                <path d="M44.5 20H24v8.5h11.7C34.7 33.4 30 36.5 24 36.5c-6.9 0-12.5-5.6-12.5-12.5S17.1 11.5 24 11.5c3.1 0 5.9 1.1 8.1 3l5.7-5.7C34.4 5.6 29.4 3.5 24 3.5 12.7 3.5 3.5 12.7 3.5 24S12.7 44.5 24 44.5c11.3 0 20.5-9.2 20.5-20.5 0-1.4-.2-2.7-.5-4z" fill="#FFC107"/>
-                <path d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.9 1.1 8.1 3l5.7-5.7C34.4 6.6 29.4 4.5 24 4.5c-7.6 0-14.2 4.2-17.7 10.2z" fill="#FF3D00"/>
-                <path d="M24 44c5.3 0 10.1-2 13.7-5.3l-6.3-5.3c-1.9 1.5-4.4 2.4-7.4 2.4-6 0-10.7-3.9-12.5-9l-6.5 5C8.1 39.5 15.4 44 24 44z" fill="#4CAF50"/>
-                <path d="M44.5 20H24v8.5h11.7c-.8 2.3-2.3 4.3-4.3 5.8l6.3 5.3C42.5 35.5 45 30 45 24c0-1.4-.2-2.7-.5-4z" fill="#1976D2"/>
-              </svg>
-            </span>
           </button>
 
-          <a href="/screens/phone-auth.html" class="btn btn--social btn--block" style="text-decoration:none;">
+          <a href="/screens/phone-auth.html" class="altbtn" style="margin-top: var(--sp-3);">
+            <svg class="altbtn__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
             <span data-i18n="auth.phoneBtn"></span>
-            <span class="btn__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/>
-              </svg>
-            </span>
           </a>
 
-          <!-- Footer link -->
           <div class="auth-footer-link">
             <span data-i18n="auth.noAccountQ"></span>
             <a href="/screens/register.html" data-i18n="auth.signUpBtn"></a>
@@ -136,7 +126,6 @@
 
   <script type="module" src="/js/screen-shell.js"></script>
   <script>
-    // Password visibility toggle
     document.addEventListener('click', function (e) {
       var t = e.target.closest('[data-pwd-toggle]');
       if (!t) return;

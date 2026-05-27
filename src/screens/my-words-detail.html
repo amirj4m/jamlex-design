@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -25,77 +26,142 @@
   <div class="shell">
     <div class="phone">
       <div class="screen">
-        <header class="topbar">
+        <header class="topbar topbar--transparent">
           <div class="topbar__leading">
-            <a href="/screens/my-words.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+            <a href="/screens/my-words.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title">واژگان دانشگاهی</h1>
-          <div class="topbar__trailing">
-            <button class="btn-icon" aria-label="Menu">⋮</button>
-          </div>
+          <div></div>
+          <div></div>
         </header>
 
         <div class="screen__body">
-          <div class="row gap-3 mb-4">
-            <span class="collection-card__icon" style="background:#9C27B0;width:56px;height:56px;font-size:28px;">🎓</span>
+          <!-- Title row: icon (start)... title (end) -->
+          <div class="coll-header">
+            <span class="coll-row__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2 12h2M5 8h2v8H5zm4-2h2v12H9zm4-3h2v15h-2zm4 3h2v9h-2zm4 4h2v5h-2z"/></svg>
+            </span>
             <div>
-              <div class="fw-bold fs-body-l">23 لغت</div>
-              <div class="fs-body-s txt-2">25% یاد گرفتی</div>
+              <h1 class="coll-header__name">هم‌لفظ‌ها</h1>
+              <p class="coll-header__count">۲۴ لغت</p>
             </div>
           </div>
 
-          <button class="btn btn--outlined btn--block mb-4">
-            <span>+</span> <span data-i18n="myWords.addWord"></span>
-          </button>
-
-          <div class="word-row">
-            <div class="word-row__main">
-              <div class="word-row__english">academic</div>
-              <div class="word-row__ipa">/ˌækəˈdemɪk/</div>
-              <div class="word-row__meaning">دانشگاهی، آکادمیک</div>
-            </div>
-            <span class="chip" data-level="B2">B2</span>
-            <button class="audio-btn" data-audio="academic"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
-          </div>
-          <div class="word-row">
-            <div class="word-row__main">
-              <div class="word-row__english">curriculum</div>
-              <div class="word-row__ipa">/kəˈrɪkjʊləm/</div>
-              <div class="word-row__meaning">برنامه درسی</div>
-            </div>
-            <span class="chip" data-level="B2">B2</span>
-            <button class="audio-btn" data-audio="curriculum"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
-          </div>
-          <div class="word-row">
-            <div class="word-row__main">
-              <div class="word-row__english">hypothesis</div>
-              <div class="word-row__ipa">/haɪˈpɒθəsɪs/</div>
-              <div class="word-row__meaning">فرضیه</div>
-            </div>
-            <span class="chip" data-level="C1">C1</span>
-            <button class="audio-btn" data-audio="hypothesis"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
-          </div>
-          <div class="word-row">
-            <div class="word-row__main">
-              <div class="word-row__english">methodology</div>
-              <div class="word-row__ipa">/ˌmeθəˈdɒlədʒi/</div>
-              <div class="word-row__meaning">روش‌شناسی</div>
-            </div>
-            <span class="chip" data-level="C1">C1</span>
-            <button class="audio-btn" data-audio="methodology"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
-          </div>
-          <div class="word-row">
-            <div class="word-row__main">
-              <div class="word-row__english">analysis</div>
-              <div class="word-row__ipa">/əˈnæləsɪs/</div>
-              <div class="word-row__meaning">تحلیل، بررسی</div>
-            </div>
-            <span class="chip" data-level="B2">B2</span>
-            <button class="audio-btn" data-audio="analysis"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+          <!-- Progress -->
+          <div class="coll-progress">
+            <span class="coll-progress__val">۱۸٪ پیشرفت</span>
+            <div class="coll-progress__track"><div class="coll-progress__fill" style="width: 18%;"></div></div>
           </div>
 
-          <button class="btn btn--outlined btn--block mt-4" style="color:var(--jx-danger);border-color:var(--jx-danger);">
-            🗑 <span data-i18n="myWords.deleteCategoryTitle"></span>
+          <div class="search-input" style="margin-top: var(--sp-3);">
+            <span class="search-input__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16" y2="16"/></svg>
+            </span>
+            <input type="search" placeholder="جستجوی لغت یا دسته‌بندی..." />
+          </div>
+
+          <!-- Word rows (bookmark in start, audio in end, no level chip) -->
+          <div class="word-rows-v3">
+            <div class="word-row-v3">
+              <button class="word-row-v3__bookmark" aria-label="Bookmark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <div class="word-row-v3__body">
+                <div class="word-row-v3__english">tear</div>
+                <div class="word-row-v3__ipa">/tɪr/</div>
+              </div>
+              <button class="audio-btn audio-btn--lg" data-audio="tear" aria-label="Play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+            <div class="word-row-v3">
+              <button class="word-row-v3__bookmark" aria-label="Bookmark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <div class="word-row-v3__body">
+                <div class="word-row-v3__english">tier</div>
+                <div class="word-row-v3__ipa">/taɪər/</div>
+              </div>
+              <button class="audio-btn audio-btn--lg" data-audio="tier" aria-label="Play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+            <div class="word-row-v3">
+              <button class="word-row-v3__bookmark" aria-label="Bookmark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <div class="word-row-v3__body">
+                <div class="word-row-v3__english">dear</div>
+                <div class="word-row-v3__ipa">/dɪr/</div>
+              </div>
+              <button class="audio-btn audio-btn--lg" data-audio="dear" aria-label="Play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+            <div class="word-row-v3">
+              <button class="word-row-v3__bookmark" aria-label="Bookmark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <div class="word-row-v3__body">
+                <div class="word-row-v3__english">deer</div>
+                <div class="word-row-v3__ipa">/dɪr/</div>
+              </div>
+              <button class="audio-btn audio-btn--lg" data-audio="deer" aria-label="Play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+            <div class="word-row-v3">
+              <button class="word-row-v3__bookmark" aria-label="Bookmark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <div class="word-row-v3__body">
+                <div class="word-row-v3__english">hear</div>
+                <div class="word-row-v3__ipa">/hɪr/</div>
+              </div>
+              <button class="audio-btn audio-btn--lg" data-audio="hear" aria-label="Play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+            <div class="word-row-v3">
+              <button class="word-row-v3__bookmark" aria-label="Bookmark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <div class="word-row-v3__body">
+                <div class="word-row-v3__english">here</div>
+                <div class="word-row-v3__ipa">/hɪr/</div>
+              </div>
+              <button class="audio-btn audio-btn--lg" data-audio="here" aria-label="Play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+            <div class="word-row-v3">
+              <button class="word-row-v3__bookmark" aria-label="Bookmark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <div class="word-row-v3__body">
+                <div class="word-row-v3__english">heir</div>
+                <div class="word-row-v3__ipa">/er/</div>
+              </div>
+              <button class="audio-btn audio-btn--lg" data-audio="heir" aria-label="Play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+            <div class="word-row-v3">
+              <button class="word-row-v3__bookmark" aria-label="Bookmark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+              <div class="word-row-v3__body">
+                <div class="word-row-v3__english">air</div>
+                <div class="word-row-v3__ipa">/er/</div>
+              </div>
+              <button class="audio-btn audio-btn--lg" data-audio="air" aria-label="Play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <button class="btn btn--outlined btn--block btn--lg" style="margin-top: var(--sp-4); color: var(--jx-danger); border-color: rgba(244, 67, 54, 0.35); background: rgba(244, 67, 54, 0.06);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m4 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+            <span>حذف دسته‌بندی</span>
           </button>
         </div>
       </div>
