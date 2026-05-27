@@ -97,7 +97,7 @@
     "changeNumber": "تغییر شماره",
 
     "welcomeSubtitle": "به مسیر یادگیری خود خوش آمدید 🎉",
-    "phonePlaceholderOptional": "شماره موبایل (اختیاری)",
+    "phonePlaceholderOptional": "(اختیاری)",
     "phoneEnterSub": "برای ورود شماره موبایلت رو وارد کن",
     "otpSentTo": "کد ۶ رقمی به {phone} ارسال شد",
     "resendCodeIn2": "ارسال مجدد تا {seconds} ثانیه",

@@ -97,7 +97,7 @@
     "changeNumber": "Change number",
 
     "welcomeSubtitle": "Welcome to your learning journey 🎉",
-    "phonePlaceholderOptional": "Phone number (optional)",
+    "phonePlaceholderOptional": "(optional)",
     "phoneEnterSub": "Enter your phone number to sign in",
     "otpSentTo": "A 6-digit code was sent to {phone}",
     "resendCodeIn2": "Resend in {seconds} sec",
