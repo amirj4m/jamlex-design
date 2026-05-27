@@ -14,10 +14,10 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="/css/tokens.css?v=mpohzgrn" />
-  <link rel="stylesheet" href="/css/base.css?v=mpohzgrn" />
-  <link rel="stylesheet" href="/css/components.css?v=mpohzgrn" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpohzgrn" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpoijaxc" />
+  <link rel="stylesheet" href="/css/base.css?v=mpoijaxc" />
+  <link rel="stylesheet" href="/css/components.css?v=mpoijaxc" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpoijaxc" />
 
   <style>
     /* Index-page specific styles — the hub itself is NOT a phone-frame */
@@ -81,6 +81,31 @@
       font-size: 0.875em;
     }
     .hub__intro a { font-weight: var(--fw-semibold); }
+
+    .popup-demo {
+      margin-top: var(--sp-4);
+      padding: var(--sp-3) var(--sp-4);
+      background: var(--jx-primary-glow);
+      border-radius: var(--rd-3);
+      font-size: var(--fs-body-s);
+    }
+    .popup-demo__btns {
+      display: flex;
+      gap: var(--sp-2);
+      margin-top: var(--sp-3);
+      flex-wrap: wrap;
+    }
+    .popup-demo__btns button {
+      padding: var(--sp-2) var(--sp-3);
+      background: var(--jx-bg);
+      border: 1px solid var(--jx-border);
+      border-radius: var(--rd-pill);
+      font-size: var(--fs-caption);
+      font-weight: var(--fw-bold);
+      color: var(--jx-text);
+      cursor: pointer;
+    }
+    .popup-demo__btns button:hover { border-color: var(--jx-primary); color: var(--jx-primary); }
 
     .group { margin-bottom: var(--sp-6); }
     .group__title {
@@ -159,6 +184,7 @@
     .footer a { color: var(--jx-text-2); }
     .footer a:hover { color: var(--jx-primary); }
   </style>
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpoijaxc" />
 </head>
 <body>
   <main class="hub">
@@ -188,6 +214,16 @@
       <p>این صفحه‌ی hub فهرستِ همه‌ی mockup‌های Jamlex است. هر کارت یک صفحه‌ی قابل‌کلیک باز می‌کند — می‌توانید با locale و theme بالا تست کنید.</p>
       <p>زبان پیش‌فرض <code>fa</code> است (فاز تست — مخاطب فارسی‌زبان دیاسپورا). برای دیدن همان صفحه به انگلیسی، در selectorِ بالا <code>English</code> را انتخاب کنید — جهت چپ به راست خودکار می‌چرخد.</p>
       <p>کد منبع: <a href="https://github.com/amirj4m/jamlex-design">github.com/amirj4m/jamlex-design</a></p>
+
+      <div class="popup-demo">
+        <strong>🎯 سیستم پیام‌رسانی:</strong> همه‌ی پیام‌ها فقط با popup. تست کن:
+        <div class="popup-demo__btns">
+          <button onclick="popupSuccess('ذخیره با موفقیت انجام شد')">Success</button>
+          <button onclick="popupError('ایمیل تکراری است')">Error</button>
+          <button onclick="popupInfo('به‌زودی بازمی‌گردیم')">Info</button>
+          <button onclick="popupConfirm('این دسته‌بندی برای همیشه حذف می‌شود.', { title: 'حذف دسته‌بندی', confirmText: 'حذف کن', danger: true }).then(ok => ok && popupSuccess('حذف شد'))">Confirm</button>
+        </div>
+      </div>
     </section>
 
     <section class="group">
@@ -397,6 +433,6 @@
     </footer>
   </main>
 
-  <script type="module" src="/js/app.js?v=mpohzgrn"></script>
+  <script type="module" src="/js/app.js?v=mpoijaxc"></script>
 </body>
 </html>

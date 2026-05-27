@@ -1,0 +1,130 @@
+/* ============================================================================
+   Jamlex popup component
+   ----------------------------------------------------------------------------
+   The ONLY feedback pattern allowed. No SnackBars, no inline alerts,
+   no corner toasts. Confirmed by the owner 2026-05-27.
+   ============================================================================ */
+
+.popup-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-5);
+  animation: popupFadeIn 0.18s ease-out;
+}
+.popup-scrim--leaving { animation: popupFadeOut 0.16s ease-in forwards; }
+
+@keyframes popupFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popupFadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+.popup-dialog {
+  background: var(--jx-bg);
+  border-radius: 22px;
+  padding: var(--sp-6) var(--sp-5) var(--sp-5);
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.20),
+              0 8px 16px rgba(0, 0, 0, 0.10);
+  animation: popupSlideIn 0.20s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+}
+@keyframes popupSlideIn {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+.popup-dialog__icon-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--sp-3);
+}
+.popup-dialog__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px currentColor;
+}
+/* The boxShadow above uses currentColor — the dialog's icon tint */
+.popup-dialog--success .popup-dialog__icon { box-shadow: 0 6px 18px rgba(38, 208, 124, 0.28); }
+.popup-dialog--error   .popup-dialog__icon { box-shadow: 0 6px 18px rgba(244, 67, 54, 0.28); }
+.popup-dialog--info    .popup-dialog__icon { box-shadow: 0 6px 18px rgba(74, 144, 217, 0.28); }
+.popup-dialog--confirm .popup-dialog__icon { box-shadow: 0 6px 18px rgba(245, 185, 69, 0.28); }
+
+.popup-dialog__title {
+  font-size: var(--fs-headline);
+  font-weight: var(--fw-extrabold);
+  color: var(--jx-text);
+  margin-bottom: var(--sp-2);
+  line-height: var(--lh-snug);
+}
+.popup-dialog__message {
+  font-size: var(--fs-body-m);
+  color: var(--jx-text-2);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-5);
+}
+
+.popup-dialog__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+/* In confirm mode the cancel + confirm sit on one row */
+.popup-dialog--confirm .popup-dialog__actions {
+  flex-direction: row-reverse;
+  gap: var(--sp-2);
+}
+.popup-dialog__btn {
+  height: 50px;
+  border-radius: var(--rd-pill);
+  border: 0;
+  font-family: inherit;
+  font-size: var(--fs-body-m);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  flex: 1;
+  transition: background var(--motion-fast), color var(--motion-fast), transform var(--motion-fast);
+}
+.popup-dialog__btn:active { transform: scale(0.98); }
+.popup-dialog__btn--primary {
+  background: var(--jx-primary);
+  color: var(--jx-text-on-brand);
+  box-shadow: 0 4px 12px rgba(0, 180, 166, 0.28);
+}
+.popup-dialog__btn--primary:hover { background: var(--jx-primary-dark); }
+.popup-dialog__btn--danger {
+  background: var(--jx-danger);
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.28);
+}
+.popup-dialog__btn--danger:hover { filter: brightness(0.94); }
+.popup-dialog__btn--ghost {
+  background: var(--jx-input-bg);
+  color: var(--jx-text);
+  box-shadow: none;
+}
+.popup-dialog__btn--ghost:hover { background: var(--jx-surface-alt); }
+
+/* Per-type accent on the title (subtle) */
+.popup-dialog--success .popup-dialog__title { color: #1F9389; }
+.popup-dialog--error   .popup-dialog__title { color: #C62828; }
+
+/* Dark theme */
+[data-theme="dark"] .popup-dialog {
+  background: #1A1A24;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.50),
+              0 8px 16px rgba(0, 0, 0, 0.30);
+}
+[data-theme="dark"] .popup-dialog__title   { color: var(--jx-text); }
+[data-theme="dark"] .popup-dialog__message { color: var(--jx-text-2); }
+[data-theme="dark"] .popup-dialog__btn--ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--jx-text);
+}

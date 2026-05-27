@@ -60,8 +60,15 @@ for (const f of readdirSync(JS)) {
   if (!f.endsWith('.js')) continue;
   const p = join(JS, f);
   const before = readFileSync(p, 'utf-8');
-  const after = before.replace(
+  let after = before;
+  // `import X from './foo.js'`
+  after = after.replace(
     /(from\s+["'])(\.\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
+    `$1$2?v=${version}$4`
+  );
+  // Bare side-effect imports: `import './foo.js'`
+  after = after.replace(
+    /(import\s+["'])(\.\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
     `$1$2?v=${version}$4`
   );
   if (after !== before) {
