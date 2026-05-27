@@ -29,7 +29,7 @@
  *   - i18n: pass keys via { messageKey, titleKey } as an alternative to literals
  */
 
-import { t } from './i18n.js?v=mpoijaxc';
+import { t } from './i18n.js?v=mpoiverc';
 
 const ICONS = {
   success: { color: '#26D07C', svg: `<polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>` },
@@ -145,13 +145,37 @@ export const popupError   = (message, opts = {}) => showPopup({ type: 'error',  
 export const popupInfo    = (message, opts = {}) => showPopup({ type: 'info',    message, ...opts });
 export const popupConfirm = (message, opts = {}) => showPopup({ type: 'confirm', message, ...opts });
 
+/**
+ * Destructive-action helper. Looks up four i18n keys under v3.confirm.<base>:
+ *   .title, .message, .confirm, .done
+ * Shows a danger confirm popup; on confirm, shows a success popup.
+ * Returns Promise<boolean> so callers can chain navigation after success.
+ *
+ *   await window.confirmAction('deleteCategory');
+ *   window.confirmAction('logout').then(ok => { if (ok) setTimeout(() => location.href='/login', 800); });
+ */
+export const confirmAction = (keyBase) =>
+  showPopup({
+    type: 'confirm',
+    titleKey:   `v3.confirm.${keyBase}.title`,
+    messageKey: `v3.confirm.${keyBase}.message`,
+    confirmKey: `v3.confirm.${keyBase}.confirm`,
+    danger: true,
+  }).then((ok) => {
+    if (ok) {
+      showPopup({ type: 'success', messageKey: `v3.confirm.${keyBase}.done` });
+    }
+    return ok;
+  });
+
 // Make popups available globally so HTML onclick handlers can invoke them.
 if (typeof window !== 'undefined') {
-  window.showPopup    = showPopup;
-  window.popupSuccess = popupSuccess;
-  window.popupError   = popupError;
-  window.popupInfo    = popupInfo;
-  window.popupConfirm = popupConfirm;
+  window.showPopup     = showPopup;
+  window.popupSuccess  = popupSuccess;
+  window.popupError    = popupError;
+  window.popupInfo     = popupInfo;
+  window.popupConfirm  = popupConfirm;
+  window.confirmAction = confirmAction;
 }
 
 function escapeHtml (s) {

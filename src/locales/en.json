@@ -982,6 +982,56 @@
     },
     "common": {
       "level": "Lv {n}"
+    },
+    "confirm": {
+      "deleteCategory": {
+        "title": "Delete category?",
+        "message": "All words in this category will be permanently deleted. This cannot be undone.",
+        "confirm": "Delete",
+        "done": "Category deleted"
+      },
+      "deleteLeitnerCard": {
+        "title": "Remove from Leitner?",
+        "message": "This card will be removed from your Leitner.",
+        "confirm": "Remove",
+        "done": "Card removed"
+      },
+      "deleteSavedBook": {
+        "title": "Remove book?",
+        "message": "This book will be removed from your saved books.",
+        "confirm": "Remove",
+        "done": "Book removed"
+      },
+      "logout": {
+        "title": "Sign out?",
+        "message": "You will be signed out of your account. Are you sure?",
+        "confirm": "Sign out",
+        "done": "Signed out"
+      },
+      "deleteAccount": {
+        "title": "Delete account?",
+        "message": "All your data will be permanently deleted. This cannot be undone.",
+        "confirm": "Delete account",
+        "done": "Account deleted"
+      },
+      "clearLeitner": {
+        "title": "Clear all Leitner?",
+        "message": "All your Leitner cards will be removed and you will start from scratch.",
+        "confirm": "Clear",
+        "done": "Leitner cleared"
+      },
+      "deleteWord": {
+        "title": "Remove word?",
+        "message": "This word will be removed from this category.",
+        "confirm": "Remove",
+        "done": "Word removed"
+      },
+      "clearSearchHistory": {
+        "title": "Clear history?",
+        "message": "All your recent searches will be cleared.",
+        "confirm": "Clear",
+        "done": "History cleared"
+      }
     }
   }
 }

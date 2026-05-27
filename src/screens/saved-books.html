@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpoijaxc" />
-  <link rel="stylesheet" href="/css/base.css?v=mpoijaxc" />
-  <link rel="stylesheet" href="/css/components.css?v=mpoijaxc" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpoijaxc" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpoijaxc" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpoijaxc" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpoijaxc" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpoijaxc" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpoiverc" />
+  <link rel="stylesheet" href="/css/base.css?v=mpoiverc" />
+  <link rel="stylesheet" href="/css/components.css?v=mpoiverc" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpoiverc" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpoiverc" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpoiverc" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpoiverc" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpoiverc" />
 </head>
 <body>
   <div class="preview-controls">
@@ -59,7 +59,7 @@
 
             <div class="sb-list">
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu" aria-label="Menu">⋮</button>
+                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
                 <div class="sb-row__main">
                   <div class="sb-row__title">Inside Reading - 1</div>
                   <div class="sb-row__author">Arline Burgmeier</div>
@@ -72,7 +72,7 @@
                 <div class="sb-row__cover" style="background:linear-gradient(135deg,#1B5E20,#4CAF50);"></div>
               </a>
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu">⋮</button>
+                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
                 <div class="sb-row__main">
                   <div class="sb-row__title" data-i18n="v3.savedBooks.titleAtomic"></div>
                   <div class="sb-row__author" data-i18n="v3.savedBooks.authorAtomic"></div>
@@ -85,7 +85,7 @@
                 <div class="sb-row__cover" style="background:linear-gradient(135deg,#FFB74D,#E65100);"></div>
               </a>
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu">⋮</button>
+                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
                 <div class="sb-row__main">
                   <div class="sb-row__title">The Psychology of Money</div>
                   <div class="sb-row__author">Morgan Housel</div>
@@ -98,7 +98,7 @@
                 <div class="sb-row__cover" style="background:linear-gradient(135deg,#E0E0E0,#9E9E9E);"></div>
               </a>
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu">⋮</button>
+                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
                 <div class="sb-row__main">
                   <div class="sb-row__title" data-i18n="v3.savedBooks.titleCompound"></div>
                   <div class="sb-row__author" data-i18n="v3.savedBooks.authorCompound"></div>
@@ -111,7 +111,7 @@
                 <div class="sb-row__cover" style="background:linear-gradient(135deg,#EF5350,#B71C1C);"></div>
               </a>
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu">⋮</button>
+                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
                 <div class="sb-row__main">
                   <div class="sb-row__title">Deep Work</div>
                   <div class="sb-row__author">Cal Newport</div>
@@ -154,6 +154,6 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpoijaxc"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpoiverc"></script>
 </body>
 </html>
