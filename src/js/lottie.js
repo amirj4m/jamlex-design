@@ -12,7 +12,9 @@
  * To control speed, add data-lottie-speed="0.5" (default 1).
  */
 
-const CDN_LOTTIE = 'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js';
+// Self-hosted lottie-web — no external CDN dependency.
+// Lives under /vendor/ so the strict CSP (script-src 'self') allows it.
+const LOTTIE_SRC = '/vendor/lottie.min.js';
 
 let libPromise = null;
 
@@ -21,11 +23,10 @@ function loadLib () {
   libPromise = new Promise((resolve, reject) => {
     if (window.lottie) return resolve(window.lottie);
     const script = document.createElement('script');
-    script.src = CDN_LOTTIE;
+    script.src = LOTTIE_SRC;
     script.async = true;
-    script.crossOrigin = 'anonymous';
     script.onload = () => resolve(window.lottie);
-    script.onerror = () => reject(new Error('failed to load lottie-web'));
+    script.onerror = () => reject(new Error('failed to load lottie-web from ' + LOTTIE_SRC));
     document.head.appendChild(script);
   });
   return libPromise;
