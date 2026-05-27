@@ -427,17 +427,19 @@
    v3 — auth/single-page screens that MUST NOT scroll
    ============================================================================ */
 
-/* Auth screen variant: no bottom nav, no overflow scroll on the phone frame */
+/* Auth screen variant: no bottom nav, ABSOLUTELY no scroll.
+   Phase 1 rule (memory: feedback_ux_patterns.md #3) — login/register/reset
+   MUST fit on one phone screen. If something overflows, the fix is to
+   compact, never to scroll. */
 .screen--auth { overflow: hidden; }
 .screen--auth .screen__body {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: var(--sp-3) var(--sp-5) var(--sp-5);
-  overflow-y: auto;   /* allow scroll on truly tiny phones, fits on standard */
-  scrollbar-width: none;
+  overflow: hidden;
+  min-height: 0;
 }
-.screen--auth .screen__body::-webkit-scrollbar { display: none; }
 
 /* Auth body uses centered column with tight rhythm */
 .screen__body--auth {
@@ -469,6 +471,53 @@
 .screen__body--auth .auth-footer-link {
   margin-top: auto;
   padding-top: var(--sp-4);
+}
+
+/* Dense auth variant — for screens with many fields (register).
+   Shrinks lottie + tightens everything so 5 fields + terms + CTA + footer
+   all fit on the phone without scroll. */
+.screen__body--auth-dense {
+  gap: var(--sp-2);
+}
+.screen__body--auth-dense .lottie-stage {
+  margin: 0 auto var(--sp-1);
+  width: 120px;
+  height: 120px;
+}
+.screen__body--auth-dense .auth-title {
+  margin: 0 0 var(--sp-1);
+  font-size: 20px;
+}
+.screen__body--auth-dense .auth-subtitle {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-body-s);
+}
+.screen__body--auth-dense .auth-form {
+  gap: 6px;
+}
+.screen__body--auth-dense .field__input {
+  min-height: 48px;
+  padding-block: var(--sp-2);
+}
+.screen__body--auth-dense .field--phone .field__country {
+  min-height: 48px;
+}
+.screen__body--auth-dense .auth-terms {
+  line-height: 1.5;
+  margin: 0;
+  font-size: 12px;
+}
+.screen__body--auth-dense .pw-rule-line {
+  margin: 2px 0;
+  font-size: 12px;
+}
+.screen__body--auth-dense .btn--lg {
+  min-height: 52px;
+  padding-block: var(--sp-3);
+}
+.screen__body--auth-dense .auth-footer-link {
+  padding-top: var(--sp-2);
+  font-size: 12px;
 }
 
 /* Single-line password rule indicator (replaces the 3-rule card).
