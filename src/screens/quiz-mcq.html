@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -22,9 +23,9 @@
     <select id="state-picker" aria-label="State" onchange="
       document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
     ">
-      <option value="question">Question</option>
-      <option value="answered">Answer feedback</option>
-      <option value="end">End summary</option>
+      <option value="ask">Question</option>
+      <option value="correct">Correct feedback</option>
+      <option value="end">End</option>
     </select>
   </div>
   <a href="/" class="hub-ribbon">‹ Hub</a>
@@ -34,75 +35,73 @@
       <div class="screen">
         <header class="topbar">
           <div class="topbar__leading">
-            <a href="/screens/home.html" class="btn-icon back-btn"></a>
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title" data-i18n="quiz.modes.forwardMcq"></h1>
+          <h1 class="topbar__title">آزمون ترجمه</h1>
           <div class="topbar__trailing">
             <button class="btn-icon" aria-label="Close">✕</button>
           </div>
         </header>
 
         <div class="screen__body">
-          <!-- Question -->
-          <div class="state" data-state="question">
-            <div class="fc-counter">3 / 10</div>
-            <div class="fc-progress"><div class="fc-progress__bar" style="width:30%"></div></div>
+          <!-- ASK -->
+          <div class="state" data-state="ask">
+            <div class="fc-counter-v3">3 / 10</div>
+            <div class="fc-progress-v3"><div class="fc-progress-v3__bar" style="width:30%;"></div></div>
 
-            <div class="qprompt mt-5">
-              <div class="qprompt__copy" data-i18n="quiz.prompts.forwardMcq"></div>
-              <div class="qprompt__word qprompt__word--en">resilience</div>
-              <button class="audio-btn qprompt__audio" data-audio="resilience" aria-label="Play">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+            <div class="qprompt-v3">
+              <div class="qprompt-v3__copy">نزدیک‌ترین گزینه به ترجمه را انتخاب کنید</div>
+              <div class="qprompt-v3__word qprompt-v3__word--en">resilience</div>
+              <button class="audio-btn audio-btn--lg" style="margin-top:var(--sp-3);" data-audio="resilience">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
               </button>
             </div>
 
-            <div class="q-options">
-              <div class="q-option"><span class="q-option__letter">۱</span><span>سرعت</span></div>
-              <div class="q-option" data-state="selected"><span class="q-option__letter">۲</span><span>تاب‌آوری</span></div>
-              <div class="q-option"><span class="q-option__letter">۳</span><span>درخشش</span></div>
-              <div class="q-option"><span class="q-option__letter">۴</span><span>سکوت</span></div>
+            <div class="q-opts">
+              <button class="q-opt"><span class="q-opt__letter">۱</span><span>سرعت</span></button>
+              <button class="q-opt" data-state="selected"><span class="q-opt__letter">۲</span><span>تاب‌آوری</span></button>
+              <button class="q-opt"><span class="q-opt__letter">۳</span><span>درخشش</span></button>
+              <button class="q-opt"><span class="q-opt__letter">۴</span><span>سکوت</span></button>
             </div>
 
-            <button class="btn btn--filled btn--block mt-5" data-i18n="quiz.checkBtn"></button>
+            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);">بررسی</button>
           </div>
 
-          <!-- Answered (correct) -->
-          <div class="state" data-state="answered" hidden>
-            <div class="fc-counter">3 / 10</div>
-            <div class="fc-progress"><div class="fc-progress__bar" style="width:30%"></div></div>
+          <!-- CORRECT feedback -->
+          <div class="state" data-state="correct" hidden>
+            <div class="fc-counter-v3">3 / 10</div>
+            <div class="fc-progress-v3"><div class="fc-progress-v3__bar" style="width:30%;"></div></div>
 
-            <div class="qprompt mt-5">
-              <div class="qprompt__copy" data-i18n="quiz.prompts.forwardMcq"></div>
-              <div class="qprompt__word qprompt__word--en">resilience</div>
+            <div class="qprompt-v3">
+              <div class="qprompt-v3__copy">نزدیک‌ترین گزینه به ترجمه را انتخاب کنید</div>
+              <div class="qprompt-v3__word qprompt-v3__word--en">resilience</div>
             </div>
 
-            <div class="q-options">
-              <div class="q-option"><span class="q-option__letter">۱</span><span>سرعت</span></div>
-              <div class="q-option" data-state="correct"><span class="q-option__letter">۲</span><span>تاب‌آوری</span> ✓</div>
-              <div class="q-option"><span class="q-option__letter">۳</span><span>درخشش</span></div>
-              <div class="q-option"><span class="q-option__letter">۴</span><span>سکوت</span></div>
+            <div class="q-opts">
+              <button class="q-opt"><span class="q-opt__letter">۱</span><span>سرعت</span></button>
+              <button class="q-opt" data-state="correct"><span class="q-opt__letter">۲</span><span>تاب‌آوری</span><span style="margin-inline-start:auto;">✓</span></button>
+              <button class="q-opt"><span class="q-opt__letter">۳</span><span>درخشش</span></button>
+              <button class="q-opt"><span class="q-opt__letter">۴</span><span>سکوت</span></button>
             </div>
 
-            <div class="card mt-4" style="background:rgba(76,175,80,0.10);border-color:var(--jx-success);text-align:center;">
-              <div class="fs-headline fw-bold txt-success" data-i18n="quiz.correctLabel"></div>
-              <div class="fs-body-s txt-2 mt-1" data-i18n="quiz.correctAnswerWas" data-i18n-vars='{"english":"resilience"}'></div>
+            <div class="card" style="background:#DCF4E2;border-color:#C9EDD2;color:#2A8E4D;text-align:center;margin-top:var(--sp-4);">
+              <div style="font-size:18px;font-weight:800;">درست! 🎉</div>
+              <div style="font-size:var(--fs-body-s);margin-top:4px;">پاسخ صحیح: resilience</div>
             </div>
 
-            <button class="btn btn--filled btn--block mt-3" data-i18n="quiz.nextQuestion"></button>
+            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-3);">سؤال بعدی</button>
           </div>
 
-          <!-- End -->
+          <!-- END -->
           <div class="state" data-state="end" hidden>
-            <div class="empty">
-              <div class="empty__icon">🏆</div>
-              <h2 class="empty__title" data-i18n="quiz.endTitle"></h2>
-              <p class="empty__body fs-display-m fw-extrabold" style="color:var(--jx-primary);" data-i18n="quiz.endScore" data-i18n-vars='{"correct":8,"total":10}'></p>
-              <p class="txt-2" data-i18n="quiz.endAccuracy" data-i18n-vars='{"accuracy":80}'></p>
+            <div class="lottie-stage lottie-stage--lg" data-lottie="hero-trophy" style="margin:var(--sp-3) auto;"></div>
+            <h1 class="summary-title">پایان آزمون!</h1>
+            <div style="text-align:center;margin-top:var(--sp-4);">
+              <div style="font-size:48px;font-weight:800;color:var(--jx-primary);font-family:var(--font-family-latin);">8 / 10</div>
+              <div style="color:var(--jx-text-2);margin-top:6px;">دقت ۸۰%</div>
             </div>
-            <div class="stack gap-3 mt-4">
-              <button class="btn btn--filled btn--block">🔁 <span data-i18n="quiz.restart"></span></button>
-              <a href="/screens/home.html" class="btn btn--outlined btn--block" data-i18n="quiz.exit"></a>
-            </div>
+            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);">🔁 شروع مجدد</button>
+            <a href="/screens/home.html" class="btn btn--outlined btn--block btn--lg" style="margin-top:var(--sp-3);">خروج</a>
           </div>
         </div>
       </div>

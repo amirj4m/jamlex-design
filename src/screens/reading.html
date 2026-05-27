@@ -4,13 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#00B4A6" />
-  <title>Jamlex · Library</title>
+  <title>Jamlex · Reading</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -27,118 +28,153 @@
       <div class="screen">
         <header class="topbar">
           <div class="topbar__leading">
-            <a href="/screens/home.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title" data-i18n="reading.title"></h1>
+          <h1 class="topbar__title">خواندن کتاب</h1>
           <div class="topbar__trailing">
-            <a href="/screens/saved-books.html" class="btn-icon" aria-label="Saved">🔖</a>
+            <a href="/screens/saved-books.html" class="btn-icon" aria-label="Saved" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </a>
           </div>
         </header>
 
         <div class="screen__body">
+          <p style="text-align:end;color:var(--jx-text-2);font-size:var(--fs-body-s);margin-bottom:var(--sp-3);">هزاران کتاب رایگان در دسته‌بندی‌های مختلف</p>
+
           <!-- Level chips -->
-          <div class="level-chips">
-            <span class="chip chip--selectable" data-selected="true" data-i18n="reading.levelAll"></span>
-            <span class="chip chip--selectable" data-level="C2">C2</span>
-            <span class="chip chip--selectable" data-level="C1">C1</span>
-            <span class="chip chip--selectable" data-level="B2">B2</span>
-            <span class="chip chip--selectable" data-level="B1">B1</span>
-            <span class="chip chip--selectable" data-level="A2">A2</span>
+          <div class="reading-levels">
+            <button class="reading-level reading-level--active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              <span>همه سطوح</span>
+            </button>
+            <button class="reading-level"><span class="reading-level__code">C2</span><span>پیشرفته</span></button>
+            <button class="reading-level"><span class="reading-level__code">C1</span><span>بالا</span></button>
+            <button class="reading-level"><span class="reading-level__code">B2</span><span>متوسط بالا</span></button>
+            <button class="reading-level"><span class="reading-level__code">B1</span><span>متوسط</span></button>
+            <button class="reading-level"><span class="reading-level__code">A2</span><span>مبتدی</span></button>
           </div>
 
-          <!-- Categories -->
-          <div class="section-h"><div class="section-h__title" data-i18n="reading.categories"></div></div>
-          <div class="cat-grid">
-            <a href="#" class="cat-card"><span class="cat-card__emoji">📖</span><span class="cat-card__name">Fiction</span></a>
-            <a href="#" class="cat-card"><span class="cat-card__emoji">🌱</span><span class="cat-card__name">Self-help</span></a>
-            <a href="#" class="cat-card"><span class="cat-card__emoji">💼</span><span class="cat-card__name">Business</span></a>
-            <a href="#" class="cat-card"><span class="cat-card__emoji">🔬</span><span class="cat-card__name">Science</span></a>
-            <a href="#" class="cat-card"><span class="cat-card__emoji">🏛</span><span class="cat-card__name">History</span></a>
+          <!-- Categories row -->
+          <div class="section-h"><div class="section-h__title">دسته‌بندی‌ها</div><a href="#" class="section-h__action">مشاهده همه</a></div>
+          <div class="cat-h-scroll">
+            <a href="/screens/saved-books.html" class="cat-disc">
+              <span class="cat-disc__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">📖</span>
+              <span class="cat-disc__name">داستان و رمان</span>
+              <span class="cat-disc__count">۳۴۶ کتاب</span>
+            </a>
+            <a href="/screens/saved-books.html" class="cat-disc">
+              <span class="cat-disc__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">🌱</span>
+              <span class="cat-disc__name">توسعه فردی</span>
+              <span class="cat-disc__count">۱۸۳ کتاب</span>
+            </a>
+            <a href="/screens/saved-books.html" class="cat-disc">
+              <span class="cat-disc__icon" style="background:rgba(244,67,54,0.16);color:#C62828;">💼</span>
+              <span class="cat-disc__name">کسب‌وکار</span>
+              <span class="cat-disc__count">۱۳۰ کتاب</span>
+            </a>
+            <a href="/screens/saved-books.html" class="cat-disc">
+              <span class="cat-disc__icon" style="background:rgba(0,180,166,0.16);color:#1F9389;">🎓</span>
+              <span class="cat-disc__name">علمی و آموزشی</span>
+              <span class="cat-disc__count">۳۳۸ کتاب</span>
+            </a>
+            <a href="/screens/saved-books.html" class="cat-disc">
+              <span class="cat-disc__icon" style="background:rgba(245,185,69,0.18);color:#B27A12;">🏛</span>
+              <span class="cat-disc__name">تاریخ و زندگی‌نامه</span>
+              <span class="cat-disc__count">۱۵۹ کتاب</span>
+            </a>
           </div>
 
-          <!-- Featured -->
-          <div class="section-h">
-            <div class="section-h__title" data-i18n="reading.featured"></div>
-            <a href="#" class="section-h__action" data-i18n="reading.seeAll"></a>
-          </div>
-          <div class="h-scroller">
-            <a href="/screens/book-detail.html" class="book-cover">
-              <div class="book-cover__img" style="background:linear-gradient(135deg,#5C6BC0,#3949AB);">
-                <span class="book-cover__badge">B1</span>
-                Pride and Prejudice
+          <!-- Featured books -->
+          <div class="section-h"><div class="section-h__title">کتاب‌های پیشنهادی</div><a href="#" class="section-h__action">مشاهده همه</a></div>
+          <div class="book-h-scroll">
+            <a href="/screens/book-detail.html" class="bcard">
+              <div class="bcard__cover" style="background:linear-gradient(180deg,#1A2138,#3D4566);">
+                <span class="bcard__badge">B1</span>
+                <div style="color:#fff;font-family:'Times New Roman',serif;text-align:center;padding:14px 8px;font-size:11px;">The Little Prince</div>
               </div>
-              <div class="book-cover__title">Pride and Prejudice</div>
-              <div class="book-cover__author">Jane Austen</div>
+              <div class="bcard__title">The Little Prince</div>
+              <div class="bcard__author">Antoine de Saint…</div>
+              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.8</span><span>۱۳۲ صفحه</span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
             </a>
-            <a href="/screens/book-detail.html" class="book-cover">
-              <div class="book-cover__img" style="background:linear-gradient(135deg,#EF5350,#C62828);">
-                <span class="book-cover__badge">B2</span>
-                The Great Gatsby
+            <a href="/screens/book-detail.html" class="bcard">
+              <div class="bcard__cover" style="background:linear-gradient(180deg,#8B5E2A,#D4A574);">
+                <span class="bcard__badge">B2</span>
+                <div style="color:#fff;font-family:'Times New Roman',serif;text-align:center;padding:14px 8px;font-size:11px;">The Alchemist</div>
               </div>
-              <div class="book-cover__title">The Great Gatsby</div>
-              <div class="book-cover__author">F. Scott Fitzgerald</div>
+              <div class="bcard__title">The Alchemist</div>
+              <div class="bcard__author">Paulo Coelho</div>
+              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.7</span><span>۱۸۰ صفحه</span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
             </a>
-            <a href="/screens/book-detail.html" class="book-cover">
-              <div class="book-cover__img" style="background:linear-gradient(135deg,#26A69A,#00695C);">
-                <span class="book-cover__badge">C1</span>
-                Crime and Punishment
+            <a href="/screens/book-detail.html" class="bcard">
+              <div class="bcard__cover" style="background:linear-gradient(180deg,#3D2A1E,#7A5B40);">
+                <span class="bcard__badge">C1</span>
+                <div style="color:#fff;font-family:'Times New Roman',serif;text-align:center;padding:14px 8px;font-size:11px;">The Time Machine</div>
               </div>
-              <div class="book-cover__title">Crime and Punishment</div>
-              <div class="book-cover__author">Fyodor Dostoevsky</div>
+              <div class="bcard__title">The Time Machine</div>
+              <div class="bcard__author">H. G. Wells</div>
+              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.5</span><span>۱۴۹ صفحه</span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
             </a>
-            <a href="/screens/book-detail.html" class="book-cover">
-              <div class="book-cover__img" style="background:linear-gradient(135deg,#FFA726,#EF6C00);">
-                <span class="book-cover__badge">B2</span>
-                A Tale of Two Cities
+            <a href="/screens/book-detail.html" class="bcard">
+              <div class="bcard__cover" style="background:linear-gradient(180deg,#465670,#7A8FA8);">
+                <span class="bcard__badge">A2</span>
+                <div style="color:#fff;font-family:'Times New Roman',serif;text-align:center;padding:14px 8px;font-size:11px;">Aesop's Fables</div>
               </div>
-              <div class="book-cover__title">A Tale of Two Cities</div>
-              <div class="book-cover__author">Charles Dickens</div>
+              <div class="bcard__title">Aesop's Fables</div>
+              <div class="bcard__author">Aesop</div>
+              <div class="bcard__rating">⭐ <span style="font-family:var(--font-family-latin);">4.5</span><span>۹۸ صفحه</span><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
             </a>
           </div>
 
           <!-- In progress -->
-          <div class="section-h">
-            <div class="section-h__title" data-i18n="reading.inProgress"></div>
-          </div>
-          <div class="h-scroller">
-            <a href="/screens/book-reader.html" class="book-cover">
-              <div class="book-cover__img" style="background:linear-gradient(135deg,#7E57C2,#4527A0);">
-                <span class="book-cover__badge">B2</span>
-                Pride and Prejudice
+          <div class="section-h"><div class="section-h__title">ادامه مطالعه</div><a href="#" class="section-h__action">مشاهده همه</a></div>
+          <a href="/screens/book-reader.html" class="continue-card">
+            <div class="continue-card__cover" style="background:linear-gradient(180deg,#F5F1E8,#D4C9B0);font-family:'Times New Roman',serif;color:#3D2A1E;font-weight:bold;font-size:10px;text-align:center;padding:8px;">Atomic Habits</div>
+            <div class="continue-card__body">
+              <div class="continue-card__title">Atomic Habits</div>
+              <div class="continue-card__author">James Clear</div>
+              <div class="continue-card__progress">
+                <div class="continue-card__track"><div class="continue-card__fill" style="width:65%;"></div></div>
+                <span class="continue-card__pct">۶۵%</span>
               </div>
-              <div class="book-cover__title">Pride and Prejudice</div>
-              <div class="book-cover__author">42% خوانده‌شده</div>
-            </a>
-          </div>
+              <div class="continue-card__last">آخرین مطالعه: دیروز</div>
+            </div>
+            <button class="continue-card__cta">📖 ادامه مطالعه</button>
+          </a>
 
           <!-- Newest -->
-          <div class="section-h">
-            <div class="section-h__title" data-i18n="reading.newest"></div>
-          </div>
-          <div class="h-scroller">
-            <a href="/screens/book-detail.html" class="book-cover">
-              <div class="book-cover__img" style="background:linear-gradient(135deg,#66BB6A,#2E7D32);">
-                <span class="book-cover__badge">A2</span>
-                The Wonderful Wizard of Oz
+          <div class="section-h"><div class="section-h__title">جدیدترین کتاب‌ها</div><a href="#" class="section-h__action">مشاهده همه</a></div>
+          <div class="book-h-scroll">
+            <a href="/screens/book-detail.html" class="bcard">
+              <div class="bcard__cover" style="background:linear-gradient(135deg,#D85838,#FF6B35);position:relative;">
+                <span class="bcard__badge bcard__badge--new">جدید</span>
+                <div style="color:#fff;font-weight:800;text-align:center;padding:14px 8px;font-size:12px;">The 5 AM Club</div>
               </div>
-              <div class="book-cover__title">Wizard of Oz</div>
-              <div class="book-cover__author">L. Frank Baum</div>
+              <div class="bcard__title">The 5 AM Club</div>
+              <div class="bcard__author">Robin Sharma</div>
             </a>
-            <a href="/screens/book-detail.html" class="book-cover">
-              <div class="book-cover__img" style="background:linear-gradient(135deg,#42A5F5,#1565C0);">
-                <span class="book-cover__badge">B1</span>
-                Alice's Adventures
+            <a href="/screens/book-detail.html" class="bcard">
+              <div class="bcard__cover" style="background:#FFEB3B;">
+                <span class="bcard__badge bcard__badge--new">جدید</span>
+                <div style="color:#1A2138;font-weight:900;text-align:center;padding:14px 8px;font-size:18px;line-height:1;">Deep<br/>Work</div>
               </div>
-              <div class="book-cover__title">Alice's Adventures</div>
-              <div class="book-cover__author">Lewis Carroll</div>
+              <div class="bcard__title">Deep Work</div>
+              <div class="bcard__author">Cal Newport</div>
             </a>
-            <a href="/screens/book-detail.html" class="book-cover">
-              <div class="book-cover__img" style="background:linear-gradient(135deg,#EC407A,#AD1457);">
-                <span class="book-cover__badge">B2</span>
-                Frankenstein
+            <a href="/screens/book-detail.html" class="bcard">
+              <div class="bcard__cover" style="background:linear-gradient(180deg,#E0D5C0,#9C8B6E);">
+                <span class="bcard__badge bcard__badge--new">جدید</span>
+                <div style="color:#3D2A1E;font-family:'Times New Roman',serif;font-weight:bold;text-align:center;padding:14px 8px;font-size:11px;">The Power of Now</div>
               </div>
-              <div class="book-cover__title">Frankenstein</div>
-              <div class="book-cover__author">Mary Shelley</div>
+              <div class="bcard__title">The Power of Now</div>
+              <div class="bcard__author">Eckhart Tolle</div>
+            </a>
+            <a href="/screens/book-detail.html" class="bcard">
+              <div class="bcard__cover" style="background:linear-gradient(180deg,#1A2138,#5F5F5F);">
+                <span class="bcard__badge bcard__badge--new">جدید</span>
+                <div style="color:#fff;font-family:'Times New Roman',serif;font-weight:bold;text-align:center;padding:14px 6px;font-size:10px;">Thinking, Fast and Slow</div>
+              </div>
+              <div class="bcard__title">Thinking, Fast and Slow</div>
+              <div class="bcard__author">Daniel Kahneman</div>
             </a>
           </div>
         </div>

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -27,172 +28,138 @@
       <div class="screen">
         <header class="topbar topbar--transparent">
           <div></div>
-          <h1 class="topbar__title" data-i18n="profile.title"></h1>
+          <h1 class="topbar__title">پروفایل</h1>
           <div class="topbar__trailing">
-            <a href="/screens/settings.html" class="btn-icon" aria-label="Settings">⚙</a>
+            <a href="/screens/settings.html" class="btn-icon" aria-label="Settings">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </a>
           </div>
         </header>
 
         <div class="screen__body">
-          <!-- Hero -->
-          <div class="profile-hero">
-            <div class="profile-avatar">
-              A
-              <div class="profile-avatar__edit">✎</div>
+          <!-- Hero: avatar + name + level chip -->
+          <div class="profile-hero-v3">
+            <div class="profile-avatar-lg">
+              <span>ر</span>
+              <div class="profile-avatar-lg__edit">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </div>
             </div>
-            <div class="profile-name">آرین جوادی</div>
-            <div class="profile-username">@amirj4m</div>
+            <h2 class="profile-name-v3">رضا محمدی</h2>
+            <span class="profile-level-chip">سطح ۶</span>
           </div>
 
-          <!-- XP bar -->
-          <div class="xp-bar">
-            <div class="xp-bar__head">
-              <span data-i18n="profile.level" data-i18n-vars='{"n":6}'></span>
-              <span class="font-latin">1,247 / 1,500 XP</span>
+          <!-- XP card with progress -->
+          <div class="xp-card-v3">
+            <div class="xp-card-v3__head">
+              <span>پیشرفت تا سطح ۷</span>
+              <span class="font-latin xp-card-v3__val">1,247 / 1,500 XP</span>
             </div>
-            <div class="xp-bar__track"><div class="xp-bar__fill" style="width:82%"></div></div>
-            <div class="fs-body-s txt-2 mt-2" data-i18n="profile.xpToNext" data-i18n-vars='{"xp":253,"next":7}'></div>
+            <div class="xp-card-v3__track"><div class="xp-card-v3__fill" style="width:82%;"></div></div>
           </div>
 
-          <!-- This week stats -->
-          <div class="section-label" data-i18n="profile.weekStats.title"></div>
-          <div class="setting-list">
-            <div class="row" style="padding:var(--sp-3) var(--sp-4);gap:0;">
-              <div style="flex:1;text-align:center;">
-                <div class="fs-headline fw-extrabold">42</div>
-                <div class="fs-caption txt-2" data-i18n="profile.weekStats.cards"></div>
-              </div>
-              <div style="width:1px;background:var(--jx-divider);align-self:stretch;"></div>
-              <div style="flex:1;text-align:center;">
-                <div class="fs-headline fw-extrabold">128</div>
-                <div class="fs-caption txt-2" data-i18n="profile.weekStats.minutes"></div>
-              </div>
-              <div style="width:1px;background:var(--jx-divider);align-self:stretch;"></div>
-              <div style="flex:1;text-align:center;">
-                <div class="fs-headline fw-extrabold">7</div>
-                <div class="fs-caption txt-2" data-i18n="profile.weekStats.streak"></div>
-              </div>
+          <!-- This week 3-col card -->
+          <div class="week-card">
+            <div class="week-card__cell">
+              <div class="week-card__val">42</div>
+              <div class="week-card__label">کارت این هفته</div>
+            </div>
+            <div class="week-card__divider"></div>
+            <div class="week-card__cell">
+              <div class="week-card__val">128</div>
+              <div class="week-card__label">دقیقه</div>
+            </div>
+            <div class="week-card__divider"></div>
+            <div class="week-card__cell">
+              <div class="week-card__val">7</div>
+              <div class="week-card__label">روز پیاپی</div>
             </div>
           </div>
 
-          <!-- Leitner section -->
-          <div class="section-label" data-i18n="profile.sections.leitner"></div>
+          <!-- Section list -->
+          <div class="section-label">لایتنر</div>
           <div class="setting-list">
             <button class="setting-item">
-              <span class="setting-item__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">📚</span>
+              <span class="setting-item__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.leitnerSection.dailyLimit"></div>
-                <div class="setting-item__sub" data-i18n="profile.leitnerSection.dailyLimitSubtitle" data-i18n-vars='{"n":20}'></div>
+                <div class="setting-item__label">سقف روزانه</div>
+                <div class="setting-item__sub">۲۰ کارت در روز</div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
             <button class="setting-item setting-item--danger">
-              <span class="setting-item__icon">🗑</span>
+              <span class="setting-item__icon" style="background:rgba(244,67,54,0.12);color:var(--jx-danger);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.leitnerSection.clearAll"></div>
-                <div class="setting-item__sub" data-i18n="profile.leitnerSection.clearAllSubtitle"></div>
+                <div class="setting-item__label">پاک کردن کل لایتنر</div>
+                <div class="setting-item__sub">شروع از صفر</div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
           </div>
 
-          <!-- Notifications -->
-          <div class="section-label" data-i18n="profile.sections.notifications"></div>
+          <div class="section-label">اعلان‌ها</div>
           <div class="setting-list">
             <div class="setting-item" style="cursor:default;">
-              <span class="setting-item__icon" style="background:rgba(255,152,0,0.14);color:var(--jx-warning);">🔔</span>
+              <span class="setting-item__icon" style="background:rgba(255,152,0,0.16);color:#E59A1A;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.notifSection.title"></div>
-                <div class="setting-item__sub" data-i18n="profile.notifSection.onSubtitle" data-i18n-vars='{"time":"۲۰:۳۰","days":5}'></div>
+                <div class="setting-item__label">یادآور روزانه</div>
+                <div class="setting-item__sub">روشن — ۲۰:۳۰ · ۵ روز در هفته</div>
               </div>
               <span class="switch" data-on="true"></span>
             </div>
           </div>
 
-          <!-- Appearance -->
-          <div class="section-label" data-i18n="profile.sections.appearance"></div>
+          <div class="section-label">حساب کاربری</div>
           <div class="setting-list">
             <button class="setting-item">
-              <span class="setting-item__icon" style="background:rgba(74,144,217,0.14);color:var(--jx-secondary);">🎨</span>
+              <span class="setting-item__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3,7 12,13 21,7"/></svg>
+              </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.sections.appearance"></div>
-                <div class="setting-item__sub" data-i18n="profile.appearanceSection.system"></div>
-              </div>
-              <span class="setting-item__chevron"></span>
-            </button>
-          </div>
-
-          <!-- Account -->
-          <div class="section-label" data-i18n="profile.sections.account"></div>
-          <div class="setting-list">
-            <button class="setting-item">
-              <span class="setting-item__icon">📧</span>
-              <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.email"></div>
-                <div class="setting-item__sub font-latin">amir@example.com</div>
+                <div class="setting-item__label">ایمیل</div>
+                <div class="setting-item__sub font-latin">reza@example.com</div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
             <button class="setting-item">
-              <span class="setting-item__icon">📱</span>
+              <span class="setting-item__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.phone"></div>
+                <div class="setting-item__label">شماره موبایل</div>
                 <div class="setting-item__sub font-latin">+98 912 *** 67 89</div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
             <a href="/screens/change-password.html" class="setting-item" style="text-decoration:none;color:inherit;">
-              <span class="setting-item__icon">🔐</span>
+              <span class="setting-item__icon" style="background:var(--jx-input-bg);color:var(--jx-text-2);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="auth.changePasswordTitle"></div>
+                <div class="setting-item__label">تغییر رمز عبور</div>
               </div>
               <span class="setting-item__chevron"></span>
             </a>
             <button class="setting-item setting-item--danger">
-              <span class="setting-item__icon">🚪</span>
+              <span class="setting-item__icon" style="background:rgba(244,67,54,0.12);color:var(--jx-danger);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.logout"></div>
-              </div>
-              <span class="setting-item__chevron"></span>
-            </button>
-            <button class="setting-item setting-item--danger">
-              <span class="setting-item__icon">⚠</span>
-              <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.deleteAccount"></div>
+                <div class="setting-item__label">خروج از حساب</div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
           </div>
 
-          <!-- Other -->
-          <div class="section-label" data-i18n="profile.sections.other"></div>
-          <div class="setting-list">
-            <button class="setting-item">
-              <span class="setting-item__icon">🌐</span>
-              <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.otherSection.language"></div>
-                <div class="setting-item__sub">فارسی</div>
-              </div>
-              <span class="setting-item__chevron"></span>
-            </button>
-            <button class="setting-item">
-              <span class="setting-item__icon">📖</span>
-              <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.otherSection.guide"></div>
-              </div>
-              <span class="setting-item__chevron"></span>
-            </button>
-            <button class="setting-item">
-              <span class="setting-item__icon">ℹ</span>
-              <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="profile.otherSection.about"></div>
-              </div>
-              <span class="setting-item__chevron"></span>
-            </button>
-          </div>
-
-          <a href="/screens/paywall.html" class="btn btn--filled btn--block mt-5">
-            ✨ Premium
+          <a href="/screens/paywall.html" class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);background:linear-gradient(135deg,#4ECDC4,#00B4A6);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+            <span>ارتقا به پریمیوم</span>
           </a>
         </div>
 

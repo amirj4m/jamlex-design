@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -27,85 +28,89 @@
       <option value="end">End summary</option>
     </select>
   </div>
-  <a href="/screens/vocab-learning.html" class="hub-ribbon">‹ Vocab</a>
+  <a href="/" class="hub-ribbon">‹ Hub</a>
 
   <div class="shell">
     <div class="phone">
       <div class="screen">
         <header class="topbar">
           <div class="topbar__leading">
-            <a href="/screens/vocab-learning.html" class="btn-icon back-btn"></a>
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title" data-i18n="flashcards.levelTitle" data-i18n-vars='{"level":"B1"}'></h1>
+          <h1 class="topbar__title">فلش‌کارت — B1</h1>
           <div class="topbar__trailing">
             <button class="btn-icon" aria-label="Close">✕</button>
           </div>
         </header>
 
         <div class="screen__body">
-          <!-- Front -->
+          <!-- FRONT -->
           <div class="state" data-state="front">
-            <div class="fc-counter">5 / 20</div>
-            <div class="fc-progress"><div class="fc-progress__bar" style="width:25%"></div></div>
+            <div class="fc-counter-v3">5 / 20</div>
+            <div class="fc-progress-v3"><div class="fc-progress-v3__bar" style="width:25%"></div></div>
 
-            <div class="flip-card mt-5" onclick="
+            <div class="flip-card-v3" style="margin-top:var(--sp-5);" onclick="
               document.getElementById('state-picker').value='back';
               document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'back';});
             ">
-              <div class="flip-card__pos">verb · /B1/</div>
-              <div class="flip-card__english">accomplish</div>
-              <div class="flip-card__ipa">/əˈkʌmplɪʃ/</div>
-              <button class="audio-btn" data-audio="accomplish" aria-label="Play" onclick="event.stopPropagation();">
+              <div class="flip-card-v3__english">accomplish</div>
+              <div class="flip-card-v3__ipa">/əˈkʌmplɪʃ/</div>
+              <button class="audio-btn audio-btn--lg" data-audio="accomplish" onclick="event.stopPropagation();" style="margin-top:var(--sp-4);">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
               </button>
-              <div class="flip-card__hint" data-i18n="flashcards.tapToFlip"></div>
             </div>
+
+            <p style="text-align:center;color:var(--jx-text-3);font-size:var(--fs-body-s);margin-top:var(--sp-3);">برای دیدن معنی، روی کارت بزن</p>
           </div>
 
-          <!-- Back -->
+          <!-- BACK -->
           <div class="state" data-state="back" hidden>
-            <div class="fc-counter">5 / 20</div>
-            <div class="fc-progress"><div class="fc-progress__bar" style="width:25%"></div></div>
+            <div class="fc-counter-v3">5 / 20</div>
+            <div class="fc-progress-v3"><div class="fc-progress-v3__bar" style="width:25%"></div></div>
 
-            <div class="flip-card mt-5">
-              <div class="flip-card__pos">verb · /B1/</div>
-              <div class="flip-card__english">accomplish</div>
-              <div class="flip-card__back-meaning">انجام دادن، به انجام رساندن</div>
-              <div class="flip-card__back-example">She managed to accomplish all her goals.</div>
+            <div class="flip-card-v3" style="margin-top:var(--sp-5);">
+              <div class="flip-card-v3__english">accomplish</div>
+              <div class="flip-card-v3__meaning">انجام دادن، به انجام رساندن</div>
+              <div class="flip-card-v3__example">She managed to accomplish all her goals.</div>
             </div>
 
-            <div class="kdk-row">
-              <button class="kdk-btn kdk-btn--dont">
-                ❌ <span data-i18n="flashcards.iDontKnow"></span>
+            <div class="mastery-buttons" style="grid-template-columns:1fr 1fr;">
+              <button class="mbtn mbtn--dont">
+                <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                <span>بلد نیستم</span>
               </button>
-              <button class="kdk-btn kdk-btn--know">
-                ✅ <span data-i18n="flashcards.iKnow"></span>
+              <button class="mbtn mbtn--well">
+                <svg class="mbtn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>بلدم</span>
               </button>
             </div>
           </div>
 
-          <!-- End -->
+          <!-- END -->
           <div class="state" data-state="end" hidden>
-            <div class="empty">
-              <div class="empty__icon">🎉</div>
-              <h2 class="empty__title" data-i18n="flashcards.endTitle"></h2>
-            </div>
-            <div class="tile-grid">
-              <div class="tile">
-                <div class="tile__icon" style="background:rgba(76,175,80,0.14);color:var(--jx-success);">✅</div>
-                <div class="tile__value">17</div>
-                <div class="tile__label" data-i18n="flashcards.iKnow"></div>
+            <div class="lottie-stage lottie-stage--lg" data-lottie="hero-trophy" style="margin:var(--sp-3) auto;"></div>
+            <h1 class="summary-title">🎉 تمام شد!</h1>
+            <p class="summary-sub">۲۰ فلش‌کارت رو دیدی</p>
+
+            <div class="stats-card" style="grid-template-columns:1fr 1fr;">
+              <div class="stat-cell">
+                <div class="stat-cell__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="stat-cell__label">بلدم</div>
+                <div class="stat-cell__val" style="color:#2A8E4D;">17</div>
               </div>
-              <div class="tile">
-                <div class="tile__icon" style="background:rgba(244,67,54,0.14);color:var(--jx-danger);">❌</div>
-                <div class="tile__value">3</div>
-                <div class="tile__label" data-i18n="flashcards.iDontKnow"></div>
+              <div class="stat-cell">
+                <div class="stat-cell__icon" style="background:rgba(244,67,54,0.16);color:#E15858;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                </div>
+                <div class="stat-cell__label">بلد نیستم</div>
+                <div class="stat-cell__val" style="color:#E15858;">3</div>
               </div>
             </div>
-            <div class="stack gap-3 mt-4">
-              <button class="btn btn--filled btn--block">🔁 <span data-i18n="flashcards.oneMoreRound"></span></button>
-              <a href="/screens/home.html" class="btn btn--outlined btn--block" data-i18n="flashcards.backToHome"></a>
-            </div>
+
+            <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-4);">🔁 یک دور دیگر</button>
+            <a href="/screens/home.html" class="btn btn--outlined btn--block btn--lg" style="margin-top:var(--sp-3);">برگشت به خانه</a>
           </div>
         </div>
       </div>

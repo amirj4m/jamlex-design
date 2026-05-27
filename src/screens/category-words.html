@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -19,35 +20,178 @@
   <div class="preview-controls">
     <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
     <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="lessons">Lessons list (free-tier)</option>
+      <option value="modal">Lesson action sheet (modal)</option>
+    </select>
   </div>
-  <a href="/screens/vocab-learning.html" class="hub-ribbon">‹ Categories</a>
+  <a href="/screens/vocab-learning.html" class="hub-ribbon">‹ Vocab</a>
 
   <div class="shell">
     <div class="phone">
       <div class="screen">
         <header class="topbar">
           <div class="topbar__leading">
-            <a href="/screens/vocab-learning.html" class="btn-icon back-btn" data-i18n-attr="aria-label:common.back"></a>
+            <a href="/screens/vocab-learning.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title">🍔 Food</h1>
-          <div class="topbar__trailing"></div>
+          <h1 class="topbar__title" style="display:inline-flex;align-items:center;gap:6px;">
+            <span style="display:inline-flex;width:28px;height:28px;border-radius:8px;background:rgba(108,92,231,0.16);align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+            <span>واژه‌آموزی</span>
+          </h1>
+          <div></div>
         </header>
 
         <div class="screen__body">
-          <div class="level-chips">
-            <span class="chip chip--selectable" data-selected="true" data-i18n="reading.levelAll"></span>
-            <span class="chip chip--selectable" data-level="A1">A1</span>
-            <span class="chip chip--selectable" data-level="A2">A2</span>
-            <span class="chip chip--selectable" data-level="B1">B1</span>
-            <span class="chip chip--selectable" data-level="B2">B2</span>
-            <span class="chip chip--selectable" data-level="C1">C1</span>
+          <div style="text-align:end;color:var(--jx-text-2);font-size:var(--fs-body-s);margin-bottom:var(--sp-3);">
+            <span style="display:inline-flex;width:8px;height:8px;border-radius:50%;background:var(--jx-primary);margin-inline-end:6px;"></span>
+            واژگان سطح مبتدی
           </div>
 
-          <!-- Phase 1: empty (waiting for openjam) -->
-          <div class="empty" style="padding-top:var(--sp-6);">
-            <div class="empty__icon">🍔</div>
-            <h2 class="empty__title" data-i18n="vocabulary.emptyDB.title"></h2>
-            <p class="empty__body" data-i18n="vocabulary.emptyDB.body"></p>
+          <!-- Progress card with 3D book -->
+          <div class="overall-progress">
+            <div class="overall-progress__ring">
+              <svg viewBox="0 0 60 60" fill="none">
+                <circle cx="30" cy="30" r="26" stroke="rgba(0,180,166,0.20)" stroke-width="4"/>
+                <circle cx="30" cy="30" r="26" stroke="var(--jx-primary)" stroke-width="4" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="106" transform="rotate(-90 30 30)"/>
+                <text x="30" y="36" text-anchor="middle" font-size="13" font-weight="800" fill="var(--jx-primary)" font-family="Inter">35%</text>
+              </svg>
+            </div>
+            <div style="flex:1;text-align:end;">
+              <div style="font-weight:var(--fw-bold);">پیشرفت کلی</div>
+              <div style="font-size:var(--fs-body-s);color:var(--jx-text-2);margin-top:2px;">درس 7 از 20</div>
+            </div>
+            <div class="lottie-stage lottie-stage--sm" data-lottie="vocab-banner-book" style="margin:0 !important;width:56px !important;height:56px !important;"></div>
+          </div>
+
+          <!-- Lessons list -->
+          <div class="lesson-list" style="margin-top:var(--sp-4);">
+            <a href="/screens/flashcards.html" class="lesson-row" data-status="done">
+              <span class="lesson-row__num">1</span>
+              <div class="lesson-row__title">
+                <div class="lesson-row__name">درس اول</div>
+                <div class="lesson-row__sub">Lesson 1</div>
+              </div>
+              <span class="lesson-row__status">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+            </a>
+            <a href="/screens/flashcards.html" class="lesson-row" data-status="done">
+              <span class="lesson-row__num">2</span>
+              <div class="lesson-row__title">
+                <div class="lesson-row__name">درس دوم</div>
+                <div class="lesson-row__sub">Lesson 2</div>
+              </div>
+              <span class="lesson-row__status">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+            </a>
+            <button class="lesson-row" data-status="active" onclick="
+              document.getElementById('state-picker').value='modal';
+              document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'modal';});
+            ">
+              <span class="lesson-row__num">3</span>
+              <div class="lesson-row__title">
+                <div class="lesson-row__name">درس سوم</div>
+                <div class="lesson-row__sub">Lesson 3</div>
+              </div>
+              <span class="lesson-row__status">
+                <svg viewBox="0 0 60 60" fill="none" style="width:30px;height:30px;">
+                  <circle cx="30" cy="30" r="26" stroke="var(--jx-primary-glow)" stroke-width="6"/>
+                  <circle cx="30" cy="30" r="26" stroke="var(--jx-primary)" stroke-width="6" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="57" transform="rotate(-90 30 30)"/>
+                  <text x="30" y="36" text-anchor="middle" font-size="14" font-weight="700" fill="var(--jx-primary)" font-family="Inter">65%</text>
+                </svg>
+              </span>
+            </button>
+            <div class="lesson-row" data-status="locked">
+              <span class="lesson-row__num">4</span>
+              <div class="lesson-row__title">
+                <div class="lesson-row__name">درس چهارم</div>
+                <div class="lesson-row__sub">Lesson 4</div>
+              </div>
+              <span class="lesson-row__status">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+            </div>
+            <div class="lesson-row" data-status="locked">
+              <span class="lesson-row__num">5</span>
+              <div class="lesson-row__title">
+                <div class="lesson-row__name">درس پنجم</div>
+                <div class="lesson-row__sub">Lesson 5</div>
+              </div>
+              <span class="lesson-row__status">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+            </div>
+            <div class="lesson-row" data-status="locked">
+              <span class="lesson-row__num">6</span>
+              <div class="lesson-row__title">
+                <div class="lesson-row__name">درس ششم</div>
+                <div class="lesson-row__sub">Lesson 6</div>
+              </div>
+              <span class="lesson-row__status">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lesson action sheet (modal) -->
+        <div class="state" data-state="modal" hidden>
+          <div class="scrim" onclick="
+            document.getElementById('state-picker').value='lessons';
+            document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'lessons';});
+          ">
+            <div class="dialog-card" onclick="event.stopPropagation();" style="max-width:340px;">
+              <div class="dialog-card__bell" style="background:var(--jx-primary-glow);color:var(--jx-primary);border-color:var(--jx-bg);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <h2 class="dialog-card__title">درس اول</h2>
+              <p class="dialog-card__sub">Lesson 1 · تعداد کلمات: ۳۱</p>
+
+              <a href="/screens/flashcards.html" class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-4);">
+                <span style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.20);display:inline-flex;align-items:center;justify-content:center;">+</span>
+                <span>افزودن به لایتنر</span>
+              </a>
+
+              <div class="section-h" style="padding-top:var(--sp-3);">
+                <div class="section-h__title" style="font-size:var(--fs-body-s);color:var(--jx-text-3);">انتخاب روش مطالعه</div>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:var(--sp-2);">
+                <a href="/screens/flashcards.html" class="method-row">
+                  <span class="method-row__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  </span>
+                  <div class="method-row__body">
+                    <div class="method-row__title">مرور لغات</div>
+                    <div class="method-row__sub">کلمات و معنی آن‌ها را مرور کنید</div>
+                  </div>
+                  <span class="setting-item__chevron"></span>
+                </a>
+                <a href="/screens/flashcards.html" class="method-row">
+                  <span class="method-row__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  </span>
+                  <div class="method-row__body">
+                    <div class="method-row__title">فلش کارت</div>
+                    <div class="method-row__sub">با فلش کارت‌ها تمرین کنید</div>
+                  </div>
+                  <span class="setting-item__chevron"></span>
+                </a>
+                <a href="/screens/quiz-mcq.html" class="method-row">
+                  <span class="method-row__icon" style="background:rgba(255,152,0,0.18);color:#E59A1A;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><line x1="10" y1="7" x2="14" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="13" y2="15"/></svg>
+                  </span>
+                  <div class="method-row__body">
+                    <div class="method-row__title">آزمون</div>
+                    <div class="method-row__sub">دانش خود را بسنجید</div>
+                  </div>
+                  <span class="setting-item__chevron"></span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

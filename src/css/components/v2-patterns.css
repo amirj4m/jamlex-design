@@ -701,3 +701,100 @@
   border-radius: var(--rd-pill);
   margin: var(--sp-4) auto;
 }
+
+/* ============================================================================
+   Notification dialog (modal with bell + time spinner + day circles + sound)
+   ============================================================================ */
+.dialog-card {
+  background: var(--jx-bg);
+  border-radius: 22px;
+  padding: var(--sp-5);
+  max-width: 340px;
+  width: 100%;
+  position: relative;
+  box-shadow: var(--sh-xl);
+  text-align: center;
+}
+.dialog-card__bell {
+  position: absolute;
+  top: -28px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  width: 56px; height: 56px;
+  background: var(--jx-bg);
+  color: var(--jx-primary);
+  border-radius: 50%;
+  border: 4px solid var(--jx-primary-glow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+[dir="rtl"] .dialog-card__bell { transform: translateX(50%); }
+.dialog-card__title {
+  margin-top: var(--sp-5);
+  font-size: 20px;
+  font-weight: var(--fw-extrabold);
+}
+.dialog-card__sub {
+  margin-top: var(--sp-2);
+  color: var(--jx-text-2);
+  font-size: var(--fs-body-s);
+}
+.time-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: var(--jx-input-bg);
+  border-radius: 16px;
+  padding: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+.time-spinner__btn {
+  background: transparent;
+  border: 0;
+  color: var(--jx-text-3);
+  cursor: pointer;
+  padding: 4px;
+}
+.time-spinner__val {
+  font-size: 36px;
+  font-weight: var(--fw-extrabold);
+  color: var(--jx-primary);
+  font-family: var(--font-family-latin);
+}
+
+.sound-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  background: var(--jx-input-bg);
+  border-radius: 14px;
+  padding: var(--sp-3) var(--sp-4);
+  margin-top: var(--sp-3);
+}
+.sound-row__icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--jx-bg);
+  color: var(--jx-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-card__actions {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+  align-items: center;
+}
+.dialog-card__cancel {
+  background: transparent;
+  border: 0;
+  color: var(--jx-text-2);
+  cursor: pointer;
+  padding: var(--sp-3) var(--sp-4);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body-m);
+}

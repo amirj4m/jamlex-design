@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -27,93 +28,107 @@
       <div class="screen">
         <header class="topbar topbar--transparent">
           <div></div>
-          <h1 class="topbar__title" data-i18n="stats.title"></h1>
+          <h1 class="topbar__title">آمار</h1>
           <div></div>
         </header>
 
         <div class="screen__body">
-          <!-- 4-tile grid -->
-          <div class="tile-grid">
-            <div class="tile">
-              <div class="tile__icon" style="background:rgba(74,144,217,0.14);color:var(--jx-secondary);">⚡</div>
-              <div class="tile__value font-latin">1,247</div>
-              <div class="tile__label" data-i18n="stats.totalXp"></div>
+          <!-- Top stat tiles (4-card grid with 3D-style icons) -->
+          <div class="stat-tiles">
+            <div class="stat-tile">
+              <div class="stat-tile__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+              </div>
+              <div class="stat-tile__val">1,247</div>
+              <div class="stat-tile__label">مجموع XP</div>
             </div>
-            <div class="tile">
-              <div class="tile__icon" style="background:rgba(255,152,0,0.14);color:var(--jx-warning);">🔥</div>
-              <div class="tile__value">7 <span class="tile__label">روز</span></div>
-              <div class="tile__label" data-i18n="stats.currentStreak"></div>
+            <div class="stat-tile">
+              <div class="stat-tile__icon" style="background:rgba(255,152,0,0.18);color:#E59A1A;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 17c1.4 0 2.5-1.1 2.5-2.5 0-1.3-.8-2-1.7-2.7-1.4-1.2-2-2-2-3.3 0-1.7 1.3-3 3-3 1.5 0 2.8 1 3.1 2.4M12 2c5 0 9 4 9 9 0 7-6 11-9 11s-9-4-9-11c0-5 4-9 9-9z"/></svg>
+              </div>
+              <div class="stat-tile__val">7 <span class="stat-tile__unit">روز</span></div>
+              <div class="stat-tile__label">رکورد فعلی</div>
             </div>
-            <div class="tile">
-              <div class="tile__icon" style="background:rgba(76,175,80,0.14);color:var(--jx-success);">📚</div>
-              <div class="tile__value">142</div>
-              <div class="tile__label" data-i18n="stats.cardsLearned"></div>
+            <div class="stat-tile">
+              <div class="stat-tile__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <div class="stat-tile__val">142</div>
+              <div class="stat-tile__label">کارت یاد گرفته</div>
             </div>
-            <div class="tile">
-              <div class="tile__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">⏱</div>
-              <div class="tile__value">8.5 <span class="tile__label" data-i18n="stats.hoursUnit"></span></div>
-              <div class="tile__label" data-i18n="stats.studyTime"></div>
+            <div class="stat-tile">
+              <div class="stat-tile__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="stat-tile__val">8.5 <span class="stat-tile__unit">ساعت</span></div>
+              <div class="stat-tile__label">زمان مطالعه</div>
             </div>
           </div>
 
           <!-- 7-day heatmap -->
-          <div class="section-h"><div class="section-h__title" data-i18n="stats.thisWeek"></div></div>
-          <div class="heatmap">
-            <div class="heatmap__cell" data-level="2"></div>
-            <div class="heatmap__cell" data-level="1"></div>
-            <div class="heatmap__cell" data-level="3"></div>
-            <div class="heatmap__cell" data-level="4"></div>
-            <div class="heatmap__cell" data-level="2"></div>
-            <div class="heatmap__cell" data-level="3"></div>
-            <div class="heatmap__cell" data-level="4"></div>
+          <div class="section-h"><div class="section-h__title">این هفته</div></div>
+          <div class="card">
+            <div class="weekday-labels">
+              <span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span>
+            </div>
+            <div class="heatmap-v3">
+              <div class="heatmap-v3__cell" data-level="2"></div>
+              <div class="heatmap-v3__cell" data-level="1"></div>
+              <div class="heatmap-v3__cell" data-level="3"></div>
+              <div class="heatmap-v3__cell" data-level="4"></div>
+              <div class="heatmap-v3__cell" data-level="2"></div>
+              <div class="heatmap-v3__cell" data-level="3"></div>
+              <div class="heatmap-v3__cell" data-level="4"></div>
+            </div>
           </div>
 
           <!-- Session breakdown -->
-          <div class="section-h"><div class="section-h__title" data-i18n="stats.sessionBreakdown"></div></div>
-          <div class="card mb-5">
+          <div class="section-h"><div class="section-h__title">تفکیک جلسات</div></div>
+          <div class="card">
             <div class="session-bars">
               <div class="session-bar">
-                <div class="session-bar__label" data-i18n="stats.sessionTypes.leitner"></div>
+                <div class="session-bar__label">لایتنر</div>
                 <div class="session-bar__track"><div class="session-bar__fill" style="width:75%;background:var(--jx-primary);"></div></div>
-                <div class="session-bar__value">45 <span data-i18n="stats.minutesUnit"></span></div>
+                <div class="session-bar__value">45 دقیقه</div>
               </div>
               <div class="session-bar">
-                <div class="session-bar__label" data-i18n="stats.sessionTypes.flashcard"></div>
+                <div class="session-bar__label">فلش‌کارت</div>
                 <div class="session-bar__track"><div class="session-bar__fill" style="width:55%;background:var(--jx-secondary);"></div></div>
-                <div class="session-bar__value">32 <span data-i18n="stats.minutesUnit"></span></div>
+                <div class="session-bar__value">32 دقیقه</div>
               </div>
               <div class="session-bar">
-                <div class="session-bar__label" data-i18n="stats.sessionTypes.quiz"></div>
-                <div class="session-bar__track"><div class="session-bar__fill" style="width:30%;background:var(--jx-warning);"></div></div>
-                <div class="session-bar__value">18 <span data-i18n="stats.minutesUnit"></span></div>
+                <div class="session-bar__label">آزمون</div>
+                <div class="session-bar__track"><div class="session-bar__fill" style="width:30%;background:#F5B945;"></div></div>
+                <div class="session-bar__value">18 دقیقه</div>
               </div>
               <div class="session-bar">
-                <div class="session-bar__label" data-i18n="stats.sessionTypes.reading"></div>
-                <div class="session-bar__track"><div class="session-bar__fill" style="width:42%;background:var(--jx-success);"></div></div>
-                <div class="session-bar__value">25 <span data-i18n="stats.minutesUnit"></span></div>
+                <div class="session-bar__label">مطالعه</div>
+                <div class="session-bar__track"><div class="session-bar__fill" style="width:42%;background:#26D07C;"></div></div>
+                <div class="session-bar__value">25 دقیقه</div>
               </div>
             </div>
           </div>
 
           <!-- Achievements -->
           <div class="section-h">
-            <div class="section-h__title" data-i18n="stats.achievements"></div>
-            <span class="section-h__action">6 / 24</span>
+            <div class="section-h__title">دستاوردها</div>
+            <span class="section-h__action" style="color:var(--jx-text-2);">6 / 24</span>
           </div>
-          <div class="ach-grid">
-            <div class="ach"><div class="ach__emoji">🌱</div><div class="ach__name">شروع</div></div>
-            <div class="ach"><div class="ach__emoji">🔥</div><div class="ach__name">۳ روز</div></div>
-            <div class="ach"><div class="ach__emoji">⭐</div><div class="ach__name">۱۰ کارت</div></div>
-            <div class="ach"><div class="ach__emoji">🏆</div><div class="ach__name">۱۰۰ کارت</div></div>
-            <div class="ach"><div class="ach__emoji">📖</div><div class="ach__name">اولین کتاب</div></div>
-            <div class="ach"><div class="ach__emoji">🎯</div><div class="ach__name">دقت ۹۰٪</div></div>
-            <div class="ach" data-locked="true"><div class="ach__emoji">💎</div><div class="ach__name">پرمیوم</div></div>
-            <div class="ach" data-locked="true"><div class="ach__emoji">🚀</div><div class="ach__name">۳۰ روز</div></div>
-            <div class="ach" data-locked="true"><div class="ach__emoji">🦉</div><div class="ach__name">۱۰۰۰ کارت</div></div>
+          <div class="ach-grid-v3">
+            <div class="ach-v3"><div class="ach-v3__emoji">🌱</div><div class="ach-v3__name">شروع</div></div>
+            <div class="ach-v3"><div class="ach-v3__emoji">🔥</div><div class="ach-v3__name">۳ روز</div></div>
+            <div class="ach-v3"><div class="ach-v3__emoji">⭐</div><div class="ach-v3__name">۱۰ کارت</div></div>
+            <div class="ach-v3"><div class="ach-v3__emoji">🏆</div><div class="ach-v3__name">۱۰۰ کارت</div></div>
+            <div class="ach-v3"><div class="ach-v3__emoji">📖</div><div class="ach-v3__name">اولین کتاب</div></div>
+            <div class="ach-v3"><div class="ach-v3__emoji">🎯</div><div class="ach-v3__name">دقت ۹۰٪</div></div>
+            <div class="ach-v3" data-locked="true"><div class="ach-v3__emoji">💎</div><div class="ach-v3__name">پرمیوم</div></div>
+            <div class="ach-v3" data-locked="true"><div class="ach-v3__emoji">🚀</div><div class="ach-v3__name">۳۰ روز</div></div>
+            <div class="ach-v3" data-locked="true"><div class="ach-v3__emoji">🦉</div><div class="ach-v3__name">۱۰۰۰ کارت</div></div>
           </div>
 
-          <a href="/screens/leaderboard.html" class="btn btn--outlined btn--block mt-5">
-            🏆 <span data-i18n="stats.compareWithOthers"></span>
+          <a href="/screens/leaderboard.html" class="btn btn--outlined btn--block btn--lg" style="margin-top: var(--sp-5);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22h10c0-1.76-.85-3.25-2.03-3.79-.5-.23-.97-.66-.97-1.21v-2.34M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+            <span>مقایسه با دیگران</span>
           </a>
         </div>
 

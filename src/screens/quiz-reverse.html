@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
@@ -27,31 +28,31 @@
       <div class="screen">
         <header class="topbar">
           <div class="topbar__leading">
-            <a href="/screens/home.html" class="btn-icon back-btn"></a>
+            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
-          <h1 class="topbar__title" data-i18n="quiz.modes.reverseMcq"></h1>
+          <h1 class="topbar__title">آزمون ترجمه معکوس</h1>
           <div class="topbar__trailing">
             <button class="btn-icon" aria-label="Close">✕</button>
           </div>
         </header>
 
         <div class="screen__body">
-          <div class="fc-counter">5 / 10</div>
-          <div class="fc-progress"><div class="fc-progress__bar" style="width:50%"></div></div>
+          <div class="fc-counter-v3">5 / 10</div>
+          <div class="fc-progress-v3"><div class="fc-progress-v3__bar" style="width:50%;"></div></div>
 
-          <div class="qprompt mt-5">
-            <div class="qprompt__copy" data-i18n="quiz.prompts.reverseMcq"></div>
-            <div class="qprompt__word">تاب‌آوری</div>
+          <div class="qprompt-v3">
+            <div class="qprompt-v3__copy">معادل انگلیسی کلمه را انتخاب کنید</div>
+            <div class="qprompt-v3__word">تاب‌آوری</div>
           </div>
 
-          <div class="q-options">
-            <div class="q-option" style="direction:ltr;text-align:start;"><span class="q-option__letter">A</span><span>capacity</span></div>
-            <div class="q-option" style="direction:ltr;text-align:start;"><span class="q-option__letter">B</span><span>resilience</span></div>
-            <div class="q-option" style="direction:ltr;text-align:start;"><span class="q-option__letter">C</span><span>persistence</span></div>
-            <div class="q-option" style="direction:ltr;text-align:start;"><span class="q-option__letter">D</span><span>endurance</span></div>
+          <div class="q-opts">
+            <button class="q-opt"><span class="q-opt__letter">A</span><span style="direction:ltr;font-family:var(--font-family-latin);">capacity</span></button>
+            <button class="q-opt"><span class="q-opt__letter">B</span><span style="direction:ltr;font-family:var(--font-family-latin);">resilience</span></button>
+            <button class="q-opt"><span class="q-opt__letter">C</span><span style="direction:ltr;font-family:var(--font-family-latin);">persistence</span></button>
+            <button class="q-opt"><span class="q-opt__letter">D</span><span style="direction:ltr;font-family:var(--font-family-latin);">endurance</span></button>
           </div>
 
-          <button class="btn btn--filled btn--block mt-5" data-i18n="quiz.checkBtn"></button>
+          <button class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);">بررسی</button>
         </div>
       </div>
     </div>

@@ -11,79 +11,113 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/base.css" />
   <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css" />
   <link rel="stylesheet" href="/css/chrome.css" />
   <link rel="stylesheet" href="/css/screens/screen-base.css" />
   <link rel="stylesheet" href="/css/screens/screens-app.css" />
 </head>
 <body>
-  <!-- NOTE: This screen uses LTR by default because the BOOK CONTENT is English.
-       The reader chrome (top/bottom bars) follows the UI locale via i18n. -->
   <div class="preview-controls">
     <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
     <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="reading">Reading</option>
+      <option value="lookup">Word lookup sheet</option>
+    </select>
   </div>
   <a href="/screens/book-detail.html" class="hub-ribbon">‹ Book</a>
 
   <div class="shell">
     <div class="phone">
-      <div class="screen">
-        <div class="reader-page">
-          <header class="reader-page__header">
-            <a href="/screens/book-detail.html" class="btn-icon" aria-label="Close">✕</a>
-            <div style="font-size:var(--fs-body-s);font-weight:var(--fw-semibold);color:var(--jx-text-2);">Chapter 1 · 42%</div>
-            <button class="btn-icon" aria-label="Bookmark" data-active="true">🔖</button>
-          </header>
-
-          <div class="reader-text">
-            <h2>Chapter 1</h2>
-            <p>It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.</p>
-            <p>However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters.</p>
-            <p>"My dear Mr. Bennet," said his lady to him one day, "have you heard that Netherfield Park is let at last?"</p>
-            <p>Mr. Bennet replied that he had not.</p>
-            <p>"But it is," returned she; "for Mrs. Long has just been here, and she told me all about it."</p>
-            <p>Mr. Bennet made no answer.</p>
-            <p>"Do not you want to know who has taken it?" cried his wife <mark class="tapped" onclick="openLookup('impatiently')">impatiently</mark>.</p>
-            <p>"You want to tell me, and I have no objection to hearing it."</p>
-            <p>This was invitation enough.</p>
-            <p>"Why, my dear, you must know, Mrs. Long says that Netherfield is taken by a young man of large fortune from the north of England; that he came down on Monday in a chaise and four to see the place, and was so much delighted with it that he agreed with Mr. Morris immediately; that he is to take possession before Michaelmas, and some of his servants are to be in the house by the end of next week."</p>
-            <p>"What is his name?"</p>
-            <p>"Bingley."</p>
+      <div class="screen" style="background:#FBFAF5;">
+        <header class="topbar" style="background:#FBFAF5;border-bottom:1px solid var(--jx-divider);">
+          <div class="topbar__leading">
+            <a href="/screens/book-detail.html" class="btn-icon" aria-label="Close">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+            </a>
           </div>
+          <h1 class="topbar__title" style="font-size:var(--fs-body-s);color:var(--jx-text-2);font-weight:var(--fw-semibold);">Chapter 1 · 42%</h1>
+          <div class="topbar__trailing">
+            <button class="btn-icon" aria-label="Bookmark" style="color:var(--jx-primary);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </button>
+          </div>
+        </header>
 
-          <footer class="reader-footer">
-            <button class="btn-icon" aria-label="Previous">‹</button>
-            <div style="text-align:center;">
-              <div style="height:4px;width:140px;background:var(--jx-surface-alt);border-radius:var(--rd-pill);overflow:hidden;">
-                <div style="height:100%;width:42%;background:var(--jx-primary);"></div>
-              </div>
-              <div style="font-size:var(--fs-caption);color:var(--jx-text-2);margin-top:4px;">42% of 61 chapters</div>
-            </div>
-            <button class="btn-icon" aria-label="Next">›</button>
-          </footer>
+        <div class="reader-body">
+          <h2 class="reader-body__h2">Chapter 1</h2>
+          <p>It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.</p>
+          <p>However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters.</p>
+          <p>"My dear Mr. Bennet," said his lady to him one day, "have you heard that Netherfield Park is let at last?"</p>
+          <p>"Do not you want to know who has taken it?" cried his wife <mark class="tapped" onclick="
+            document.getElementById('state-picker').value='lookup';
+            document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'lookup';});
+          ">impatiently</mark>.</p>
+          <p>"You want to tell me, and I have no objection to hearing it."</p>
         </div>
 
-        <!-- Word lookup popup -->
-        <div class="lookup-sheet" id="lookup" hidden>
-          <div class="row--between mb-2">
-            <div>
-              <h3 style="direction:ltr;text-align:start;" id="lookup-word">impatiently</h3>
-              <div class="fs-body-s txt-2" style="direction:ltr;font-family:var(--font-family-latin);">/ɪmˈpeɪʃəntli/ · adverb</div>
+        <div class="reader-footer-v3">
+          <button class="btn-icon" aria-label="Prev">›</button>
+          <div style="text-align:center;flex:1;">
+            <div style="height:4px;width:140px;background:#E6E2D5;border-radius:var(--rd-pill);overflow:hidden;margin:0 auto;">
+              <div style="height:100%;width:42%;background:var(--jx-primary);"></div>
             </div>
-            <button class="btn-icon" onclick="document.getElementById('lookup').hidden = true;" aria-label="Close">✕</button>
+            <div style="font-size:10px;color:#9C9789;margin-top:2px;font-family:Inter;">42% of 61 chapters</div>
           </div>
-          <div class="row gap-2 mb-3">
-            <button class="audio-btn" data-audio="impatiently">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
-            </button>
-            <span class="chip" data-level="B2">B2</span>
-          </div>
-          <div class="fw-semibold mb-2">با بی‌حوصلگی، بی‌قرارانه</div>
-          <div class="fs-body-s txt-2" style="font-style:italic;border-inline-start:3px solid var(--jx-primary);padding-inline-start:var(--sp-3);">
-            "cried his wife impatiently"
-          </div>
-          <div class="row gap-2 mt-4">
-            <button class="btn btn--outlined" style="flex:1;">+ <span data-i18n="vocabulary.wordDetail.addToMyWords"></span></button>
-            <button class="btn btn--filled" style="flex:1;">+ <span data-i18n="vocabulary.wordDetail.addToLeitner"></span></button>
+          <button class="btn-icon" aria-label="Next">‹</button>
+        </div>
+
+        <!-- Word lookup bottom sheet -->
+        <div class="state" data-state="lookup" hidden>
+          <div class="scrim" onclick="
+            document.getElementById('state-picker').value='reading';
+            document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'reading';});
+          " style="align-items:flex-end;padding:0;">
+            <div class="lookup-sheet-v3" onclick="event.stopPropagation();">
+              <div class="lookup-sheet-v3__grab"></div>
+              <div class="lookup-sheet-v3__head">
+                <button class="btn-icon" aria-label="Star" style="color:var(--jx-text-3);">⭐</button>
+                <div style="text-align:end;">
+                  <h2 style="font-size:30px;font-weight:800;font-family:var(--font-family-latin);direction:ltr;">tap</h2>
+                  <div style="display:inline-flex;align-items:center;gap:8px;margin-top:4px;">
+                    <span style="color:var(--jx-text-2);font-family:var(--font-family-latin);direction:ltr;">/tæp/</span>
+                    <button class="audio-btn" style="background:#E2EBFA;color:#2E64C0;" data-audio="tap"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-h" style="padding-top:var(--sp-3);"><div class="section-h__title">معنی‌ها</div></div>
+              <div style="background:var(--jx-input-bg);border-radius:14px;padding:var(--sp-3) var(--sp-4);font-size:var(--fs-body-m);text-align:end;line-height:var(--lh-relaxed);">
+                <div>۱. ضربه زدن آرام با انگشت یا وسیله‌ای سبک</div>
+                <div style="margin-top:6px;">۲. مانع گوش دادن مخفیانه (تلفنی یا الکترونیکی)</div>
+              </div>
+
+              <div class="section-h"><div class="section-h__title">مثال</div></div>
+              <div style="background:var(--jx-primary-glow);border-radius:14px;padding:var(--sp-3) var(--sp-4);">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--sp-3);">
+                  <div style="flex:1;direction:ltr;text-align:start;font-family:var(--font-family-latin);font-size:var(--fs-body-m);line-height:1.6;">She <span style="color:var(--jx-secondary);font-weight:bold;">tapped</span> the table to get his attention.</div>
+                  <button class="audio-btn" style="background:#E2EBFA;color:#2E64C0;flex:none;" data-audio="tap"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
+                </div>
+                <div style="margin-top:8px;color:var(--jx-text-2);font-size:var(--fs-body-s);text-align:end;">او برای جلب توجهش، روی میز ضربه زد.</div>
+              </div>
+
+              <div class="lookup-actions">
+                <button class="pbtn pbtn--blue">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  <span>مشاهده کامل</span>
+                </button>
+                <button class="pbtn pbtn--mint">
+                  <span style="font-weight:bold;">+</span>
+                  <span>افزودن به لایتنر</span>
+                </button>
+                <button class="pbtn pbtn--sky">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
+                  <span>تلفظ</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -91,11 +125,5 @@
   </div>
 
   <script type="module" src="/js/screen-shell.js"></script>
-  <script>
-    function openLookup(word) {
-      document.getElementById('lookup-word').textContent = word;
-      document.getElementById('lookup').hidden = false;
-    }
-  </script>
 </body>
 </html>
