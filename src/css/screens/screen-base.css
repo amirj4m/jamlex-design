@@ -470,3 +470,36 @@
   margin-top: auto;
   padding-top: var(--sp-4);
 }
+
+/* Single-line password rule indicator (replaces the 3-rule card).
+   Phase 1 only enforces 8-character minimum, so we use a single inline
+   row instead of a separate card with 3 checklist items. */
+.pw-rule-line {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  margin: var(--sp-1) 0 var(--sp-1);
+  padding-inline: var(--sp-2);
+}
+.pw-rule-line__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--jx-text-3);
+  flex: none;
+}
+.pw-rule-line[data-met="true"] { color: var(--jx-success); }
+.pw-rule-line[data-met="true"] .pw-rule-line__dot {
+  background: var(--jx-success);
+  border-color: var(--jx-success);
+  position: relative;
+}
+.pw-rule-line[data-met="true"] .pw-rule-line__dot::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: #fff;
+  border-radius: 50%;
+}

@@ -1,7 +1,30 @@
-# Security headers for the design preview site
+# Security + cache headers for the design preview site.
+# The preview iterates fast — we don't want stale HTML/JS/JSON pinned in
+# the browser cache. Static binaries (Lottie player, fonts) still cache.
+
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://openjam.amirj4m.com
+
+# HTML pages: always re-validate. ETag/304 keeps the request cheap.
+/
+  Cache-Control: no-cache, must-revalidate
+/screens/*
+  Cache-Control: no-cache, must-revalidate
+
+# App code (CSS, JS, JSON) is iterated daily — don't pin it.
+/css/*
+  Cache-Control: no-cache, must-revalidate
+/js/*
+  Cache-Control: no-cache, must-revalidate
+/locales/*
+  Cache-Control: no-cache, must-revalidate
+/lottie/*
+  Cache-Control: no-cache, must-revalidate
+
+# Vendored libraries are versioned by content — safe to cache long.
+/vendor/*
+  Cache-Control: public, max-age=2592000, immutable
