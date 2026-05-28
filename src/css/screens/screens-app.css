@@ -3230,7 +3230,10 @@
 .heatmap-year__months span:first-child { grid-column: 2; }
 .heatmap-year__main {
   display: grid;
-  grid-template-columns: 22px 1fr;
+  /* minmax(0, 1fr) on the right column lets the inner heatmap grid shrink
+     to fit — without it the column refuses to go below its content's
+     min-content size and the cells overflow the card. */
+  grid-template-columns: 22px minmax(0, 1fr);
   gap: 4px;
 }
 .heatmap-year__days {
@@ -3247,17 +3250,19 @@
 .heatmap-year__days span:nth-child(3),
 .heatmap-year__days span:nth-child(5),
 .heatmap-year__days span:nth-child(7) { visibility: hidden; }
-/* The grid: 7 explicit rows × auto columns. grid-auto-flow:column makes
-   cells flow DOWN before moving RIGHT — matches our JS that fills
-   column-by-column. grid-auto-columns: 1fr distributes width evenly across
-   the 22 generated columns. */
+/* Explicit 22×7 grid with minmax(0, 1fr) on BOTH axes so the cells can
+   shrink below their content's min-content size — without this the
+   grid pushes its 22 columns wider than the card and overflows.
+   width: 100% forces the grid to use exactly its parent column.
+   The JS fills row-major (left→right, top→bottom) — matches the
+   default grid-auto-flow: row. */
 .heatmap-year__grid {
   display: grid;
-  grid-template-rows: repeat(7, 1fr);
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(22, minmax(0, 1fr));
+  grid-template-rows: repeat(7, minmax(0, 1fr));
   gap: 3px;
   aspect-ratio: 22 / 7;
+  width: 100%;
 }
 .heatmap-cell {
   background: var(--jx-input-bg);

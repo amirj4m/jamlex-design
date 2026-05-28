@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppx2g4v" />
-  <link rel="stylesheet" href="/css/base.css?v=mppx2g4v" />
-  <link rel="stylesheet" href="/css/components.css?v=mppx2g4v" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppx2g4v" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppx2g4v" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppx2g4v" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppx2g4v" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppx2g4v" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppxbw3v" />
+  <link rel="stylesheet" href="/css/base.css?v=mppxbw3v" />
+  <link rel="stylesheet" href="/css/components.css?v=mppxbw3v" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppxbw3v" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppxbw3v" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppxbw3v" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppxbw3v" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppxbw3v" />
 </head>
 <body>
   <div class="preview-controls">
@@ -170,33 +170,48 @@
 
           <!-- ============================================================
                VIEW: GLOBAL LEAGUE
+               ----------------------------------------------------------------
+               CRITICAL: every value below is a DEMO placeholder. The Flutter
+               app MUST source every name, rank, level, XP, percentage, and
+               total-user count from the database — NEVER from static strings.
+               Wire each [data-lb-*] hook below to its provider per
+               architecture_stats_definitions.md §9. The DOM scaffold and
+               counts (top-3 podium, top-100 list pattern, your-row pinned
+               at the bottom if you're outside top-100) are LOCKED — only
+               the values inside are replaced at render time.
                ============================================================ -->
           <div data-tab-view="league" hidden>
             <div class="page-title" style="margin-bottom:var(--sp-3);">
               <p class="page-title__sub" data-i18n="v3.leaderboard.subtitle"></p>
             </div>
 
-            <!-- Your rank panel -->
+            <!-- Your rank panel. TODO(flutter): bind to currentUserRankProvider.
+                 - data-lb-me-pct: % of users with LOWER total_xp than me.
+                 - data-lb-me-avatar: first letter of users.username for :uid.
+                 - data-lb-me-name: users.username.
+                 - data-lb-me-level: users.level (rendered through i18n level chip).
+                 - data-lb-me-rank: position in leaderboard_view for :uid.
+                 - data-lb-me-total: COUNT(*) FROM users WHERE deleted_at IS NULL. -->
             <div class="rank-panel">
               <div class="rank-panel__col">
                 <div class="rank-panel__ring">
                   <svg viewBox="0 0 60 60" fill="none">
                     <circle cx="30" cy="30" r="26" stroke="var(--jx-input-bg)" stroke-width="4"/>
-                    <circle cx="30" cy="30" r="26" stroke="var(--jx-primary)" stroke-width="4" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="36" transform="rotate(-90 30 30)"/>
-                    <text x="30" y="36" text-anchor="middle" font-size="14" font-weight="800" fill="var(--jx-primary)" font-family="Inter">78%</text>
+                    <circle cx="30" cy="30" r="26" stroke="var(--jx-primary)" stroke-width="4" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="36" transform="rotate(-90 30 30)" data-lb-me-pct-ring/>
+                    <text x="30" y="36" text-anchor="middle" font-size="14" font-weight="800" fill="var(--jx-primary)" font-family="Inter" data-lb-me-pct>78%</text>
                   </svg>
                 </div>
                 <div class="rank-panel__cap" data-i18n-html="v3.leaderboard.percentAbove"></div>
               </div>
               <div class="rank-panel__col rank-panel__col--center">
-                <div class="rank-panel__avatar"><span>T</span></div>
-                <div class="rank-panel__name">Tester</div>
-                <span class="pod__level-chip" style="background:var(--jx-input-bg);color:var(--jx-text-2);" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
+                <div class="rank-panel__avatar"><span data-lb-me-avatar>T</span></div>
+                <div class="rank-panel__name" data-lb-me-name>Tester</div>
+                <span class="pod__level-chip" style="background:var(--jx-input-bg);color:var(--jx-text-2);" data-lb-me-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
               </div>
               <div class="rank-panel__col">
                 <div class="rank-panel__cap" data-i18n="v3.leaderboard.yourRank"></div>
-                <div class="rank-panel__rank">128</div>
-                <div class="rank-panel__cap" style="font-family:var(--font-family-latin),var(--font-family);" data-i18n="v3.leaderboard.ofUsers" data-i18n-vars='{"n":"12,456"}'></div>
+                <div class="rank-panel__rank" data-lb-me-rank>128</div>
+                <div class="rank-panel__cap" style="font-family:var(--font-family-latin),var(--font-family);" data-lb-me-total data-i18n="v3.leaderboard.ofUsers" data-i18n-vars='{"n":"12,456"}'></div>
               </div>
             </div>
 
@@ -205,80 +220,94 @@
               <div class="section-h__title" data-i18n="v3.leaderboard.topTitle"></div>
             </div>
 
-            <!-- Top-3 podium -->
-            <div class="podium-3">
+            <!-- Top-3 podium. TODO(flutter): renderer takes the top 3 rows of
+                 leaderboard_view (ORDER BY total_xp DESC LIMIT 3) and slots
+                 them into the 2nd/1st/3rd pods. The pod ORDER on screen
+                 (2-1-3 visual layout, with 1st in the center) is locked in
+                 CSS — the renderer just passes 3 user objects. Each pod
+                 needs: avatar initial, username, level, total_xp. -->
+            <div class="podium-3" data-lb-podium>
               <!-- 2nd -->
-              <div class="pod pod--2">
+              <div class="pod pod--2" data-lb-pod="2">
                 <span class="pod__rank">2</span>
                 <div class="pod__crown">👑</div>
-                <div class="pod__avatar"><span>P</span></div>
-                <div class="pod__name">Parsa_1378</div>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":26}'></span>
-                <div class="pod__xp">11,230 XP</div>
+                <div class="pod__avatar"><span data-lb-pod-avatar>P</span></div>
+                <div class="pod__name" data-lb-pod-name>Parsa_1378</div>
+                <span class="pod__level-chip" data-lb-pod-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":26}'></span>
+                <div class="pod__xp" data-lb-pod-xp>11,230 XP</div>
               </div>
               <!-- 1st (center, taller) -->
-              <div class="pod pod--1">
+              <div class="pod pod--1" data-lb-pod="1">
                 <span class="pod__rank">1</span>
                 <div class="pod__crown">👑</div>
-                <div class="pod__avatar"><span>A</span></div>
-                <div class="pod__name">Ali.reza</div>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":28}'></span>
-                <div class="pod__xp">12,560 XP</div>
+                <div class="pod__avatar"><span data-lb-pod-avatar>A</span></div>
+                <div class="pod__name" data-lb-pod-name>Ali.reza</div>
+                <span class="pod__level-chip" data-lb-pod-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":28}'></span>
+                <div class="pod__xp" data-lb-pod-xp>12,560 XP</div>
               </div>
               <!-- 3rd -->
-              <div class="pod pod--3">
+              <div class="pod pod--3" data-lb-pod="3">
                 <span class="pod__rank">3</span>
                 <div class="pod__crown">👑</div>
-                <div class="pod__avatar"><span>M</span></div>
-                <div class="pod__name">Mahdi_77</div>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
-                <div class="pod__xp">10,245 XP</div>
+                <div class="pod__avatar"><span data-lb-pod-avatar>M</span></div>
+                <div class="pod__name" data-lb-pod-name>Mahdi_77</div>
+                <span class="pod__level-chip" data-lb-pod-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
+                <div class="pod__xp" data-lb-pod-xp>10,245 XP</div>
               </div>
             </div>
 
-            <!-- Rank list -->
-            <div class="lb-list">
-              <div class="lb-row">
-                <span class="lb-row__num">4</span>
-                <span class="lb-row__avatar"><span>A</span></span>
-                <span class="lb-row__name">Armin_s</span>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
-                <span class="lb-row__xp">9,850 XP</span>
+            <!-- Rank list. TODO(flutter): the container is a sliver list. Two
+                 zones:
+                 1. Ranks 4..100 from leaderboard_view (paginated).
+                 2. "Your row" pinned at the bottom IFF current_user_rank > 100.
+                    (If the user IS in the top 100, just mark their existing
+                    row with data-me="true" and skip the pinned duplicate.)
+                 Each row needs: rank, avatar initial, username, level, xp.
+                 The demo data below stays believable but is REPLACED at
+                 render time — do NOT keep any of these placeholder names
+                 (Tester, Ali.reza, ...) in the live build. -->
+            <div class="lb-list" data-lb-list>
+              <div class="lb-row" data-lb-row data-lb-rank="4">
+                <span class="lb-row__num" data-lb-row-num>4</span>
+                <span class="lb-row__avatar"><span data-lb-row-avatar>A</span></span>
+                <span class="lb-row__name" data-lb-row-name>Armin_s</span>
+                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
+                <span class="lb-row__xp" data-lb-row-xp>9,850 XP</span>
               </div>
-              <div class="lb-row">
-                <span class="lb-row__num">5</span>
-                <span class="lb-row__avatar"><span>S</span></span>
-                <span class="lb-row__name">Sina_2002</span>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":22}'></span>
-                <span class="lb-row__xp">9,120 XP</span>
+              <div class="lb-row" data-lb-row data-lb-rank="5">
+                <span class="lb-row__num" data-lb-row-num>5</span>
+                <span class="lb-row__avatar"><span data-lb-row-avatar>S</span></span>
+                <span class="lb-row__name" data-lb-row-name>Sina_2002</span>
+                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":22}'></span>
+                <span class="lb-row__xp" data-lb-row-xp>9,120 XP</span>
               </div>
-              <div class="lb-row">
-                <span class="lb-row__num">6</span>
-                <span class="lb-row__avatar"><span>H</span></span>
-                <span class="lb-row__name">Hamiid</span>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":21}'></span>
-                <span class="lb-row__xp">8,760 XP</span>
+              <div class="lb-row" data-lb-row data-lb-rank="6">
+                <span class="lb-row__num" data-lb-row-num>6</span>
+                <span class="lb-row__avatar"><span data-lb-row-avatar>H</span></span>
+                <span class="lb-row__name" data-lb-row-name>Hamiid</span>
+                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":21}'></span>
+                <span class="lb-row__xp" data-lb-row-xp>8,760 XP</span>
               </div>
-              <div class="lb-row">
-                <span class="lb-row__num">7</span>
-                <span class="lb-row__avatar"><span>m</span></span>
-                <span class="lb-row__name">mohsen.01</span>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
-                <span class="lb-row__xp">8,230 XP</span>
+              <div class="lb-row" data-lb-row data-lb-rank="7">
+                <span class="lb-row__num" data-lb-row-num>7</span>
+                <span class="lb-row__avatar"><span data-lb-row-avatar>m</span></span>
+                <span class="lb-row__name" data-lb-row-name>mohsen.01</span>
+                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
+                <span class="lb-row__xp" data-lb-row-xp>8,230 XP</span>
               </div>
-              <div class="lb-row" data-me="true">
-                <span class="lb-row__num">128</span>
-                <span class="lb-row__avatar"><span>T</span></span>
-                <span class="lb-row__name">Tester <span style="color:var(--jx-primary);" data-i18n="v3.leaderboard.you"></span></span>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
-                <span class="lb-row__xp">2,340 XP</span>
+              <div class="lb-row" data-lb-row data-me="true" data-lb-rank="128">
+                <span class="lb-row__num" data-lb-row-num>128</span>
+                <span class="lb-row__avatar"><span data-lb-row-avatar>T</span></span>
+                <span class="lb-row__name"><span data-lb-row-name>Tester</span> <span style="color:var(--jx-primary);" data-i18n="v3.leaderboard.you"></span></span>
+                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
+                <span class="lb-row__xp" data-lb-row-xp>2,340 XP</span>
               </div>
-              <div class="lb-row">
-                <span class="lb-row__num">129</span>
-                <span class="lb-row__avatar"><span>R</span></span>
-                <span class="lb-row__name">Reza_m</span>
-                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
-                <span class="lb-row__xp">2,330 XP</span>
+              <div class="lb-row" data-lb-row data-lb-rank="129">
+                <span class="lb-row__num" data-lb-row-num>129</span>
+                <span class="lb-row__avatar"><span data-lb-row-avatar>R</span></span>
+                <span class="lb-row__name" data-lb-row-name>Reza_m</span>
+                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
+                <span class="lb-row__xp" data-lb-row-xp>2,330 XP</span>
               </div>
             </div>
 
@@ -294,7 +323,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppx2g4v"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppxbw3v"></script>
   <script>
     (function () {
       // -------- Tab toggle (instant, no page reload) --------
@@ -350,9 +379,12 @@
           20: { 1: 4, 2: 3, 3: 4, 4: 4, 5: 3 },
           21: { 0: 3, 1: 4, 2: 4, 3: 3, 4: 4, 5: 2 },
         };
+        // Default grid-auto-flow is row → items go left-to-right then wrap
+        // to the next row. Outer r, inner c matches that order. DEMO is
+        // keyed by [column][row] so the lookup stays intuitive.
         const cells = [];
-        for (let c = 0; c < COLS; c++) {
-          for (let r = 0; r < ROWS; r++) {
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
             const level = (DEMO[c] && DEMO[c][r]) || 0;
             const attr = level ? ` data-level="${level}"` : '';
             cells.push(`<div class="heatmap-cell"${attr}></div>`);
