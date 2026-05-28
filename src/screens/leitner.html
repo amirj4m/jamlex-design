@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppja0wl" />
-  <link rel="stylesheet" href="/css/base.css?v=mppja0wl" />
-  <link rel="stylesheet" href="/css/components.css?v=mppja0wl" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppja0wl" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppja0wl" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppja0wl" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppja0wl" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppja0wl" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppjctas" />
+  <link rel="stylesheet" href="/css/base.css?v=mppjctas" />
+  <link rel="stylesheet" href="/css/components.css?v=mppjctas" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjctas" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppjctas" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppjctas" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjctas" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjctas" />
 </head>
 <body>
   <div class="preview-controls">
@@ -36,7 +36,12 @@
         <div class="screen__body lt-session" data-flipped="false" data-lt-session>
           <!-- Five Leitner boxes 1→5 LEFT→RIGHT (dir=ltr locks the order).
                Standard Leitner intervals: 1d / 2d / 4d / 7d / 14d. The active
-               box is the one we're reviewing FROM (here: box 5). -->
+               box is the one we're reviewing FROM (here: box 5).
+               TODO(flutter): the count badges (43/61/10/89/233) are PLACEHOLDERS.
+               In the real app they MUST come from a live query
+               `SELECT COUNT(*) FROM cards WHERE box=$n AND user_id=…` per box,
+               recomputed reactively when cards move. See memory
+               feedback_ux_patterns.md §5. -->
           <div class="lt-boxes" dir="ltr">
             <div class="lt-box" data-box="1" title="هر روز">
               <span class="lt-box__count">43</span>
@@ -65,7 +70,10 @@
             </div>
           </div>
 
-          <!-- Control pill: audio (English TTS in real app) | counter | trash -->
+          <!-- Control pill: audio (English TTS in real app) | counter | trash.
+               TODO(flutter): "1 / 75" — 1 is the current card index in today's
+               review queue, 75 is the user's `daily_card_limit` setting. Both
+               are LIVE — not hardcoded. -->
           <div class="lt-control" dir="ltr">
             <button type="button" class="lt-control__btn" data-lt-audio aria-label="Play">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
@@ -125,7 +133,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppja0wl"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppjctas"></script>
   <script>
     // Leitner review interaction.
     // The active box (green outline) is the box the current card lives in.

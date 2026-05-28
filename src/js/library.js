@@ -10,8 +10,8 @@
  * it's UI presentation. The category KEY is the contract with i18n.
  */
 
-import { BOOKS, FEATURED, NEWEST, CATEGORY_COUNTS, localizeNum } from '/data/books.js?v=mppja0wl';
-import { applyToDom, t } from '/js/i18n.js?v=mppja0wl';
+import { BOOKS, FEATURED, NEWEST, CATEGORY_COUNTS, localizeNum } from '/data/books.js?v=mppjctas';
+import { applyToDom, t } from '/js/i18n.js?v=mppjctas';
 
 const CATEGORIES = [
   { key: 'fiction',  emoji: '📖', bg: 'rgba(74,144,217,0.16)', fg: '#4A90D9' },
