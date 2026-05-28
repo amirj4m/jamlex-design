@@ -582,6 +582,7 @@
       "emptyBody": "You don't have any words to review yet.\nAdd words to your dictionary\nto see them here.",
       "emptyCta": "Go to dictionary",
       "infoHint": "Every word you add to <strong>the dictionary</strong> is automatically placed in Leitner.",
+      "graduated": "Card graduated from Leitner 🎓",
       "review": {
         "dontKnow": "Don't know",
         "sortOf": "Kind of",

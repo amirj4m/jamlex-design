@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppivpzo" />
-  <link rel="stylesheet" href="/css/base.css?v=mppivpzo" />
-  <link rel="stylesheet" href="/css/components.css?v=mppivpzo" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppivpzo" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppivpzo" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppivpzo" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppivpzo" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppivpzo" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppj33q9" />
+  <link rel="stylesheet" href="/css/base.css?v=mppj33q9" />
+  <link rel="stylesheet" href="/css/components.css?v=mppj33q9" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppj33q9" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppj33q9" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppj33q9" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppj33q9" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppj33q9" />
 </head>
 <body>
   <div class="preview-controls">
@@ -76,10 +76,18 @@
             </button>
           </div>
 
-          <!-- Flashcard (always English content → dir=ltr) -->
-          <div class="lt-card">
-            <div class="lt-card__english" data-lt-word>ours</div>
-            <div class="lt-card__ipa" data-lt-ipa>/aʊrz/</div>
+          <!-- Flashcard — click flips to Persian meaning. English content
+               on the front, Persian meaning on the back. -->
+          <div class="lt-card" data-lt-card>
+            <div class="lt-card__inner">
+              <div class="lt-card__front">
+                <div class="lt-card__english" data-lt-word>ours</div>
+                <div class="lt-card__ipa" data-lt-ipa>/aʊrz/</div>
+              </div>
+              <div class="lt-card__back" dir="rtl">
+                <div class="lt-card__meaning" data-lt-meaning>مال ما</div>
+              </div>
+            </div>
           </div>
 
           <!-- Mastery row: don't know | sort of | know | know well.
@@ -111,40 +119,53 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppivpzo"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppj33q9"></script>
   <script>
     // Leitner review interaction.
-    // - activeBox = the box being reviewed FROM (the one with the green outline)
-    // - On "don't know" the card lands in box 1
-    // - On "sort of" the card stays in the active box
-    // - On "know" the card moves +1 (capped at 5)
-    // - On "know well" the card moves +2 (capped at 5)
-    // The target box pulses, then we advance to the next card. Counter "1 / 75"
-    // tracks position within today's session — 75 is the user's daily limit.
+    // The active box (green outline) is the box the current card lives in.
+    // Move math from the active box:
+    //   reset (don't know)  → box 1   (always back to the start)
+    //   stay  (sort of)     → same box
+    //   +1    (know)        → activeBox + 1 — if > 5, the card GRADUATES
+    //   +2    (know well)   → activeBox + 2 — if > 5, the card GRADUATES
+    // Graduation removes the card from Leitner. We show a success popup
+    // and advance to the next card.
+    //
+    // Card-click flips between English (front) and Persian meaning (back).
     (function () {
       const WORDS = [
-        { word: 'ours',         ipa: '/aʊrz/' },
-        { word: 'resilience',   ipa: '/rɪˈzɪliəns/' },
-        { word: 'ephemeral',    ipa: '/ɪˈfemərəl/' },
-        { word: 'eloquent',     ipa: '/ˈeləkwənt/' },
-        { word: 'serendipity',  ipa: '/ˌserənˈdɪpɪti/' },
-        { word: 'ubiquitous',   ipa: '/juːˈbɪkwɪtəs/' },
-        { word: 'paradigm',     ipa: '/ˈpærədaɪm/' },
-        { word: 'meticulous',   ipa: '/məˈtɪkjələs/' },
+        { word: 'ours',        ipa: '/aʊrz/',           meaning: 'مال ما',          box: 5 },
+        { word: 'resilience',  ipa: '/rɪˈzɪliəns/',     meaning: 'تاب‌آوری',         box: 1 },
+        { word: 'ephemeral',   ipa: '/ɪˈfemərəl/',      meaning: 'گذرا، زودگذر',     box: 3 },
+        { word: 'eloquent',    ipa: '/ˈeləkwənt/',      meaning: 'سخنور، فصیح',      box: 4 },
+        { word: 'serendipity', ipa: '/ˌserənˈdɪpɪti/',  meaning: 'خوش‌اقبالی',       box: 2 },
+        { word: 'ubiquitous',  ipa: '/juːˈbɪkwɪtəs/',   meaning: 'همه‌جا حاضر',      box: 5 },
+        { word: 'paradigm',    ipa: '/ˈpærədaɪm/',      meaning: 'الگو، سرمشق',      box: 3 },
+        { word: 'meticulous',  ipa: '/məˈtɪkjələs/',    meaning: 'دقیق، باوسواس',    box: 4 },
       ];
       const TOTAL = 75; // user's daily-limit setting
-      let idx = 0;
-      const activeBox = 5;
 
+      let idx = 0;
+      const cardEl    = document.querySelector('[data-lt-card]');
       const wordEl    = document.querySelector('[data-lt-word]');
       const ipaEl     = document.querySelector('[data-lt-ipa]');
+      const meaningEl = document.querySelector('[data-lt-meaning]');
       const counterEl = document.querySelector('[data-lt-counter]');
+
+      function setActiveBox (n) {
+        document.querySelectorAll('.lt-box').forEach(function (b) { b.removeAttribute('data-active'); });
+        const el = document.querySelector('.lt-box[data-box="' + n + '"]');
+        if (el) el.dataset.active = 'true';
+      }
 
       function paintCard () {
         const item = WORDS[idx % WORDS.length];
-        wordEl.textContent = item.word;
-        ipaEl.textContent  = item.ipa;
+        wordEl.textContent    = item.word;
+        ipaEl.textContent     = item.ipa;
+        meaningEl.textContent = item.meaning;
         counterEl.textContent = (idx + 1) + ' / ' + TOTAL;
+        cardEl.removeAttribute('data-flipped'); // always show the front for a new card
+        setActiveBox(item.box);
       }
 
       function highlightLanding (target) {
@@ -154,30 +175,58 @@
         setTimeout(function () { box.removeAttribute('data-landed'); }, 800);
       }
 
+      function advance () {
+        idx = (idx + 1) % WORDS.length;
+        paintCard();
+      }
+
       document.addEventListener('click', function (e) {
         // Mastery buttons
         const m = e.target.closest('[data-lt-move]');
         if (m) {
           const move = m.dataset.ltMove;
-          let target = activeBox;
+          const cur  = WORDS[idx % WORDS.length].box;
+          let target;
           if      (move === 'reset') target = 1;
-          else if (move === 'stay')  target = activeBox;
-          else if (move === '+1')    target = Math.min(5, activeBox + 1);
-          else if (move === '+2')    target = Math.min(5, activeBox + 2);
-          highlightLanding(target);
-          setTimeout(function () {
-            idx = (idx + 1) % TOTAL;
-            paintCard();
-          }, 720);
+          else if (move === 'stay')  target = cur;
+          else if (move === '+1')    target = cur + 1;
+          else if (move === '+2')    target = cur + 2;
+
+          if (target > 5) {
+            // Card graduated out of Leitner
+            if (window.popupSuccess) {
+              window.popupSuccess(null, { messageKey: 'v3.leitner.graduated' });
+            }
+            setTimeout(advance, 900);
+          } else {
+            highlightLanding(target);
+            setTimeout(advance, 720);
+          }
           return;
         }
-        // Trash → confirm popup, uses the existing v3.confirm.deleteLeitnerCard keys
+        // Trash → confirm popup, uses v3.confirm.deleteLeitnerCard keys
         if (e.target.closest('[data-lt-trash]')) {
           if (window.confirmAction) window.confirmAction('deleteLeitnerCard');
           return;
         }
-        // Audio button — in the real app, plays TTS for the English word
+        // Audio button — in the real app, plays English TTS for the word.
+        if (e.target.closest('[data-lt-audio]')) {
+          return;
+        }
+        // Card click → flip
+        const cardClick = e.target.closest('[data-lt-card]');
+        if (cardClick) {
+          if (cardClick.dataset.flipped === 'true') {
+            cardClick.removeAttribute('data-flipped');
+          } else {
+            cardClick.dataset.flipped = 'true';
+          }
+          return;
+        }
       });
+
+      // Initial render
+      paintCard();
     })();
   </script>
 </body>
