@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppkdag2" />
-  <link rel="stylesheet" href="/css/base.css?v=mppkdag2" />
-  <link rel="stylesheet" href="/css/components.css?v=mppkdag2" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppkdag2" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppkdag2" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppkdag2" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppkdag2" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppkdag2" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppkusee" />
+  <link rel="stylesheet" href="/css/base.css?v=mppkusee" />
+  <link rel="stylesheet" href="/css/components.css?v=mppkusee" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppkusee" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppkusee" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppkusee" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppkusee" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppkusee" />
 </head>
 <body>
   <div class="preview-controls">
@@ -60,30 +60,40 @@
           </div>
 
           <!-- Achievements card -->
+          <!-- TODO(flutter): unlock rules from architecture_stats_definitions.md §6:
+               legend = study_hours >= 4000,
+               goldenStreak = current_streak >= 90,
+               premium = subscription.status == 'active',
+               firstStep = ANY user-action exists (first card to Leitner, first
+               search, etc.). Each tile drops [data-locked] when its rule passes. -->
           <div class="stats-card">
             <div class="stats-card__head">
               <span class="stats-card__title">
                 <svg viewBox="0 0 24 24" fill="#F5B945"><path d="M7 2h10v2h4v4a4 4 0 0 1-4 4 5 5 0 0 1-3 3v3h3v2H7v-2h3v-3a5 5 0 0 1-3-3 4 4 0 0 1-4-4V4h4V2z"/></svg>
                 <span data-i18n="v3.stats.achievements"></span>
               </span>
-              <span class="stats-card__counter">4 / 0</span>
+              <span class="stats-card__counter">0 / 4</span>
             </div>
             <div class="ach-grid">
               <div class="ach-cell" data-locked="true">
                 <span class="ach-cell__icon">👑</span>
                 <span class="ach-cell__name" data-i18n="v3.stats.achLegend"></span>
+                <span class="ach-cell__hint" data-i18n="v3.stats.achLegendHint"></span>
               </div>
               <div class="ach-cell" data-locked="true">
-                <span class="ach-cell__icon">📅</span>
-                <span class="ach-cell__name" data-i18n="v3.stats.achMonthly"></span>
+                <span class="ach-cell__icon">🔥</span>
+                <span class="ach-cell__name" data-i18n="v3.stats.achGolden"></span>
+                <span class="ach-cell__hint" data-i18n="v3.stats.achGoldenHint"></span>
               </div>
               <div class="ach-cell" data-locked="true">
                 <span class="ach-cell__icon">💎</span>
                 <span class="ach-cell__name" data-i18n="v3.stats.achPremium"></span>
+                <span class="ach-cell__hint" data-i18n="v3.stats.achPremiumHint"></span>
               </div>
               <div class="ach-cell" data-locked="true">
                 <span class="ach-cell__icon">🎯</span>
                 <span class="ach-cell__name" data-i18n="v3.stats.achFirstStep"></span>
+                <span class="ach-cell__hint" data-i18n="v3.stats.achFirstStepHint"></span>
               </div>
             </div>
           </div>
@@ -95,10 +105,8 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="var(--jx-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <span data-i18n="v3.stats.activity"></span>
               </span>
-              <div class="year-toggle" data-year-toggle>
-                <button type="button" class="year-toggle__btn" data-active="true">2026</button>
-                <button type="button" class="year-toggle__btn">2025</button>
-              </div>
+              <!-- Only 2026 — Jamlex launched this year, no 2025 data exists. -->
+              <span class="year-label">2026</span>
             </div>
             <div class="heatmap-year">
               <div class="heatmap-year__months">
@@ -132,11 +140,13 @@
                 <span data-i18n="v3.stats.thisWeek"></span>
               </span>
             </div>
+            <!-- Order matches the order the product owner described:
+                 study hours, words learned, days active. -->
             <div class="week-mini">
               <div class="week-mini__cell">
-                <span class="week-mini__icon" style="color:#E59A1A;">📅</span>
-                <span class="week-mini__val">0</span>
-                <span class="week-mini__label" data-i18n="v3.stats.weekDays"></span>
+                <span class="week-mini__icon" style="color:#1F9389;">⏱️</span>
+                <span class="week-mini__val">0h</span>
+                <span class="week-mini__label" data-i18n="v3.stats.weekStudy"></span>
               </div>
               <div class="week-mini__cell">
                 <span class="week-mini__icon" style="color:#4A90D9;">📖</span>
@@ -144,9 +154,9 @@
                 <span class="week-mini__label" data-i18n="v3.stats.weekWords"></span>
               </div>
               <div class="week-mini__cell">
-                <span class="week-mini__icon" style="color:#1F9389;">⏱️</span>
-                <span class="week-mini__val">0h</span>
-                <span class="week-mini__label" data-i18n="v3.stats.weekStudy"></span>
+                <span class="week-mini__icon" style="color:#E59A1A;">📅</span>
+                <span class="week-mini__val">0</span>
+                <span class="week-mini__label" data-i18n="v3.stats.weekDays"></span>
               </div>
             </div>
           </div>
@@ -157,31 +167,50 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppkdag2"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppkusee"></script>
   <script>
-    // Generate the 22×7 heatmap grid. Empty by default to match the
-    // reference. The Flutter app populates each cell from session data:
+    // Generate the 22×7 heatmap grid (GitHub-style year-to-date).
+    // The Flutter app populates each cell from session data:
     //   `learning_events` aggregated by (year, day_of_year).
+    // For the design preview we sprinkle a believable activity pattern so
+    // reviewers see the colour scale — recent week has more cells lit,
+    // earlier weeks are sparse, most of the year is still empty (the
+    // user just started).
     (function () {
       const grid = document.querySelector('[data-heatmap-grid]');
       if (!grid) return;
       const COLS = 22;
       const ROWS = 7;
+
+      // Demo activity map: { columnIndex: { rowIndex: level } }.
+      // columnIndex is 0..21, rowIndex is 0..6 (Sun=0..Sat=6).
+      // Cells not listed are empty (level 0).
+      const DEMO = {
+        // Older months — very sparse
+        3:  { 2: 1, 4: 1 },
+        6:  { 1: 2, 3: 1 },
+        9:  { 0: 1 },
+        11: { 4: 1, 5: 2 },
+        13: { 2: 1, 3: 2, 4: 1 },
+        15: { 1: 1, 2: 2, 3: 3, 4: 2 },
+        17: { 0: 2, 1: 3, 2: 2, 3: 4 },
+        // Recent weeks — building up
+        18: { 1: 3, 2: 4, 3: 3, 4: 2 },
+        19: { 0: 2, 1: 4, 2: 3, 3: 4, 4: 3, 5: 2 },
+        20: { 1: 4, 2: 3, 3: 4, 4: 4, 5: 3 },
+        21: { 0: 3, 1: 4, 2: 4, 3: 3, 4: 4, 5: 2 },
+      };
+
       const cells = [];
-      for (let i = 0; i < COLS * ROWS; i++) {
-        cells.push('<div class="heatmap-cell"></div>');
+      // grid-auto-flow: column means we fill column-by-column.
+      for (let c = 0; c < COLS; c++) {
+        for (let r = 0; r < ROWS; r++) {
+          const level = (DEMO[c] && DEMO[c][r]) || 0;
+          const attr = level ? ` data-level="${level}"` : '';
+          cells.push(`<div class="heatmap-cell"${attr}></div>`);
+        }
       }
       grid.innerHTML = cells.join('');
-
-      // Year toggle (visual only in preview)
-      document.addEventListener('click', function (e) {
-        const btn = e.target.closest('.year-toggle__btn');
-        if (!btn) return;
-        btn.parentElement.querySelectorAll('.year-toggle__btn').forEach(function (b) {
-          b.removeAttribute('data-active');
-        });
-        btn.dataset.active = 'true';
-      });
     })();
   </script>
 </body>

@@ -821,41 +821,11 @@
   color: var(--jx-text-2);
 }
 
-.heatmap {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-  margin-bottom: var(--sp-5);
-}
-.heatmap__cell {
-  aspect-ratio: 1 / 1;
-  border-radius: var(--rd-1);
-  background: var(--jx-surface);
-}
-.heatmap__cell[data-level="1"] { background: rgba(0,180,166,0.20); }
-.heatmap__cell[data-level="2"] { background: rgba(0,180,166,0.40); }
-.heatmap__cell[data-level="3"] { background: rgba(0,180,166,0.65); }
-.heatmap__cell[data-level="4"] { background: var(--jx-primary); }
+/* (Legacy .heatmap / .heatmap__cell removed — superseded by .heatmap-year /
+   .heatmap-cell on the rebuilt stats page below.) */
 
-.ach-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-3);
-}
-.ach {
-  background: var(--jx-bg);
-  border: 1px solid var(--jx-border);
-  border-radius: var(--rd-3);
-  padding: var(--sp-3);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.ach__emoji { font-size: 32px; }
-.ach__name { font-size: var(--fs-body-s); font-weight: var(--fw-semibold); }
-.ach[data-locked="true"] .ach__emoji { filter: grayscale(1); opacity: 0.4; }
-.ach[data-locked="true"] { opacity: 0.65; }
+/* (Legacy .ach-grid / .ach kept removed — superseded by .ach-grid / .ach-cell
+   on the rebuilt stats page below.) */
 
 .session-bars {
   display: flex;
@@ -1869,7 +1839,10 @@
 .summary-title { font-size: 24px; font-weight: var(--fw-extrabold); margin-top: var(--sp-3); }
 .summary-sub { color: var(--jx-text-2); font-size: var(--fs-body-s); line-height: var(--lh-relaxed); margin-top: var(--sp-2); margin-bottom: var(--sp-5); }
 
-.stats-card {
+/* Session-summary stat grid (flashcards.html + leitner-review.html).
+   Renamed from `.stats-card` so it doesn't clash with the new
+   `.stats-card` wrapper used on the stats screen. */
+.summary-stats {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0;
@@ -3202,33 +3175,30 @@
 .ach-cell__icon { font-size: 28px; line-height: 1; }
 .ach-cell__name {
   font-size: 12px;
-  font-weight: var(--fw-semibold);
-  color: var(--jx-text-2);
+  font-weight: var(--fw-bold);
+  color: var(--jx-text);
+  line-height: 1.25;
+}
+/* Tiny condition hint under the name (e.g. "۹۰ روز پیاپی").
+   Kept very small + muted — it explains the unlock rule without
+   shouting. */
+.ach-cell__hint {
+  font-size: 10px;
+  color: var(--jx-text-3);
+  font-family: var(--font-family-latin), var(--font-family);
+  line-height: 1.3;
 }
 .ach-cell[data-locked="true"] { opacity: 0.55; filter: saturate(0.4); }
 
-/* Year toggle */
-.year-toggle {
-  display: inline-flex;
-  gap: 3px;
-  background: var(--jx-input-bg);
-  border-radius: var(--rd-pill);
-  padding: 3px;
-}
-.year-toggle__btn {
-  border: 0;
-  background: transparent;
-  color: var(--jx-text-2);
+/* Year label (we only show 2026 — Jamlex launched this year, no toggle). */
+.year-label {
   font-family: var(--font-family-latin), var(--font-family);
   font-size: 13px;
   font-weight: var(--fw-bold);
-  padding: 4px 10px;
-  border-radius: var(--rd-pill);
-  cursor: pointer;
-}
-.year-toggle__btn[data-active="true"] {
-  background: rgba(0,180,166,0.18);
   color: var(--jx-primary);
+  background: rgba(0,180,166,0.12);
+  padding: 4px 12px;
+  border-radius: var(--rd-pill);
 }
 
 /* Year heatmap */
