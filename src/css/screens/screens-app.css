@@ -3087,6 +3087,214 @@
 .q-opt[data-state="wrong"] { background: #FCE4E4; border-color: #F9D2D2; color: #E15858; }
 
 /* ============================================================================
+   Stats — rebuilt to match the product owner's reference (3 tinted tiles,
+   achievements card, year heatmap, this-week mini-card)
+   ============================================================================ */
+.stats-top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.stats-tile {
+  border-radius: 22px;
+  padding: var(--sp-4) var(--sp-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+.stats-tile__icon { font-size: 30px; line-height: 1; }
+.stats-tile__val {
+  font-size: 32px;
+  font-weight: var(--fw-extrabold);
+  font-family: var(--font-family-latin), var(--font-family);
+  line-height: 1;
+  margin-top: 2px;
+}
+.stats-tile__label {
+  font-size: 12px;
+  color: var(--jx-text-2);
+  text-align: center;
+}
+.stats-tile--blue   { background: rgba(74,144,217,0.10); }
+.stats-tile--blue   .stats-tile__val   { color: #2E64C0; }
+.stats-tile--orange { background: rgba(255,152,0,0.12); }
+.stats-tile--orange .stats-tile__val   { color: #E59A1A; }
+.stats-tile--teal   { background: rgba(0,180,166,0.12); }
+.stats-tile--teal   .stats-tile__val   { color: #1F9389; }
+
+/* Achievement card */
+.stats-card {
+  background: var(--jx-bg);
+  border: 1px solid var(--jx-divider);
+  border-radius: 22px;
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+.stats-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--sp-3);
+}
+.stats-card__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-body-l);
+}
+.stats-card__title svg { width: 18px; height: 18px; }
+.stats-card__counter {
+  font-family: var(--font-family-latin), var(--font-family);
+  color: var(--jx-text-2);
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-bold);
+}
+
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-2);
+}
+.ach-cell {
+  background: var(--jx-input-bg);
+  border-radius: 16px;
+  padding: var(--sp-3) 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+.ach-cell__icon { font-size: 28px; line-height: 1; }
+.ach-cell__name {
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  color: var(--jx-text-2);
+}
+.ach-cell[data-locked="true"] { opacity: 0.55; filter: saturate(0.4); }
+
+/* Year toggle */
+.year-toggle {
+  display: inline-flex;
+  gap: 3px;
+  background: var(--jx-input-bg);
+  border-radius: var(--rd-pill);
+  padding: 3px;
+}
+.year-toggle__btn {
+  border: 0;
+  background: transparent;
+  color: var(--jx-text-2);
+  font-family: var(--font-family-latin), var(--font-family);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  padding: 4px 10px;
+  border-radius: var(--rd-pill);
+  cursor: pointer;
+}
+.year-toggle__btn[data-active="true"] {
+  background: rgba(0,180,166,0.18);
+  color: var(--jx-primary);
+}
+
+/* Year heatmap */
+.heatmap-year {
+  margin-top: var(--sp-2);
+}
+.heatmap-year__months {
+  display: grid;
+  grid-template-columns: 22px repeat(5, 1fr);
+  gap: 4px;
+  font-size: 10px;
+  color: var(--jx-text-3);
+  font-family: var(--font-family-latin), var(--font-family);
+  margin-bottom: 6px;
+  padding-inline-start: 22px;
+}
+.heatmap-year__months span { text-align: start; }
+.heatmap-year__main {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 4px;
+}
+.heatmap-year__days {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  font-size: 10px;
+  color: var(--jx-text-3);
+  font-family: var(--font-family-latin), var(--font-family);
+}
+.heatmap-year__days span:nth-child(2) { grid-row: 2; align-self: center; }
+.heatmap-year__days span:nth-child(3) { grid-row: 4; align-self: center; }
+.heatmap-year__days span:nth-child(4) { grid-row: 6; align-self: center; }
+.heatmap-year__days span:nth-child(1),
+.heatmap-year__days span:nth-child(5) { visibility: hidden; }
+.heatmap-year__grid {
+  display: grid;
+  grid-template-columns: repeat(22, 1fr);
+  grid-auto-rows: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
+  direction: ltr;
+}
+.heatmap-cell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--jx-input-bg);
+  border-radius: 3px;
+}
+.heatmap-cell[data-level="1"] { background: #D6F0EC; }
+.heatmap-cell[data-level="2"] { background: #9DDFD4; }
+.heatmap-cell[data-level="3"] { background: #4DC4B1; }
+.heatmap-cell[data-level="4"] { background: var(--jx-primary); }
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: var(--sp-2);
+  font-size: 10px;
+  color: var(--jx-text-3);
+}
+.heatmap-legend__cells {
+  display: inline-flex;
+  gap: 3px;
+}
+.heatmap-legend__cells > div {
+  width: 10px; height: 10px;
+  border-radius: 2px;
+}
+
+/* This-week card cells */
+.week-mini {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+}
+.week-mini__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+.week-mini__icon { font-size: 22px; line-height: 1; }
+.week-mini__val {
+  font-size: 20px;
+  font-weight: var(--fw-extrabold);
+  font-family: var(--font-family-latin), var(--font-family);
+}
+.week-mini__label {
+  font-size: 11px;
+  color: var(--jx-text-2);
+}
+
+/* ============================================================================
    Leitner — rebuilt to match the product owner's reference
    ----------------------------------------------------------------------------
    5 envelope boxes numbered 1→5 LEFT→RIGHT (locked dir=ltr regardless of UI),

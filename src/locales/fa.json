@@ -889,7 +889,20 @@
         "streak30": "۳۰ روز",
         "cards1000": "۱۰۰۰ کارت"
       },
-      "compareWithOthers": "مقایسه با دیگران"
+      "compareWithOthers": "مقایسه با دیگران",
+      "wordsLearned": "لغت یادگرفته",
+      "chain": "زنجیره",
+      "studyHours": "ساعت مطالعه",
+      "activity": "فعالیت",
+      "more": "بیشتر",
+      "less": "کمتر",
+      "weekDays": "روز",
+      "weekWords": "لغت",
+      "weekStudy": "مطالعه",
+      "achLegend": "لجند",
+      "achMonthly": "ماهانه",
+      "achPremium": "پریمیوم",
+      "achFirstStep": "اولین قدم"
     },
     "leaderboard": {
       "subtitle": "جایگاه شما در بین همه کاربران",

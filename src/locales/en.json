@@ -888,7 +888,20 @@
         "streak30": "30 days",
         "cards1000": "1000 cards"
       },
-      "compareWithOthers": "Compare with others"
+      "compareWithOthers": "Compare with others",
+      "wordsLearned": "Words learned",
+      "chain": "Streak",
+      "studyHours": "Study hours",
+      "activity": "Activity",
+      "more": "More",
+      "less": "Less",
+      "weekDays": "Days",
+      "weekWords": "Words",
+      "weekStudy": "Study",
+      "achLegend": "Legend",
+      "achMonthly": "Monthly",
+      "achPremium": "Premium",
+      "achFirstStep": "First step"
     },
     "leaderboard": {
       "subtitle": "Your rank among all users",

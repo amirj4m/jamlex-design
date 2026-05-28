@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppk0q2z" />
-  <link rel="stylesheet" href="/css/base.css?v=mppk0q2z" />
-  <link rel="stylesheet" href="/css/components.css?v=mppk0q2z" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppk0q2z" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppk0q2z" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppk0q2z" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppk0q2z" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppk0q2z" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppk6sbo" />
+  <link rel="stylesheet" href="/css/base.css?v=mppk6sbo" />
+  <link rel="stylesheet" href="/css/components.css?v=mppk6sbo" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppk6sbo" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppk6sbo" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppk6sbo" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppk6sbo" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppk6sbo" />
 </head>
 <body>
   <div class="preview-controls">
@@ -27,110 +27,121 @@
   <div class="shell">
     <div class="phone">
       <div class="screen">
-        <header class="topbar topbar--transparent">
-          <div></div>
-          <h1 class="topbar__title" data-i18n="v3.stats.title"></h1>
-          <div></div>
-        </header>
-
         <div class="screen__body">
-          <!-- Top stat tiles (4-card grid with 3D-style icons) -->
-          <div class="stat-tiles">
-            <div class="stat-tile">
-              <div class="stat-tile__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-              </div>
-              <div class="stat-tile__val">1,247</div>
-              <div class="stat-tile__label" data-i18n="v3.stats.totalXp"></div>
+          <!-- TODO(flutter): every number on this page must come from a live
+               provider/stream. See feedback_ux_patterns.md §5. Demo values
+               below match the empty-state reference (mostly zeros). -->
+
+          <!-- TOP — 3 tinted stat tiles -->
+          <div class="stats-top">
+            <div class="stats-tile stats-tile--blue">
+              <span class="stats-tile__icon">📚</span>
+              <span class="stats-tile__val">0</span>
+              <span class="stats-tile__label" data-i18n="v3.stats.wordsLearned"></span>
             </div>
-            <div class="stat-tile">
-              <div class="stat-tile__icon" style="background:rgba(255,152,0,0.18);color:#E59A1A;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 17c1.4 0 2.5-1.1 2.5-2.5 0-1.3-.8-2-1.7-2.7-1.4-1.2-2-2-2-3.3 0-1.7 1.3-3 3-3 1.5 0 2.8 1 3.1 2.4M12 2c5 0 9 4 9 9 0 7-6 11-9 11s-9-4-9-11c0-5 4-9 9-9z"/></svg>
-              </div>
-              <div class="stat-tile__val">7 <span class="stat-tile__unit" data-i18n="v3.stats.streakUnit"></span></div>
-              <div class="stat-tile__label" data-i18n="v3.stats.currentStreak"></div>
+            <div class="stats-tile stats-tile--orange">
+              <span class="stats-tile__icon">🔥</span>
+              <span class="stats-tile__val">1</span>
+              <span class="stats-tile__label" data-i18n="v3.stats.chain"></span>
             </div>
-            <div class="stat-tile">
-              <div class="stat-tile__icon" style="background:rgba(76,175,80,0.16);color:#2A8E4D;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              </div>
-              <div class="stat-tile__val">142</div>
-              <div class="stat-tile__label" data-i18n="v3.stats.cardsLearned"></div>
-            </div>
-            <div class="stat-tile">
-              <div class="stat-tile__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
-              <div class="stat-tile__val">8.5 <span class="stat-tile__unit" data-i18n="v3.stats.hoursUnit"></span></div>
-              <div class="stat-tile__label" data-i18n="v3.stats.studyTime"></div>
+            <div class="stats-tile stats-tile--teal">
+              <span class="stats-tile__icon">⏱️</span>
+              <span class="stats-tile__val">0</span>
+              <span class="stats-tile__label" data-i18n="v3.stats.studyHours"></span>
             </div>
           </div>
 
-          <!-- 7-day heatmap -->
-          <div class="section-h"><div class="section-h__title" data-i18n="v3.stats.thisWeek"></div></div>
-          <div class="card">
-            <div class="weekday-labels">
-              <span data-i18n="v3.settings.day.sa"></span><span data-i18n="v3.settings.day.su"></span><span data-i18n="v3.settings.day.mo"></span><span data-i18n="v3.settings.day.tu"></span><span data-i18n="v3.settings.day.we"></span><span data-i18n="v3.settings.day.th"></span><span data-i18n="v3.settings.day.fr"></span>
+          <!-- Achievements card -->
+          <div class="stats-card">
+            <div class="stats-card__head">
+              <span class="stats-card__title">
+                <svg viewBox="0 0 24 24" fill="#F5B945"><path d="M7 2h10v2h4v4a4 4 0 0 1-4 4 5 5 0 0 1-3 3v3h3v2H7v-2h3v-3a5 5 0 0 1-3-3 4 4 0 0 1-4-4V4h4V2z"/></svg>
+                <span data-i18n="v3.stats.achievements"></span>
+              </span>
+              <span class="stats-card__counter">4 / 0</span>
             </div>
-            <div class="heatmap-v3">
-              <div class="heatmap-v3__cell" data-level="2"></div>
-              <div class="heatmap-v3__cell" data-level="1"></div>
-              <div class="heatmap-v3__cell" data-level="3"></div>
-              <div class="heatmap-v3__cell" data-level="4"></div>
-              <div class="heatmap-v3__cell" data-level="2"></div>
-              <div class="heatmap-v3__cell" data-level="3"></div>
-              <div class="heatmap-v3__cell" data-level="4"></div>
-            </div>
-          </div>
-
-          <!-- Session breakdown -->
-          <div class="section-h"><div class="section-h__title" data-i18n="v3.stats.sessionBreakdown"></div></div>
-          <div class="card">
-            <div class="session-bars">
-              <div class="session-bar">
-                <div class="session-bar__label" data-i18n="v3.stats.session.leitner"></div>
-                <div class="session-bar__track"><div class="session-bar__fill" style="width:75%;background:var(--jx-primary);"></div></div>
-                <div class="session-bar__value" data-i18n="v3.stats.session.minutesUnit" data-i18n-vars='{"n":"45"}'></div>
+            <div class="ach-grid">
+              <div class="ach-cell" data-locked="true">
+                <span class="ach-cell__icon">👑</span>
+                <span class="ach-cell__name" data-i18n="v3.stats.achLegend"></span>
               </div>
-              <div class="session-bar">
-                <div class="session-bar__label" data-i18n="v3.stats.session.flashcard"></div>
-                <div class="session-bar__track"><div class="session-bar__fill" style="width:55%;background:var(--jx-secondary);"></div></div>
-                <div class="session-bar__value" data-i18n="v3.stats.session.minutesUnit" data-i18n-vars='{"n":"32"}'></div>
+              <div class="ach-cell" data-locked="true">
+                <span class="ach-cell__icon">📅</span>
+                <span class="ach-cell__name" data-i18n="v3.stats.achMonthly"></span>
               </div>
-              <div class="session-bar">
-                <div class="session-bar__label" data-i18n="v3.stats.session.quiz"></div>
-                <div class="session-bar__track"><div class="session-bar__fill" style="width:30%;background:#F5B945;"></div></div>
-                <div class="session-bar__value" data-i18n="v3.stats.session.minutesUnit" data-i18n-vars='{"n":"18"}'></div>
+              <div class="ach-cell" data-locked="true">
+                <span class="ach-cell__icon">💎</span>
+                <span class="ach-cell__name" data-i18n="v3.stats.achPremium"></span>
               </div>
-              <div class="session-bar">
-                <div class="session-bar__label" data-i18n="v3.stats.session.reading"></div>
-                <div class="session-bar__track"><div class="session-bar__fill" style="width:42%;background:#26D07C;"></div></div>
-                <div class="session-bar__value" data-i18n="v3.stats.session.minutesUnit" data-i18n-vars='{"n":"25"}'></div>
+              <div class="ach-cell" data-locked="true">
+                <span class="ach-cell__icon">🎯</span>
+                <span class="ach-cell__name" data-i18n="v3.stats.achFirstStep"></span>
               </div>
             </div>
           </div>
 
-          <!-- Achievements -->
-          <div class="section-h">
-            <div class="section-h__title" data-i18n="v3.stats.achievements"></div>
-            <span class="section-h__action" style="color:var(--jx-text-2);">6 / 24</span>
-          </div>
-          <div class="ach-grid-v3">
-            <div class="ach-v3"><div class="ach-v3__emoji">🌱</div><div class="ach-v3__name" data-i18n="v3.stats.ach.start"></div></div>
-            <div class="ach-v3"><div class="ach-v3__emoji">🔥</div><div class="ach-v3__name" data-i18n="v3.stats.ach.streak3"></div></div>
-            <div class="ach-v3"><div class="ach-v3__emoji">⭐</div><div class="ach-v3__name" data-i18n="v3.stats.ach.cards10"></div></div>
-            <div class="ach-v3"><div class="ach-v3__emoji">🏆</div><div class="ach-v3__name" data-i18n="v3.stats.ach.cards100"></div></div>
-            <div class="ach-v3"><div class="ach-v3__emoji">📖</div><div class="ach-v3__name" data-i18n="v3.stats.ach.firstBook"></div></div>
-            <div class="ach-v3"><div class="ach-v3__emoji">🎯</div><div class="ach-v3__name" data-i18n="v3.stats.ach.acc90"></div></div>
-            <div class="ach-v3" data-locked="true"><div class="ach-v3__emoji">💎</div><div class="ach-v3__name" data-i18n="v3.stats.ach.premium"></div></div>
-            <div class="ach-v3" data-locked="true"><div class="ach-v3__emoji">🚀</div><div class="ach-v3__name" data-i18n="v3.stats.ach.streak30"></div></div>
-            <div class="ach-v3" data-locked="true"><div class="ach-v3__emoji">🦉</div><div class="ach-v3__name" data-i18n="v3.stats.ach.cards1000"></div></div>
+          <!-- Activity year heatmap -->
+          <div class="stats-card">
+            <div class="stats-card__head">
+              <span class="stats-card__title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--jx-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span data-i18n="v3.stats.activity"></span>
+              </span>
+              <div class="year-toggle" data-year-toggle>
+                <button type="button" class="year-toggle__btn" data-active="true">2026</button>
+                <button type="button" class="year-toggle__btn">2025</button>
+              </div>
+            </div>
+            <div class="heatmap-year">
+              <div class="heatmap-year__months">
+                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
+              </div>
+              <div class="heatmap-year__main">
+                <div class="heatmap-year__days">
+                  <span></span><span>M</span><span></span><span>W</span><span></span><span>F</span><span></span>
+                </div>
+                <div class="heatmap-year__grid" data-heatmap-grid></div>
+              </div>
+              <div class="heatmap-legend">
+                <span data-i18n="v3.stats.more"></span>
+                <div class="heatmap-legend__cells">
+                  <div class="heatmap-cell" data-level="4"></div>
+                  <div class="heatmap-cell" data-level="3"></div>
+                  <div class="heatmap-cell" data-level="2"></div>
+                  <div class="heatmap-cell" data-level="1"></div>
+                  <div class="heatmap-cell"></div>
+                </div>
+                <span data-i18n="v3.stats.less"></span>
+              </div>
+            </div>
           </div>
 
-          <a href="/screens/leaderboard.html" class="btn btn--outlined btn--block btn--lg" style="margin-top: var(--sp-5);">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6m12 5h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22h10c0-1.76-.85-3.25-2.03-3.79-.5-.23-.97-.66-.97-1.21v-2.34M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
-            <span data-i18n="v3.stats.compareWithOthers"></span>
-          </a>
+          <!-- This week mini-card -->
+          <div class="stats-card">
+            <div class="stats-card__head">
+              <span class="stats-card__title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--jx-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span data-i18n="v3.stats.thisWeek"></span>
+              </span>
+            </div>
+            <div class="week-mini">
+              <div class="week-mini__cell">
+                <span class="week-mini__icon" style="color:#E59A1A;">📅</span>
+                <span class="week-mini__val">0</span>
+                <span class="week-mini__label" data-i18n="v3.stats.weekDays"></span>
+              </div>
+              <div class="week-mini__cell">
+                <span class="week-mini__icon" style="color:#4A90D9;">📖</span>
+                <span class="week-mini__val">0</span>
+                <span class="week-mini__label" data-i18n="v3.stats.weekWords"></span>
+              </div>
+              <div class="week-mini__cell">
+                <span class="week-mini__icon" style="color:#1F9389;">⏱️</span>
+                <span class="week-mini__val">0h</span>
+                <span class="week-mini__label" data-i18n="v3.stats.weekStudy"></span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div data-bottomnav="stats"></div>
@@ -138,6 +149,32 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppk0q2z"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppk6sbo"></script>
+  <script>
+    // Generate the 22×7 heatmap grid. Empty by default to match the
+    // reference. The Flutter app populates each cell from session data:
+    //   `learning_events` aggregated by (year, day_of_year).
+    (function () {
+      const grid = document.querySelector('[data-heatmap-grid]');
+      if (!grid) return;
+      const COLS = 22;
+      const ROWS = 7;
+      const cells = [];
+      for (let i = 0; i < COLS * ROWS; i++) {
+        cells.push('<div class="heatmap-cell"></div>');
+      }
+      grid.innerHTML = cells.join('');
+
+      // Year toggle (visual only in preview)
+      document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.year-toggle__btn');
+        if (!btn) return;
+        btn.parentElement.querySelectorAll('.year-toggle__btn').forEach(function (b) {
+          b.removeAttribute('data-active');
+        });
+        btn.dataset.active = 'true';
+      });
+    })();
+  </script>
 </body>
 </html>
