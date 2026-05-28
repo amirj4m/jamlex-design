@@ -3258,6 +3258,41 @@
 /* Audio (English TTS) only makes sense on the English side. Hide via
    visibility so the pill layout stays symmetric. Trash + counter remain. */
 .lt-session[data-flipped="true"] [data-lt-audio] { visibility: hidden; }
+
+/* Micro celebration toast — slides DOWN from the very top of the phone
+   frame, lingers briefly, slides back up. Used for the graduation moment
+   so we don't interrupt the review flow with a full modal. This is the
+   ONLY non-popup user-facing message in the app (see ux memory exception). */
+.lt-toast {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  margin: 0 auto;
+  width: max-content;
+  max-width: 88%;
+  background: var(--jx-bg);
+  color: var(--jx-text);
+  border: 1px solid var(--jx-border);
+  border-radius: var(--rd-pill);
+  padding: 10px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-semibold);
+  box-shadow: 0 10px 30px rgba(15,30,40,0.18);
+  z-index: 50;
+  pointer-events: none;
+  transform: translateY(-120%);
+  opacity: 0;
+  transition: transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 200ms;
+}
+.lt-toast[data-active="true"] {
+  transform: translateY(16px);
+  opacity: 1;
+}
+.lt-toast__icon { font-size: 20px; }
+[data-theme="dark"] .lt-toast { background: var(--jx-surface); border-color: rgba(255,255,255,0.10); }
 .lt-card__front,
 .lt-card__back {
   position: absolute;

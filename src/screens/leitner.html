@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppjnt04" />
-  <link rel="stylesheet" href="/css/base.css?v=mppjnt04" />
-  <link rel="stylesheet" href="/css/components.css?v=mppjnt04" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjnt04" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppjnt04" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppjnt04" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjnt04" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppjrmfg" />
+  <link rel="stylesheet" href="/css/base.css?v=mppjrmfg" />
+  <link rel="stylesheet" href="/css/components.css?v=mppjrmfg" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjrmfg" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppjrmfg" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppjrmfg" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjrmfg" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjrmfg" />
 </head>
 <body>
   <div class="preview-controls">
@@ -39,6 +39,12 @@
           <div></div>
         </header>
 
+        <!-- Tiny top-of-screen toast for the graduation moment. Sits inside .screen
+             so it's confined to the phone frame, slides down from above the topbar. -->
+        <div class="lt-toast" data-lt-toast>
+          <span class="lt-toast__icon">🎓</span>
+          <span data-lt-toast-text></span>
+        </div>
         <div class="screen__body lt-session" data-flipped="false" data-lt-session>
         <!-- ⚠️ Leitner scheduling formula is LOCKED in memory:
              architecture_leitner_algorithm.md. Box intervals 1/2/4/7/14 days,
@@ -168,7 +174,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppjnt04"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppjrmfg"></script>
   <script>
     // Leitner review interaction.
     // The active box (green outline) is the box the current card lives in.
@@ -200,6 +206,20 @@
       const ipaEl     = document.querySelector('[data-lt-ipa]');
       const meaningEl = document.querySelector('[data-lt-meaning]');
       const counterEl = document.querySelector('[data-lt-counter]');
+      const toastEl   = document.querySelector('[data-lt-toast]');
+      const toastTxt  = document.querySelector('[data-lt-toast-text]');
+
+      // Top-slide celebration toast — used ONLY for graduation. Quick visual
+      // wink, no buttons, no blocking. Not a popup (intentional exception).
+      function showGraduationToast () {
+        if (!toastEl || !toastTxt) return;
+        // Pull localised text from i18n if available, else fall back to a literal.
+        const msg = (window.t && window.t('v3.leitner.graduated'))
+          || (document.documentElement.lang === 'en' ? 'Card graduated from Leitner' : 'این کارت از لایتنر فارغ‌التحصیل شد');
+        toastTxt.textContent = msg;
+        toastEl.dataset.active = 'true';
+        setTimeout(function () { toastEl.removeAttribute('data-active'); }, 1800);
+      }
 
       function flip (toFlipped) {
         const wantFlipped = (toFlipped === undefined)
@@ -255,10 +275,9 @@
           else if (move === '+2')    { target = cur + 2; hue = 'green';  }
 
           if (target > 5) {
-            // Card graduated out of Leitner — no box to land in
-            if (window.popupSuccess) {
-              window.popupSuccess(null, { messageKey: 'v3.leitner.graduated' });
-            }
+            // Card graduated out of Leitner — micro celebration toast at the
+            // top of the screen, then advance. No popup (would block review flow).
+            showGraduationToast();
             setTimeout(advance, 900);
           } else {
             highlightLanding(target, hue);
