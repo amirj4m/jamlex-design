@@ -1650,7 +1650,7 @@
    v3 — page title pattern (used on screens like My Words, Search, Vocab L.)
    ============================================================================ */
 .page-title {
-  text-align: end;
+  text-align: start;
   padding: var(--sp-2) 0 0;
 }
 .page-title__main {
@@ -1726,7 +1726,7 @@
   justify-content: flex-end;
   gap: var(--sp-3);
   padding: var(--sp-2) 0 0;
-  text-align: end;
+  text-align: start;
 }
 .coll-header__name { font-size: 22px; font-weight: var(--fw-extrabold); }
 .coll-header__count { font-size: var(--fs-body-s); color: var(--jx-text-2); margin-top: 2px; }
@@ -2100,7 +2100,7 @@
   font-size: 15px;
   color: var(--jx-text);
   font-weight: var(--fw-medium);
-  text-align: end;
+  text-align: start;
   min-height: 28px;
 }
 .search-pill input::placeholder { color: var(--jx-text-3); }
@@ -2458,8 +2458,12 @@
   background: var(--jx-primary);
   color: #fff;
 }
-.bcard__title { font-weight: var(--fw-bold); font-size: var(--fs-body-m); margin-top: 4px; line-height: 1.25; }
-.bcard__author { font-size: var(--fs-caption); color: var(--jx-text-2); font-family: var(--font-family-latin); margin-top: 2px; }
+/* Book titles + authors are ALWAYS English (catalog is in English).
+   Pin direction so they read LTR even when the UI is RTL — and so the
+   text-align resolves to LEFT, not RIGHT, regardless of locale. */
+.bcard__title { font-weight: var(--fw-bold); font-size: var(--fs-body-m); margin-top: 4px; line-height: 1.25; direction: ltr; text-align: start; }
+.bcard__author { font-size: var(--fs-caption); color: var(--jx-text-2); font-family: var(--font-family-latin); margin-top: 2px; direction: ltr; text-align: start; }
+.bcard__rating { direction: ltr; text-align: start; }
 .bcard__rating {
   display: flex;
   align-items: center;
@@ -2718,13 +2722,13 @@
   font-size: 18px;
   font-weight: var(--fw-extrabold);
   margin-bottom: var(--sp-2);
-  text-align: end;
+  text-align: start;
 }
 .bd-about__body {
   font-size: var(--fs-body-m);
   color: var(--jx-text-2);
   line-height: var(--lh-relaxed);
-  text-align: end;
+  text-align: start;
 }
 
 /* Sticky-style bottom CTA stack — Continue Reading on top, Download below */
@@ -2880,11 +2884,14 @@
 }
 .lookup-sheet-v4__star[data-active="true"] { color: #F5B945; }
 
+/* "start" not "end": labels and body text align to the LEADING edge of the
+   current writing direction. FA → right, EN → left. Using "end" was wrong
+   in both locales (FA→left, EN→right). See architecture_i18n_critical.md. */
 .lookup-sheet-v4__section {
   font-size: var(--fs-body-m);
   font-weight: var(--fw-bold);
   color: var(--jx-text);
-  text-align: end;
+  text-align: start;
   margin: var(--sp-3) 0 var(--sp-2);
 }
 .lookup-sheet-v4__card {
@@ -2893,7 +2900,7 @@
   padding: var(--sp-3) var(--sp-4);
   font-size: var(--fs-body-m);
   line-height: var(--lh-relaxed);
-  text-align: end;
+  text-align: start;
 }
 .lookup-sheet-v4__card > * + * { margin-top: 6px; }
 

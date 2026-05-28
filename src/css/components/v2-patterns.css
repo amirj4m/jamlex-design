@@ -247,7 +247,7 @@
   font-weight: var(--fw-extrabold);
   font-size: var(--fs-body-m);
 }
-.lesson-row__title { text-align: end; }
+.lesson-row__title { text-align: start; }
 .lesson-row__name { font-weight: var(--fw-bold); }
 .lesson-row__sub  { font-size: var(--fs-caption); color: var(--jx-text-2); font-family: var(--font-family-latin); }
 .lesson-row__status {
@@ -402,7 +402,7 @@
   cursor: pointer;
   border: 0; background: transparent;
 }
-.sb-row__main { display: flex; flex-direction: column; gap: 6px; min-width: 0; text-align: end; }
+.sb-row__main { display: flex; flex-direction: column; gap: 6px; min-width: 0; text-align: start; }
 .sb-row__title { font-weight: var(--fw-bold); font-size: var(--fs-body-l); }
 .sb-row__author { font-size: var(--fs-body-s); color: var(--jx-text-2); }
 .sb-row__progress {
