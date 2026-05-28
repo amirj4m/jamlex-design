@@ -8,25 +8,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppik3so" />
-  <link rel="stylesheet" href="/css/base.css?v=mppik3so" />
-  <link rel="stylesheet" href="/css/components.css?v=mppik3so" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppik3so" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppik3so" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppik3so" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppik3so" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppik3so" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppivpzo" />
+  <link rel="stylesheet" href="/css/base.css?v=mppivpzo" />
+  <link rel="stylesheet" href="/css/components.css?v=mppivpzo" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppivpzo" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppivpzo" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppivpzo" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppivpzo" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppivpzo" />
 </head>
 <body>
   <div class="preview-controls">
     <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
     <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
-    <select id="state-picker" aria-label="State" onchange="
-      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
-    ">
-      <option value="filled">With cards</option>
-      <option value="empty">Empty state</option>
-    </select>
   </div>
   <a href="/" class="hub-ribbon">‹ Hub</a>
 
@@ -39,66 +33,76 @@
           <div></div>
         </header>
 
-        <!-- STATE: with cards -->
-        <div class="state" data-state="filled">
-          <div class="screen__body">
-            <div class="leitner-boxes">
-              <div class="lboxer" data-box="1"><div class="lboxer__shape"><span class="lboxer__num">1</span></div><span class="lboxer__count">43</span></div>
-              <div class="lboxer" data-box="2"><div class="lboxer__shape"><span class="lboxer__num">2</span></div><span class="lboxer__count">61</span></div>
-              <div class="lboxer" data-box="3"><div class="lboxer__shape"><span class="lboxer__num">3</span></div><span class="lboxer__count">10</span></div>
-              <div class="lboxer" data-box="4"><div class="lboxer__shape"><span class="lboxer__num">4</span></div><span class="lboxer__count">89</span></div>
-              <div class="lboxer" data-box="5" data-active="true"><div class="lboxer__shape"><span class="lboxer__num">5</span></div><span class="lboxer__count">233</span></div>
+        <div class="screen__body">
+          <!-- Five Leitner boxes 1→5 LEFT→RIGHT (dir=ltr locks the order).
+               Standard Leitner intervals: 1d / 2d / 4d / 7d / 14d. The active
+               box is the one we're reviewing FROM (here: box 5). -->
+          <div class="lt-boxes" dir="ltr">
+            <div class="lt-box" data-box="1" title="هر روز">
+              <span class="lt-box__count">43</span>
+              <div class="lt-box__shape"><span class="lt-box__num">1</span></div>
+              <span class="lt-box__arrow"></span>
             </div>
-
-            <a href="/screens/leitner-review.html" class="review-cta" style="margin-top: var(--sp-5);">
-              <div>
-                <div class="review-cta__title" data-i18n="v3.leitner.dueCount" data-i18n-vars='{"n":15}'></div>
-                <div class="review-cta__sub" data-i18n="v3.leitner.dueSub"></div>
-              </div>
-              <span class="review-cta__arrow"></span>
-            </a>
-
-            <div class="section-h" style="margin-top: var(--sp-5);">
-              <div class="section-h__title" data-i18n="v3.leitner.recentlyReviewed"></div>
+            <div class="lt-box" data-box="2" title="هر ۲ روز">
+              <span class="lt-box__count">61</span>
+              <div class="lt-box__shape"><span class="lt-box__num">2</span></div>
+              <span class="lt-box__arrow"></span>
             </div>
-            <div class="word-rows-v3">
-              <div class="word-row-v3">
-                <button class="word-row-v3__bookmark" data-active="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-                <div class="word-row-v3__body"><div class="word-row-v3__english">resilience</div><div class="word-row-v3__ipa">/rɪˈzɪliəns/</div></div>
-                <button class="audio-btn audio-btn--lg" data-audio="resilience"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
-              </div>
-              <div class="word-row-v3">
-                <button class="word-row-v3__bookmark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-                <div class="word-row-v3__body"><div class="word-row-v3__english">ephemeral</div><div class="word-row-v3__ipa">/ɪˈfemərəl/</div></div>
-                <button class="audio-btn audio-btn--lg" data-audio="ephemeral"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
-              </div>
-              <div class="word-row-v3">
-                <button class="word-row-v3__bookmark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-                <div class="word-row-v3__body"><div class="word-row-v3__english">eloquent</div><div class="word-row-v3__ipa">/ˈeləkwənt/</div></div>
-                <button class="audio-btn audio-btn--lg" data-audio="eloquent"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg></button>
-              </div>
+            <div class="lt-box" data-box="3" title="هر ۴ روز">
+              <span class="lt-box__count">10</span>
+              <div class="lt-box__shape"><span class="lt-box__num">3</span></div>
+              <span class="lt-box__arrow"></span>
+            </div>
+            <div class="lt-box" data-box="4" title="هفتگی">
+              <span class="lt-box__count">89</span>
+              <div class="lt-box__shape"><span class="lt-box__num">4</span></div>
+              <span class="lt-box__arrow"></span>
+            </div>
+            <div class="lt-box" data-box="5" data-active="true" title="دو هفته یکبار">
+              <span class="lt-box__count">233</span>
+              <div class="lt-box__shape"><span class="lt-box__num">5</span></div>
+              <span class="lt-box__arrow"></span>
             </div>
           </div>
-        </div>
 
-        <!-- STATE: empty -->
-        <div class="state" data-state="empty" hidden>
-          <div class="screen__body" style="display:flex;flex-direction:column;">
-            <div style="margin-top: auto; margin-bottom: auto; text-align: center;">
-              <div class="lottie-stage lottie-stage--lg" data-lottie="empty-box-plane"></div>
-              <h2 class="empty-block__title" data-i18n="v3.leitner.emptyTitle"></h2>
-              <p class="empty-block__sub" data-i18n-html="v3.leitner.emptyBody"></p>
-              <a href="/screens/vocabulary.html" class="btn btn--filled btn--block btn--lg" style="margin-top: var(--sp-5);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                <span data-i18n="v3.leitner.emptyCta"></span>
-              </a>
-              <div class="info-card">
-                <span class="info-card__icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.7 1 1.5 1 2.3v1h6v-1c0-.8.4-1.6 1-2.3A7 7 0 0 0 12 2z"/></svg>
-                </span>
-                <div class="info-card__text" data-i18n-html="v3.leitner.infoHint"></div>
-              </div>
-            </div>
+          <!-- Control pill: audio (English TTS in real app) | counter | trash -->
+          <div class="lt-control" dir="ltr">
+            <button type="button" class="lt-control__btn" data-lt-audio aria-label="Play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
+            </button>
+            <span class="lt-control__counter" data-lt-counter>1 / 75</span>
+            <button type="button" class="lt-control__btn lt-control__btn--danger" data-lt-trash aria-label="Delete">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+            </button>
+          </div>
+
+          <!-- Flashcard (always English content → dir=ltr) -->
+          <div class="lt-card">
+            <div class="lt-card__english" data-lt-word>ours</div>
+            <div class="lt-card__ipa" data-lt-ipa>/aʊrz/</div>
+          </div>
+
+          <!-- Mastery row: don't know | sort of | know | know well.
+               dir=ltr keeps the worst→best progression left-to-right
+               regardless of UI locale. Persian labels still render correctly
+               via Unicode bidi inside each pill. -->
+          <div class="lt-mastery" dir="ltr">
+            <button type="button" class="lt-mbtn lt-mbtn--dont" data-lt-move="reset">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+              <span data-i18n="v3.leitner.review.dontKnow"></span>
+            </button>
+            <button type="button" class="lt-mbtn lt-mbtn--sort" data-lt-move="stay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="14"/><circle cx="12" cy="19" r="1.6" fill="currentColor"/></svg>
+              <span data-i18n="v3.leitner.review.sortOf"></span>
+            </button>
+            <button type="button" class="lt-mbtn lt-mbtn--know" data-lt-move="+1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="v3.leitner.review.know"></span>
+            </button>
+            <button type="button" class="lt-mbtn lt-mbtn--well" data-lt-move="+2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 12 8 17 21 4"/><polyline points="9 12 14 17 21 10"/></svg>
+              <span data-i18n="v3.leitner.review.knowWell"></span>
+            </button>
           </div>
         </div>
 
@@ -107,6 +111,74 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppik3so"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppivpzo"></script>
+  <script>
+    // Leitner review interaction.
+    // - activeBox = the box being reviewed FROM (the one with the green outline)
+    // - On "don't know" the card lands in box 1
+    // - On "sort of" the card stays in the active box
+    // - On "know" the card moves +1 (capped at 5)
+    // - On "know well" the card moves +2 (capped at 5)
+    // The target box pulses, then we advance to the next card. Counter "1 / 75"
+    // tracks position within today's session — 75 is the user's daily limit.
+    (function () {
+      const WORDS = [
+        { word: 'ours',         ipa: '/aʊrz/' },
+        { word: 'resilience',   ipa: '/rɪˈzɪliəns/' },
+        { word: 'ephemeral',    ipa: '/ɪˈfemərəl/' },
+        { word: 'eloquent',     ipa: '/ˈeləkwənt/' },
+        { word: 'serendipity',  ipa: '/ˌserənˈdɪpɪti/' },
+        { word: 'ubiquitous',   ipa: '/juːˈbɪkwɪtəs/' },
+        { word: 'paradigm',     ipa: '/ˈpærədaɪm/' },
+        { word: 'meticulous',   ipa: '/məˈtɪkjələs/' },
+      ];
+      const TOTAL = 75; // user's daily-limit setting
+      let idx = 0;
+      const activeBox = 5;
+
+      const wordEl    = document.querySelector('[data-lt-word]');
+      const ipaEl     = document.querySelector('[data-lt-ipa]');
+      const counterEl = document.querySelector('[data-lt-counter]');
+
+      function paintCard () {
+        const item = WORDS[idx % WORDS.length];
+        wordEl.textContent = item.word;
+        ipaEl.textContent  = item.ipa;
+        counterEl.textContent = (idx + 1) + ' / ' + TOTAL;
+      }
+
+      function highlightLanding (target) {
+        const box = document.querySelector('.lt-box[data-box="' + target + '"]');
+        if (!box) return;
+        box.dataset.landed = 'true';
+        setTimeout(function () { box.removeAttribute('data-landed'); }, 800);
+      }
+
+      document.addEventListener('click', function (e) {
+        // Mastery buttons
+        const m = e.target.closest('[data-lt-move]');
+        if (m) {
+          const move = m.dataset.ltMove;
+          let target = activeBox;
+          if      (move === 'reset') target = 1;
+          else if (move === 'stay')  target = activeBox;
+          else if (move === '+1')    target = Math.min(5, activeBox + 1);
+          else if (move === '+2')    target = Math.min(5, activeBox + 2);
+          highlightLanding(target);
+          setTimeout(function () {
+            idx = (idx + 1) % TOTAL;
+            paintCard();
+          }, 720);
+          return;
+        }
+        // Trash → confirm popup, uses the existing v3.confirm.deleteLeitnerCard keys
+        if (e.target.closest('[data-lt-trash]')) {
+          if (window.confirmAction) window.confirmAction('deleteLeitnerCard');
+          return;
+        }
+        // Audio button — in the real app, plays TTS for the English word
+      });
+    })();
+  </script>
 </body>
 </html>

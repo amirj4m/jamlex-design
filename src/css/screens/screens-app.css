@@ -3087,6 +3087,198 @@
 .q-opt[data-state="wrong"] { background: #FCE4E4; border-color: #F9D2D2; color: #E15858; }
 
 /* ============================================================================
+   Leitner — rebuilt to match the product owner's reference
+   ----------------------------------------------------------------------------
+   5 envelope boxes numbered 1→5 LEFT→RIGHT (locked dir=ltr regardless of UI),
+   pill control row (audio / counter / trash), flashcard, 4 mastery buttons.
+   When the user picks a mastery button the target box "lands" with a pulse.
+   ============================================================================ */
+.lt-boxes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-2);
+  padding: var(--sp-3) 0;
+}
+.lt-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+.lt-box__count {
+  font-family: var(--font-family-latin);
+  font-size: 11px;
+  font-weight: var(--fw-extrabold);
+  padding: 2px 8px;
+  border-radius: var(--rd-pill);
+  z-index: 2;
+  margin-bottom: -10px;
+  position: relative;
+}
+.lt-box__shape {
+  width: 100%;
+  max-width: 64px;
+  aspect-ratio: 1 / 1;
+  background: var(--jx-bg);
+  border: 2px solid var(--jx-border);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--motion-fast), background var(--motion-fast),
+              box-shadow var(--motion-fast), transform var(--motion-fast);
+}
+/* Envelope-style flap (a curved notch carved out of the top edge) */
+.lt-box__shape::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 18px;
+  background: var(--jx-bg-app);
+  border-radius: 0 0 60% 60% / 0 0 100% 100%;
+  z-index: 1;
+}
+.lt-box__num {
+  font-family: var(--font-family-latin);
+  font-size: 22px;
+  font-weight: var(--fw-extrabold);
+  color: var(--jx-text);
+  position: relative;
+  z-index: 2;
+}
+.lt-box__arrow {
+  width: 0; height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid transparent;
+  margin-top: 6px;
+}
+.lt-box[data-active="true"] .lt-box__shape {
+  border-color: #2A8E4D;
+  box-shadow: 0 0 0 3px rgba(42,142,77,0.18);
+}
+.lt-box[data-active="true"] .lt-box__arrow { border-top-color: #2A8E4D; }
+
+/* Box-specific badge tint (matches per-box "stage" color cues) */
+.lt-box[data-box="1"] .lt-box__count { color: #6C5CE7; background: rgba(108,92,231,0.14); }
+.lt-box[data-box="2"] .lt-box__count { color: #4A90D9; background: rgba(74,144,217,0.14); }
+.lt-box[data-box="3"] .lt-box__count { color: #E59A1A; background: rgba(229,154,26,0.14); }
+.lt-box[data-box="4"] .lt-box__count { color: #1F9389; background: rgba(0,180,166,0.14); }
+.lt-box[data-box="5"] .lt-box__count { color: #2A8E4D; background: rgba(76,175,80,0.14); }
+
+/* "Landing" pulse — fired on the box where the just-rated card belongs */
+@keyframes lt-land-pulse {
+  0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(42,142,77,0.55); }
+  60%  { transform: scale(1.18); box-shadow: 0 0 0 16px rgba(42,142,77,0); }
+  100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(42,142,77,0); }
+}
+.lt-box[data-landed="true"] .lt-box__shape {
+  animation: lt-land-pulse 700ms ease-out;
+  border-color: #2A8E4D;
+  background: rgba(76,175,80,0.10);
+}
+
+/* Pill control row — audio | counter | trash */
+.lt-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  background: var(--jx-primary-glow);
+  border-radius: 18px;
+  padding: 6px;
+  margin-top: var(--sp-3);
+}
+.lt-control__btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--jx-bg);
+  color: var(--jx-primary);
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.lt-control__btn--danger { color: var(--jx-danger); }
+.lt-control__counter {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-family-latin);
+  font-size: var(--fs-body-m);
+  font-weight: var(--fw-bold);
+  color: var(--jx-primary);
+}
+
+/* Flashcard */
+.lt-card {
+  background: var(--jx-bg);
+  border-radius: 24px;
+  padding: var(--sp-7) var(--sp-5);
+  margin-top: var(--sp-3);
+  box-shadow: 0 6px 24px rgba(15,30,40,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  gap: var(--sp-2);
+}
+.lt-card__english {
+  font-family: var(--font-family-latin);
+  font-size: 48px;
+  font-weight: var(--fw-extrabold);
+  color: var(--jx-text);
+  letter-spacing: -1px;
+  direction: ltr;
+}
+.lt-card__ipa {
+  font-family: var(--font-family-latin);
+  font-size: var(--fs-body-l);
+  color: var(--jx-text-2);
+  direction: ltr;
+}
+
+/* Mastery buttons row (4 equal pills, LTR order dont→sort→know→well) */
+.lt-mastery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+.lt-mbtn {
+  background: var(--jx-bg);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: var(--sp-3) 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  text-align: center;
+  transition: transform var(--motion-fast), background var(--motion-fast);
+}
+.lt-mbtn:hover { transform: translateY(-2px); }
+.lt-mbtn svg { width: 22px; height: 22px; }
+.lt-mbtn--dont { background: rgba(244, 67, 54, 0.10); color: #D63333; }
+.lt-mbtn--sort { background: rgba(229, 154, 26, 0.14); color: #C77F00; }
+.lt-mbtn--know { background: rgba(0, 180, 166, 0.14); color: #1F9389; }
+.lt-mbtn--well { background: rgba(76, 175, 80, 0.18); color: #2A8E4D; }
+
+/* ============================================================================
    Generic centered modal card (used by my-words "New Category" form)
    ============================================================================ */
 .modal-card {

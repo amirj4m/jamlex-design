@@ -5,13 +5,13 @@
 // preview controls (locale/theme picker + "back to hub" link).
 // ============================================================================
 
-import { initI18n, setLocale, getLocale, supportedLocales } from './i18n.js?v=mppik3so';
-import { initTheme, setTheme, getTheme } from './theme.js?v=mppik3so';
-import { initAudio } from './audio.js?v=mppik3so';
-import { injectStamps } from './hero.js?v=mppik3so';
-import { injectNavs } from './bottomnav.js?v=mppik3so';
-import { mountAllStages } from './lottie.js?v=mppik3so';
-import './popup.js?v=mppik3so';  // side-effect: registers window.showPopup
+import { initI18n, setLocale, getLocale, supportedLocales } from './i18n.js?v=mppivpzo';
+import { initTheme, setTheme, getTheme } from './theme.js?v=mppivpzo';
+import { initAudio } from './audio.js?v=mppivpzo';
+import { injectStamps } from './hero.js?v=mppivpzo';
+import { injectNavs } from './bottomnav.js?v=mppivpzo';
+import { mountAllStages } from './lottie.js?v=mppivpzo';
+import './popup.js?v=mppivpzo';  // side-effect: registers window.showPopup
 
 (async function bootstrap() {
   initTheme();
