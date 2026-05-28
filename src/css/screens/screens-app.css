@@ -3075,11 +3075,18 @@
   text-align: center;
   padding: 10px var(--sp-3);
   border-radius: var(--rd-pill);
+  border: 0;
+  background: transparent;
+  font-family: inherit;
   font-weight: var(--fw-semibold);
   color: var(--jx-text-2);
   text-decoration: none;
   font-size: var(--fs-body-s);
-  transition: background var(--motion-fast), color var(--motion-fast);
+  cursor: pointer;
+  /* Smooth, instant-feeling transition — the underlying views swap with
+     [hidden] which is itself instant, but this softens the pill jump. */
+  transition: background 180ms var(--ease-out), color 180ms var(--ease-out),
+              box-shadow 180ms var(--ease-out);
 }
 .stats-tab:hover { color: var(--jx-text); text-decoration: none; }
 .stats-tab--active {

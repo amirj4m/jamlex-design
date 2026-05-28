@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppwoho3" />
-  <link rel="stylesheet" href="/css/base.css?v=mppwoho3" />
-  <link rel="stylesheet" href="/css/components.css?v=mppwoho3" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppwoho3" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppwoho3" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppwoho3" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppwoho3" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppwoho3" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppx2g4v" />
+  <link rel="stylesheet" href="/css/base.css?v=mppx2g4v" />
+  <link rel="stylesheet" href="/css/components.css?v=mppx2g4v" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppx2g4v" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppx2g4v" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppx2g4v" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppx2g4v" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppx2g4v" />
 </head>
 <body>
   <div class="preview-controls">
@@ -34,130 +34,257 @@
                TODO(flutter): definitions of streak, record, words-learned,
                study-hours are LOCKED in architecture_stats_definitions.md. -->
 
-          <!-- Two-tab switcher: My progress (this page) vs Compare with others -->
+          <!-- Two-tab switcher: pure toggle — both tab views live on this page
+               and we swap visibility with JS (NO page reload). Hash routing
+               (#league) deep-links to the league tab. -->
           <div class="stats-tabs">
-            <a href="/screens/stats.html" class="stats-tab stats-tab--active" data-i18n="v3.stats.tabMine"></a>
-            <a href="/screens/leaderboard.html" class="stats-tab" data-i18n="v3.stats.tabCompare"></a>
+            <button type="button" class="stats-tab stats-tab--active" data-tab-btn="mine" data-i18n="v3.stats.tabMine"></button>
+            <button type="button" class="stats-tab" data-tab-btn="league" data-i18n="v3.stats.tabLeague"></button>
           </div>
 
-          <!-- TOP — 3 tinted stat tiles -->
-          <div class="stats-top">
-            <div class="stats-tile stats-tile--blue">
-              <span class="stats-tile__icon">📚</span>
-              <span class="stats-tile__val">0</span>
-              <span class="stats-tile__label" data-i18n="v3.stats.wordsLearned"></span>
+          <!-- ============================================================
+               VIEW: MY PROGRESS
+               ============================================================ -->
+          <div data-tab-view="mine">
+            <!-- TOP — 3 tinted stat tiles -->
+            <div class="stats-top">
+              <div class="stats-tile stats-tile--blue">
+                <span class="stats-tile__icon">📚</span>
+                <span class="stats-tile__val">0</span>
+                <span class="stats-tile__label" data-i18n="v3.stats.wordsLearned"></span>
+              </div>
+              <div class="stats-tile stats-tile--orange">
+                <span class="stats-tile__icon">🔥</span>
+                <span class="stats-tile__val">1</span>
+                <span class="stats-tile__label" data-i18n="v3.stats.chain"></span>
+              </div>
+              <div class="stats-tile stats-tile--teal">
+                <span class="stats-tile__icon">⏱️</span>
+                <span class="stats-tile__val">0</span>
+                <span class="stats-tile__label" data-i18n="v3.stats.studyHours"></span>
+              </div>
             </div>
-            <div class="stats-tile stats-tile--orange">
-              <span class="stats-tile__icon">🔥</span>
-              <span class="stats-tile__val">1</span>
-              <span class="stats-tile__label" data-i18n="v3.stats.chain"></span>
-            </div>
-            <div class="stats-tile stats-tile--teal">
-              <span class="stats-tile__icon">⏱️</span>
-              <span class="stats-tile__val">0</span>
-              <span class="stats-tile__label" data-i18n="v3.stats.studyHours"></span>
-            </div>
-          </div>
 
-          <!-- Achievements card -->
-          <!-- TODO(flutter): unlock rules from architecture_stats_definitions.md §6:
-               legend = study_hours >= 4000,
-               goldenStreak = current_streak >= 90,
-               premium = subscription.status == 'active',
-               firstStep = ANY user-action exists (first card to Leitner, first
-               search, etc.). Each tile drops [data-locked] when its rule passes. -->
-          <div class="stats-card">
-            <div class="stats-card__head">
-              <span class="stats-card__title">
-                <svg viewBox="0 0 24 24" fill="#F5B945"><path d="M7 2h10v2h4v4a4 4 0 0 1-4 4 5 5 0 0 1-3 3v3h3v2H7v-2h3v-3a5 5 0 0 1-3-3 4 4 0 0 1-4-4V4h4V2z"/></svg>
-                <span data-i18n="v3.stats.achievements"></span>
-              </span>
-              <span class="stats-card__counter">0 / 4</span>
-            </div>
-            <div class="ach-grid">
-              <div class="ach-cell" data-locked="true">
-                <span class="ach-cell__icon">👑</span>
-                <span class="ach-cell__name" data-i18n="v3.stats.achLegend"></span>
-                <span class="ach-cell__hint" data-i18n="v3.stats.achLegendHint"></span>
+            <!-- Achievements card -->
+            <!-- TODO(flutter): unlock rules from architecture_stats_definitions.md §6:
+                 legend = study_hours >= 4000,
+                 goldenStreak = current_streak >= 90,
+                 premium = subscription.status == 'active',
+                 firstStep = ANY user-action exists (first card to Leitner, first
+                 search, etc.). Each tile drops [data-locked] when its rule passes. -->
+            <div class="stats-card">
+              <div class="stats-card__head">
+                <span class="stats-card__title">
+                  <svg viewBox="0 0 24 24" fill="#F5B945"><path d="M7 2h10v2h4v4a4 4 0 0 1-4 4 5 5 0 0 1-3 3v3h3v2H7v-2h3v-3a5 5 0 0 1-3-3 4 4 0 0 1-4-4V4h4V2z"/></svg>
+                  <span data-i18n="v3.stats.achievements"></span>
+                </span>
+                <span class="stats-card__counter">0 / 4</span>
               </div>
-              <div class="ach-cell" data-locked="true">
-                <span class="ach-cell__icon">🔥</span>
-                <span class="ach-cell__name" data-i18n="v3.stats.achGolden"></span>
-                <span class="ach-cell__hint" data-i18n="v3.stats.achGoldenHint"></span>
-              </div>
-              <div class="ach-cell" data-locked="true">
-                <span class="ach-cell__icon">💎</span>
-                <span class="ach-cell__name" data-i18n="v3.stats.achPremium"></span>
-                <span class="ach-cell__hint" data-i18n="v3.stats.achPremiumHint"></span>
-              </div>
-              <div class="ach-cell" data-locked="true">
-                <span class="ach-cell__icon">🎯</span>
-                <span class="ach-cell__name" data-i18n="v3.stats.achFirstStep"></span>
-                <span class="ach-cell__hint" data-i18n="v3.stats.achFirstStepHint"></span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Activity year heatmap -->
-          <div class="stats-card">
-            <div class="stats-card__head">
-              <span class="stats-card__title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--jx-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span data-i18n="v3.stats.activity"></span>
-              </span>
-              <!-- Only 2026 — Jamlex launched this year, no 2025 data exists. -->
-              <span class="year-label">2026</span>
-            </div>
-            <div class="heatmap-year">
-              <div class="heatmap-year__months">
-                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
-              </div>
-              <div class="heatmap-year__main">
-                <div class="heatmap-year__days">
-                  <span></span><span>M</span><span></span><span>W</span><span></span><span>F</span><span></span>
+              <div class="ach-grid">
+                <div class="ach-cell" data-locked="true">
+                  <span class="ach-cell__icon">👑</span>
+                  <span class="ach-cell__name" data-i18n="v3.stats.achLegend"></span>
+                  <span class="ach-cell__hint" data-i18n="v3.stats.achLegendHint"></span>
                 </div>
-                <div class="heatmap-year__grid" data-heatmap-grid></div>
-              </div>
-              <div class="heatmap-legend">
-                <span data-i18n="v3.stats.more"></span>
-                <div class="heatmap-legend__cells">
-                  <div class="heatmap-cell" data-level="4"></div>
-                  <div class="heatmap-cell" data-level="3"></div>
-                  <div class="heatmap-cell" data-level="2"></div>
-                  <div class="heatmap-cell" data-level="1"></div>
-                  <div class="heatmap-cell"></div>
+                <div class="ach-cell" data-locked="true">
+                  <span class="ach-cell__icon">🔥</span>
+                  <span class="ach-cell__name" data-i18n="v3.stats.achGolden"></span>
+                  <span class="ach-cell__hint" data-i18n="v3.stats.achGoldenHint"></span>
                 </div>
-                <span data-i18n="v3.stats.less"></span>
+                <div class="ach-cell" data-locked="true">
+                  <span class="ach-cell__icon">💎</span>
+                  <span class="ach-cell__name" data-i18n="v3.stats.achPremium"></span>
+                  <span class="ach-cell__hint" data-i18n="v3.stats.achPremiumHint"></span>
+                </div>
+                <div class="ach-cell" data-locked="true">
+                  <span class="ach-cell__icon">🎯</span>
+                  <span class="ach-cell__name" data-i18n="v3.stats.achFirstStep"></span>
+                  <span class="ach-cell__hint" data-i18n="v3.stats.achFirstStepHint"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity year heatmap -->
+            <div class="stats-card">
+              <div class="stats-card__head">
+                <span class="stats-card__title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--jx-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span data-i18n="v3.stats.activity"></span>
+                </span>
+                <!-- Only 2026 — Jamlex launched this year, no 2025 data exists. -->
+                <span class="year-label">2026</span>
+              </div>
+              <div class="heatmap-year">
+                <div class="heatmap-year__months">
+                  <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
+                </div>
+                <div class="heatmap-year__main">
+                  <div class="heatmap-year__days">
+                    <span></span><span>M</span><span></span><span>W</span><span></span><span>F</span><span></span>
+                  </div>
+                  <div class="heatmap-year__grid" data-heatmap-grid></div>
+                </div>
+                <div class="heatmap-legend">
+                  <span data-i18n="v3.stats.more"></span>
+                  <div class="heatmap-legend__cells">
+                    <div class="heatmap-cell" data-level="4"></div>
+                    <div class="heatmap-cell" data-level="3"></div>
+                    <div class="heatmap-cell" data-level="2"></div>
+                    <div class="heatmap-cell" data-level="1"></div>
+                    <div class="heatmap-cell"></div>
+                  </div>
+                  <span data-i18n="v3.stats.less"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- This week mini-card -->
+            <div class="stats-card">
+              <div class="stats-card__head">
+                <span class="stats-card__title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="var(--jx-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span data-i18n="v3.stats.thisWeek"></span>
+                </span>
+              </div>
+              <!-- Order matches the order the product owner described:
+                   study hours, words learned, days active. -->
+              <div class="week-mini">
+                <div class="week-mini__cell">
+                  <span class="week-mini__icon" style="color:#1F9389;">⏱️</span>
+                  <span class="week-mini__val">0h</span>
+                  <span class="week-mini__label" data-i18n="v3.stats.weekStudy"></span>
+                </div>
+                <div class="week-mini__cell">
+                  <span class="week-mini__icon" style="color:#4A90D9;">📖</span>
+                  <span class="week-mini__val">0</span>
+                  <span class="week-mini__label" data-i18n="v3.stats.weekWords"></span>
+                </div>
+                <div class="week-mini__cell">
+                  <span class="week-mini__icon" style="color:#E59A1A;">📅</span>
+                  <span class="week-mini__val">0</span>
+                  <span class="week-mini__label" data-i18n="v3.stats.weekDays"></span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- This week mini-card -->
-          <div class="stats-card">
-            <div class="stats-card__head">
-              <span class="stats-card__title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--jx-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span data-i18n="v3.stats.thisWeek"></span>
-              </span>
+          <!-- ============================================================
+               VIEW: GLOBAL LEAGUE
+               ============================================================ -->
+          <div data-tab-view="league" hidden>
+            <div class="page-title" style="margin-bottom:var(--sp-3);">
+              <p class="page-title__sub" data-i18n="v3.leaderboard.subtitle"></p>
             </div>
-            <!-- Order matches the order the product owner described:
-                 study hours, words learned, days active. -->
-            <div class="week-mini">
-              <div class="week-mini__cell">
-                <span class="week-mini__icon" style="color:#1F9389;">⏱️</span>
-                <span class="week-mini__val">0h</span>
-                <span class="week-mini__label" data-i18n="v3.stats.weekStudy"></span>
+
+            <!-- Your rank panel -->
+            <div class="rank-panel">
+              <div class="rank-panel__col">
+                <div class="rank-panel__ring">
+                  <svg viewBox="0 0 60 60" fill="none">
+                    <circle cx="30" cy="30" r="26" stroke="var(--jx-input-bg)" stroke-width="4"/>
+                    <circle cx="30" cy="30" r="26" stroke="var(--jx-primary)" stroke-width="4" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="36" transform="rotate(-90 30 30)"/>
+                    <text x="30" y="36" text-anchor="middle" font-size="14" font-weight="800" fill="var(--jx-primary)" font-family="Inter">78%</text>
+                  </svg>
+                </div>
+                <div class="rank-panel__cap" data-i18n-html="v3.leaderboard.percentAbove"></div>
               </div>
-              <div class="week-mini__cell">
-                <span class="week-mini__icon" style="color:#4A90D9;">📖</span>
-                <span class="week-mini__val">0</span>
-                <span class="week-mini__label" data-i18n="v3.stats.weekWords"></span>
+              <div class="rank-panel__col rank-panel__col--center">
+                <div class="rank-panel__avatar"><span>T</span></div>
+                <div class="rank-panel__name">Tester</div>
+                <span class="pod__level-chip" style="background:var(--jx-input-bg);color:var(--jx-text-2);" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
               </div>
-              <div class="week-mini__cell">
-                <span class="week-mini__icon" style="color:#E59A1A;">📅</span>
-                <span class="week-mini__val">0</span>
-                <span class="week-mini__label" data-i18n="v3.stats.weekDays"></span>
+              <div class="rank-panel__col">
+                <div class="rank-panel__cap" data-i18n="v3.leaderboard.yourRank"></div>
+                <div class="rank-panel__rank">128</div>
+                <div class="rank-panel__cap" style="font-family:var(--font-family-latin),var(--font-family);" data-i18n="v3.leaderboard.ofUsers" data-i18n-vars='{"n":"12,456"}'></div>
               </div>
+            </div>
+
+            <!-- Section heading: top -->
+            <div class="section-h">
+              <div class="section-h__title" data-i18n="v3.leaderboard.topTitle"></div>
+            </div>
+
+            <!-- Top-3 podium -->
+            <div class="podium-3">
+              <!-- 2nd -->
+              <div class="pod pod--2">
+                <span class="pod__rank">2</span>
+                <div class="pod__crown">👑</div>
+                <div class="pod__avatar"><span>P</span></div>
+                <div class="pod__name">Parsa_1378</div>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":26}'></span>
+                <div class="pod__xp">11,230 XP</div>
+              </div>
+              <!-- 1st (center, taller) -->
+              <div class="pod pod--1">
+                <span class="pod__rank">1</span>
+                <div class="pod__crown">👑</div>
+                <div class="pod__avatar"><span>A</span></div>
+                <div class="pod__name">Ali.reza</div>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":28}'></span>
+                <div class="pod__xp">12,560 XP</div>
+              </div>
+              <!-- 3rd -->
+              <div class="pod pod--3">
+                <span class="pod__rank">3</span>
+                <div class="pod__crown">👑</div>
+                <div class="pod__avatar"><span>M</span></div>
+                <div class="pod__name">Mahdi_77</div>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
+                <div class="pod__xp">10,245 XP</div>
+              </div>
+            </div>
+
+            <!-- Rank list -->
+            <div class="lb-list">
+              <div class="lb-row">
+                <span class="lb-row__num">4</span>
+                <span class="lb-row__avatar"><span>A</span></span>
+                <span class="lb-row__name">Armin_s</span>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
+                <span class="lb-row__xp">9,850 XP</span>
+              </div>
+              <div class="lb-row">
+                <span class="lb-row__num">5</span>
+                <span class="lb-row__avatar"><span>S</span></span>
+                <span class="lb-row__name">Sina_2002</span>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":22}'></span>
+                <span class="lb-row__xp">9,120 XP</span>
+              </div>
+              <div class="lb-row">
+                <span class="lb-row__num">6</span>
+                <span class="lb-row__avatar"><span>H</span></span>
+                <span class="lb-row__name">Hamiid</span>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":21}'></span>
+                <span class="lb-row__xp">8,760 XP</span>
+              </div>
+              <div class="lb-row">
+                <span class="lb-row__num">7</span>
+                <span class="lb-row__avatar"><span>m</span></span>
+                <span class="lb-row__name">mohsen.01</span>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
+                <span class="lb-row__xp">8,230 XP</span>
+              </div>
+              <div class="lb-row" data-me="true">
+                <span class="lb-row__num">128</span>
+                <span class="lb-row__avatar"><span>T</span></span>
+                <span class="lb-row__name">Tester <span style="color:var(--jx-primary);" data-i18n="v3.leaderboard.you"></span></span>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
+                <span class="lb-row__xp">2,340 XP</span>
+              </div>
+              <div class="lb-row">
+                <span class="lb-row__num">129</span>
+                <span class="lb-row__avatar"><span>R</span></span>
+                <span class="lb-row__name">Reza_m</span>
+                <span class="pod__level-chip" data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
+                <span class="lb-row__xp">2,330 XP</span>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:6px;justify-content:center;margin-top:var(--sp-4);font-size:var(--fs-caption);color:var(--jx-text-3);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span data-i18n="v3.leaderboard.updatedHint"></span>
             </div>
           </div>
         </div>
@@ -167,50 +294,72 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppwoho3"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppx2g4v"></script>
   <script>
-    // Generate the 22×7 heatmap grid (GitHub-style year-to-date).
-    // The Flutter app populates each cell from session data:
-    //   `learning_events` aggregated by (year, day_of_year).
-    // For the design preview we sprinkle a believable activity pattern so
-    // reviewers see the colour scale — recent week has more cells lit,
-    // earlier weeks are sparse, most of the year is still empty (the
-    // user just started).
     (function () {
-      const grid = document.querySelector('[data-heatmap-grid]');
-      if (!grid) return;
-      const COLS = 22;
-      const ROWS = 7;
+      // -------- Tab toggle (instant, no page reload) --------
+      const tabs = document.querySelectorAll('[data-tab-btn]');
+      const views = document.querySelectorAll('[data-tab-view]');
+      const body = document.querySelector('.screen__body');
 
-      // Demo activity map: { columnIndex: { rowIndex: level } }.
-      // columnIndex is 0..21, rowIndex is 0..6 (Sun=0..Sat=6).
-      // Cells not listed are empty (level 0).
-      const DEMO = {
-        // Older months — very sparse
-        3:  { 2: 1, 4: 1 },
-        6:  { 1: 2, 3: 1 },
-        9:  { 0: 1 },
-        11: { 4: 1, 5: 2 },
-        13: { 2: 1, 3: 2, 4: 1 },
-        15: { 1: 1, 2: 2, 3: 3, 4: 2 },
-        17: { 0: 2, 1: 3, 2: 2, 3: 4 },
-        // Recent weeks — building up
-        18: { 1: 3, 2: 4, 3: 3, 4: 2 },
-        19: { 0: 2, 1: 4, 2: 3, 3: 4, 4: 3, 5: 2 },
-        20: { 1: 4, 2: 3, 3: 4, 4: 4, 5: 3 },
-        21: { 0: 3, 1: 4, 2: 4, 3: 3, 4: 4, 5: 2 },
-      };
-
-      const cells = [];
-      // grid-auto-flow: column means we fill column-by-column.
-      for (let c = 0; c < COLS; c++) {
-        for (let r = 0; r < ROWS; r++) {
-          const level = (DEMO[c] && DEMO[c][r]) || 0;
-          const attr = level ? ` data-level="${level}"` : '';
-          cells.push(`<div class="heatmap-cell"${attr}></div>`);
-        }
+      function show (target) {
+        tabs.forEach(b => {
+          b.classList.toggle('stats-tab--active', b.dataset.tabBtn === target);
+          b.setAttribute('aria-selected', b.dataset.tabBtn === target ? 'true' : 'false');
+        });
+        views.forEach(v => {
+          v.hidden = v.dataset.tabView !== target;
+        });
+        // Reset scroll on each switch so the user always lands at the top of
+        // the new view (otherwise scroll position from the previous view
+        // bleeds through).
+        if (body) body.scrollTop = 0;
       }
-      grid.innerHTML = cells.join('');
+
+      tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.tabBtn;
+          show(target);
+          // Persist tab in URL hash so refresh / share keeps the tab.
+          const hash = target === 'league' ? '#league' : '';
+          history.replaceState(null, '', location.pathname + hash);
+        });
+      });
+
+      // Initial tab from hash (deep-link support: /stats.html#league).
+      const initial = location.hash === '#league' ? 'league' : 'mine';
+      show(initial);
+
+      // -------- Heatmap generation (year-to-date 2026) --------
+      const grid = document.querySelector('[data-heatmap-grid]');
+      if (grid) {
+        const COLS = 22;
+        const ROWS = 7;
+        // Demo activity: { columnIndex: { rowIndex: level } }. Flutter will
+        // replace this with a real query against `learning_events`.
+        const DEMO = {
+          3:  { 2: 1, 4: 1 },
+          6:  { 1: 2, 3: 1 },
+          9:  { 0: 1 },
+          11: { 4: 1, 5: 2 },
+          13: { 2: 1, 3: 2, 4: 1 },
+          15: { 1: 1, 2: 2, 3: 3, 4: 2 },
+          17: { 0: 2, 1: 3, 2: 2, 3: 4 },
+          18: { 1: 3, 2: 4, 3: 3, 4: 2 },
+          19: { 0: 2, 1: 4, 2: 3, 3: 4, 4: 3, 5: 2 },
+          20: { 1: 4, 2: 3, 3: 4, 4: 4, 5: 3 },
+          21: { 0: 3, 1: 4, 2: 4, 3: 3, 4: 4, 5: 2 },
+        };
+        const cells = [];
+        for (let c = 0; c < COLS; c++) {
+          for (let r = 0; r < ROWS; r++) {
+            const level = (DEMO[c] && DEMO[c][r]) || 0;
+            const attr = level ? ` data-level="${level}"` : '';
+            cells.push(`<div class="heatmap-cell"${attr}></div>`);
+          }
+        }
+        grid.innerHTML = cells.join('');
+      }
     })();
   </script>
 </body>
