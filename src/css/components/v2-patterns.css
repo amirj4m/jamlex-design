@@ -403,6 +403,8 @@
   border: 0; background: transparent;
 }
 .sb-row__main { display: flex; flex-direction: column; gap: 6px; min-width: 0; text-align: start; }
+.sb-row__menu--trash { color: var(--jx-danger); }
+.sb-row__menu--trash:hover { background: rgba(244, 67, 54, 0.10); }
 .sb-row__title { font-weight: var(--fw-bold); font-size: var(--fs-body-l); }
 .sb-row__author { font-size: var(--fs-body-s); color: var(--jx-text-2); }
 .sb-row__progress {

@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppjrmfg" />
-  <link rel="stylesheet" href="/css/base.css?v=mppjrmfg" />
-  <link rel="stylesheet" href="/css/components.css?v=mppjrmfg" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjrmfg" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppjrmfg" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppjrmfg" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjrmfg" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjrmfg" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppjx95v" />
+  <link rel="stylesheet" href="/css/base.css?v=mppjx95v" />
+  <link rel="stylesheet" href="/css/components.css?v=mppjx95v" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjx95v" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppjx95v" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppjx95v" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjx95v" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjx95v" />
 </head>
 <body>
   <div class="preview-controls">
@@ -36,7 +36,7 @@
       <div class="screen">
         <header class="topbar topbar--transparent">
           <div class="topbar__leading">
-            <a href="/screens/home.html" class="btn-icon back-btn" aria-label="Back"></a>
+            <a href="/screens/reading.html" class="btn-icon back-btn" aria-label="Back"></a>
           </div>
           <h1 class="topbar__title" data-i18n="v3.savedBooks.title"></h1>
           <div class="topbar__trailing">
@@ -49,17 +49,15 @@
         <!-- STATE: list -->
         <div class="state" data-state="list">
           <div class="screen__body">
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--sp-2) 0 var(--sp-3);">
-              <button style="display:inline-flex;align-items:center;gap:4px;background:transparent;border:0;color:var(--jx-text-2);font-weight:var(--fw-semibold);font-size:var(--fs-body-s);cursor:pointer;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                <span data-i18n="v3.savedBooks.sort"></span>
-              </button>
+            <div style="display:flex;justify-content:flex-start;align-items:center;padding:var(--sp-2) 0 var(--sp-3);">
               <span style="font-size:var(--fs-body-s);color:var(--jx-text-2);" data-i18n="v3.savedBooks.booksCount" data-i18n-vars='{"n":5}'></span>
             </div>
 
             <div class="sb-list">
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
+                <button class="sb-row__menu sb-row__menu--trash" aria-label="Delete" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m4 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                </button>
                 <div class="sb-row__main">
                   <div class="sb-row__title">Inside Reading - 1</div>
                   <div class="sb-row__author">Arline Burgmeier</div>
@@ -72,7 +70,9 @@
                 <div class="sb-row__cover" style="background:linear-gradient(135deg,#1B5E20,#4CAF50);"></div>
               </a>
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
+                <button class="sb-row__menu sb-row__menu--trash" aria-label="Delete" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m4 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                </button>
                 <div class="sb-row__main">
                   <div class="sb-row__title" data-i18n="v3.savedBooks.titleAtomic"></div>
                   <div class="sb-row__author" data-i18n="v3.savedBooks.authorAtomic"></div>
@@ -85,7 +85,9 @@
                 <div class="sb-row__cover" style="background:linear-gradient(135deg,#FFB74D,#E65100);"></div>
               </a>
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
+                <button class="sb-row__menu sb-row__menu--trash" aria-label="Delete" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m4 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                </button>
                 <div class="sb-row__main">
                   <div class="sb-row__title">The Psychology of Money</div>
                   <div class="sb-row__author">Morgan Housel</div>
@@ -98,7 +100,9 @@
                 <div class="sb-row__cover" style="background:linear-gradient(135deg,#E0E0E0,#9E9E9E);"></div>
               </a>
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
+                <button class="sb-row__menu sb-row__menu--trash" aria-label="Delete" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m4 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                </button>
                 <div class="sb-row__main">
                   <div class="sb-row__title" data-i18n="v3.savedBooks.titleCompound"></div>
                   <div class="sb-row__author" data-i18n="v3.savedBooks.authorCompound"></div>
@@ -111,7 +115,9 @@
                 <div class="sb-row__cover" style="background:linear-gradient(135deg,#EF5350,#B71C1C);"></div>
               </a>
               <a href="/screens/book-detail.html" class="sb-row">
-                <button class="sb-row__menu" aria-label="Menu" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">⋮</button>
+                <button class="sb-row__menu sb-row__menu--trash" aria-label="Delete" onclick="event.preventDefault();event.stopPropagation();window.confirmAction('deleteSavedBook');">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m4 0V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>
+                </button>
                 <div class="sb-row__main">
                   <div class="sb-row__title">Deep Work</div>
                   <div class="sb-row__author">Cal Newport</div>
@@ -154,6 +160,6 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppjrmfg"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppjx95v"></script>
 </body>
 </html>
