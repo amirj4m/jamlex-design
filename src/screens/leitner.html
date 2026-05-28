@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppjgudh" />
-  <link rel="stylesheet" href="/css/base.css?v=mppjgudh" />
-  <link rel="stylesheet" href="/css/components.css?v=mppjgudh" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjgudh" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppjgudh" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppjgudh" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjgudh" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjgudh" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/base.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/components.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjl8vu" />
 </head>
 <body>
   <div class="preview-controls">
@@ -40,6 +40,11 @@
         </header>
 
         <div class="screen__body lt-session" data-flipped="false" data-lt-session>
+        <!-- ⚠️ Leitner scheduling formula is LOCKED in memory:
+             architecture_leitner_algorithm.md. Box intervals 1/2/4/7/14 days,
+             today's queue ordering (new first, most overdue next, lower box,
+             older), overflow handling, graduation rules. Any Flutter port
+             MUST follow that document. -->
         <!-- STATE: review (has cards). Default visible. -->
         <div class="state" data-state="review">
           <!-- Five Leitner boxes 1→5 LEFT→RIGHT (dir=ltr locks the order).
@@ -163,7 +168,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppjgudh"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppjl8vu"></script>
   <script>
     // Leitner review interaction.
     // The active box (green outline) is the box the current card lives in.
