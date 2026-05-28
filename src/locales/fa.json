@@ -902,7 +902,9 @@
       "achLegend": "لجند",
       "achMonthly": "ماهانه",
       "achPremium": "پریمیوم",
-      "achFirstStep": "اولین قدم"
+      "achFirstStep": "اولین قدم",
+      "tabMine": "پیشرفت من",
+      "tabCompare": "مقایسه با دیگران"
     },
     "leaderboard": {
       "subtitle": "جایگاه شما در بین همه کاربران",

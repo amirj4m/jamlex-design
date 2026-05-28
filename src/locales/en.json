@@ -901,7 +901,9 @@
       "achLegend": "Legend",
       "achMonthly": "Monthly",
       "achPremium": "Premium",
-      "achFirstStep": "First step"
+      "achFirstStep": "First step",
+      "tabMine": "My progress",
+      "tabCompare": "Compare with others"
     },
     "leaderboard": {
       "subtitle": "Your rank among all users",

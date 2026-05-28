@@ -3086,6 +3086,36 @@
 .q-opt[data-state="correct"] { background: #DCF4E2; border-color: #C9EDD2; color: #2A8E4D; }
 .q-opt[data-state="wrong"] { background: #FCE4E4; border-color: #F9D2D2; color: #E15858; }
 
+/* Top-of-screen pill tabs used on stats + leaderboard to swap between
+   "My progress" and "Compare with others". Each tab is a real link to the
+   other page — the active state is decided by the page itself. */
+.stats-tabs {
+  display: flex;
+  background: var(--jx-input-bg);
+  border-radius: var(--rd-pill);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: var(--sp-4);
+}
+.stats-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px var(--sp-3);
+  border-radius: var(--rd-pill);
+  font-weight: var(--fw-semibold);
+  color: var(--jx-text-2);
+  text-decoration: none;
+  font-size: var(--fs-body-s);
+  transition: background var(--motion-fast), color var(--motion-fast);
+}
+.stats-tab:hover { color: var(--jx-text); text-decoration: none; }
+.stats-tab--active {
+  background: var(--jx-bg);
+  color: var(--jx-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+[data-theme="dark"] .stats-tab--active { background: rgba(255,255,255,0.10); }
+
 /* ============================================================================
    Stats — rebuilt to match the product owner's reference (3 tinted tiles,
    achievements card, year heatmap, this-week mini-card)

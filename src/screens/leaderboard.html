@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppk6sbo" />
-  <link rel="stylesheet" href="/css/base.css?v=mppk6sbo" />
-  <link rel="stylesheet" href="/css/components.css?v=mppk6sbo" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppk6sbo" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppk6sbo" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppk6sbo" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppk6sbo" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppk6sbo" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppkdag2" />
+  <link rel="stylesheet" href="/css/base.css?v=mppkdag2" />
+  <link rel="stylesheet" href="/css/components.css?v=mppkdag2" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppkdag2" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppkdag2" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppkdag2" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppkdag2" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppkdag2" />
 </head>
 <body>
   <div class="preview-controls">
@@ -42,6 +42,12 @@
         <!-- STATE: data -->
         <div class="state" data-state="data">
           <div class="screen__body">
+            <!-- Two-tab switcher: My progress (stats page) vs Compare with others (this page) -->
+            <div class="stats-tabs">
+              <a href="/screens/stats.html" class="stats-tab" data-i18n="v3.stats.tabMine"></a>
+              <a href="/screens/leaderboard.html" class="stats-tab stats-tab--active" data-i18n="v3.stats.tabCompare"></a>
+            </div>
+
             <div class="page-title">
               <p class="page-title__sub" data-i18n="v3.leaderboard.subtitle"></p>
             </div>
@@ -172,6 +178,6 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppk6sbo"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppkdag2"></script>
 </body>
 </html>
