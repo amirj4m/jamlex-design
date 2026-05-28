@@ -5,10 +5,10 @@
 // and the screen previews.
 // ============================================================================
 
-import { initI18n, setLocale, getLocale, supportedLocales } from './i18n.js?v=mppjx95v';
-import { initTheme, setTheme, getTheme } from './theme.js?v=mppjx95v';
-import { initAudio } from './audio.js?v=mppjx95v';
-import './popup.js?v=mppjx95v';  // side-effect: registers window.showPopup
+import { initI18n, setLocale, getLocale, supportedLocales } from './i18n.js?v=mppjzszv';
+import { initTheme, setTheme, getTheme } from './theme.js?v=mppjzszv';
+import { initAudio } from './audio.js?v=mppjzszv';
+import './popup.js?v=mppjzszv';  // side-effect: registers window.showPopup
 
 (async function bootstrap() {
   initTheme();
