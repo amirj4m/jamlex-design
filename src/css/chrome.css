@@ -124,14 +124,17 @@
   color: var(--jx-text);
   font-size: 0;
 }
+/* Full arrow shape (line + arrowhead) instead of a bare chevron — much
+   more recognizable as "back" at a glance, especially in the dark green
+   hero on book-detail where the small chevron was invisible. */
 .back-btn::before {
   content: "";
   display: block;
   width: 22px;
   height: 22px;
   background-color: currentColor;
-  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polyline points='15 18 9 12 15 6' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / 22px no-repeat;
-          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polyline points='15 18 9 12 15 6' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / 22px no-repeat;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><line x1='19' y1='12' x2='5' y2='12'/><polyline points='12 19 5 12 12 5'/></svg>") center / 22px no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><line x1='19' y1='12' x2='5' y2='12'/><polyline points='12 19 5 12 12 5'/></svg>") center / 22px no-repeat;
 }
 [dir="rtl"] .back-btn::before { transform: scaleX(-1); }
 .back-btn:hover { background: var(--jx-primary-glow); color: var(--jx-primary); }

@@ -762,7 +762,9 @@
       "progress": "Progress",
       "aboutTitle": "About the book",
       "aboutSampleBody": "The Inside Reading series uses an academic, interactive approach to strengthen your reading-comprehension skills. With varied texts and targeted exercises, this book prepares you for success in academic settings.",
-      "continueRead": "Continue reading"
+      "continueRead": "Continue reading",
+      "downloadBook": "Download book",
+      "downloadSuccess": "Book downloaded — available offline"
     },
     "booksAll": {
       "title": "All books",

@@ -2680,6 +2680,8 @@
   grid-template-columns: repeat(4, 1fr);
   gap: var(--sp-2);
 }
+/* 3-cell variant (book-detail uses this — chapters / reading-time / progress) */
+.bd-stats--3 { grid-template-columns: repeat(3, 1fr); }
 .bd-stat {
   display: flex;
   flex-direction: column;
@@ -2725,10 +2727,13 @@
   text-align: end;
 }
 
-/* Sticky-style bottom CTA */
+/* Sticky-style bottom CTA stack — Continue Reading on top, Download below */
 .bd-cta {
   padding: var(--sp-3) var(--sp-5) var(--sp-5);
   background: var(--jx-bg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
 }
 .bd-cta .btn {
   border-radius: var(--rd-pill);

@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpp1w2n6" />
-  <link rel="stylesheet" href="/css/base.css?v=mpp1w2n6" />
-  <link rel="stylesheet" href="/css/components.css?v=mpp1w2n6" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpp1w2n6" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpp1w2n6" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpp1w2n6" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpp1w2n6" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpp1w2n6" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpp2dstt" />
+  <link rel="stylesheet" href="/css/base.css?v=mpp2dstt" />
+  <link rel="stylesheet" href="/css/components.css?v=mpp2dstt" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpp2dstt" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpp2dstt" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpp2dstt" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpp2dstt" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpp2dstt" />
 </head>
 <body data-library-screen="book-detail">
   <div class="preview-controls">
@@ -79,17 +79,12 @@
           </div>
         </section>
 
-        <!-- 4-cell stat card overlapping the bottom of the hero -->
-        <div class="bd-stats">
+        <!-- 3-cell stat card overlapping the bottom of the hero -->
+        <div class="bd-stats bd-stats--3">
           <div class="bd-stat">
             <div class="bd-stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
             <div class="bd-stat__val" data-bd-chapters></div>
             <div class="bd-stat__label" data-i18n="v3.bookDetail.chapters"></div>
-          </div>
-          <div class="bd-stat">
-            <div class="bd-stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg></div>
-            <div class="bd-stat__val" data-bd-lessons></div>
-            <div class="bd-stat__label" data-i18n="v3.bookDetail.lessons"></div>
           </div>
           <div class="bd-stat">
             <div class="bd-stat__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
@@ -109,21 +104,27 @@
           <p class="bd-about__body" data-bd-about></p>
         </div>
 
-        <!-- Continue reading CTA -->
+        <!-- CTAs: continue reading (online) + download (offline) -->
         <div class="bd-cta">
           <a href="/screens/book-reader.html" class="btn btn--filled btn--block btn--lg">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             <span data-i18n="v3.bookDetail.continueRead"></span>
           </a>
+          <button type="button" class="btn btn--filled btn--block btn--lg" onclick="
+            window.popupSuccess(null, { messageKey: 'v3.bookDetail.downloadSuccess' });
+          ">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span data-i18n="v3.bookDetail.downloadBook"></span>
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpp1w2n6"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpp2dstt"></script>
   <script type="module">
-    import { findBook, FEATURED, localizeNum, formatYear } from '/data/books.js?v=mpp1w2n6';
-    import { applyToDom, t } from '/js/i18n.js?v=mpp1w2n6';
+    import { findBook, FEATURED, localizeNum, formatYear } from '/data/books.js?v=mpp2dstt';
+    import { applyToDom, t } from '/js/i18n.js?v=mpp2dstt';
 
     const LEVEL_LABEL_FA = { A1:'مبتدی', A2:'پایه', B1:'متوسط', B2:'فوق‌متوسط', C1:'پیشرفته', C2:'مسلط' };
     const LEVEL_LABEL_EN = { A1:'Beginner', A2:'Elementary', B1:'Intermediate', B2:'Upper-Int.', C1:'Advanced', C2:'Mastery' };
