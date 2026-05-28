@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/base.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/components.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/base.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/components.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjnt04" />
 </head>
 <body>
   <div class="preview-controls">
@@ -132,7 +132,7 @@
   <script type="module">
     // Compose the greeting after i18n is ready, pulling the demo "userName"
     // from the active locale so the name follows the language (Reza / رضا).
-    import { t } from '/js/i18n.js?v=mppjl8vu';
+    import { t } from '/js/i18n.js?v=mppjnt04';
     document.addEventListener('i18n:changed', fillGreeting);
     function fillGreeting () {
       const el = document.querySelector('[data-greeting]');
@@ -140,6 +140,6 @@
       el.textContent = t('v3.home.greetingHi', { name: t('v3.home.userName') });
     }
   </script>
-  <script type="module" src="/js/screen-shell.js?v=mppjl8vu"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppjnt04"></script>
 </body>
 </html>

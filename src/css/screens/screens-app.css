@@ -3174,16 +3174,34 @@
 .lt-box[data-box="4"] .lt-box__count { color: #1F9389; background: rgba(0,180,166,0.14); }
 .lt-box[data-box="5"] .lt-box__count { color: #2A8E4D; background: rgba(76,175,80,0.14); }
 
-/* "Landing" pulse — fired on the box where the just-rated card belongs */
+/* "Landing" pulse — fired on the box where the just-rated card belongs.
+   The hue depends on the mastery action so the user gets an at-a-glance
+   read on what just happened to the card:
+     red    → "don't know" (card reset to box 1)
+     yellow → "sort of"    (card stayed, will be re-shown soon)
+     green  → "know" / "know well" (card moved forward) */
 @keyframes lt-land-pulse {
-  0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(42,142,77,0.55); }
-  60%  { transform: scale(1.18); box-shadow: 0 0 0 16px rgba(42,142,77,0); }
-  100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(42,142,77,0); }
+  0%   { transform: scale(1);    box-shadow: 0 0 0 0 rgba(var(--lt-pulse), 0.55); }
+  60%  { transform: scale(1.18); box-shadow: 0 0 0 16px rgba(var(--lt-pulse), 0); }
+  100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(var(--lt-pulse), 0); }
 }
-.lt-box[data-landed="true"] .lt-box__shape {
+.lt-box[data-landed] .lt-box__shape {
   animation: lt-land-pulse 700ms ease-out;
+}
+.lt-box[data-landed="green"] .lt-box__shape {
+  --lt-pulse: 42, 142, 77;
   border-color: #2A8E4D;
-  background: rgba(76,175,80,0.10);
+  background: rgba(76, 175, 80, 0.10);
+}
+.lt-box[data-landed="red"] .lt-box__shape {
+  --lt-pulse: 214, 51, 51;
+  border-color: #D63333;
+  background: rgba(244, 67, 54, 0.10);
+}
+.lt-box[data-landed="yellow"] .lt-box__shape {
+  --lt-pulse: 229, 154, 26;
+  border-color: #E59A1A;
+  background: rgba(245, 185, 69, 0.14);
 }
 
 /* Pill control row — audio | counter | trash */

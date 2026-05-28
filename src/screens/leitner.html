@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/base.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/components.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjl8vu" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjl8vu" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/base.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/components.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppjnt04" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppjnt04" />
 </head>
 <body>
   <div class="preview-controls">
@@ -168,7 +168,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppjl8vu"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppjnt04"></script>
   <script>
     // Leitner review interaction.
     // The active box (green outline) is the box the current card lives in.
@@ -224,10 +224,11 @@
         setActiveBox(item.box);
       }
 
-      function highlightLanding (target) {
+      function highlightLanding (target, hue) {
+        // hue: 'green' | 'red' | 'yellow' — drives the pulse colour.
         const box = document.querySelector('.lt-box[data-box="' + target + '"]');
         if (!box) return;
-        box.dataset.landed = 'true';
+        box.dataset.landed = hue;
         setTimeout(function () { box.removeAttribute('data-landed'); }, 800);
       }
 
@@ -242,20 +243,25 @@
         if (m) {
           const move = m.dataset.ltMove;
           const cur  = WORDS[idx % WORDS.length].box;
-          let target;
-          if      (move === 'reset') target = 1;
-          else if (move === 'stay')  target = cur;
-          else if (move === '+1')    target = cur + 1;
-          else if (move === '+2')    target = cur + 2;
+          // Each action picks a target box AND a pulse hue.
+          //   don't know → red    (card thrown back to box 1)
+          //   sort of    → yellow (stays in place, marginal recall)
+          //   know       → green  (progress)
+          //   know well  → green  (big progress; may graduate)
+          let target, hue;
+          if      (move === 'reset') { target = 1;       hue = 'red';    }
+          else if (move === 'stay')  { target = cur;     hue = 'yellow'; }
+          else if (move === '+1')    { target = cur + 1; hue = 'green';  }
+          else if (move === '+2')    { target = cur + 2; hue = 'green';  }
 
           if (target > 5) {
-            // Card graduated out of Leitner
+            // Card graduated out of Leitner — no box to land in
             if (window.popupSuccess) {
               window.popupSuccess(null, { messageKey: 'v3.leitner.graduated' });
             }
             setTimeout(advance, 900);
           } else {
-            highlightLanding(target);
+            highlightLanding(target, hue);
             setTimeout(advance, 720);
           }
           return;
