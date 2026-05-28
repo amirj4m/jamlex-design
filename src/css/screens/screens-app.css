@@ -1380,6 +1380,12 @@
   cursor: pointer;
 }
 .wod-card__cta:hover { color: var(--jx-primary-dark); }
+.wod-card__cta[data-done="true"] {
+  opacity: 0.55;
+  pointer-events: none;
+  color: var(--jx-text-2);
+}
+.wod-card__cta[data-done="true"] [data-cta-plus] { color: var(--jx-success); }
 
 .audio-btn--inline {
   width: 24px; height: 24px;

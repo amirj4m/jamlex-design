@@ -570,7 +570,8 @@
       "readBook": "Library",
       "readBookSub": "Read books",
       "myWords": "My Words",
-      "myWordsSub": "Saved words"
+      "myWordsSub": "Saved words",
+      "addedToLeitner": "Added to your Leitner"
     },
     "leitner": {
       "title": "Leitner",

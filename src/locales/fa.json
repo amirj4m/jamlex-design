@@ -570,7 +570,8 @@
       "readBook": "کتابخانه",
       "readBookSub": "خواندن کتاب",
       "myWords": "واژگان من",
-      "myWordsSub": "لغات ذخیره‌شده"
+      "myWordsSub": "لغات ذخیره‌شده",
+      "addedToLeitner": "به لایتنر اضافه شد"
     },
     "leitner": {
       "title": "لایتنر",
