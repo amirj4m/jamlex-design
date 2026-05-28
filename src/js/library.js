@@ -10,8 +10,8 @@
  * it's UI presentation. The category KEY is the contract with i18n.
  */
 
-import { BOOKS, FEATURED, NEWEST, CATEGORY_COUNTS, localizeNum } from '/data/books.js?v=mpp34hw6';
-import { applyToDom, t } from '/js/i18n.js?v=mpp34hw6';
+import { BOOKS, FEATURED, NEWEST, CATEGORY_COUNTS, localizeNum } from '/data/books.js?v=mpp362ef';
+import { applyToDom, t } from '/js/i18n.js?v=mpp362ef';
 
 const CATEGORIES = [
   { key: 'fiction',  emoji: '📖', bg: 'rgba(74,144,217,0.16)', fg: '#4A90D9' },
@@ -32,6 +32,17 @@ function escapeHtml (s) {
 
 // ─── Card renderers ────────────────────────────────────────────────────
 
+/** Rating-only row (★ + numeric). Page count was dropped per user request —
+ *  cards now show just the community rating beneath the title/author. */
+function renderRating (b) {
+  return `
+    <div class="bcard__rating">
+      <span style="color:#F5B945;">★</span>
+      <span class="font-latin">${b.rating.toFixed(1)}</span>
+    </div>
+  `;
+}
+
 /** Horizontal-scroll card (used inside .book-h-scroll on reading.html). */
 function renderBookHCard (b, isNewBadge = false) {
   const badge = isNewBadge
@@ -45,11 +56,7 @@ function renderBookHCard (b, isNewBadge = false) {
       </div>
       <div class="bcard__title">${escapeHtml(b.title)}</div>
       <div class="bcard__author">${escapeHtml(b.author)}</div>
-      <div class="bcard__rating">
-        <span style="color:#F5B945;">★</span>
-        <span class="font-latin">${b.rating.toFixed(1)}</span>
-        <span class="bcard__rating__pages">${localizeNum(b.pages)} ${t('v3.reading.pagesUnit') || ''}</span>
-      </div>
+      ${renderRating(b)}
     </a>
   `;
 }
@@ -64,6 +71,7 @@ function renderBookGridCard (b) {
       </div>
       <div class="bcard__title">${escapeHtml(b.title)}</div>
       <div class="bcard__author">${escapeHtml(b.author)}</div>
+      ${renderRating(b)}
     </a>
   `;
 }
