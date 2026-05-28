@@ -948,6 +948,32 @@
       "notifOnSub": "On — 20:30 · 5 days/week",
       "displayMode": "Display mode",
       "displaySystem": "System",
+      "displayLight": "Light",
+      "displayDark": "Dark",
+      "displaySystemValue": "Auto (system)",
+      "themePicker": {
+        "title": "Display mode",
+        "sub": "Choose how the app looks.",
+        "cancel": "Cancel"
+      },
+      "limitPicker": {
+        "title": "Daily limit",
+        "sub": "How many Leitner cards do you want per day?",
+        "unit": "cards / day",
+        "save": "Save",
+        "cancel": "Cancel",
+        "minHint": "Min 5, max 200"
+      },
+      "limitIncrease": {
+        "title": "Today's queue grew",
+        "body": "Cards you already studied today still count. <b>{added} more cards</b> were added to today's queue.",
+        "ok": "Got it"
+      },
+      "langPicker": {
+        "title": "Interface language",
+        "sub": "The language you interact with the app in (not the target language).",
+        "cancel": "Cancel"
+      },
       "email": "Email",
       "phone": "Phone number",
       "changePwd": "Change password",

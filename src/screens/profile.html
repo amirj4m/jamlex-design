@@ -8,19 +8,28 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppxbw3v" />
-  <link rel="stylesheet" href="/css/base.css?v=mppxbw3v" />
-  <link rel="stylesheet" href="/css/components.css?v=mppxbw3v" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppxbw3v" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppxbw3v" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppxbw3v" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppxbw3v" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppxbw3v" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/base.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/components.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppxtz6a" />
 </head>
 <body>
   <div class="preview-controls">
     <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
     <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="list">List</option>
+      <option value="theme">Theme picker</option>
+      <option value="limit">Daily limit picker</option>
+      <option value="notif">Reminder dialog</option>
+      <option value="lang">Language picker</option>
+    </select>
   </div>
   <a href="/" class="hub-ribbon">‹ Hub</a>
 
@@ -30,14 +39,17 @@
         <header class="topbar topbar--transparent">
           <div></div>
           <h1 class="topbar__title" data-i18n="v3.profile.title"></h1>
-          <div class="topbar__trailing">
-            <a href="/screens/settings.html" class="btn-icon" aria-label="Settings">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            </a>
-          </div>
+          <div></div>
         </header>
 
         <div class="screen__body">
+          <!-- ============================================================
+               profile.html is the ONLY settings page. The old settings.html
+               was folded in here so users have a single destination for
+               account + preferences. The "About Jamlex" row was dropped
+               entirely — we'll surface version + legal links from
+               somewhere lower-friction later. -->
+
           <!-- Hero: avatar + name + level chip -->
           <div class="profile-hero-v3">
             <div class="profile-avatar-lg">
@@ -77,19 +89,37 @@
             </div>
           </div>
 
-          <!-- Section list -->
+          <!-- ============================================================
+               Section: Learning (Leitner)
+               ============================================================ -->
           <div class="section-label" data-i18n="v3.profile.sec.leitner"></div>
           <div class="setting-list">
-            <button class="setting-item">
+            <!-- Daily limit — opens picker. data-limit holds the current
+                 saved value so the picker can compare on save and decide
+                 whether to fire the smart "today queue grew" message. -->
+            <button class="setting-item" data-open-state="limit" data-limit="20">
               <span class="setting-item__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
               </span>
               <div class="setting-item__main">
                 <div class="setting-item__label" data-i18n="v3.profile.dailyLimit"></div>
-                <div class="setting-item__sub" data-i18n="v3.profile.dailyLimitSub"></div>
+                <div class="setting-item__sub" data-limit-current data-i18n="v3.profile.dailyLimitSub"></div>
               </div>
               <span class="setting-item__chevron"></span>
             </button>
+
+            <!-- Reminder — opens the time / days / sound dialog -->
+            <button class="setting-item" data-open-state="notif">
+              <span class="setting-item__icon" style="background:rgba(255,152,0,0.16);color:#E59A1A;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.notifTitle"></div>
+                <div class="setting-item__sub" data-i18n="v3.profile.notifOnSub"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+
             <button class="setting-item setting-item--danger" onclick="window.confirmAction('clearLeitner');">
               <span class="setting-item__icon" style="background:rgba(244,67,54,0.12);color:var(--jx-danger);">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
@@ -102,20 +132,43 @@
             </button>
           </div>
 
-          <div class="section-label" data-i18n="v3.profile.sec.notif"></div>
+          <!-- ============================================================
+               Section: Appearance
+               ============================================================ -->
+          <div class="section-label" data-i18n="v3.profile.sec.appearance"></div>
           <div class="setting-list">
-            <div class="setting-item" style="cursor:default;">
-              <span class="setting-item__icon" style="background:rgba(255,152,0,0.16);color:#E59A1A;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <button class="setting-item" data-open-state="theme">
+              <span class="setting-item__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="v3.profile.notifTitle"></div>
-                <div class="setting-item__sub" data-i18n="v3.profile.notifOnSub"></div>
+                <div class="setting-item__label" data-i18n="v3.profile.displayMode"></div>
+                <div class="setting-item__sub" data-current-theme-label data-i18n="v3.profile.displaySystemValue"></div>
               </div>
-              <span class="switch" data-on="true"></span>
-            </div>
+              <span class="setting-item__chevron"></span>
+            </button>
           </div>
 
+          <!-- ============================================================
+               Section: Language
+               ============================================================ -->
+          <div class="section-label" data-i18n="v3.profile.sec.lang"></div>
+          <div class="setting-list">
+            <button class="setting-item" data-open-state="lang">
+              <span class="setting-item__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.uiLanguage"></div>
+                <div class="setting-item__sub" data-current-lang-label data-i18n="v3.profile.uiLangValue"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+          </div>
+
+          <!-- ============================================================
+               Section: Account
+               ============================================================ -->
           <div class="section-label" data-i18n="v3.profile.sec.account"></div>
           <div class="setting-list">
             <button class="setting-item">
@@ -156,6 +209,16 @@
               </div>
               <span class="setting-item__chevron"></span>
             </button>
+            <button class="setting-item setting-item--danger" onclick="window.confirmAction('deleteAccount').then(function(ok){if(ok)setTimeout(function(){location.href='/screens/login.html'},900);});">
+              <span class="setting-item__icon" style="background:rgba(244,67,54,0.18);color:var(--jx-danger);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.deleteAccount"></div>
+                <div class="setting-item__sub" data-i18n="v3.profile.deleteAccountSub"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
           </div>
 
           <a href="/screens/paywall.html" class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-5);background:linear-gradient(135deg,#4ECDC4,#00B4A6);">
@@ -164,17 +227,354 @@
           </a>
         </div>
 
+        <!-- ============================================================
+             DIALOG: Theme picker — Light / Dark / Auto
+             ============================================================ -->
+        <div class="state" data-state="theme" hidden>
+          <div class="scrim" data-close-state>
+            <div class="picker-card" onclick="event.stopPropagation();">
+              <div class="picker-card__handle"></div>
+              <h2 class="picker-card__title" data-i18n="v3.profile.themePicker.title"></h2>
+              <p class="picker-card__sub" data-i18n="v3.profile.themePicker.sub"></p>
+
+              <div class="picker-options">
+                <button class="picker-option" data-pick-theme="light">
+                  <span class="picker-option__icon" style="background:#FFF8E8;color:#B27A12;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg>
+                  </span>
+                  <span class="picker-option__label" data-i18n="v3.profile.displayLight"></span>
+                  <span class="picker-option__check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </button>
+                <button class="picker-option" data-pick-theme="dark">
+                  <span class="picker-option__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                  </span>
+                  <span class="picker-option__label" data-i18n="v3.profile.displayDark"></span>
+                  <span class="picker-option__check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </button>
+                <button class="picker-option" data-pick-theme="system" data-selected="true">
+                  <span class="picker-option__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="22" x2="16" y2="22"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                  </span>
+                  <span class="picker-option__label" data-i18n="v3.profile.displaySystemValue"></span>
+                  <span class="picker-option__check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </button>
+              </div>
+
+              <button class="btn btn--ghost btn--block" style="margin-top:var(--sp-4);" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             DIALOG: Daily limit picker — number stepper
+             ============================================================ -->
+        <div class="state" data-state="limit" hidden>
+          <div class="scrim" data-close-state>
+            <div class="picker-card" onclick="event.stopPropagation();">
+              <div class="picker-card__handle"></div>
+              <h2 class="picker-card__title" data-i18n="v3.profile.limitPicker.title"></h2>
+              <p class="picker-card__sub" data-i18n="v3.profile.limitPicker.sub"></p>
+
+              <!-- Stepper -->
+              <div class="limit-stepper">
+                <button class="limit-stepper__btn" data-limit-step="-5" aria-label="decrease">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="12" x2="18" y2="12"/></svg>
+                </button>
+                <div class="limit-stepper__display">
+                  <div class="limit-stepper__val font-latin" data-limit-draft>20</div>
+                  <div class="limit-stepper__unit" data-i18n="v3.profile.limitPicker.unit"></div>
+                </div>
+                <button class="limit-stepper__btn" data-limit-step="5" aria-label="increase">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="12" x2="18" y2="12"/><line x1="12" y1="6" x2="12" y2="18"/></svg>
+                </button>
+              </div>
+
+              <p class="limit-stepper__hint" data-i18n="v3.profile.limitPicker.minHint"></p>
+
+              <div class="picker-card__actions">
+                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.limitPicker.cancel"></button>
+                <button class="btn btn--filled" style="flex:1;" data-limit-save data-i18n="v3.profile.limitPicker.save"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             DIALOG: Reminder (time / days / sound) — folded in from
+             the old settings.html
+             ============================================================ -->
+        <div class="state" data-state="notif" hidden>
+          <div class="scrim" data-close-state>
+            <div class="dialog-card" onclick="event.stopPropagation();">
+              <div class="dialog-card__bell">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+              <h2 class="dialog-card__title" data-i18n="v3.settings.notif.title"></h2>
+              <p class="dialog-card__sub" data-i18n="v3.settings.notif.sub"></p>
+
+              <!-- Time spinner -->
+              <div class="time-spinner">
+                <button class="time-spinner__btn" aria-label="up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg></button>
+                <div class="time-spinner__val">08:30</div>
+                <button class="time-spinner__btn" aria-label="down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg></button>
+              </div>
+
+              <!-- Day circles -->
+              <div style="text-align:start;margin-top:var(--sp-3);font-size:var(--fs-body-s);color:var(--jx-text-2);font-weight:var(--fw-semibold);" data-i18n="v3.settings.notif.days"></div>
+              <div class="day-circles" style="margin-top:var(--sp-2);">
+                <button class="day-circles__btn" data-selected="true" data-i18n="v3.settings.day.sa"></button>
+                <button class="day-circles__btn" data-selected="true" data-i18n="v3.settings.day.su"></button>
+                <button class="day-circles__btn" data-selected="true" data-i18n="v3.settings.day.mo"></button>
+                <button class="day-circles__btn" data-i18n="v3.settings.day.tu"></button>
+                <button class="day-circles__btn" data-selected="true" data-i18n="v3.settings.day.we"></button>
+                <button class="day-circles__btn" data-selected="true" data-i18n="v3.settings.day.th"></button>
+                <button class="day-circles__btn" data-i18n="v3.settings.day.fr"></button>
+              </div>
+
+              <!-- Sound row -->
+              <div class="sound-row">
+                <span class="sound-row__icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V5l12-2v13M9 9l12-2"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                </span>
+                <span style="flex:1;font-weight:var(--fw-semibold);" data-i18n="v3.settings.notif.sound"></span>
+                <span style="color:var(--jx-text-2);font-size:var(--fs-body-s);" data-i18n="v3.settings.notif.soundDefault"></span>
+                <span style="color:var(--jx-text-3);">‹</span>
+              </div>
+
+              <div class="dialog-card__actions">
+                <button class="dialog-card__cancel" data-close-state data-i18n="v3.settings.notif.cancel"></button>
+                <button class="btn btn--filled" style="flex:1;" data-close-state data-i18n="v3.settings.notif.save"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             DIALOG: Language picker — fa / en
+             ============================================================ -->
+        <div class="state" data-state="lang" hidden>
+          <div class="scrim" data-close-state>
+            <div class="picker-card" onclick="event.stopPropagation();">
+              <div class="picker-card__handle"></div>
+              <h2 class="picker-card__title" data-i18n="v3.profile.langPicker.title"></h2>
+              <p class="picker-card__sub" data-i18n="v3.profile.langPicker.sub"></p>
+
+              <div class="picker-options">
+                <button class="picker-option" data-pick-lang="fa" data-selected="true">
+                  <span class="picker-option__icon" style="background:rgba(0,180,166,0.12);color:var(--jx-primary);">
+                    <span style="font-family:var(--font-family-latin);font-weight:700;font-size:14px;">FA</span>
+                  </span>
+                  <span class="picker-option__label">فارسی</span>
+                  <span class="picker-option__check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </button>
+                <button class="picker-option" data-pick-lang="en">
+                  <span class="picker-option__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
+                    <span style="font-family:var(--font-family-latin);font-weight:700;font-size:14px;">EN</span>
+                  </span>
+                  <span class="picker-option__label" style="font-family:var(--font-family-latin);">English</span>
+                  <span class="picker-option__check">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                </button>
+              </div>
+
+              <button class="btn btn--ghost btn--block" style="margin-top:var(--sp-4);" data-close-state data-i18n="v3.profile.langPicker.cancel"></button>
+            </div>
+          </div>
+        </div>
+
         <div data-bottomnav="profile"></div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppxbw3v"></script>
-  <script>
-    document.addEventListener('click', function (e) {
-      var s = e.target.closest('.switch');
-      if (s) s.dataset.on = s.dataset.on === 'true' ? 'false' : 'true';
+  <script type="module" src="/js/screen-shell.js?v=mppxtz6a"></script>
+  <script type="module">
+    // ----------------------------------------------------------------
+    // Wire the picker dialogs. The state-picker dropdown in
+    // preview-controls is for reviewers to step through each dialog
+    // without clicking; users only see the dialogs via the rows.
+    // ----------------------------------------------------------------
+    import { setTheme, getTheme } from '/js/theme.js?v=mppxtz6a';
+    import { setLocale, getLocale } from '/js/i18n.js?v=mppxtz6a';
+    import { t } from '/js/i18n.js?v=mppxtz6a';
+
+    function showState (s) {
+      document.querySelectorAll('.state').forEach(function (el) {
+        el.hidden = el.dataset.state !== s;
+      });
+      var sp = document.getElementById('state-picker');
+      if (sp) sp.value = s;
+    }
+    function closeState () {
+      document.querySelectorAll('.state').forEach(function (el) { el.hidden = true; });
+      var sp = document.getElementById('state-picker');
+      if (sp) sp.value = 'list';
+    }
+
+    // Open buttons
+    document.querySelectorAll('[data-open-state]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.dataset.openState;
+        // Reset stepper draft to the current saved value before opening.
+        if (target === 'limit') {
+          var saved = parseInt(document.querySelector('[data-limit]').dataset.limit, 10) || 20;
+          var draftEl = document.querySelector('[data-limit-draft]');
+          if (draftEl) draftEl.textContent = saved;
+        }
+        showState(target);
+      });
     });
+
+    // Scrim / cancel close
+    document.querySelectorAll('[data-close-state]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        // For scrim divs the click registers on the outer scrim only.
+        if (el.classList.contains('scrim') && e.target !== el) return;
+        closeState();
+      });
+    });
+
+    // Day-circle toggling (carry-over from settings.html)
+    document.addEventListener('click', function (e) {
+      var c = e.target.closest('.day-circles__btn');
+      if (c) c.dataset.selected = c.dataset.selected === 'true' ? 'false' : 'true';
+    });
+
+    // ----------------------------------------------------------------
+    // THEME PICKER
+    // Applies the chosen theme immediately, marks the option as
+    // selected, updates the row sub-label, closes the dialog.
+    // ----------------------------------------------------------------
+    document.querySelectorAll('[data-pick-theme]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var val = btn.dataset.pickTheme;
+        setTheme(val);
+        document.querySelectorAll('[data-pick-theme]').forEach(function (b) {
+          b.dataset.selected = (b === btn) ? 'true' : 'false';
+        });
+        // Refresh the sub-label on the row.
+        var sub = document.querySelector('[data-current-theme-label]');
+        if (sub) {
+          var key = val === 'light' ? 'v3.profile.displayLight'
+                  : val === 'dark'  ? 'v3.profile.displayDark'
+                                    : 'v3.profile.displaySystemValue';
+          sub.setAttribute('data-i18n', key);
+          sub.textContent = t(key);
+        }
+        setTimeout(closeState, 120);
+      });
+    });
+
+    // Init: mark the currently active theme as selected.
+    (function () {
+      var cur = getTheme();
+      document.querySelectorAll('[data-pick-theme]').forEach(function (b) {
+        b.dataset.selected = (b.dataset.pickTheme === cur) ? 'true' : 'false';
+      });
+    })();
+
+    // ----------------------------------------------------------------
+    // LANGUAGE PICKER
+    // ----------------------------------------------------------------
+    document.querySelectorAll('[data-pick-lang]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var val = btn.dataset.pickLang;
+        setLocale(val);
+        document.querySelectorAll('[data-pick-lang]').forEach(function (b) {
+          b.dataset.selected = (b === btn) ? 'true' : 'false';
+        });
+        setTimeout(closeState, 120);
+      });
+    });
+
+    (function () {
+      var cur = getLocale();
+      document.querySelectorAll('[data-pick-lang]').forEach(function (b) {
+        b.dataset.selected = (b.dataset.pickLang === cur) ? 'true' : 'false';
+      });
+    })();
+
+    // ----------------------------------------------------------------
+    // DAILY LIMIT PICKER + smart message on increase
+    // ----------------------------------------------------------------
+    var MIN_LIMIT = 5;
+    var MAX_LIMIT = 200;
+
+    document.querySelectorAll('[data-limit-step]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var step = parseInt(btn.dataset.limitStep, 10) || 0;
+        var draftEl = document.querySelector('[data-limit-draft]');
+        var cur = parseInt(draftEl.textContent, 10) || 20;
+        var next = Math.max(MIN_LIMIT, Math.min(MAX_LIMIT, cur + step));
+        draftEl.textContent = next;
+      });
+    });
+
+    document.querySelector('[data-limit-save]').addEventListener('click', function () {
+      var rowBtn = document.querySelector('[data-limit]');
+      var saved = parseInt(rowBtn.dataset.limit, 10) || 20;
+      var draftEl = document.querySelector('[data-limit-draft]');
+      var next = parseInt(draftEl.textContent, 10) || saved;
+      var delta = next - saved;
+
+      // Persist new value on the row & update its sub-label.
+      rowBtn.dataset.limit = next;
+      var sub = rowBtn.querySelector('[data-limit-current]');
+      if (sub) {
+        sub.textContent = next + ' ' + t('v3.profile.limitPicker.unit');
+      }
+
+      closeState();
+
+      // CRITICAL behaviour: if the user RAISED the limit, surface a
+      // friendly message explaining that cards already studied today
+      // still count — we just add (delta) more to the queue. We do
+      // NOT reset to zero. See architecture_leitner_algorithm.md.
+      if (delta > 0) {
+        setTimeout(function () {
+          window.showPopup({
+            type: 'info',
+            titleKey: 'v3.profile.limitIncrease.title',
+            message: t('v3.profile.limitIncrease.body').replace('{added}', delta),
+            confirmKey: 'v3.profile.limitIncrease.ok',
+            autoDismiss: 0,
+          });
+        }, 220);
+      } else if (delta < 0) {
+        // Quiet success — no surprise message needed when the user
+        // tightens their own limit.
+        window.popupSuccess(t('v3.profile.dailyLimit') + ': ' + next);
+      }
+    });
+
+    // Initial sync of the row's sub-label to the saved limit so it
+    // reads cleanly in either locale even before the user opens the
+    // picker. (Uses i18n unit string.)
+    (function () {
+      var rowBtn = document.querySelector('[data-limit]');
+      var saved = parseInt(rowBtn.dataset.limit, 10) || 20;
+      var sub = rowBtn.querySelector('[data-limit-current]');
+      // Wait until i18n has loaded before re-rendering.
+      document.addEventListener('i18n:changed', function () {
+        if (sub) sub.textContent = saved + ' ' + t('v3.profile.limitPicker.unit');
+      });
+      // First paint after i18n init:
+      setTimeout(function () {
+        if (sub && t('v3.profile.limitPicker.unit')) {
+          sub.textContent = saved + ' ' + t('v3.profile.limitPicker.unit');
+        }
+      }, 50);
+    })();
   </script>
 </body>
 </html>
