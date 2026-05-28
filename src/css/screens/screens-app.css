@@ -3081,6 +3081,52 @@
 .q-opt[data-state="wrong"] { background: #FCE4E4; border-color: #F9D2D2; color: #E15858; }
 
 /* ============================================================================
+   Generic centered modal card (used by my-words "New Category" form)
+   ============================================================================ */
+.modal-card {
+  background: var(--jx-bg);
+  border-radius: 20px;
+  width: 88%;
+  max-width: 380px;
+  max-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+}
+.modal-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--sp-4);
+  border-bottom: 1px solid var(--jx-divider);
+}
+.modal-card__head h2 {
+  font-size: 18px;
+  font-weight: var(--fw-extrabold);
+  margin: 0;
+}
+.modal-card__body {
+  padding: var(--sp-4);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.modal-card__body label {
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-semibold);
+  color: var(--jx-text-2);
+}
+.modal-card__actions {
+  display: flex;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4) var(--sp-4);
+  border-top: 1px solid var(--jx-divider);
+}
+.modal-card__actions .btn { flex: 1; }
+
+/* ============================================================================
    Book Reader — floating toolbar + serif body + size/theme cycle
    ============================================================================ */
 .rdr-screen {

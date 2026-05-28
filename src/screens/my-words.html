@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppi95w2" />
-  <link rel="stylesheet" href="/css/base.css?v=mppi95w2" />
-  <link rel="stylesheet" href="/css/components.css?v=mppi95w2" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppi95w2" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppi95w2" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppi95w2" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppi95w2" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppi95w2" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppicvg8" />
+  <link rel="stylesheet" href="/css/base.css?v=mppicvg8" />
+  <link rel="stylesheet" href="/css/components.css?v=mppicvg8" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppicvg8" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppicvg8" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppicvg8" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppicvg8" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppicvg8" />
 </head>
 <body>
   <div class="preview-controls">
@@ -26,6 +26,7 @@
     ">
       <option value="list">With collections</option>
       <option value="empty">Empty</option>
+      <option value="new-cat">New-category modal</option>
       <option value="gate">Auth gate (guest)</option>
     </select>
   </div>
@@ -57,7 +58,7 @@
 
             <div class="section-h">
               <div class="section-h__title" data-i18n="v3.myWords.categoriesLabel"></div>
-              <button class="section-h__action" style="display:inline-flex;align-items:center;gap:6px;">
+              <button class="section-h__action" style="display:inline-flex;align-items:center;gap:6px;" data-action="new-cat">
                 <span style="display:inline-flex;width:22px;height:22px;border-radius:50%;background:var(--jx-primary-glow);color:var(--jx-primary);align-items:center;justify-content:center;font-size:14px;font-weight:bold;">+</span>
                 <span data-i18n="v3.myWords.newCategory"></span>
               </button>
@@ -147,10 +148,63 @@
               <div class="lottie-stage lottie-stage--lg" data-lottie="empty-box-plane"></div>
               <h2 class="empty-block__title" data-i18n="v3.myWords.noCategoriesTitle"></h2>
               <p class="empty-block__sub" data-i18n-html="v3.myWords.noCategoriesSub"></p>
-              <button class="btn btn--outlined btn--lg" style="margin-top: var(--sp-5); min-width: 220px;">
+              <button class="btn btn--outlined btn--lg" style="margin-top: var(--sp-5); min-width: 220px;" data-action="new-cat">
                 <span style="font-size:18px;color:var(--jx-primary);">+</span>
                 <span data-i18n="v3.myWords.newCategory"></span>
               </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STATE: new-category modal -->
+        <div class="state" data-state="new-cat" hidden>
+          <div class="scrim" data-action="close-modal">
+            <div class="modal-card" onclick="event.stopPropagation();">
+              <header class="modal-card__head">
+                <h2 data-i18n="v3.myWords.create.title"></h2>
+                <button class="btn-icon" aria-label="Close" data-action="close-modal" type="button">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                </button>
+              </header>
+              <div class="modal-card__body">
+                <div class="field">
+                  <div class="field__control">
+                    <input type="text" class="field__input" data-i18n-attr="placeholder:v3.myWords.create.namePlaceholder" data-cat-name />
+                  </div>
+                </div>
+
+                <label data-i18n="v3.myWords.create.iconLabel"></label>
+                <div class="icon-grid">
+                  <button type="button" class="icon-pick" data-selected="true" data-cat-icon>📖</button>
+                  <button type="button" class="icon-pick" data-cat-icon>📚</button>
+                  <button type="button" class="icon-pick" data-cat-icon>🎯</button>
+                  <button type="button" class="icon-pick" data-cat-icon>⭐</button>
+                  <button type="button" class="icon-pick" data-cat-icon>💼</button>
+                  <button type="button" class="icon-pick" data-cat-icon>🎬</button>
+                  <button type="button" class="icon-pick" data-cat-icon>✈️</button>
+                  <button type="button" class="icon-pick" data-cat-icon>🎓</button>
+                  <button type="button" class="icon-pick" data-cat-icon>💡</button>
+                  <button type="button" class="icon-pick" data-cat-icon>🌿</button>
+                  <button type="button" class="icon-pick" data-cat-icon>🏛</button>
+                  <button type="button" class="icon-pick" data-cat-icon>⚡</button>
+                </div>
+
+                <label data-i18n="v3.myWords.create.colorLabel"></label>
+                <div class="color-grid">
+                  <button type="button" class="color-pick" data-selected="true" data-cat-color style="background:#6C5CE7;" aria-label="Purple"></button>
+                  <button type="button" class="color-pick" data-cat-color style="background:#2A8E4D;" aria-label="Green"></button>
+                  <button type="button" class="color-pick" data-cat-color style="background:#4A90D9;" aria-label="Blue"></button>
+                  <button type="button" class="color-pick" data-cat-color style="background:#E59A1A;" aria-label="Orange"></button>
+                  <button type="button" class="color-pick" data-cat-color style="background:#D63878;" aria-label="Pink"></button>
+                  <button type="button" class="color-pick" data-cat-color style="background:#1F9389;" aria-label="Teal"></button>
+                  <button type="button" class="color-pick" data-cat-color style="background:#C62828;" aria-label="Red"></button>
+                  <button type="button" class="color-pick" data-cat-color style="background:#F5B945;" aria-label="Yellow"></button>
+                </div>
+              </div>
+              <div class="modal-card__actions">
+                <button type="button" class="btn btn--outlined" data-action="close-modal" data-i18n="common.cancel"></button>
+                <button type="button" class="btn btn--filled" data-action="save-cat" data-i18n="v3.myWords.create.submit"></button>
+              </div>
             </div>
           </div>
         </div>
@@ -168,6 +222,54 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppi95w2"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppicvg8"></script>
+  <script>
+    // New-category modal wiring. The state-picker in preview-controls also
+    // toggles the same .state divs — this just wires up real button clicks.
+    (function () {
+      let previousState = 'list';
+
+      function showState (name) {
+        document.querySelectorAll('.state').forEach(function (s) {
+          s.hidden = s.dataset.state !== name;
+        });
+        const picker = document.getElementById('state-picker');
+        if (picker) picker.value = name;
+      }
+
+      document.addEventListener('click', function (e) {
+        // Icon picker: single-select within the grid
+        const ic = e.target.closest('[data-cat-icon]');
+        if (ic) {
+          ic.closest('.icon-grid').querySelectorAll('[data-cat-icon]').forEach(function (b) { b.dataset.selected = 'false'; });
+          ic.dataset.selected = 'true';
+          return;
+        }
+        // Color picker: single-select within the grid
+        const cl = e.target.closest('[data-cat-color]');
+        if (cl) {
+          cl.closest('.color-grid').querySelectorAll('[data-cat-color]').forEach(function (b) { b.dataset.selected = 'false'; });
+          cl.dataset.selected = 'true';
+          return;
+        }
+        // Action buttons
+        const t = e.target.closest('[data-action]');
+        if (!t) return;
+        const action = t.dataset.action;
+
+        if (action === 'new-cat') {
+          previousState = document.querySelector('.state:not([hidden])')?.dataset.state || 'list';
+          showState('new-cat');
+        } else if (action === 'close-modal') {
+          showState(previousState);
+        } else if (action === 'save-cat') {
+          showState('list');
+          if (window.popupSuccess) {
+            window.popupSuccess(null, { messageKey: 'v3.myWords.create.success' });
+          }
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

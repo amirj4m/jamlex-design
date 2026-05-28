@@ -627,6 +627,14 @@
       "addWord": "افزودن لغت",
       "deleteCategoryTitle": "حذف دسته‌بندی",
       "deleteConfirm": "آیا مطمئنید؟ تمام لغات این دسته‌بندی حذف می‌شوند.",
+      "create": {
+        "title": "دسته‌بندی جدید",
+        "namePlaceholder": "نام دسته‌بندی",
+        "iconLabel": "آیکون",
+        "colorLabel": "رنگ",
+        "submit": "ایجاد",
+        "success": "دسته‌بندی ساخته شد"
+      },
       "noCategoriesTitle": "هنوز دسته‌بندی‌ای ندارید",
       "noCategoriesSub": "لغات خود را در دسته‌بندی‌های دلخواه ذخیره کنید\nتا همیشه در دسترس باشند.",
       "detailProgress": "{pct}% پیشرفت",

@@ -626,6 +626,14 @@
       "newCategory": "New category",
       "addWord": "Add word",
       "deleteCategoryTitle": "Delete category",
+      "create": {
+        "title": "New category",
+        "namePlaceholder": "Category name",
+        "iconLabel": "Icon",
+        "colorLabel": "Colour",
+        "submit": "Create",
+        "success": "Category created"
+      },
       "deleteConfirm": "Are you sure? All words in this category will be deleted.",
       "noCategoriesTitle": "You don't have any categories yet",
       "noCategoriesSub": "Save words into custom categories\nso they're always at your fingertips.",
