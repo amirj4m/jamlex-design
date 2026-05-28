@@ -3080,17 +3080,66 @@
 .q-opt[data-state="correct"] { background: #DCF4E2; border-color: #C9EDD2; color: #2A8E4D; }
 .q-opt[data-state="wrong"] { background: #FCE4E4; border-color: #F9D2D2; color: #E15858; }
 
-/* Reader v3 (serif text body + footer + word lookup bottom sheet) */
+/* ============================================================================
+   Book Reader — floating toolbar + serif body + size/theme cycle
+   ============================================================================ */
+.rdr-screen {
+  background: #FBFAF5;
+  transition: background-color var(--motion-fast), color var(--motion-fast);
+}
+.rdr-screen[data-rdr-theme="sepia"] { background: #F5EFE0; }
+.rdr-screen[data-rdr-theme="dark"]  { background: #1A1814; }
+
+/* Floating transparent icon row at the top — no border, no background. */
+.rdr-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: var(--sp-3) var(--sp-3);
+  background: transparent;
+}
+.rdr-toolbar__spacer { flex: 1; }
+.rdr-toolbar__btn {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--jx-text-3);
+  border: 0;
+  border-radius: var(--rd-pill);
+  cursor: pointer;
+  transition: color var(--motion-fast), background var(--motion-fast);
+}
+.rdr-toolbar__btn:hover { color: var(--jx-text); background: rgba(0,0,0,0.05); }
+.rdr-screen[data-rdr-theme="dark"]  .rdr-toolbar__btn { color: rgba(255,255,255,0.55); }
+.rdr-screen[data-rdr-theme="dark"]  .rdr-toolbar__btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.rdr-screen[data-rdr-theme="sepia"] .rdr-toolbar__btn { color: #6D5A3A; }
+
+/* Theme icon swap — show sun in dark mode, moon in light/sepia. */
+.rdr-toolbar__icon-dark  { display: none; }
+.rdr-toolbar__icon-light { display: block; }
+.rdr-screen[data-rdr-theme="dark"] .rdr-toolbar__icon-light { display: none; }
+.rdr-screen[data-rdr-theme="dark"] .rdr-toolbar__icon-dark  { display: block; }
+
+/* Reader body — font-size driven by data-rdr-size on the screen.
+   Default 18px (md). Small = 16, large = 22. */
 .reader-body {
   flex: 1;
-  padding: var(--sp-5);
+  padding: var(--sp-4) var(--sp-5) var(--sp-5);
   font-family: 'Crimson Text', Georgia, serif;
   font-size: 18px;
   line-height: 1.9;
   color: #1A2138;
   text-align: start;
   overflow-y: auto;
+  transition: font-size var(--motion-fast), color var(--motion-fast);
 }
+.rdr-screen[data-rdr-size="sm"] .reader-body { font-size: 16px; line-height: 1.8; }
+.rdr-screen[data-rdr-size="lg"] .reader-body { font-size: 22px; line-height: 1.95; }
+.rdr-screen[data-rdr-theme="sepia"] .reader-body { color: #3D2A1E; }
+.rdr-screen[data-rdr-theme="dark"]  .reader-body { color: #D7D2C8; }
 [data-theme="dark"] .reader-body { color: #E0E0E8; }
 .reader-body p { margin-bottom: var(--sp-3); }
 .reader-body__h2 { font-family: 'Crimson Text', Georgia, serif; font-size: 22px; font-weight: 700; margin-bottom: var(--sp-3); }
