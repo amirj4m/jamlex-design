@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppig4oy" />
-  <link rel="stylesheet" href="/css/base.css?v=mppig4oy" />
-  <link rel="stylesheet" href="/css/components.css?v=mppig4oy" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppig4oy" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppig4oy" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppig4oy" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppig4oy" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppig4oy" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppih1ni" />
+  <link rel="stylesheet" href="/css/base.css?v=mppih1ni" />
+  <link rel="stylesheet" href="/css/components.css?v=mppih1ni" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppih1ni" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppih1ni" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppih1ni" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppih1ni" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppih1ni" />
 </head>
 <body>
   <div class="preview-controls">
@@ -74,8 +74,12 @@
             <div class="lottie-stage wod-card__lottie" data-lottie="wod-paper-plane"></div>
 
             <hr class="wod-card__divider"/>
-            <button class="wod-card__cta">
-              <span style="font-size:18px;">+</span>
+            <button type="button" class="wod-card__cta" onclick="
+              if (this.dataset.done === 'true') return;
+              this.dataset.done = 'true';
+              window.popupSuccess(null, { messageKey: 'v3.home.addedToLeitner' });
+            ">
+              <span style="font-size:18px;" data-cta-plus>+</span>
               <span data-i18n="home.addToLeitner"></span>
             </button>
           </article>
@@ -128,7 +132,7 @@
   <script type="module">
     // Compose the greeting after i18n is ready, pulling the demo "userName"
     // from the active locale so the name follows the language (Reza / رضا).
-    import { t } from '/js/i18n.js?v=mppig4oy';
+    import { t } from '/js/i18n.js?v=mppih1ni';
     document.addEventListener('i18n:changed', fillGreeting);
     function fillGreeting () {
       const el = document.querySelector('[data-greeting]');
@@ -136,6 +140,6 @@
       el.textContent = t('v3.home.greetingHi', { name: t('v3.home.userName') });
     }
   </script>
-  <script type="module" src="/js/screen-shell.js?v=mppig4oy"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppih1ni"></script>
 </body>
 </html>
