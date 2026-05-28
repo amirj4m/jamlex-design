@@ -3233,7 +3233,9 @@
   transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
-.lt-card[data-flipped="true"] .lt-card__inner { transform: rotateY(180deg); }
+/* Flip is controlled by the SESSION wrapper (so it can also toggle which
+   action row is visible — translate vs mastery — at the same time). */
+.lt-session[data-flipped="true"] .lt-card__inner { transform: rotateY(180deg); }
 .lt-card__front,
 .lt-card__back {
   position: absolute;
@@ -3278,7 +3280,36 @@
   margin-top: var(--sp-2);
 }
 
-/* Mastery buttons row (4 equal pills, LTR order dont→sort→know→well) */
+/* Translate CTA — visible on the FRONT (English) of the card. Tapping it
+   flips the card to reveal the Persian meaning. Hidden once flipped. */
+.lt-translate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--jx-primary);
+  color: #fff;
+  border: 0;
+  border-radius: var(--rd-pill);
+  padding: var(--sp-3) var(--sp-4);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body-m);
+  cursor: pointer;
+  margin-top: var(--sp-3);
+  box-shadow: 0 4px 14px rgba(0,180,166,0.30);
+  transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+}
+.lt-translate-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,180,166,0.36); }
+.lt-translate-btn svg { width: 18px; height: 18px; }
+
+/* Visibility tied to the parent session's flip state */
+.lt-session[data-flipped="true"]  .lt-translate-btn { display: none; }
+.lt-session[data-flipped="false"] .lt-mastery       { display: none; }
+
+/* Mastery buttons row (4 equal pills, LTR order dont→sort→know→well).
+   Hidden on the front of the card; shown only AFTER the user has flipped
+   to see the Persian meaning. */
 .lt-mastery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppj33q9" />
-  <link rel="stylesheet" href="/css/base.css?v=mppj33q9" />
-  <link rel="stylesheet" href="/css/components.css?v=mppj33q9" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppj33q9" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppj33q9" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppj33q9" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppj33q9" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppj33q9" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppja0wl" />
+  <link rel="stylesheet" href="/css/base.css?v=mppja0wl" />
+  <link rel="stylesheet" href="/css/components.css?v=mppja0wl" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppja0wl" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppja0wl" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppja0wl" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppja0wl" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppja0wl" />
 </head>
 <body>
   <div class="preview-controls">
@@ -33,7 +33,7 @@
           <div></div>
         </header>
 
-        <div class="screen__body">
+        <div class="screen__body lt-session" data-flipped="false" data-lt-session>
           <!-- Five Leitner boxes 1→5 LEFT→RIGHT (dir=ltr locks the order).
                Standard Leitner intervals: 1d / 2d / 4d / 7d / 14d. The active
                box is the one we're reviewing FROM (here: box 5). -->
@@ -90,10 +90,16 @@
             </div>
           </div>
 
-          <!-- Mastery row: don't know | sort of | know | know well.
-               dir=ltr keeps the worst→best progression left-to-right
-               regardless of UI locale. Persian labels still render correctly
-               via Unicode bidi inside each pill. -->
+          <!-- Front: ONE translate CTA. Tapping it (or the card itself) flips
+               to the Persian meaning. Hidden once the card is flipped. -->
+          <button type="button" class="lt-translate-btn" data-lt-translate>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14M5 8l4-4m-4 4 4 4M3 16h10M13 16l-3 3m3-3-3-3"/></svg>
+            <span data-i18n="v3.leitner.translate"></span>
+          </button>
+
+          <!-- Back: 4 mastery buttons. Visible only AFTER the user has seen
+               the Persian meaning (i.e. once the session is in "flipped" state).
+               dir=ltr keeps the worst→best progression LEFT→RIGHT. -->
           <div class="lt-mastery" dir="ltr">
             <button type="button" class="lt-mbtn lt-mbtn--dont" data-lt-move="reset">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
@@ -119,7 +125,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppj33q9"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppja0wl"></script>
   <script>
     // Leitner review interaction.
     // The active box (green outline) is the box the current card lives in.
@@ -146,11 +152,18 @@
       const TOTAL = 75; // user's daily-limit setting
 
       let idx = 0;
-      const cardEl    = document.querySelector('[data-lt-card]');
+      const sessionEl = document.querySelector('[data-lt-session]');
       const wordEl    = document.querySelector('[data-lt-word]');
       const ipaEl     = document.querySelector('[data-lt-ipa]');
       const meaningEl = document.querySelector('[data-lt-meaning]');
       const counterEl = document.querySelector('[data-lt-counter]');
+
+      function flip (toFlipped) {
+        const wantFlipped = (toFlipped === undefined)
+          ? sessionEl.dataset.flipped !== 'true'
+          : !!toFlipped;
+        sessionEl.dataset.flipped = wantFlipped ? 'true' : 'false';
+      }
 
       function setActiveBox (n) {
         document.querySelectorAll('.lt-box').forEach(function (b) { b.removeAttribute('data-active'); });
@@ -164,7 +177,7 @@
         ipaEl.textContent     = item.ipa;
         meaningEl.textContent = item.meaning;
         counterEl.textContent = (idx + 1) + ' / ' + TOTAL;
-        cardEl.removeAttribute('data-flipped'); // always show the front for a new card
+        flip(false); // always show the front (English) for a new card
         setActiveBox(item.box);
       }
 
@@ -213,14 +226,9 @@
         if (e.target.closest('[data-lt-audio]')) {
           return;
         }
-        // Card click → flip
-        const cardClick = e.target.closest('[data-lt-card]');
-        if (cardClick) {
-          if (cardClick.dataset.flipped === 'true') {
-            cardClick.removeAttribute('data-flipped');
-          } else {
-            cardClick.dataset.flipped = 'true';
-          }
+        // Translate button OR tapping the card itself → flip
+        if (e.target.closest('[data-lt-translate]') || e.target.closest('[data-lt-card]')) {
+          flip();
           return;
         }
       });
