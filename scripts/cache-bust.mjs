@@ -71,6 +71,14 @@ for (const f of readdirSync(JS)) {
     /(from\s+["'])(\.\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
     `$1$2?v=${version}$4`
   );
+  // `import X from '/js/foo.js'` (absolute paths into /js/ from JS) —
+  // CRITICAL: without this rule, library.js and i18n.js end up at different
+  // versions, browsers treat them as separate modules, and the dict loaded
+  // by screen-shell.js is invisible to library.js (keys render literally).
+  after = after.replace(
+    /(from\s+["'])(\/js\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
+    `$1$2?v=${version}$4`
+  );
   // `import X from '/data/foo.js'` (absolute paths into /data/ from JS)
   after = after.replace(
     /(from\s+["'])(\/data\/[^"'?]+\.js)(\?[^"']*)?(["'])/g,
