@@ -556,7 +556,7 @@
     "home": {
       "userName": "رضا",
       "userInitial": "ر",
-      "greetingHi": "سلام {name}!",
+      "greetingHi": "سلام {name}",
       "welcomeBack": "خوش اومدی به Jamlex",
       "streakDays": "۷ روز",
       "streakLabel": "رکورد یادگیری",

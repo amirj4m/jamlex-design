@@ -556,7 +556,7 @@
     "home": {
       "userName": "Reza",
       "userInitial": "R",
-      "greetingHi": "Hi {name}!",
+      "greetingHi": "Hi {name}",
       "welcomeBack": "Welcome to Jamlex",
       "streakDays": "{n} days",
       "streakLabel": "Learning streak",
