@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpp3gv2n" />
-  <link rel="stylesheet" href="/css/base.css?v=mpp3gv2n" />
-  <link rel="stylesheet" href="/css/components.css?v=mpp3gv2n" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpp3gv2n" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpp3gv2n" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpp3gv2n" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpp3gv2n" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpp3gv2n" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mppi26aa" />
+  <link rel="stylesheet" href="/css/base.css?v=mppi26aa" />
+  <link rel="stylesheet" href="/css/components.css?v=mppi26aa" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppi26aa" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mppi26aa" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mppi26aa" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppi26aa" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppi26aa" />
 </head>
 <body data-library-screen="book-reader">
   <div class="preview-controls">
@@ -78,7 +78,9 @@
             <div class="lookup-sheet-v4" onclick="event.stopPropagation();">
               <div class="lookup-sheet-v4__grab"></div>
 
-              <div class="lookup-sheet-v4__head">
+              <!-- dir="ltr": the headline word is English content → its POSITION is
+                   locked to the LEFT regardless of UI locale. Star sits on the right. -->
+              <div class="lookup-sheet-v4__head" dir="ltr">
                 <div>
                   <div class="lookup-sheet-v4__word">tap</div>
                   <div class="lookup-sheet-v4__ipa">
@@ -101,7 +103,8 @@
 
               <h3 class="lookup-sheet-v4__section" data-i18n="v3.bookReader.lookup.example"></h3>
               <div class="lookup-sheet-v4__card lookup-sheet-v4__card--example">
-                <div class="lookup-sheet-v4__example-row">
+                <!-- The English sentence is content → POSITION locked LEFT, audio on the right. -->
+                <div class="lookup-sheet-v4__example-row" dir="ltr">
                   <div class="lookup-sheet-v4__example-en">She <mark>tapped</mark> the table to get his attention.</div>
                   <button class="audio-btn audio-btn--inline" data-audio="tapped" aria-label="Play">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>
@@ -110,7 +113,9 @@
                 <div class="lookup-sheet-v4__example-fa" data-i18n="v3.bookReader.lookup.tapExampleFa"></div>
               </div>
 
-              <div class="lookup-sheet-v4__actions">
+              <!-- Action positions are fixed: primary "Add to Leitner" on LEFT, secondary on RIGHT.
+                   This mirrors the headline layout above. -->
+              <div class="lookup-sheet-v4__actions" dir="ltr">
                 <button class="pill-action" type="button">
                   <span class="pill-action__icon">+</span>
                   <span class="pill-action__label" data-i18n="v3.bookReader.lookup.addToLeitner"></span>
@@ -129,10 +134,10 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpp3gv2n"></script>
+  <script type="module" src="/js/screen-shell.js?v=mppi26aa"></script>
   <script type="module">
-    import { findBook, FEATURED } from '/data/books.js?v=mpp3gv2n';
-    import { applyToDom } from '/js/i18n.js?v=mpp3gv2n';
+    import { findBook, FEATURED } from '/data/books.js?v=mppi26aa';
+    import { applyToDom } from '/js/i18n.js?v=mppi26aa';
 
     const params = new URLSearchParams(location.search);
     const id = params.get('id') || 'pride-and-prejudice';
