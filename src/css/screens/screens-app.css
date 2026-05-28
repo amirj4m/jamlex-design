@@ -3201,9 +3201,11 @@
   border-radius: var(--rd-pill);
 }
 
-/* Year heatmap */
+/* Year heatmap — GitHub-style. Locked LTR regardless of UI dir: months read
+   left→right (Jan→…→Dec) and cells flow top→bottom, left→right. */
 .heatmap-year {
   margin-top: var(--sp-2);
+  direction: ltr;
 }
 .heatmap-year__months {
   display: grid;
@@ -3213,9 +3215,12 @@
   color: var(--jx-text-3);
   font-family: var(--font-family-latin), var(--font-family);
   margin-bottom: 6px;
-  padding-inline-start: 22px;
 }
-.heatmap-year__months span { text-align: start; }
+/* The 22px first column reserves space for the day labels gutter so months
+   align with their column above. We still want the LABEL text to read
+   left-aligned in each cell. */
+.heatmap-year__months span { grid-column: auto; text-align: start; }
+.heatmap-year__months span:first-child { grid-column: 2; }
 .heatmap-year__main {
   display: grid;
   grid-template-columns: 22px 1fr;
@@ -3224,28 +3229,34 @@
 .heatmap-year__days {
   display: grid;
   grid-template-rows: repeat(7, 1fr);
-  font-size: 10px;
+  font-size: 9px;
   color: var(--jx-text-3);
   font-family: var(--font-family-latin), var(--font-family);
 }
 .heatmap-year__days span:nth-child(2) { grid-row: 2; align-self: center; }
-.heatmap-year__days span:nth-child(3) { grid-row: 4; align-self: center; }
-.heatmap-year__days span:nth-child(4) { grid-row: 6; align-self: center; }
+.heatmap-year__days span:nth-child(4) { grid-row: 4; align-self: center; }
+.heatmap-year__days span:nth-child(6) { grid-row: 6; align-self: center; }
 .heatmap-year__days span:nth-child(1),
-.heatmap-year__days span:nth-child(5) { visibility: hidden; }
+.heatmap-year__days span:nth-child(3),
+.heatmap-year__days span:nth-child(5),
+.heatmap-year__days span:nth-child(7) { visibility: hidden; }
+/* The grid: 7 explicit rows × auto columns. grid-auto-flow:column makes
+   cells flow DOWN before moving RIGHT — matches our JS that fills
+   column-by-column. grid-auto-columns: 1fr distributes width evenly across
+   the 22 generated columns. */
 .heatmap-year__grid {
   display: grid;
-  grid-template-columns: repeat(22, 1fr);
-  grid-auto-rows: minmax(0, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-columns: 1fr;
   grid-auto-flow: column;
   gap: 3px;
-  direction: ltr;
+  aspect-ratio: 22 / 7;
 }
 .heatmap-cell {
-  width: 100%;
-  aspect-ratio: 1 / 1;
   background: var(--jx-input-bg);
-  border-radius: 3px;
+  border-radius: 2px;
+  min-width: 0;
+  min-height: 0;
 }
 .heatmap-cell[data-level="1"] { background: #D6F0EC; }
 .heatmap-cell[data-level="2"] { background: #9DDFD4; }
