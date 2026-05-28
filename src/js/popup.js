@@ -29,7 +29,7 @@
  *   - i18n: pass keys via { messageKey, titleKey } as an alternative to literals
  */
 
-import { t } from './i18n.js?v=mppjctas';
+import { t } from './i18n.js?v=mppjgudh';
 
 const ICONS = {
   success: { color: '#26D07C', svg: `<polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>` },

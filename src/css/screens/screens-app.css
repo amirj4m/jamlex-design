@@ -3236,6 +3236,10 @@
 /* Flip is controlled by the SESSION wrapper (so it can also toggle which
    action row is visible — translate vs mastery — at the same time). */
 .lt-session[data-flipped="true"] .lt-card__inner { transform: rotateY(180deg); }
+
+/* Audio (English TTS) only makes sense on the English side. Hide via
+   visibility so the pill layout stays symmetric. Trash + counter remain. */
+.lt-session[data-flipped="true"] [data-lt-audio] { visibility: hidden; }
 .lt-card__front,
 .lt-card__back {
   position: absolute;
