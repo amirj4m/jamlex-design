@@ -2744,6 +2744,226 @@
   background: linear-gradient(135deg, #062E26 0%, #114537 100%);
 }
 
+/* ============================================================================
+   Book Reader v4 — dark blurred hero + bottom-sheet lookup
+   ============================================================================ */
+.rdr-hero {
+  position: relative;
+  padding: var(--sp-3) var(--sp-4) var(--sp-5);
+  color: #fff;
+  background-color: #1a1410;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.rdr-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.78) 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+.rdr-hero > * { position: relative; z-index: 2; }
+
+.rdr-hero__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+.rdr-hero__tools {
+  display: flex;
+  gap: var(--sp-2);
+}
+.rdr-hero__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.85);
+  border: 0;
+  cursor: pointer;
+  transition: background var(--motion-fast);
+}
+.rdr-hero__icon:hover { background: rgba(255,255,255,0.18); color: #fff; }
+.rdr-hero__icon svg { width: 18px; height: 18px; }
+
+.rdr-hero__title {
+  font-size: 26px;
+  font-weight: var(--fw-extrabold);
+  text-align: center;
+  color: rgba(255,255,255,0.55);
+  font-family: var(--font-family-latin), var(--font-family);
+  direction: ltr;
+  letter-spacing: -0.3px;
+  margin-top: var(--sp-3);
+}
+.rdr-hero__sub {
+  font-size: var(--fs-body-m);
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  margin-top: 4px;
+}
+.rdr-hero__thumb {
+  width: 88px;
+  height: 122px;
+  border-radius: 8px;
+  margin: var(--sp-4) auto 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.45;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+}
+
+/* ─── Lookup bottom-sheet v4 ─────────────────────────────────────────── */
+.lookup-sheet-v4 {
+  background: var(--jx-bg);
+  border-radius: 24px 24px 0 0;
+  padding: var(--sp-3) var(--sp-5) var(--sp-5);
+  width: 100%;
+  max-height: 75%;
+  overflow-y: auto;
+  box-shadow: 0 -12px 30px rgba(0,0,0,0.18);
+}
+.lookup-sheet-v4__grab {
+  width: 44px;
+  height: 4px;
+  border-radius: var(--rd-pill);
+  background: var(--jx-divider);
+  margin: 0 auto var(--sp-4);
+}
+.lookup-sheet-v4__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--sp-4);
+}
+.lookup-sheet-v4__word {
+  font-size: 30px;
+  font-weight: var(--fw-extrabold);
+  font-family: var(--font-family-latin), var(--font-family);
+  direction: ltr;
+  color: var(--jx-text);
+  line-height: 1;
+}
+.lookup-sheet-v4__ipa {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  font-family: var(--font-family-latin), var(--font-family);
+  direction: ltr;
+  color: var(--jx-text-2);
+  font-size: var(--fs-body-m);
+}
+.lookup-sheet-v4__star {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--jx-text-3);
+  background: transparent;
+  border: 0;
+  font-size: 22px;
+  cursor: pointer;
+}
+.lookup-sheet-v4__star[data-active="true"] { color: #F5B945; }
+
+.lookup-sheet-v4__section {
+  font-size: var(--fs-body-m);
+  font-weight: var(--fw-bold);
+  color: var(--jx-text);
+  text-align: end;
+  margin: var(--sp-3) 0 var(--sp-2);
+}
+.lookup-sheet-v4__card {
+  background: var(--jx-input-bg);
+  border-radius: 14px;
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-relaxed);
+  text-align: end;
+}
+.lookup-sheet-v4__card > * + * { margin-top: 6px; }
+
+.lookup-sheet-v4__card--example {
+  background: #EAF7F4;
+}
+[data-theme="dark"] .lookup-sheet-v4__card--example { background: rgba(0,180,166,0.12); }
+.lookup-sheet-v4__example-row {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+}
+.lookup-sheet-v4__example-en {
+  flex: 1;
+  direction: ltr;
+  text-align: start;
+  font-family: var(--font-family-latin), var(--font-family);
+  font-size: var(--fs-body-m);
+  line-height: 1.6;
+  color: var(--jx-text);
+}
+.lookup-sheet-v4__example-en mark {
+  background: transparent;
+  color: var(--jx-secondary);
+  font-weight: var(--fw-bold);
+}
+.lookup-sheet-v4__example-fa {
+  margin-top: 8px;
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+}
+
+/* Bottom action row — circular teal icon button with label below */
+.lookup-sheet-v4__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--jx-divider);
+}
+.pill-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--jx-text);
+  padding: 0;
+}
+.pill-action__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--jx-primary-glow);
+  color: var(--jx-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: var(--fw-bold);
+}
+.pill-action__icon svg { width: 22px; height: 22px; }
+.pill-action__label {
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-semibold);
+}
+
 /* Continue card (in-progress book) */
 .continue-card {
   display: grid;

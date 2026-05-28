@@ -796,9 +796,11 @@
     "bookReader": {
       "chapterProgress": "فصل ۱ · ۴۲٪",
       "ofChapters": "{pct}٪ از {total} فصل",
+      "subtitleFa": "اینساید ریدینگ - ۱",
       "lookup": {
         "viewFull": "مشاهده کامل",
         "addToLeitner": "افزودن به لایتنر",
+        "addToMyWords": "افزودن به واژگان من",
         "pronounce": "تلفظ",
         "meanings": "معنی‌ها",
         "example": "مثال",
