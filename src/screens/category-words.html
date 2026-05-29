@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr8el8c" />
 </head>
 <body>
   <div class="preview-controls">
@@ -159,7 +159,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpr0nh1d"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr8el8c"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — dynamic per-category lesson list.
@@ -177,7 +177,7 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpr0nh1d';
+    import { getLocale } from '/js/i18n.js?v=mpr8el8c';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
@@ -251,15 +251,18 @@
       // formula TBD per product owner. For now: alternating A/B.
       const demoGrades = ['A', 'B'];
 
-      // --- Render lessons
-      // Locked rows are plain <div> (non-tappable). Done + active rows
-      // are <button>s that open the lesson modal with the right number
-      // wired in — no direct navigation to leitner.html anymore.
+      // --- Render lessons.
+      // Free tier (per architecture_freemium_strategy.md Wall 4):
+      //   Lessons 1-3 are fully unlocked (open modal → Add to Leitner,
+      //   review words, all study modes work).
+      //   Lesson 4+ are <button>s with the lock glyph PLUS a tiny gold
+      //   chip in the corner — tapping shows the lesson paywall popup.
+      const FREE_LESSONS = 3;
       const rows = [];
       for (let i = 1; i <= total; i++) {
         const numLabel = formatNum(i, locale);
         let status, grade = '', statusInner;
-        let openTag, closeTag, extraAttrs = '';
+        let openTag, closeTag, extraAttrs = '', extraInner = '';
         if (i <= doneCount) {
           status = 'done';
           grade = demoGrades[(i - 1) % demoGrades.length];
@@ -273,11 +276,25 @@
           openTag = 'button';
           extraAttrs = ' type="button" data-open-lesson="' + i + '"';
           closeTag = 'button';
+        } else if (i <= FREE_LESSONS) {
+          // Free but not yet started — clickable to open the modal
+          // and add words to Leitner / review.
+          status = 'free';
+          statusInner = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+          openTag = 'button';
+          extraAttrs = ' type="button" data-open-lesson="' + i + '"';
+          closeTag = 'button';
         } else {
+          // Premium-walled. Tapping fires the lesson paywall popup.
           status = 'locked';
           statusInner = LOCK_SVG;
-          openTag = 'div';
-          closeTag = 'div';
+          openTag = 'button';
+          extraAttrs = ' type="button" data-locked-lesson="' + i + '"';
+          closeTag = 'button';
+          // Tiny golden chip on the row to hint at the premium gate.
+          extraInner = '<span class="lesson-row__premium-chip" aria-hidden="true">' +
+            '<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>' +
+          '</span>';
         }
         const gradeAttr = grade ? ' data-grade="' + grade + '"' : '';
         const lessonName = isfa ? ('درس ' + numLabel) : ('Lesson ' + i);
@@ -288,17 +305,37 @@
               '<div class="lesson-row__name">' + lessonName + '</div>' +
               '<div class="lesson-row__sub">Lesson ' + i + '</div>' +
             '</div>' +
+            extraInner +
             '<span class="lesson-row__status">' + statusInner + '</span>' +
           '</' + closeTag + '>'
         );
       }
       document.querySelector('[data-lesson-list]').innerHTML = rows.join('');
 
-      // Wire up the new buttons so they open the modal with their
-      // lesson number applied to the title / sub / review-link.
+      // Free lessons → open the modal with their lesson number.
       document.querySelectorAll('[data-open-lesson]').forEach(function (btn) {
         btn.addEventListener('click', function () {
           openLessonModal(parseInt(btn.dataset.openLesson, 10));
+        });
+      });
+
+      // Premium-walled lessons → paywall popup.
+      document.querySelectorAll('[data-locked-lesson]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          // TODO(flutter): FirebaseAnalytics.logEvent('add_to_leitner_click_blocked',
+          //   { group_slug: slug, lesson_num: parseInt(btn.dataset.lockedLesson, 10), words_in_lesson: K });
+          if (window.console) console.log('[analytics] add_to_leitner_click_blocked', btn.dataset.lockedLesson);
+          if (window.showPopup) {
+            window.showPopup({
+              type: 'info',
+              titleKey: 'v3.paywall.lesson.title',
+              messageKey: 'v3.paywall.lesson.body',
+              confirmKey: 'v3.paywall.lesson.cta',
+              autoDismiss: 0,
+            }).then(function (ok) {
+              if (ok !== false) location.href = '/screens/paywall.html';
+            });
+          }
         });
       });
     }

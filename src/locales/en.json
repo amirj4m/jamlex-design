@@ -912,8 +912,27 @@
       "achFirstStep": "First step",
       "achFirstStepHint": "First app interaction",
       "advancedAnalysis": "Advanced analysis",
-      "advancedAnalysisSub": "Weaknesses, frequent slips, forgetting curve",
+      "advancedAnalysisSub": "Weaknesses, frequent slips, and the forgetting curve",
       "premiumBadge": "PREMIUM",
+      "analysis": {
+        "forgettingTitle": "Forgetting curve",
+        "forgettingCaption": "Teal = your memory with Leitner; gray = without review.",
+        "day0": "Day 0",
+        "day7": "Day 7",
+        "day14": "Day 14",
+        "day30": "Day 30",
+        "withLeitner": "With Leitner",
+        "withoutReview": "Without review",
+        "hardestTitle": "Top 5 hardest",
+        "hardestCaption": "The words you missed most often in review.",
+        "categoryTitle": "Category weaknesses",
+        "categoryCaption": "Your average accuracy per group.",
+        "catScience": "Science & tech",
+        "catFeelings": "Feelings",
+        "catWork": "Work & money",
+        "catFood": "Food & drink",
+        "insight": "Science & tech was weak this week. Time for a targeted review."
+      },
       "tabMine": "My progress",
       "tabLeague": "Global League"
     },
@@ -1088,6 +1107,11 @@
       "league": {
         "title": "Premium badge",
         "body": "Premium members get the gold badge, 2× weekend XP boost, and seasonal leagues.",
+        "cta": "Upgrade to Premium"
+      },
+      "lesson": {
+        "title": "Your learning journey continues",
+        "body": "The first 3 lessons of every category are free and fully unlocked. To continue with the rest and add their words to Leitner, activate your Premium subscription.",
         "cta": "Upgrade to Premium"
       },
       "headline": "Go {brand} Premium",

@@ -2341,6 +2341,127 @@
   color: var(--jx-primary);
 }
 [data-theme="dark"] .stats-premium__lock { background: rgba(20,28,42,0.30); }
+
+/* ============================================================================
+   Advanced analysis card content — UNLOCKED state for design review.
+   Layout: top sub, then 3 stacked sections (forgetting curve, hardest
+   words, category weakness) + a closing smart-insight nudge.
+   ============================================================================ */
+.stats-analysis__sub {
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  margin-bottom: var(--sp-3);
+  line-height: var(--lh-relaxed);
+}
+.stats-analysis__section {
+  padding-top: var(--sp-3);
+  margin-top: var(--sp-3);
+  border-top: 1px solid var(--jx-divider);
+}
+.stats-analysis__h {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-body-m);
+  color: var(--jx-text);
+  margin-bottom: 4px;
+}
+.stats-analysis__caption {
+  font-size: var(--fs-caption);
+  color: var(--jx-text-3);
+  margin-bottom: var(--sp-2);
+  line-height: var(--lh-relaxed);
+}
+
+/* Forgetting-curve chart */
+.stats-analysis__chart {
+  background: var(--jx-input-bg);
+  border-radius: 12px;
+  padding: var(--sp-2);
+}
+.stats-analysis__x-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--jx-text-3);
+  margin-top: 4px;
+  padding: 0 var(--sp-2);
+}
+.stats-analysis__legend {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-2);
+  font-size: 11px;
+  color: var(--jx-text-2);
+}
+.stats-analysis__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.stats-analysis__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Word / category lists with right-aligned percentage bar */
+.stats-analysis__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.stats-analysis__item {
+  display: grid;
+  grid-template-columns: 100px 1fr 40px;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.stats-analysis__word {
+  font-size: var(--fs-body-s);
+  font-weight: var(--fw-bold);
+  color: var(--jx-text);
+  text-align: start;
+}
+.stats-analysis__bar {
+  height: 8px;
+  background: var(--jx-input-bg);
+  border-radius: var(--rd-pill);
+  overflow: hidden;
+}
+.stats-analysis__bar-fill {
+  height: 100%;
+  border-radius: var(--rd-pill);
+  transition: width 600ms var(--ease-out);
+}
+.stats-analysis__pct {
+  font-weight: var(--fw-extrabold);
+  font-size: 11px;
+  color: var(--jx-text-2);
+  text-align: end;
+}
+
+/* Smart insight nudge at the bottom */
+.stats-analysis__insight {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  margin-top: var(--sp-3);
+  background: linear-gradient(135deg, rgba(245,185,69,0.12), rgba(0,180,166,0.10));
+  border-radius: 14px;
+  border-inline-start: 3px solid var(--jx-primary);
+  font-size: var(--fs-body-s);
+  color: var(--jx-text);
+  line-height: var(--lh-relaxed);
+  font-weight: var(--fw-semibold);
+}
 .cat-row {
   display: flex;
   align-items: center;

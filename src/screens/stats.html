@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr0nh1d" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr8el8c" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr8el8c" />
 </head>
 <body>
   <div class="preview-controls">
@@ -158,36 +158,132 @@
               </div>
             </div>
 
-            <!-- Wall 2 — Premium advanced analysis card. Free users see
-                 the teaser; tap opens the paywall popup. Streak / heatmap
-                 / level / words-learned tile all stay FREE — this is the
-                 only premium-gated card on the Stats screen. See
-                 architecture_freemium_strategy.md §Wall 2. -->
-            <button class="stats-card stats-card--premium" type="button" data-stats-premium-trigger>
+            <!-- Wall 2 — Advanced analysis card. UNLOCKED for now so the
+                 product owner can see the actual content shape. Once
+                 they sign off, re-add `data-stats-premium-trigger` to
+                 the wrapper element and re-introduce the blur teaser to
+                 ship the paywall. See architecture_freemium_strategy.md
+                 §Wall 2 for the wall-on spec. -->
+            <div class="stats-card stats-analysis">
               <div class="stats-card__head">
                 <span class="stats-card__title">
-                  <svg viewBox="0 0 24 24" fill="#F5B945"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="#F5B945"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
                   <span data-i18n="v3.stats.advancedAnalysis"></span>
                 </span>
-                <span class="premium-chip">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
-                  <span data-i18n="v3.stats.premiumBadge"></span>
-                </span>
               </div>
-              <div class="stats-premium__sub" data-i18n="v3.stats.advancedAnalysisSub"></div>
-              <!-- A faked teaser strip — forgetting-curve sparkline + locked overlay -->
-              <div class="stats-premium__teaser">
-                <svg viewBox="0 0 200 50" preserveAspectRatio="none" style="width:100%;height:50px;">
-                  <path d="M0,40 Q40,5 80,15 T160,35 T200,30" fill="none" stroke="var(--jx-primary)" stroke-width="2" opacity="0.8"/>
-                  <circle cx="60" cy="11" r="3" fill="var(--jx-primary)"/>
-                  <circle cx="120" cy="28" r="3" fill="#F5B945"/>
-                  <circle cx="180" cy="32" r="3" fill="var(--jx-danger)"/>
-                </svg>
-                <div class="stats-premium__lock">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              <div class="stats-analysis__sub" data-i18n="v3.stats.advancedAnalysisSub"></div>
+
+              <!-- 1. Forgetting curve — Ebbinghaus-style line chart -->
+              <div class="stats-analysis__section">
+                <div class="stats-analysis__h">
+                  <span style="font-size:14px;">📉</span>
+                  <span data-i18n="v3.stats.analysis.forgettingTitle"></span>
+                </div>
+                <p class="stats-analysis__caption" data-i18n="v3.stats.analysis.forgettingCaption"></p>
+                <div class="stats-analysis__chart">
+                  <svg viewBox="0 0 300 110" preserveAspectRatio="none" style="width:100%;height:110px;">
+                    <!-- Grid lines -->
+                    <line x1="0" y1="22" x2="300" y2="22" stroke="var(--jx-divider)" stroke-dasharray="2,4"/>
+                    <line x1="0" y1="55" x2="300" y2="55" stroke="var(--jx-divider)" stroke-dasharray="2,4"/>
+                    <line x1="0" y1="88" x2="300" y2="88" stroke="var(--jx-divider)" stroke-dasharray="2,4"/>
+                    <!-- Without-review curve (gray, dotted) -->
+                    <path d="M5,8 Q50,55 110,72 T210,90 T295,98" fill="none" stroke="var(--jx-text-3)" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.6"/>
+                    <!-- With-Leitner curve (teal) -->
+                    <path d="M5,8 Q40,30 80,28 T160,32 T240,30 T295,34" fill="none" stroke="var(--jx-primary)" stroke-width="2.5"/>
+                    <!-- Points -->
+                    <circle cx="5" cy="8" r="3.5" fill="#2A8E4D"/>
+                    <circle cx="80" cy="28" r="3.5" fill="var(--jx-primary)"/>
+                    <circle cx="160" cy="32" r="3.5" fill="var(--jx-primary)"/>
+                    <circle cx="240" cy="30" r="3.5" fill="var(--jx-primary)"/>
+                    <!-- Today marker -->
+                    <line x1="160" y1="20" x2="160" y2="105" stroke="#F5B945" stroke-width="1" stroke-dasharray="2,3"/>
+                  </svg>
+                </div>
+                <div class="stats-analysis__x-axis">
+                  <span class="font-latin" data-i18n="v3.stats.analysis.day0"></span>
+                  <span class="font-latin" data-i18n="v3.stats.analysis.day7"></span>
+                  <span class="font-latin" data-i18n="v3.stats.analysis.day14"></span>
+                  <span class="font-latin" data-i18n="v3.stats.analysis.day30"></span>
+                </div>
+                <div class="stats-analysis__legend">
+                  <span class="stats-analysis__legend-item"><span class="stats-analysis__dot" style="background:var(--jx-primary);"></span><span data-i18n="v3.stats.analysis.withLeitner"></span></span>
+                  <span class="stats-analysis__legend-item"><span class="stats-analysis__dot" style="background:var(--jx-text-3);opacity:0.6;border:1px dashed var(--jx-text-3);"></span><span data-i18n="v3.stats.analysis.withoutReview"></span></span>
                 </div>
               </div>
-            </button>
+
+              <!-- 2. Most-missed words (top 5) -->
+              <div class="stats-analysis__section">
+                <div class="stats-analysis__h">
+                  <span style="font-size:14px;">🎯</span>
+                  <span data-i18n="v3.stats.analysis.hardestTitle"></span>
+                </div>
+                <p class="stats-analysis__caption" data-i18n="v3.stats.analysis.hardestCaption"></p>
+                <ul class="stats-analysis__list">
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word font-latin">through</span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:40%;background:linear-gradient(90deg,#EF5350,#C62828);"></div></div>
+                    <span class="stats-analysis__pct font-latin">40%</span>
+                  </li>
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word font-latin">although</span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:45%;background:linear-gradient(90deg,#EF5350,#C62828);"></div></div>
+                    <span class="stats-analysis__pct font-latin">45%</span>
+                  </li>
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word font-latin">whereas</span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:52%;background:linear-gradient(90deg,#FB8C00,#E65100);"></div></div>
+                    <span class="stats-analysis__pct font-latin">52%</span>
+                  </li>
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word font-latin">furthermore</span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:58%;background:linear-gradient(90deg,#FB8C00,#E65100);"></div></div>
+                    <span class="stats-analysis__pct font-latin">58%</span>
+                  </li>
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word font-latin">nevertheless</span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:63%;background:linear-gradient(90deg,#F5B945,#B27A12);"></div></div>
+                    <span class="stats-analysis__pct font-latin">63%</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- 3. Per-category accuracy -->
+              <div class="stats-analysis__section">
+                <div class="stats-analysis__h">
+                  <span style="font-size:14px;">📊</span>
+                  <span data-i18n="v3.stats.analysis.categoryTitle"></span>
+                </div>
+                <p class="stats-analysis__caption" data-i18n="v3.stats.analysis.categoryCaption"></p>
+                <ul class="stats-analysis__list">
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word">🔬 <span data-i18n="v3.stats.analysis.catScience"></span></span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:45%;background:linear-gradient(90deg,#EF5350,#C62828);"></div></div>
+                    <span class="stats-analysis__pct font-latin">45%</span>
+                  </li>
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word">😊 <span data-i18n="v3.stats.analysis.catFeelings"></span></span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:58%;background:linear-gradient(90deg,#FB8C00,#E65100);"></div></div>
+                    <span class="stats-analysis__pct font-latin">58%</span>
+                  </li>
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word">💼 <span data-i18n="v3.stats.analysis.catWork"></span></span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:71%;background:linear-gradient(90deg,#F5B945,#B27A12);"></div></div>
+                    <span class="stats-analysis__pct font-latin">71%</span>
+                  </li>
+                  <li class="stats-analysis__item">
+                    <span class="stats-analysis__word">🍔 <span data-i18n="v3.stats.analysis.catFood"></span></span>
+                    <div class="stats-analysis__bar"><div class="stats-analysis__bar-fill" style="width:84%;background:linear-gradient(90deg,#4DC4B1,#1F9389);"></div></div>
+                    <span class="stats-analysis__pct font-latin">84%</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- 4. Smart insight nudge -->
+              <div class="stats-analysis__insight">
+                <span style="font-size:18px;">💡</span>
+                <span data-i18n="v3.stats.analysis.insight"></span>
+              </div>
+            </div>
 
             <!-- This week mini-card -->
             <div class="stats-card">
@@ -385,7 +481,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpr0nh1d"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr8el8c"></script>
   <script>
     (function () {
       // -------- Tab toggle (instant, no page reload) --------

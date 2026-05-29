@@ -286,11 +286,37 @@
   border-color: rgba(0, 180, 166, 0.30);
 }
 .lesson-row[data-status="locked"] {
-  opacity: 0.6;
+  opacity: 0.75;
+  cursor: pointer;
 }
 .lesson-row[data-status="locked"] .lesson-row__status {
   background: var(--jx-surface);
   color: var(--jx-text-3);
+}
+.lesson-row[data-status="locked"]:hover {
+  opacity: 0.95;
+  border-color: rgba(245,185,69,0.40);
+}
+/* Free-but-unstarted lesson (1..3 of every category — still in the free
+   tier). Chevron arrow on the right tells the user "tap to enter". */
+.lesson-row[data-status="free"] .lesson-row__status {
+  background: var(--jx-input-bg);
+  color: var(--jx-text-2);
+}
+/* Tiny golden lightning chip in the locked row to advertise the premium
+   gate visually (in addition to the lock glyph). */
+.lesson-row__premium-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFD15C, #B27A12);
+  color: #4A2E00;
+  margin-inline-end: 6px;
+  flex: none;
+  box-shadow: 0 1px 4px rgba(245,185,69,0.45);
 }
 
 /* ── Vocab learning footer purple summary card ──────────────────────── */
