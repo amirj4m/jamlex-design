@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/base.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/components.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/base.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/components.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprb0is0" />
 </head>
 <body>
   <div class="preview-controls">
@@ -182,7 +182,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpraooly"></script>
+  <script type="module" src="/js/screen-shell.js?v=mprb0is0"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -195,7 +195,7 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpraooly';
+    import { getLocale } from '/js/i18n.js?v=mprb0is0';
 
     // Per-group glyph + soft tint. 12 distinct colour-coded tiles so
     // each main group is visually distinguishable at a glance.
@@ -287,8 +287,13 @@
         // data-progress carries the raw 0-100 number for Flutter to
         // override; the two custom props drive the liquid fill pseudo
         // elements in screens-app.css (.cat-disc::before / ::after).
+        // Fill colour is the BRAND turquoise on every tile (locked
+        // 2026-05-29) — the product owner wanted all categories to
+        // fill with the app's own colour, not their per-category
+        // tints. The icon tile keeps its per-category tint to stay
+        // visually distinguishable.
         const progress = MOCK_PROGRESS[g.slug] || 0;
-        const fillStyle = '--progress:' + progress + '%;--progress-color:' + tint.fg + ';';
+        const fillStyle = '--progress:' + progress + '%;--progress-color:var(--jx-primary);';
         return '<a href="/screens/category-words.html?group=' + encodeURIComponent(g.slug) + '"' +
           ' class="cat-disc" data-progress="' + progress + '" style="' + fillStyle + '">' +
           '<span class="cat-disc__icon" style="background:' + tint.bg + ';color:' + tint.fg + ';">' + icon + '</span>' +

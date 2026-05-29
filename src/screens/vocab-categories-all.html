@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/base.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/components.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpraooly" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/base.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/components.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprb0is0" />
 </head>
 <body>
   <div class="preview-controls">
@@ -52,9 +52,9 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpraooly"></script>
+  <script type="module" src="/js/screen-shell.js?v=mprb0is0"></script>
   <script type="module">
-    import { getLocale } from '/js/i18n.js?v=mpraooly';
+    import { getLocale } from '/js/i18n.js?v=mprb0is0';
 
     const ICONS = {
       'food-drink':         '🍔',
@@ -120,8 +120,12 @@
         const icon = ICONS[g.slug] || '📖';
         const name = locale === 'fa' ? g.name_fa : g.name_en;
         const count = formatCount(g.word_count, locale);
+        // Fill colour is the BRAND turquoise on every tile (locked
+        // 2026-05-29) — same rule as vocab-learning.html: all categories
+        // fill with the app's own primary, only the small icon tile
+        // keeps its per-category tint.
         const progress = MOCK_PROGRESS[g.slug] || 0;
-        const fillStyle = '--progress:' + progress + '%;--progress-color:' + tint.fg + ';';
+        const fillStyle = '--progress:' + progress + '%;--progress-color:var(--jx-primary);';
         return '<a href="/screens/category-words.html?group=' + encodeURIComponent(g.slug) + '"' +
           ' class="cat-disc" data-progress="' + progress + '" style="' + fillStyle + '">' +
           '<span class="cat-disc__icon" style="background:' + tint.bg + ';color:' + tint.fg + ';">' + icon + '</span>' +
