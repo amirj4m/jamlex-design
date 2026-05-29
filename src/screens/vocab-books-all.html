@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr9u9sm" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr9u9sm" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr9u9sm" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr9u9sm" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr9u9sm" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr9u9sm" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr9u9sm" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr9u9sm" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/base.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/components.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpra0zto" />
 </head>
 <body>
   <div class="preview-controls">
@@ -36,44 +36,44 @@
         </header>
 
         <div class="screen__body">
-          <!-- Study books — 4 fixed books (IELTS, 504, GRE, TOEFL).
-               Same liquid progress fill as topic groups and CEFR chips.
-               No percentage label — colour fill alone, per product
-               owner. Values MUST match the carousel on vocab-learning.
+          <!-- Study books see-all — minimal % badge in the top-trailing
+               corner of each card. Liquid fill removed 2026-05-29 (the
+               brand-tinted backgrounds + a coloured fill looked noisy).
+               Values MUST match the carousel on vocab-learning.html.
                TODO(flutter): replace mock progress with the real read:
-                 progress = COUNT(book_vocab WHERE graduated_from_leitner=true)
+                 progress = COUNT(book_vocab WHERE graduated=true)
                           / COUNT(book_vocab) × 100 -->
           <div class="vocab-book-grid">
-            <a href="/screens/category-words.html" class="bookcard bookcard--ielts"
-              data-progress="72" style="--progress:72%;--progress-color:#43A047;">
+            <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
               <div class="bookcard__head">
                 <div class="bookcard__title">IELTS</div>
                 <div class="bookcard__sub">B1 - B2</div>
               </div>
+              <span class="bookcard__pct" data-stat="book-pct">72%</span>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-ielts"></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--504"
-              data-progress="45" style="--progress:45%;--progress-color:#E53935;">
+            <a href="/screens/category-words.html" class="bookcard bookcard--504">
               <div class="bookcard__head">
                 <div class="bookcard__title" data-i18n="v3.vocabLearning.book.fiveHundredTitle"></div>
                 <div class="bookcard__sub">A1 - A2</div>
               </div>
+              <span class="bookcard__pct" data-stat="book-pct">45%</span>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-504"></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--gre"
-              data-progress="38" style="--progress:38%;--progress-color:#F57C00;">
+            <a href="/screens/category-words.html" class="bookcard bookcard--gre">
               <div class="bookcard__head">
                 <div class="bookcard__title">GRE</div>
                 <div class="bookcard__sub">C1 - C2</div>
               </div>
+              <span class="bookcard__pct" data-stat="book-pct">38%</span>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-gre"></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--toefl"
-              data-progress="61" style="--progress:61%;--progress-color:#1976D2;">
+            <a href="/screens/category-words.html" class="bookcard bookcard--toefl">
               <div class="bookcard__head">
                 <div class="bookcard__title">TOEFL</div>
                 <div class="bookcard__sub">B2 - C1</div>
               </div>
+              <span class="bookcard__pct" data-stat="book-pct">61%</span>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-toefl"></div>
             </a>
           </div>
@@ -82,6 +82,6 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpr9u9sm"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpra0zto"></script>
 </body>
 </html>
