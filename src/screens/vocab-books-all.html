@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr9ptvi" />
 </head>
 <body>
   <div class="preview-controls">
@@ -36,59 +36,45 @@
         </header>
 
         <div class="screen__body">
-          <!-- Study books — currently 4 fixed books (IELTS, 504, GRE,
-               TOEFL). Laid out 2-up on the see-all page so each card
-               has room to breathe + progress bar reads cleanly.
-               TODO(flutter): if the catalogue grows, switch to a
-               3-col grid and drop the lottie illustrations. -->
+          <!-- Study books — 4 fixed books (IELTS, 504, GRE, TOEFL).
+               Same liquid progress fill as topic groups and CEFR chips.
+               No percentage label — colour fill alone, per product
+               owner. Values MUST match the carousel on vocab-learning.
+               TODO(flutter): replace mock progress with the real read:
+                 progress = COUNT(book_vocab WHERE graduated_from_leitner=true)
+                          / COUNT(book_vocab) × 100 -->
           <div class="vocab-book-grid">
-            <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
+            <a href="/screens/category-words.html" class="bookcard bookcard--ielts"
+              data-progress="72" style="--progress:72%;--progress-color:#43A047;">
               <div class="bookcard__head">
                 <div class="bookcard__title">IELTS</div>
                 <div class="bookcard__sub">B1 - B2</div>
               </div>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-ielts"></div>
-              <div class="bookcard__progress">
-                <span class="bookcard__progress-val" data-i18n="v3.vocabLearning.book.progress"></span>
-                <span class="bookcard__progress-pct">72%</span>
-              </div>
-              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:72%;background:#43A047;"></div></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--504">
+            <a href="/screens/category-words.html" class="bookcard bookcard--504"
+              data-progress="45" style="--progress:45%;--progress-color:#E53935;">
               <div class="bookcard__head">
                 <div class="bookcard__title" data-i18n="v3.vocabLearning.book.fiveHundredTitle"></div>
                 <div class="bookcard__sub">A1 - A2</div>
               </div>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-504"></div>
-              <div class="bookcard__progress">
-                <span class="bookcard__progress-val" data-i18n="v3.vocabLearning.book.progress"></span>
-                <span class="bookcard__progress-pct">45%</span>
-              </div>
-              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:45%;background:#E53935;"></div></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--gre">
+            <a href="/screens/category-words.html" class="bookcard bookcard--gre"
+              data-progress="38" style="--progress:38%;--progress-color:#F57C00;">
               <div class="bookcard__head">
                 <div class="bookcard__title">GRE</div>
                 <div class="bookcard__sub">C1 - C2</div>
               </div>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-gre"></div>
-              <div class="bookcard__progress">
-                <span class="bookcard__progress-val" data-i18n="v3.vocabLearning.book.progress"></span>
-                <span class="bookcard__progress-pct">38%</span>
-              </div>
-              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:38%;background:#F57C00;"></div></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--toefl">
+            <a href="/screens/category-words.html" class="bookcard bookcard--toefl"
+              data-progress="61" style="--progress:61%;--progress-color:#1976D2;">
               <div class="bookcard__head">
                 <div class="bookcard__title">TOEFL</div>
                 <div class="bookcard__sub">B2 - C1</div>
               </div>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-toefl"></div>
-              <div class="bookcard__progress">
-                <span class="bookcard__progress-val" data-i18n="v3.vocabLearning.book.progress"></span>
-                <span class="bookcard__progress-pct">61%</span>
-              </div>
-              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:61%;background:#1976D2;"></div></div>
             </a>
           </div>
         </div>
@@ -96,6 +82,6 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpr9ff2g"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr9ptvi"></script>
 </body>
 </html>

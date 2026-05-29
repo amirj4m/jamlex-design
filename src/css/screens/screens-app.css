@@ -1973,21 +1973,28 @@
   min-width: 76px;
   flex: none;
   position: relative;
+  /* enable the liquid progress fill — same pattern as .cat-disc */
+  overflow: hidden;
+  isolation: isolate;
 }
 .lvl-chip[data-selected="true"] { border-color: currentColor; }
+/* Check badge — moved INSIDE the chip (was top:-8px end:-8px). The
+   overflow:hidden above clips anything sticking out, so the check
+   now sits in the top-trailing corner above the liquid fill. */
 .lvl-chip__check {
   position: absolute;
-  top: -8px;
-  inset-inline-end: -8px;
-  width: 22px; height: 22px;
+  top: 4px;
+  inset-inline-end: 4px;
+  width: 18px; height: 18px;
   border-radius: 50%;
   background: var(--jx-primary);
   color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
+  z-index: 2;
 }
 
 .bookcard-grid {
@@ -2007,6 +2014,11 @@
   border: 1px solid var(--jx-border);
   display: flex;
   flex-direction: column;
+  /* keep the card a reasonable height now that the progress text +
+     bar are gone (mastery is communicated by the liquid fill alone) */
+  min-height: 130px;
+  /* enable the liquid progress fill — same pattern as .cat-disc */
+  isolation: isolate;
   gap: var(--sp-2);
   min-height: 140px;
 }
@@ -2025,18 +2037,19 @@
   width: 50px !important;
   height: 50px !important;
   margin: 0 !important;
+  /* float the illustration ABOVE the liquid fill rather than be
+     submerged by it — looks like the book is sitting on the water. */
+  z-index: 1;
 }
-.bookcard__progress { display: flex; justify-content: space-between; font-size: var(--fs-caption); margin-top: auto; padding-inline-end: 56px; }
-.bookcard__progress-pct { font-weight: var(--fw-extrabold); font-family: var(--font-family-latin); }
-.bookcard__bar {
-  height: 4px;
-  background: rgba(0,0,0,0.10);
-  border-radius: var(--rd-pill);
-  overflow: hidden;
-  padding-inline-end: 56px;
-}
-.bookcard__bar { padding: 0; margin-inline-end: 56px; }
-.bookcard__bar-fill { height: 100%; border-radius: var(--rd-pill); }
+/* DEPRECATED 2026-05-29: the explicit progress text + bar are removed
+   from the markup. Mastery is now communicated by the liquid fill in
+   .bookcard::before alone (no number, per product owner). Styles
+   retained only as defensive no-ops if legacy markup leaks in. */
+.bookcard__progress,
+.bookcard__bar,
+.bookcard__bar-fill,
+.bookcard__progress-val,
+.bookcard__progress-pct { display: none; }
 
 /* Category 2-col grid (with colored row backgrounds) */
 .cat-2col {
@@ -2837,18 +2850,26 @@
   isolation: isolate;
 }
 /* Liquid progress fill — LOCKED design 2026-05-29.
-   Rises from the bottom of the tile to a height proportional to the
-   user's mastery of that category. Tinted with the category's own
-   --progress-color so each tile is self-identifying.
+   Rises from the bottom of the tile/chip/card to a height proportional
+   to the user's mastery. Tinted with the element's own --progress-color
+   so each element is self-identifying. Shared across THREE components:
+     - .cat-disc  (topic-group tile, color from openjam category tint)
+     - .lvl-chip  (CEFR level chip, color from the chip's fg)
+     - .bookcard  (IELTS / 504 / GRE / TOEFL, color from the book brand)
 
-   Flutter contract: read data-progress (0-100) from the tile, which is
+   Flutter contract: read data-progress (0-100) on the element, which is
    computed as:
-     progress = COUNT(words in category WHERE graduated_from_leitner=true)
-              / COUNT(words in category)
-              * 100
-   The product owner explicitly asked: NO NUMBER on the tile, the colour
-   alone communicates progress. Do not add a label later. */
-.cat-disc::before {
+     cat-disc → COUNT(words in group WHERE graduated_from_leitner=true)
+              / COUNT(words in group) × 100
+     lvl-chip → COUNT(words at CEFR level WHERE graduated=true)
+              / COUNT(words at level) × 100
+     bookcard → COUNT(book vocab WHERE graduated=true)
+              / COUNT(book vocab) × 100
+   The product owner explicitly asked: NO NUMBER on the element, the
+   colour alone communicates progress. Do not add a label later. */
+.cat-disc::before,
+.lvl-chip::before,
+.bookcard::before {
   content: '';
   position: absolute;
   inset: auto 0 0 0;
@@ -2859,15 +2880,17 @@
     color-mix(in srgb, var(--progress-color, transparent) 35%, transparent) 70%,
     transparent 100%
   );
-  opacity: 0.55;
+  opacity: 0.50;
   pointer-events: none;
   z-index: 0;
   transform-origin: bottom;
   animation: catDiscFill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-/* Faint accent line at the water-line for tiles with >0 progress so
-   the fill edge reads cleanly against the white card background. */
-.cat-disc[data-progress]:not([data-progress="0"])::after {
+/* Faint accent line at the water-line for elements with >0 progress
+   so the fill edge reads cleanly against the base background. */
+.cat-disc[data-progress]:not([data-progress="0"])::after,
+.lvl-chip[data-progress]:not([data-progress="0"])::after,
+.bookcard[data-progress]:not([data-progress="0"])::after {
   content: '';
   position: absolute;
   left: 0;
@@ -2881,15 +2904,24 @@
   transform-origin: bottom;
   animation: catDiscFill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-/* Children must layer above the fill or the icon disappears. */
-.cat-disc > * { position: relative; z-index: 1; }
+/* Children must layer above the fill or the icon/text disappears.
+   For .lvl-chip we exclude the check badge so its existing absolute
+   positioning isn't overridden (and it carries its own z-index:2).
+   For .bookcard the head + lottie are layered explicitly elsewhere
+   (.bookcard__head and .bookcard__lottie both set z-index:1).        */
+.cat-disc > *,
+.lvl-chip > *:not(.lvl-chip__check) { position: relative; z-index: 1; }
 @keyframes catDiscFill {
   from { transform: scaleY(0); opacity: 0; }
   to   { transform: scaleY(1); }
 }
 @media (prefers-reduced-motion: reduce) {
   .cat-disc::before,
-  .cat-disc::after { animation: none; }
+  .cat-disc::after,
+  .lvl-chip::before,
+  .lvl-chip::after,
+  .bookcard::before,
+  .bookcard::after { animation: none; }
 }
 .cat-disc__icon {
   width: 48px; height: 48px;

@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr9ff2g" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr9ptvi" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr9ptvi" />
 </head>
 <body>
   <div class="preview-controls">
@@ -73,24 +73,37 @@
           <div class="section-h">
             <div class="section-h__title" data-i18n="v3.vocabLearning.byLevel"></div>
           </div>
+          <!-- CEFR level chips with the same liquid progress fill as
+               the topic-group tiles. data-progress carries the
+               percentage of words at that CEFR level the user has
+               graduated from Leitner.
+               TODO(flutter): replace literal MOCK values with:
+                 progress = COUNT(words at level WHERE graduated=true)
+                          / COUNT(words at level) × 100
+               No "%" label on the chip — colour fill only. -->
           <div class="level-chips" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
-            <button class="lvl-chip lvl-chip--c1" style="background:#FCE4E4;color:#C62828;">
+            <button class="lvl-chip lvl-chip--c1" data-progress="8"
+              style="background:#FCE4E4;color:#C62828;--progress:8%;--progress-color:#C62828;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">C1</span>
               <span data-i18n="v3.vocabLearning.level.C1Label"></span>
             </button>
-            <button class="lvl-chip lvl-chip--b2" style="background:#FCEEDC;color:#E65100;">
+            <button class="lvl-chip lvl-chip--b2" data-progress="22"
+              style="background:#FCEEDC;color:#E65100;--progress:22%;--progress-color:#E65100;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">B2</span>
               <span data-i18n="v3.vocabLearning.level.B2Label"></span>
             </button>
-            <button class="lvl-chip lvl-chip--b1" style="background:#E3F2FD;color:#1565C0;">
+            <button class="lvl-chip lvl-chip--b1" data-progress="45"
+              style="background:#E3F2FD;color:#1565C0;--progress:45%;--progress-color:#1565C0;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">B1</span>
               <span data-i18n="v3.vocabLearning.level.B1Label"></span>
             </button>
-            <button class="lvl-chip lvl-chip--a2" style="background:#E0F2F1;color:#00897B;">
+            <button class="lvl-chip lvl-chip--a2" data-progress="68"
+              style="background:#E0F2F1;color:#00897B;--progress:68%;--progress-color:#00897B;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">A2</span>
               <span data-i18n="v3.vocabLearning.level.A2Label"></span>
             </button>
-            <button class="lvl-chip lvl-chip--a1" data-selected="true" style="background:#E0F2EC;color:#1F9389;border-color:#1F9389;">
+            <button class="lvl-chip lvl-chip--a1" data-selected="true" data-progress="92"
+              style="background:#E0F2EC;color:#1F9389;border-color:#1F9389;--progress:92%;--progress-color:#1F9389;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">A1</span>
               <span data-i18n="v3.vocabLearning.level.A1Label"></span>
               <span class="lvl-chip__check">✓</span>
@@ -102,54 +115,46 @@
             <div class="section-h__title" data-i18n="v3.vocabLearning.studyBooks"></div>
             <a href="/screens/vocab-books-all.html" class="section-h__action" data-i18n="v3.vocabLearning.seeAll"></a>
           </div>
+          <!-- Study books — same liquid progress fill as topic groups
+               and CEFR chips. The percentage text + horizontal bar were
+               removed 2026-05-29 per product owner: colour fill only,
+               NO number. Brand color of each book drives --progress-color
+               (green=IELTS, red=504, orange=GRE, blue=TOEFL).
+               TODO(flutter): replace mock progress with:
+                 progress = COUNT(book_vocab WHERE graduated_from_leitner=true)
+                          / COUNT(book_vocab) × 100 -->
           <div class="vocab-book-h-scroll">
-            <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
+            <a href="/screens/category-words.html" class="bookcard bookcard--ielts"
+              data-progress="72" style="--progress:72%;--progress-color:#43A047;">
               <div class="bookcard__head">
                 <div class="bookcard__title">IELTS</div>
                 <div class="bookcard__sub">B1 - B2</div>
               </div>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-ielts"></div>
-              <div class="bookcard__progress">
-                <span class="bookcard__progress-val" data-i18n="v3.vocabLearning.book.progress"></span>
-                <span class="bookcard__progress-pct">72%</span>
-              </div>
-              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:72%;background:#43A047;"></div></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--504">
+            <a href="/screens/category-words.html" class="bookcard bookcard--504"
+              data-progress="45" style="--progress:45%;--progress-color:#E53935;">
               <div class="bookcard__head">
                 <div class="bookcard__title" data-i18n="v3.vocabLearning.book.fiveHundredTitle"></div>
                 <div class="bookcard__sub">A1 - A2</div>
               </div>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-504"></div>
-              <div class="bookcard__progress">
-                <span class="bookcard__progress-val" data-i18n="v3.vocabLearning.book.progress"></span>
-                <span class="bookcard__progress-pct">45%</span>
-              </div>
-              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:45%;background:#E53935;"></div></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--gre">
+            <a href="/screens/category-words.html" class="bookcard bookcard--gre"
+              data-progress="38" style="--progress:38%;--progress-color:#F57C00;">
               <div class="bookcard__head">
                 <div class="bookcard__title">GRE</div>
                 <div class="bookcard__sub">C1 - C2</div>
               </div>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-gre"></div>
-              <div class="bookcard__progress">
-                <span class="bookcard__progress-val" data-i18n="v3.vocabLearning.book.progress"></span>
-                <span class="bookcard__progress-pct">38%</span>
-              </div>
-              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:38%;background:#F57C00;"></div></div>
             </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--toefl">
+            <a href="/screens/category-words.html" class="bookcard bookcard--toefl"
+              data-progress="61" style="--progress:61%;--progress-color:#1976D2;">
               <div class="bookcard__head">
                 <div class="bookcard__title">TOEFL</div>
                 <div class="bookcard__sub">B2 - C1</div>
               </div>
               <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-toefl"></div>
-              <div class="bookcard__progress">
-                <span class="bookcard__progress-val" data-i18n="v3.vocabLearning.book.progress"></span>
-                <span class="bookcard__progress-pct">61%</span>
-              </div>
-              <div class="bookcard__bar"><div class="bookcard__bar-fill" style="width:61%;background:#1976D2;"></div></div>
             </a>
           </div>
 
@@ -222,7 +227,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpr9ff2g"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr9ptvi"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -235,7 +240,7 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpr9ff2g';
+    import { getLocale } from '/js/i18n.js?v=mpr9ptvi';
 
     // Per-group glyph + soft tint. 12 distinct colour-coded tiles so
     // each main group is visually distinguishable at a glance.
