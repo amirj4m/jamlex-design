@@ -2044,6 +2044,98 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--sp-2);
 }
+
+/* ============================================================================
+   Lesson Words page — header chip + per-word card with audio button and
+   per-word CEFR level chip on the right. Words come from the openjam
+   API: GET /v1/categories/<sub-slug>/words.
+   ============================================================================ */
+.lesson-words-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: var(--sp-4);
+  background: linear-gradient(135deg, rgba(0,180,166,0.10), rgba(74,144,217,0.08));
+  border-radius: 18px;
+}
+.lesson-words-head__chip {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: var(--rd-pill);
+  background: var(--jx-primary);
+  color: #fff;
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-body-s);
+}
+.lesson-words-head__sub {
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.word-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.word-card {
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--jx-bg);
+  border: 1px solid var(--jx-divider);
+  border-radius: 14px;
+}
+.word-card__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.word-card__audio {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--jx-primary-glow);
+  color: var(--jx-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: none;
+  transition: transform var(--motion-fast);
+}
+.word-card__audio:hover { background: rgba(0,180,166,0.22); }
+.word-card__audio:active { transform: scale(0.94); }
+.word-card__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: start;
+}
+.word-card__en {
+  font-family: var(--font-family-latin);
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-body-l);
+  color: var(--jx-text);
+  /* English content stays LTR regardless of UI direction */
+  direction: ltr;
+}
+.word-card__fa {
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  line-height: var(--lh-snug);
+}
+.word-card__example {
+  font-size: var(--fs-caption);
+  color: var(--jx-text-3);
+  line-height: var(--lh-relaxed);
+  margin-top: 6px;
+  padding-inline-start: 50px;  /* aligns under the main text, past the audio button */
+}
 .cat-row {
   display: flex;
   align-items: center;

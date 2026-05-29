@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Lesson Words</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqzq9gx" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqzq9gx" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqzq9gx" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqzq9gx" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqzq9gx" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqzq9gx" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqzq9gx" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqzq9gx" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/screens/vocab-learning.html" class="hub-ribbon">‹ Vocab</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/category-words.html" class="btn-icon back-btn" data-back-link aria-label="Back"></a>
+          </div>
+          <h1 class="topbar__title" data-lesson-title>…</h1>
+          <div></div>
+        </header>
+
+        <div class="screen__body">
+          <!-- Header card: shows lesson chip + word count + category name -->
+          <div class="lesson-words-head">
+            <div class="lesson-words-head__chip" data-lesson-chip>درس 1</div>
+            <div class="lesson-words-head__sub">
+              <span data-lesson-count>—</span>
+              <span style="opacity:0.4;">·</span>
+              <span data-lesson-cat>…</span>
+            </div>
+          </div>
+
+          <!-- Add-to-Leitner CTA at top for quick access -->
+          <button class="btn btn--filled btn--block btn--lg" type="button" data-add-to-leitner style="margin-top:var(--sp-3);">
+            <span style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.20);display:inline-flex;align-items:center;justify-content:center;">+</span>
+            <span data-i18n="v3.vocabLearning.modal.addToLeitner"></span>
+          </button>
+
+          <!-- Word list rendered by JS -->
+          <div class="word-list" data-word-list style="margin-top:var(--sp-4);">
+            <!-- skeleton -->
+            <div class="word-card" style="height:96px;background:var(--jx-input-bg);"></div>
+            <div class="word-card" style="height:96px;background:var(--jx-input-bg);"></div>
+            <div class="word-card" style="height:96px;background:var(--jx-input-bg);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js?v=mpqzq9gx"></script>
+  <script type="module">
+    // ----------------------------------------------------------------
+    // lesson-words.html — list every word in a single lesson so the
+    // user can browse / preview before "Add to Leitner".
+    //
+    // URL: /screens/lesson-words.html?group=<slug>&lesson=N
+    //
+    // The lesson's words are sliced from the openjam category words
+    // endpoint:
+    //   GET /v1/categories/<sub-slug>/words?lang=fa
+    //
+    // openjam's category endpoint expects a SUB-category slug (food,
+    // not food-drink). We use the first child of the group as the
+    // demo data source; the Flutter app aggregates across children
+    // following the lesson formula in architecture_openjam.md.
+    //
+    // Each row plays audio from
+    //   https://audio.openjam.amirj4m.com/<word>.mp3
+    // on tap (HTML5 Audio).
+    // ----------------------------------------------------------------
+    import { getLocale } from '/js/i18n.js?v=mpqzq9gx';
+
+    const params = new URLSearchParams(location.search);
+    const slug = params.get('group') || 'food-drink';
+    const lesson = Math.max(1, parseInt(params.get('lesson') || '1', 10));
+
+    function formatNum (n, locale) {
+      return locale === 'fa' ? n.toLocaleString('fa-IR') : n.toLocaleString('en-US');
+    }
+    function lessonCount (words) {
+      return Math.max(5, Math.min(15, Math.ceil(words / 220)));
+    }
+
+    async function getGroup () {
+      let groups = null;
+      try {
+        const cached = sessionStorage.getItem('openjam_groups');
+        if (cached) groups = JSON.parse(cached);
+      } catch (e) { /* ignore */ }
+      if (!groups) {
+        const res = await fetch('https://openjam.amirj4m.com/v1/categories/groups');
+        const data = await res.json();
+        groups = data.groups || [];
+        try { sessionStorage.setItem('openjam_groups', JSON.stringify(groups)); } catch (e) { /* ignore */ }
+      }
+      return groups.find(function (g) { return g.slug === slug; }) || groups[0];
+    }
+
+    // Pick the sub-category to draw words from. For the design preview
+    // we use the first child of the group. Flutter aggregates across
+    // all children per the lesson formula.
+    function pickSubCategory (group, lessonNum, totalLessons) {
+      const kids = group.children || [];
+      if (kids.length === 0) return group.slug;
+      // Distribute lessons across children proportionally to word count.
+      let cum = 0;
+      const total = group.word_count;
+      for (let i = 0; i < kids.length; i++) {
+        cum += kids[i].word_count;
+        const lessonsHere = Math.round((cum / total) * totalLessons);
+        if (lessonNum <= lessonsHere) return kids[i].slug;
+      }
+      return kids[kids.length - 1].slug;
+    }
+
+    let group = null;
+
+    function level2Color (lvl) {
+      const map = {
+        'A1': { bg: 'rgba(0,180,166,0.16)',     fg: '#1F9389' },
+        'A2': { bg: 'rgba(0,180,166,0.12)',     fg: '#00897B' },
+        'B1': { bg: 'rgba(74,144,217,0.14)',    fg: '#1565C0' },
+        'B2': { bg: 'rgba(255,152,0,0.16)',     fg: '#E65100' },
+        'C1': { bg: 'rgba(244,67,54,0.12)',     fg: '#C62828' },
+        'C2': { bg: 'rgba(108,92,231,0.16)',    fg: '#6C5CE7' },
+      };
+      return map[lvl] || { bg: 'var(--jx-input-bg)', fg: 'var(--jx-text-3)' };
+    }
+
+    function renderHeader () {
+      const locale = getLocale();
+      const isfa = locale === 'fa';
+      const name = isfa ? (group ? group.name_fa : '') : (group ? group.name_en : '');
+      const total = group ? lessonCount(group.word_count) : 5;
+      const wordsPerLesson = group ? Math.ceil(group.word_count / total) : 0;
+
+      const title = isfa ? ('درس ' + formatNum(lesson, 'fa')) : ('Lesson ' + lesson);
+      document.querySelector('[data-lesson-title]').textContent = title;
+      document.querySelector('[data-lesson-chip]').textContent = title;
+      document.querySelector('[data-lesson-cat]').textContent = name;
+      document.querySelector('[data-lesson-count]').textContent = wordsPerLesson + ' ' + (isfa ? 'لغت' : 'words');
+
+      // back-link carries the group slug so the user returns to the
+      // right category-words page.
+      document.querySelector('[data-back-link]').href = '/screens/category-words.html?group=' + encodeURIComponent(slug);
+    }
+
+    function renderWords (words) {
+      const locale = getLocale();
+      const isfa = locale === 'fa';
+      const container = document.querySelector('[data-word-list]');
+      if (!words || words.length === 0) {
+        container.innerHTML = '<div style="text-align:center;color:var(--jx-text-3);padding:var(--sp-4);font-size:var(--fs-body-s);">' +
+          (isfa ? 'لغتی برای نمایش پیدا نشد.' : 'No words to display.') + '</div>';
+        return;
+      }
+      container.innerHTML = words.map(function (w) {
+        const tr = (w.translations || [])[0] || {};
+        const meaning = tr.meaning || '';
+        const example = tr.example || '';
+        const level = w.level || '';
+        const lvlColor = level2Color(level);
+        const lvlChip = level
+          ? '<span style="display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:var(--rd-pill);background:' + lvlColor.bg + ';color:' + lvlColor.fg + ';font-family:var(--font-family-latin);font-weight:800;font-size:11px;">' + level + '</span>'
+          : '';
+        return '<div class="word-card">' +
+          '<div class="word-card__row">' +
+            '<button class="word-card__audio" type="button" data-audio="' + w.english + '" aria-label="play">' +
+              '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>' +
+            '</button>' +
+            '<div class="word-card__main">' +
+              '<div class="word-card__en">' + w.english + '</div>' +
+              (meaning ? '<div class="word-card__fa">' + meaning + '</div>' : '') +
+            '</div>' +
+            lvlChip +
+          '</div>' +
+          (example ? '<div class="word-card__example">' + example + '</div>' : '') +
+        '</div>';
+      }).join('');
+
+      // Wire up audio buttons — direct stream from audio.openjam.
+      container.querySelectorAll('[data-audio]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const word = btn.dataset.audio.toLowerCase();
+          try {
+            const audio = new Audio('https://audio.openjam.amirj4m.com/' + encodeURIComponent(word) + '.mp3');
+            audio.play().catch(function () { /* gesture / format may fail — ignore */ });
+          } catch (e) { /* ignore */ }
+        });
+      });
+    }
+
+    async function loadWords () {
+      try {
+        group = await getGroup();
+        if (!group) return;
+        renderHeader();
+        const total = lessonCount(group.word_count);
+        const subSlug = pickSubCategory(group, lesson, total);
+        // Sub-category word slice — Flutter does precise offset math;
+        // for the preview we just fetch the first ~40 of the picked
+        // sub-category. The user sees the SHAPE of the data even if
+        // the exact lesson slice isn't perfect.
+        const res = await fetch('https://openjam.amirj4m.com/v1/categories/' + encodeURIComponent(subSlug) + '/words?lang=fa&limit=40');
+        const data = await res.json();
+        renderWords(data.data || []);
+      } catch (e) {
+        console.warn('[lesson-words] failed', e);
+      }
+    }
+
+    document.addEventListener('i18n:changed', function () {
+      renderHeader();
+    });
+
+    loadWords();
+
+    // ----------------------------------------------------------------
+    // Add-to-Leitner CTA — same UX as the modal on category-words.
+    // ----------------------------------------------------------------
+    document.querySelector('[data-add-to-leitner]').addEventListener('click', function () {
+      if (!group) return;
+      const locale = getLocale();
+      const total = lessonCount(group.word_count);
+      const wordsPerLesson = Math.ceil(group.word_count / total);
+      const msg = locale === 'fa'
+        ? (formatNum(wordsPerLesson, 'fa') + ' لغت از درس ' + formatNum(lesson, 'fa') + ' به لایتنر اضافه شد')
+        : (wordsPerLesson + ' words from Lesson ' + lesson + ' added to Leitner');
+      window.popupSuccess(msg);
+    });
+  </script>
+</body>
+</html>
