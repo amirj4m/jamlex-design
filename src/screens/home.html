@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/base.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/base.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreti06" />
 </head>
 <body>
   <div class="preview-controls">
@@ -137,7 +137,7 @@
     // i18n — so it stays "رضا محمدی" regardless of the UI language. Only the
     // surrounding "سلام" / "Hello" string follows the locale. Flutter reads
     // the actual name from users.display_name.
-    import { t } from '/js/i18n.js?v=mpreg55f';
+    import { t } from '/js/i18n.js?v=mpreti06';
     document.addEventListener('i18n:changed', fillGreeting);
     function fillGreeting () {
       const el = document.querySelector('[data-greeting]');
@@ -146,6 +146,6 @@
       el.textContent = t('v3.home.greetingHi', { name: 'رضا محمدی' });
     }
   </script>
-  <script type="module" src="/js/screen-shell.js?v=mpreg55f"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpreti06"></script>
 </body>
 </html>

@@ -851,3 +851,79 @@ export function findVocabCategoryBySlug (slug) {
 export function lessonCountForCategory (category) {
   return (category.lessons || []).length;
 }
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  BOOKS — openjam books endpoint integration (LOCKED 2026-05-29)
+//
+//  The four study books (504, IELTS, TOEFL, GRE) are pulled live from
+//  openjam at https://openjam.amirj4m.com/v1/books and per-book detail at
+//  https://openjam.amirj4m.com/v1/books/<slug>. Three of them ship with
+//  natural groupings the API exposes (504 → 42 lessons of 12 words each,
+//  IELTS → 10 frequency sublists, TOEFL → 3 score-range bands). GRE has
+//  no groups, so it's chunked client-side into 50-word sections.
+//
+//  Visual mapping per slug — brand text, card variant, lottie, CEFR sub:
+// ─────────────────────────────────────────────────────────────────────────────
+export const BOOK_META = {
+  '504-essential': {
+    brand: '504',
+    variant: '504',
+    lottie: 'bookcard-504',
+    sub_cefr: 'A1 - A2',
+    mock_pct: 45,
+  },
+  'ielts': {
+    brand: 'IELTS',
+    variant: 'ielts',
+    lottie: 'bookcard-ielts',
+    sub_cefr: 'B1 - B2',
+    mock_pct: 72,
+  },
+  'toefl': {
+    brand: 'TOEFL',
+    variant: 'toefl',
+    lottie: 'bookcard-toefl',
+    sub_cefr: 'B2 - C1',
+    mock_pct: 61,
+  },
+  'gre': {
+    brand: 'GRE',
+    variant: 'gre',
+    lottie: 'bookcard-gre',
+    sub_cefr: 'C1 - C2',
+    mock_pct: 38,
+  },
+};
+
+export const BOOK_SLUGS = new Set(Object.keys(BOOK_META));
+
+// Humanize a raw group_name from the books API into a user-facing
+// lesson label. Per the user's lesson-naming rule, generic numeric
+// suffixes are acceptable HERE because the book itself canonically
+// organises content this way ("Lesson 1, Lesson 2" is THE book's
+// own structure, not a chunking artefact).
+//
+//   504    : "lesson-1"     → "درس ۱"          / "Lesson 1"
+//   IELTS  : "sublist-1"    → "زیرلیست ۱"     / "Sublist 1"
+//   TOEFL  : "level-0-60"   → "محدوده نمره ۰–۶۰" / "Score 0–60"
+export function humanizeBookGroupName (rawName, locale) {
+  const isfa = locale === 'fa';
+  const m1 = /^lesson-(\d+)$/.exec(rawName);
+  if (m1) {
+    return isfa ? ('درس ' + Number(m1[1]).toLocaleString('fa-IR'))
+                : ('Lesson ' + m1[1]);
+  }
+  const m2 = /^sublist-(\d+)$/.exec(rawName);
+  if (m2) {
+    return isfa ? ('زیرلیست ' + Number(m2[1]).toLocaleString('fa-IR'))
+                : ('Sublist ' + m2[1]);
+  }
+  const m3 = /^level-(\d+)-(\d+)$/.exec(rawName);
+  if (m3) {
+    if (isfa) return 'محدوده نمره ' + Number(m3[1]).toLocaleString('fa-IR')
+                   + '–' + Number(m3[2]).toLocaleString('fa-IR');
+    return 'Score ' + m3[1] + '–' + m3[2];
+  }
+  return rawName;
+}

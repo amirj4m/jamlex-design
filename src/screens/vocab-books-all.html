@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/base.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/base.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreti06" />
 </head>
 <body>
   <div class="preview-controls">
@@ -36,52 +36,53 @@
         </header>
 
         <div class="screen__body">
-          <!-- Study books see-all — minimal % badge in the top-trailing
-               corner of each card. Liquid fill removed 2026-05-29 (the
-               brand-tinted backgrounds + a coloured fill looked noisy).
-               Values MUST match the carousel on vocab-learning.html.
-               TODO(flutter): replace mock progress with the real read:
-                 progress = COUNT(book_vocab WHERE graduated=true)
-                          / COUNT(book_vocab) × 100 -->
-          <div class="vocab-book-grid">
-            <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
-              <div class="bookcard__head">
-                <div class="bookcard__title">IELTS</div>
-                <div class="bookcard__sub">B1 - B2</div>
-              </div>
-              <span class="bookcard__pct" data-stat="book-pct">72%</span>
-              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-ielts"></div>
-            </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--504">
-              <div class="bookcard__head">
-                <div class="bookcard__title" data-i18n="v3.vocabLearning.book.fiveHundredTitle"></div>
-                <div class="bookcard__sub">A1 - A2</div>
-              </div>
-              <span class="bookcard__pct" data-stat="book-pct">45%</span>
-              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-504"></div>
-            </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--gre">
-              <div class="bookcard__head">
-                <div class="bookcard__title">GRE</div>
-                <div class="bookcard__sub">C1 - C2</div>
-              </div>
-              <span class="bookcard__pct" data-stat="book-pct">38%</span>
-              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-gre"></div>
-            </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--toefl">
-              <div class="bookcard__head">
-                <div class="bookcard__title">TOEFL</div>
-                <div class="bookcard__sub">B2 - C1</div>
-              </div>
-              <span class="bookcard__pct" data-stat="book-pct">61%</span>
-              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-toefl"></div>
-            </a>
+          <!-- Study books see-all — live from /v1/books, same data and
+               visual mapping (BOOK_META) as the carousel on
+               vocab-learning.html. Renders into a 2-col grid. -->
+          <div class="vocab-book-grid" data-openjam-books>
+            <a class="bookcard" style="background:var(--jx-input-bg);min-height:140px;"></a>
+            <a class="bookcard" style="background:var(--jx-input-bg);min-height:140px;"></a>
+            <a class="bookcard" style="background:var(--jx-input-bg);min-height:140px;"></a>
+            <a class="bookcard" style="background:var(--jx-input-bg);min-height:140px;"></a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpreg55f"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpreti06"></script>
+  <script type="module">
+    import { BOOK_META } from '/js/vocab-sections.js?v=mpreti06';
+
+    async function loadBooks () {
+      try {
+        const cached = sessionStorage.getItem('openjam_books');
+        if (cached) { renderBooks(JSON.parse(cached)); return; }
+        const res = await fetch('https://openjam.amirj4m.com/v1/books');
+        const data = await res.json();
+        const books = data.data || [];
+        sessionStorage.setItem('openjam_books', JSON.stringify(books));
+        renderBooks(books);
+      } catch (err) { console.warn('[openjam] failed to load books', err); }
+    }
+    function renderBooks (books) {
+      const container = document.querySelector('[data-openjam-books]');
+      if (!container) return;
+      container.innerHTML = books.map(function (b) {
+        const meta = BOOK_META[b.slug] || {};
+        const variant = meta.variant || 'default';
+        return '<a href="/screens/category-words.html?group=' + encodeURIComponent(b.slug) + '"' +
+          ' class="bookcard bookcard--' + variant + '">' +
+          '<div class="bookcard__head">' +
+            '<div class="bookcard__title">' + (meta.brand || b.slug) + '</div>' +
+            '<div class="bookcard__sub">' + (meta.sub_cefr || '') + '</div>' +
+          '</div>' +
+          '<span class="bookcard__pct" data-stat="book-pct">' + (meta.mock_pct || 0) + '%</span>' +
+          '<div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="' + (meta.lottie || '') + '"></div>' +
+        '</a>';
+      }).join('');
+    }
+    loadBooks();
+  </script>
 </body>
 </html>

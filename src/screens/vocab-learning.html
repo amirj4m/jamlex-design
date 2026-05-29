@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/base.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreg55f" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/base.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreti06" />
 </head>
 <body>
   <div class="preview-controls">
@@ -123,44 +123,16 @@
             <div class="section-h__title" data-i18n="v3.vocabLearning.studyBooks"></div>
             <a href="/screens/vocab-books-all.html" class="section-h__action" data-i18n="v3.vocabLearning.seeAll"></a>
           </div>
-          <!-- Study books — minimal % badge at the bottom-leading corner
-               of each card (book-pct). Mastery comes from the word-ID
-               intersection (architecture_openjam.md § Word-ID-based
-               progress) — books advance even when the user hasn't opened
-               them, because they share word_ids with other containers. -->
-          <div class="vocab-book-h-scroll">
-            <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
-              <div class="bookcard__head">
-                <div class="bookcard__title">IELTS</div>
-                <div class="bookcard__sub">B1 - B2</div>
-              </div>
-              <span class="bookcard__pct" data-stat="book-pct">72%</span>
-              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-ielts"></div>
-            </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--504">
-              <div class="bookcard__head">
-                <div class="bookcard__title" data-i18n="v3.vocabLearning.book.fiveHundredTitle"></div>
-                <div class="bookcard__sub">A1 - A2</div>
-              </div>
-              <span class="bookcard__pct" data-stat="book-pct">45%</span>
-              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-504"></div>
-            </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--gre">
-              <div class="bookcard__head">
-                <div class="bookcard__title">GRE</div>
-                <div class="bookcard__sub">C1 - C2</div>
-              </div>
-              <span class="bookcard__pct" data-stat="book-pct">38%</span>
-              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-gre"></div>
-            </a>
-            <a href="/screens/category-words.html" class="bookcard bookcard--toefl">
-              <div class="bookcard__head">
-                <div class="bookcard__title">TOEFL</div>
-                <div class="bookcard__sub">B2 - C1</div>
-              </div>
-              <span class="bookcard__pct" data-stat="book-pct">61%</span>
-              <div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="bookcard-toefl"></div>
-            </a>
+          <!-- Study books — pulled live from openjam at
+               GET /v1/books. Each entry has slug + name_fa + word_count
+               + has_groups + group_label_fa. The JS below caches the
+               list in sessionStorage and maps every slug to its visual
+               variant via BOOK_META (vocab-sections.js). -->
+          <div class="vocab-book-h-scroll" data-openjam-books>
+            <a class="bookcard" style="background:var(--jx-input-bg);min-height:140px;flex:none;width:180px;"></a>
+            <a class="bookcard" style="background:var(--jx-input-bg);min-height:140px;flex:none;width:180px;"></a>
+            <a class="bookcard" style="background:var(--jx-input-bg);min-height:140px;flex:none;width:180px;"></a>
+            <a class="bookcard" style="background:var(--jx-input-bg);min-height:140px;flex:none;width:180px;"></a>
           </div>
 
           <!-- 4. واژگان روزمره (Daily Life — synthetic section) -->
@@ -195,7 +167,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpreg55f"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpreti06"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -208,8 +180,50 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpreg55f';
-    import { VOCAB_SECTIONS } from '/js/vocab-sections.js?v=mpreg55f';
+    import { getLocale } from '/js/i18n.js?v=mpreti06';
+    import { VOCAB_SECTIONS, BOOK_META } from '/js/vocab-sections.js?v=mpreti06';
+
+    // ----------------------------------------------------------------
+    // STUDY BOOKS — live from openjam at /v1/books.
+    // Each book's slug is the link param; category-words.html knows
+    // how to fetch /v1/books/<slug> for the per-book lesson list.
+    // ----------------------------------------------------------------
+    async function loadBooks () {
+      try {
+        const cached = sessionStorage.getItem('openjam_books');
+        if (cached) { renderBooks(JSON.parse(cached)); return; }
+        const res = await fetch('https://openjam.amirj4m.com/v1/books');
+        const data = await res.json();
+        const books = data.data || [];
+        sessionStorage.setItem('openjam_books', JSON.stringify(books));
+        renderBooks(books);
+      } catch (err) {
+        console.warn('[openjam] failed to load books', err);
+      }
+    }
+
+    function renderBooks (books) {
+      const container = document.querySelector('[data-openjam-books]');
+      if (!container) return;
+      container.innerHTML = books.map(function (b) {
+        const meta = BOOK_META[b.slug] || {};
+        const variant = meta.variant || 'default';
+        const brand = meta.brand || b.slug;
+        const sub = meta.sub_cefr || '';
+        const pct = meta.mock_pct || 0;
+        const lottie = meta.lottie || '';
+        return '<a href="/screens/category-words.html?group=' + encodeURIComponent(b.slug) + '"' +
+          ' class="bookcard bookcard--' + variant + '">' +
+          '<div class="bookcard__head">' +
+            '<div class="bookcard__title">' + brand + '</div>' +
+            '<div class="bookcard__sub">' + sub + '</div>' +
+          '</div>' +
+          '<span class="bookcard__pct" data-stat="book-pct">' + pct + '%</span>' +
+          '<div class="lottie-stage lottie-stage--sm bookcard__lottie" data-lottie="' + lottie + '"></div>' +
+        '</a>';
+      }).join('');
+    }
+    loadBooks();
 
     // ----------------------------------------------------------------
     // SYNTHETIC SECTIONS (Daily Life · Professional)
