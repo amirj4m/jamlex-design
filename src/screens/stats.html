@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/base.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/components.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqj4b0a" />
 </head>
 <body>
   <div class="preview-controls">
@@ -46,6 +46,26 @@
                VIEW: MY PROGRESS
                ============================================================ -->
           <div data-tab-view="mine">
+            <!-- Level + XP — moved from profile. This is the user's primary
+                 progress indicator and the same XP is what places them in
+                 the Global League. Formula locked in architecture_xp_levels.md.
+                 Demo values are derived from the formula:
+                   xp_for_level(N) = 50 * N * (N+1)
+                   L6 starts at 1,500 XP, L7 starts at 2,100 XP.
+                 A user at 1,950 / 2,100 XP is solidly mid-L6 (75% of the way
+                 to L7). TODO(flutter): replace every number here with reads
+                 from the formula — do NOT hardcode the window endpoints. -->
+            <div class="xp-level-card">
+              <div class="xp-level-card__head">
+                <span class="profile-level-chip" data-stats-level data-i18n="v3.profile.levelChip" data-i18n-vars='{"n":6}'></span>
+                <span class="font-latin xp-level-card__total" data-stats-xp>1,950 / 2,100 XP</span>
+              </div>
+              <div class="xp-level-card__sub" data-i18n="v3.profile.xpProgressLabel" data-i18n-vars='{"n":7}'></div>
+              <div class="xp-card-v3__track" style="margin-top:var(--sp-2);">
+                <div class="xp-card-v3__fill" data-stats-xp-fill style="width:75%;"></div>
+              </div>
+            </div>
+
             <!-- TOP — 3 tinted stat tiles -->
             <div class="stats-top">
               <div class="stats-tile stats-tile--blue">
@@ -206,7 +226,7 @@
               <div class="rank-panel__col rank-panel__col--center">
                 <div class="rank-panel__avatar"><span data-lb-me-avatar>T</span></div>
                 <div class="rank-panel__name" data-lb-me-name>Tester</div>
-                <span class="pod__level-chip" style="background:var(--jx-input-bg);color:var(--jx-text-2);" data-lb-me-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
+                <span class="pod__level-chip" style="background:var(--jx-input-bg);color:var(--jx-text-2);" data-lb-me-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":6}'></span>
               </div>
               <div class="rank-panel__col">
                 <div class="rank-panel__cap" data-i18n="v3.leaderboard.yourRank"></div>
@@ -299,15 +319,15 @@
                 <span class="lb-row__num" data-lb-row-num>128</span>
                 <span class="lb-row__avatar"><span data-lb-row-avatar>T</span></span>
                 <span class="lb-row__name"><span data-lb-row-name>Tester</span> <span style="color:var(--jx-primary);" data-i18n="v3.leaderboard.you"></span></span>
-                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
-                <span class="lb-row__xp" data-lb-row-xp>2,340 XP</span>
+                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":6}'></span>
+                <span class="lb-row__xp" data-lb-row-xp>1,950 XP</span>
               </div>
               <div class="lb-row" data-lb-row data-lb-rank="129">
                 <span class="lb-row__num" data-lb-row-num>129</span>
                 <span class="lb-row__avatar"><span data-lb-row-avatar>R</span></span>
                 <span class="lb-row__name" data-lb-row-name>Reza_m</span>
-                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":12}'></span>
-                <span class="lb-row__xp" data-lb-row-xp>2,330 XP</span>
+                <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":5}'></span>
+                <span class="lb-row__xp" data-lb-row-xp>1,820 XP</span>
               </div>
             </div>
 
@@ -323,7 +343,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppxtz6a"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpqj4b0a"></script>
   <script>
     (function () {
       // -------- Tab toggle (instant, no page reload) --------

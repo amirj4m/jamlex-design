@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/base.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/components.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mppxtz6a" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mppxtz6a" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqj4b0a" />
 </head>
 <body>
   <div class="preview-controls">
@@ -50,7 +50,10 @@
                entirely — we'll surface version + legal links from
                somewhere lower-friction later. -->
 
-          <!-- Hero: avatar + name + level chip -->
+          <!-- Hero: avatar + name. Level chip + XP progress moved to the
+               Stats screen (where the leaderboard-relevant numbers live).
+               The 3-cell week-card was deleted — Stats already shows the
+               same info in "This week". -->
           <div class="profile-hero-v3">
             <div class="profile-avatar-lg">
               <span data-i18n="v3.profile.avatarLetter"></span>
@@ -59,34 +62,6 @@
               </div>
             </div>
             <h2 class="profile-name-v3" data-i18n="v3.profile.name"></h2>
-            <span class="profile-level-chip" data-i18n="v3.profile.levelChip" data-i18n-vars='{"n":6}'></span>
-          </div>
-
-          <!-- XP card with progress -->
-          <div class="xp-card-v3">
-            <div class="xp-card-v3__head">
-              <span data-i18n="v3.profile.xpProgressLabel" data-i18n-vars='{"n":7}'></span>
-              <span class="font-latin xp-card-v3__val">1,247 / 1,500 XP</span>
-            </div>
-            <div class="xp-card-v3__track"><div class="xp-card-v3__fill" style="width:82%;"></div></div>
-          </div>
-
-          <!-- This week 3-col card -->
-          <div class="week-card">
-            <div class="week-card__cell">
-              <div class="week-card__val">42</div>
-              <div class="week-card__label" data-i18n="v3.profile.weekCards"></div>
-            </div>
-            <div class="week-card__divider"></div>
-            <div class="week-card__cell">
-              <div class="week-card__val">128</div>
-              <div class="week-card__label" data-i18n="v3.profile.weekMinutes"></div>
-            </div>
-            <div class="week-card__divider"></div>
-            <div class="week-card__cell">
-              <div class="week-card__val">7</div>
-              <div class="week-card__label" data-i18n="v3.profile.weekStreak"></div>
-            </div>
           </div>
 
           <!-- ============================================================
@@ -397,16 +372,16 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mppxtz6a"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpqj4b0a"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // Wire the picker dialogs. The state-picker dropdown in
     // preview-controls is for reviewers to step through each dialog
     // without clicking; users only see the dialogs via the rows.
     // ----------------------------------------------------------------
-    import { setTheme, getTheme } from '/js/theme.js?v=mppxtz6a';
-    import { setLocale, getLocale } from '/js/i18n.js?v=mppxtz6a';
-    import { t } from '/js/i18n.js?v=mppxtz6a';
+    import { setTheme, getTheme } from '/js/theme.js?v=mpqj4b0a';
+    import { setLocale, getLocale } from '/js/i18n.js?v=mpqj4b0a';
+    import { t } from '/js/i18n.js?v=mpqj4b0a';
 
     function showState (s) {
       document.querySelectorAll('.state').forEach(function (el) {

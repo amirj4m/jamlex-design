@@ -3997,3 +3997,32 @@
   color: var(--jx-text-3);
   margin-bottom: var(--sp-1);
 }
+
+/* ============================================================================
+   XP + Level card on the Stats screen. Reuses the .xp-card-v3__track and
+   .xp-card-v3__fill bar from the existing XP card so the progress line
+   looks identical to the old profile placement.
+   ============================================================================ */
+.xp-level-card {
+  background: var(--jx-bg);
+  border: 1px solid var(--jx-divider);
+  border-radius: 22px;
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+.xp-level-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: 4px;
+}
+.xp-level-card__total {
+  font-weight: var(--fw-extrabold);
+  font-size: var(--fs-body-m);
+  color: var(--jx-text);
+}
+.xp-level-card__sub {
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+}
