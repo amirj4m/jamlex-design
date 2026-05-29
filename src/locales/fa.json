@@ -567,6 +567,7 @@
       "vocabProgressTitle": "واژه‌آموزی",
       "vocabProgressSub": "مسیر یادگیری شما",
       "vocabProgressCheer": "🌱 خیلی خوب! ادامه بده",
+      "vocabBannerSub": "بیش از ۱۹٬۰۰۰ لغت در ۱۲ گروه موضوعی",
       "readBook": "کتابخانه",
       "readBookSub": "خواندن کتاب",
       "myWords": "واژگان من",
@@ -665,6 +666,9 @@
       "byLevel": "یادگیری بر اساس سطح",
       "studyBooks": "کتاب‌های آموزشی",
       "topicWords": "واژگان موضوعی",
+      "seeAll": "مشاهده همه",
+      "topicWordsAll": "همه‌ی واژگان موضوعی",
+      "studyBooksAll": "همه‌ی کتاب‌های آموزشی",
       "level": {
         "A1Label": "مبتدی",
         "A2Label": "پایه",

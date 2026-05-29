@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Vocab Categories</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr8xla8" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/screens/vocab-learning.html" class="hub-ribbon">‹ Vocab</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/vocab-learning.html" class="btn-icon back-btn" aria-label="Back"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="v3.vocabLearning.topicWordsAll"></h1>
+          <div></div>
+        </header>
+
+        <div class="screen__body">
+          <!-- All 12 openjam main groups in a 3-column grid. Pulled
+               live from /v1/categories/groups, same fetch + cache as
+               vocab-learning.html. -->
+          <div class="vocab-cat-grid" data-openjam-groups>
+            <div class="cat-disc" style="background:var(--jx-input-bg);min-height:120px;"></div>
+            <div class="cat-disc" style="background:var(--jx-input-bg);min-height:120px;"></div>
+            <div class="cat-disc" style="background:var(--jx-input-bg);min-height:120px;"></div>
+            <div class="cat-disc" style="background:var(--jx-input-bg);min-height:120px;"></div>
+            <div class="cat-disc" style="background:var(--jx-input-bg);min-height:120px;"></div>
+            <div class="cat-disc" style="background:var(--jx-input-bg);min-height:120px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js?v=mpr8xla8"></script>
+  <script type="module">
+    import { getLocale } from '/js/i18n.js?v=mpr8xla8';
+
+    const ICONS = {
+      'food-drink':         '🍔',
+      'people-family':      '👨‍👩‍👧',
+      'body-health':        '💪',
+      'nature-animals':     '🌿',
+      'home-objects':       '🏠',
+      'places-travel':      '✈️',
+      'work-money':         '💼',
+      'society-culture':    '🎭',
+      'science-tech':       '🔬',
+      'sport-action':       '⚽',
+      'feelings-qualities': '😊',
+      'time-learning':      '⏳',
+    };
+    const TINTS = {
+      'food-drink':         { bg: '#FFF3E0', fg: '#E65100' },
+      'people-family':      { bg: '#F3E5F5', fg: '#6A1B9A' },
+      'body-health':        { bg: '#FCE4E4', fg: '#C62828' },
+      'nature-animals':     { bg: '#E0F2E0', fg: '#2E7D32' },
+      'home-objects':       { bg: '#FFF8E1', fg: '#B27A12' },
+      'places-travel':      { bg: '#E3F2FD', fg: '#1565C0' },
+      'work-money':         { bg: '#E8EAF6', fg: '#283593' },
+      'society-culture':    { bg: '#FCE4EC', fg: '#C2185B' },
+      'science-tech':       { bg: '#E0F7FA', fg: '#00838F' },
+      'sport-action':       { bg: '#F1F8E9', fg: '#558B2F' },
+      'feelings-qualities': { bg: '#FFECB3', fg: '#B27A12' },
+      'time-learning':      { bg: '#E0F2F1', fg: '#00695C' },
+    };
+
+    function formatCount (n, locale) {
+      return locale === 'fa' ? n.toLocaleString('fa-IR') : n.toLocaleString('en-US');
+    }
+
+    function render (groups) {
+      const container = document.querySelector('[data-openjam-groups]');
+      if (!container) return;
+      const locale = getLocale();
+      const wordLabel = locale === 'fa' ? 'واژه' : 'words';
+      container.innerHTML = groups.map(function (g) {
+        const tint = TINTS[g.slug] || { bg: 'var(--jx-input-bg)', fg: 'var(--jx-text)' };
+        const icon = ICONS[g.slug] || '📖';
+        const name = locale === 'fa' ? g.name_fa : g.name_en;
+        const count = formatCount(g.word_count, locale);
+        return '<a href="/screens/category-words.html?group=' + encodeURIComponent(g.slug) + '" class="cat-disc">' +
+          '<span class="cat-disc__icon" style="background:' + tint.bg + ';color:' + tint.fg + ';">' + icon + '</span>' +
+          '<span class="cat-disc__name">' + name + '</span>' +
+          '<span class="cat-disc__count">' + count + ' ' + wordLabel + '</span>' +
+        '</a>';
+      }).join('');
+    }
+
+    let cachedGroups = null;
+    async function load () {
+      try {
+        const cached = sessionStorage.getItem('openjam_groups');
+        if (cached) { cachedGroups = JSON.parse(cached); render(cachedGroups); return; }
+        const res = await fetch('https://openjam.amirj4m.com/v1/categories/groups');
+        const data = await res.json();
+        cachedGroups = data.groups || [];
+        sessionStorage.setItem('openjam_groups', JSON.stringify(cachedGroups));
+        render(cachedGroups);
+      } catch (err) {
+        console.warn('[openjam] failed to load groups', err);
+      }
+    }
+
+    document.addEventListener('i18n:changed', function () {
+      if (cachedGroups) render(cachedGroups);
+    });
+
+    load();
+  </script>
+</body>
+</html>

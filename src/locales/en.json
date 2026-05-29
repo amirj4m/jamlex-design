@@ -567,6 +567,7 @@
       "vocabProgressTitle": "Vocab Learning",
       "vocabProgressSub": "Your learning path",
       "vocabProgressCheer": "🌱 Great! Keep going",
+      "vocabBannerSub": "19,000+ words across 12 topic groups",
       "readBook": "Library",
       "readBookSub": "Read books",
       "myWords": "My Words",
@@ -665,6 +666,9 @@
       "byLevel": "Learn by level",
       "studyBooks": "Study books",
       "topicWords": "Topic vocabulary",
+      "seeAll": "See all",
+      "topicWordsAll": "All topic groups",
+      "studyBooksAll": "All study books",
       "level": {
         "A1Label": "Starter",
         "A2Label": "Elementary",

@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr8ll1n" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr8xla8" />
 </head>
 <body>
   <div class="preview-controls">
@@ -96,9 +96,12 @@
               </svg>
             </div>
             <div class="vocab-banner__body">
-              <div class="vocab-banner__title" data-i18n="vocabLearning.title"></div>
-              <div class="vocab-banner__sub" data-i18n="v3.home.vocabProgressSub"></div>
-              <div class="vocab-banner__cheer" data-i18n="v3.home.vocabProgressCheer"></div>
+              <!-- Title is the v3 key "واژه‌آموزی" — the older
+                   vocabLearning.title was "واژگان موضوعی". Sub now
+                   sells the catalog scale (19k+ words across the 12
+                   openjam groups). The old cheer line was dropped. -->
+              <div class="vocab-banner__title" data-i18n="v3.vocabLearning.title"></div>
+              <div class="vocab-banner__sub" data-i18n="v3.home.vocabBannerSub"></div>
             </div>
             <div class="lottie-stage lottie-stage--sm vocab-banner__lottie" data-lottie="vocab-banner-book"></div>
           </a>
@@ -134,7 +137,7 @@
     // i18n — so it stays "رضا محمدی" regardless of the UI language. Only the
     // surrounding "سلام" / "Hello" string follows the locale. Flutter reads
     // the actual name from users.display_name.
-    import { t } from '/js/i18n.js?v=mpr8ll1n';
+    import { t } from '/js/i18n.js?v=mpr8xla8';
     document.addEventListener('i18n:changed', fillGreeting);
     function fillGreeting () {
       const el = document.querySelector('[data-greeting]');
@@ -143,6 +146,6 @@
       el.textContent = t('v3.home.greetingHi', { name: 'رضا محمدی' });
     }
   </script>
-  <script type="module" src="/js/screen-shell.js?v=mpr8ll1n"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr8xla8"></script>
 </body>
 </html>

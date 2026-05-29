@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr8ll1n" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr8ll1n" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr8xla8" />
 </head>
 <body>
   <div class="preview-controls">
@@ -46,10 +46,33 @@
             <input type="search" data-i18n-attr="placeholder:v3.vocabLearning.searchPlaceholder" />
           </div>
 
+          <!-- ============================================================
+               New layout (locked 2026-05-29): three horizontal rows in
+               this order — topic groups, levels, study books. Same
+               library-style "see all" pattern as reading.html. The
+               levels strip is horizontal-by-default with 5 chips, so
+               no see-all is needed there.
+               ============================================================ -->
+
+          <!-- 1. واژگان موضوعی (topic groups) — horizontal scroll + see-all -->
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="v3.vocabLearning.topicWords"></div>
+            <a href="/screens/vocab-categories-all.html" class="section-h__action" data-i18n="v3.vocabLearning.seeAll"></a>
+          </div>
+          <!-- TODO(flutter): the 12 main groups are pulled live from
+               openjam. See architecture_openjam.md for the integration
+               contract. The cat-h-scroll renders horizontally. -->
+          <div class="cat-h-scroll" data-openjam-groups>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+          </div>
+
+          <!-- 2. یادگیری بر اساس سطح (CEFR levels) — horizontal chip strip -->
           <div class="section-h">
             <div class="section-h__title" data-i18n="v3.vocabLearning.byLevel"></div>
           </div>
-
           <div class="level-chips" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
             <button class="lvl-chip lvl-chip--c1" style="background:#FCE4E4;color:#C62828;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">C1</span>
@@ -74,11 +97,12 @@
             </button>
           </div>
 
+          <!-- 3. کتاب‌های آموزشی (study books) — horizontal scroll + see-all -->
           <div class="section-h">
             <div class="section-h__title" data-i18n="v3.vocabLearning.studyBooks"></div>
+            <a href="/screens/vocab-books-all.html" class="section-h__action" data-i18n="v3.vocabLearning.seeAll"></a>
           </div>
-
-          <div class="bookcard-grid">
+          <div class="vocab-book-h-scroll">
             <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
               <div class="bookcard__head">
                 <div class="bookcard__title">IELTS</div>
@@ -129,28 +153,6 @@
             </a>
           </div>
 
-          <div class="section-h">
-            <div class="section-h__title" data-i18n="v3.vocabLearning.topicWords"></div>
-          </div>
-
-          <!-- TODO(flutter): the 12 main groups are pulled live from
-               openjam at https://openjam.amirj4m.com/v1/categories/groups
-               (no auth, CORS open). In Flutter, follow the hybrid
-               approach from openjam/INTEGRATION.md: download once
-               (~15 MB), cache locally, audio on-demand from
-               https://audio.openjam.amirj4m.com.
-               See architecture_openjam.md for the full integration
-               contract. -->
-          <div class="cat-2col" data-openjam-groups>
-            <!-- Loading skeleton placeholders — replaced at runtime -->
-            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
-            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
-            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
-            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
-            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
-            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
-          </div>
-
           <div class="vlearn-footer">
             <div style="flex:1;">
               <div class="vlearn-footer__row">
@@ -173,7 +175,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpr8ll1n"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr8xla8"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -186,7 +188,7 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpr8ll1n';
+    import { getLocale } from '/js/i18n.js?v=mpr8xla8';
 
     // Per-group glyph + soft tint. 12 distinct colour-coded tiles so
     // each main group is visually distinguishable at a glance.
@@ -230,17 +232,19 @@
       if (!container) return;
       const locale = getLocale();
       const wordLabel = locale === 'fa' ? 'واژه' : 'words';
+      // Horizontal-scroll discs (library pattern). Each disc is a
+      // compact tile with a glyph in a tinted circle, the group name,
+      // and the word count. The full list lives at
+      // /screens/vocab-categories-all.html as a 3-column grid.
       container.innerHTML = groups.map(function (g) {
         const tint = TINTS[g.slug] || { bg: 'var(--jx-input-bg)', fg: 'var(--jx-text)' };
         const icon = ICONS[g.slug] || '📖';
         const name = locale === 'fa' ? g.name_fa : g.name_en;
         const count = formatCount(g.word_count, locale);
-        return '<a href="/screens/category-words.html?group=' + encodeURIComponent(g.slug) + '" class="cat-row" style="background:' + tint.bg + ';color:' + tint.fg + ';">' +
-          '<span style="font-size:22px;line-height:1;">' + icon + '</span>' +
-          '<div>' +
-            '<div style="font-weight:800;">' + name + '</div>' +
-            '<div style="font-size:11px;opacity:0.8;">' + count + ' ' + wordLabel + '</div>' +
-          '</div>' +
+        return '<a href="/screens/category-words.html?group=' + encodeURIComponent(g.slug) + '" class="cat-disc">' +
+          '<span class="cat-disc__icon" style="background:' + tint.bg + ';color:' + tint.fg + ';">' + icon + '</span>' +
+          '<span class="cat-disc__name">' + name + '</span>' +
+          '<span class="cat-disc__count">' + count + ' ' + wordLabel + '</span>' +
         '</a>';
       }).join('');
     }

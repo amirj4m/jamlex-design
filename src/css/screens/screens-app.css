@@ -2045,6 +2045,38 @@
   gap: var(--sp-2);
 }
 
+/* Vocab-learning study books — horizontal scroll, same pattern as the
+   library's .book-h-scroll. Each .bookcard inside keeps its existing
+   tinted gradient design but flexes out of the 2-column grid into a
+   wider horizontal slot. */
+.vocab-book-h-scroll {
+  display: flex;
+  gap: var(--sp-3);
+  overflow-x: auto;
+  padding-bottom: var(--sp-2);
+  margin-inline: calc(-1 * var(--sp-5));
+  padding-inline: var(--sp-5);
+  scrollbar-width: none;
+}
+.vocab-book-h-scroll::-webkit-scrollbar { display: none; }
+.vocab-book-h-scroll > .bookcard {
+  flex: none;
+  width: 180px;
+}
+
+/* The "see all" page lays the same tiles out in a 3-column grid. */
+.vocab-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+}
+.vocab-cat-grid .cat-disc { width: auto; min-height: 120px; }
+.vocab-book-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+
 /* ============================================================================
    Lesson Words page — header chip + per-word card with audio button and
    per-word CEFR level chip on the right. Words come from the openjam
