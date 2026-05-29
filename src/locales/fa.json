@@ -966,6 +966,10 @@
         "notif": "اعلان‌ها",
         "other": "درباره"
       },
+      "leitnerSettings": "تنظیمات لایتنر",
+      "leitnerSettingsTitle": "تنظیمات لایتنر",
+      "leitnerSettingsSecStudy": "مطالعه",
+      "leitnerSettingsSecManage": "مدیریت",
       "account": "حساب کاربری",
       "accountTitle": "حساب کاربری",
       "accountSecIdentity": "اطلاعات شخصی",

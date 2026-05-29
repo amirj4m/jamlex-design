@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpqxv0uc" />
-  <link rel="stylesheet" href="/css/base.css?v=mpqxv0uc" />
-  <link rel="stylesheet" href="/css/components.css?v=mpqxv0uc" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqxv0uc" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpqxv0uc" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpqxv0uc" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqxv0uc" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqxv0uc" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqy87ww" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqy87ww" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqy87ww" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqy87ww" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqy87ww" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqy87ww" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqy87ww" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqy87ww" />
 </head>
 <body>
   <div class="preview-controls">
@@ -26,8 +26,6 @@
     ">
       <option value="list">List</option>
       <option value="theme">Theme picker</option>
-      <option value="limit">Daily limit</option>
-      <option value="notif">Reminder</option>
       <option value="lang">Language</option>
     </select>
   </div>
@@ -82,41 +80,21 @@
             </a>
           </div>
 
-          <!-- Section: Learning -->
+          <!-- Section: Learning — single Leitner tile that navigates to
+               a dedicated settings page (same pattern as Account). The
+               three rows (daily words, reminder, clear) live on
+               /screens/leitner-settings.html. -->
           <div class="section-label" data-i18n="v3.profile.sec.leitner"></div>
           <div class="setting-list">
-            <button class="setting-item" data-open-state="limit" data-limit="20">
+            <a href="/screens/leitner-settings.html" class="setting-item" style="text-decoration:none;color:inherit;">
               <span class="setting-item__icon" style="background:var(--jx-primary-glow);color:var(--jx-primary);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="3" y1="13" x2="21" y2="13"/></svg>
               </span>
               <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="v3.profile.dailyLimit"></div>
-                <div class="setting-item__sub" data-limit-current data-i18n="v3.profile.dailyLimitSub"></div>
+                <div class="setting-item__label" data-i18n="v3.profile.leitnerSettings"></div>
               </div>
               <span class="setting-item__chevron"></span>
-            </button>
-
-            <button class="setting-item" data-open-state="notif">
-              <span class="setting-item__icon" style="background:rgba(255,152,0,0.16);color:#E59A1A;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-              </span>
-              <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="v3.profile.notifTitle"></div>
-                <div class="setting-item__sub" data-notif-current data-i18n="v3.profile.notifOnSub"></div>
-              </div>
-              <span class="setting-item__chevron"></span>
-            </button>
-
-            <button class="setting-item setting-item--danger" onclick="window.confirmAction('clearLeitner');">
-              <span class="setting-item__icon" style="background:rgba(244,67,54,0.12);color:var(--jx-danger);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-              </span>
-              <div class="setting-item__main">
-                <div class="setting-item__label" data-i18n="v3.profile.clearLeitner"></div>
-                <div class="setting-item__sub" data-i18n="v3.profile.clearLeitnerSub"></div>
-              </div>
-              <span class="setting-item__chevron"></span>
-            </button>
+            </a>
           </div>
 
           <!-- Section: Appearance -->
@@ -195,102 +173,9 @@
           </div>
         </div>
 
-        <!-- ============================================================
-             DIALOG: Daily limit picker
-             ============================================================ -->
-        <div class="state" data-state="limit" hidden>
-          <div class="scrim" data-close-state>
-            <div class="picker-card" onclick="event.stopPropagation();">
-              <div class="picker-card__handle"></div>
-              <h2 class="picker-card__title" data-i18n="v3.profile.limitPicker.title"></h2>
-              <p class="picker-card__sub" data-i18n="v3.profile.limitPicker.sub"></p>
-              <div class="limit-stepper">
-                <button class="limit-stepper__btn" data-limit-step="-5" aria-label="decrease">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="12" x2="18" y2="12"/></svg>
-                </button>
-                <div class="limit-stepper__display">
-                  <div class="limit-stepper__val font-latin" data-limit-draft>20</div>
-                  <div class="limit-stepper__unit" data-i18n="v3.profile.limitPicker.unit"></div>
-                </div>
-                <button class="limit-stepper__btn" data-limit-step="5" aria-label="increase">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="12" x2="18" y2="12"/><line x1="12" y1="6" x2="12" y2="18"/></svg>
-                </button>
-              </div>
-              <p class="limit-stepper__hint" data-i18n="v3.profile.limitPicker.minHint"></p>
-              <div class="picker-card__actions">
-                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.limitPicker.cancel"></button>
-                <button class="btn btn--filled" style="flex:1;" data-limit-save data-i18n="v3.profile.limitPicker.save"></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ============================================================
-             DIALOG: Reminder
-             ============================================================ -->
-        <div class="state" data-state="notif" hidden>
-          <div class="scrim" data-close-state>
-            <div class="dialog-card" onclick="event.stopPropagation();">
-              <div class="dialog-card__bell">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-              </div>
-              <h2 class="dialog-card__title" data-i18n="v3.settings.notif.title"></h2>
-              <p class="dialog-card__sub" data-i18n="v3.settings.notif.sub"></p>
-              <div class="time-picker">
-                <div class="time-picker__col">
-                  <button class="time-picker__btn" data-time-step="hour" data-time-dir="up" aria-label="hour up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
-                  <div class="time-picker__val font-latin" data-time-hour>08</div>
-                  <div class="time-picker__cap" data-i18n="v3.settings.notif.hourCap"></div>
-                  <button class="time-picker__btn" data-time-step="hour" data-time-dir="down" aria-label="hour down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-                </div>
-                <div class="time-picker__sep">:</div>
-                <div class="time-picker__col">
-                  <button class="time-picker__btn" data-time-step="minute" data-time-dir="up" aria-label="minute up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
-                  <div class="time-picker__val font-latin" data-time-minute>30</div>
-                  <div class="time-picker__cap" data-i18n="v3.settings.notif.minuteCap"></div>
-                  <button class="time-picker__btn" data-time-step="minute" data-time-dir="down" aria-label="minute down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-                </div>
-              </div>
-              <div style="text-align:start;margin-top:var(--sp-3);font-size:var(--fs-body-s);color:var(--jx-text-2);font-weight:var(--fw-semibold);" data-i18n="v3.settings.notif.days"></div>
-              <div class="day-circles" style="margin-top:var(--sp-2);">
-                <button class="day-circles__btn" data-day="sa" data-selected="true" data-i18n="v3.settings.day.sa"></button>
-                <button class="day-circles__btn" data-day="su" data-selected="true" data-i18n="v3.settings.day.su"></button>
-                <button class="day-circles__btn" data-day="mo" data-selected="true" data-i18n="v3.settings.day.mo"></button>
-                <button class="day-circles__btn" data-day="tu" data-i18n="v3.settings.day.tu"></button>
-                <button class="day-circles__btn" data-day="we" data-selected="true" data-i18n="v3.settings.day.we"></button>
-                <button class="day-circles__btn" data-day="th" data-selected="true" data-i18n="v3.settings.day.th"></button>
-                <button class="day-circles__btn" data-day="fr" data-i18n="v3.settings.day.fr"></button>
-              </div>
-              <div style="text-align:start;margin-top:var(--sp-3);font-size:var(--fs-body-s);color:var(--jx-text-2);font-weight:var(--fw-semibold);" data-i18n="v3.settings.notif.sound"></div>
-              <div class="sound-chips" style="margin-top:var(--sp-2);">
-                <button class="sound-chip" data-pick-sound="default" data-selected="true">
-                  <span class="sound-chip__icon">🔔</span>
-                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundDefault"></span>
-                </button>
-                <button class="sound-chip" data-pick-sound="chime">
-                  <span class="sound-chip__icon">🎐</span>
-                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundChime"></span>
-                </button>
-                <button class="sound-chip" data-pick-sound="bell">
-                  <span class="sound-chip__icon">🛎️</span>
-                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundBell"></span>
-                </button>
-                <button class="sound-chip" data-pick-sound="bird">
-                  <span class="sound-chip__icon">🐦</span>
-                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundBird"></span>
-                </button>
-                <button class="sound-chip" data-pick-sound="celebrate">
-                  <span class="sound-chip__icon">✨</span>
-                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundCelebrate"></span>
-                </button>
-              </div>
-              <div class="dialog-card__actions">
-                <button class="dialog-card__cancel" data-close-state data-i18n="v3.settings.notif.cancel"></button>
-                <button class="btn btn--filled" style="flex:1;" data-notif-save data-i18n="v3.settings.notif.save"></button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Daily-words picker + reminder dialog moved to
+             /screens/leitner-settings.html — they're now reached via the
+             single Leitner row above. -->
 
         <!-- ============================================================
              DIALOG: Language picker
@@ -331,11 +216,11 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpqxv0uc"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpqy87ww"></script>
   <script type="module">
-    import { setTheme, getTheme } from '/js/theme.js?v=mpqxv0uc';
-    import { setLocale, getLocale } from '/js/i18n.js?v=mpqxv0uc';
-    import { t } from '/js/i18n.js?v=mpqxv0uc';
+    import { setTheme, getTheme } from '/js/theme.js?v=mpqy87ww';
+    import { setLocale, getLocale } from '/js/i18n.js?v=mpqy87ww';
+    import { t } from '/js/i18n.js?v=mpqy87ww';
 
     function showState (s) {
       document.querySelectorAll('.state').forEach(function (el) { el.hidden = el.dataset.state !== s; });
@@ -346,25 +231,13 @@
       var sp = document.getElementById('state-picker'); if (sp) sp.value = 'list';
     }
     document.querySelectorAll('[data-open-state]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var target = btn.dataset.openState;
-        if (target === 'limit') {
-          var saved = parseInt(document.querySelector('[data-limit]').dataset.limit, 10) || 20;
-          var draftEl = document.querySelector('[data-limit-draft]');
-          if (draftEl) draftEl.textContent = saved;
-        }
-        showState(target);
-      });
+      btn.addEventListener('click', function () { showState(btn.dataset.openState); });
     });
     document.querySelectorAll('[data-close-state]').forEach(function (el) {
       el.addEventListener('click', function (e) {
         if (el.classList.contains('scrim') && e.target !== el) return;
         closeState();
       });
-    });
-    document.addEventListener('click', function (e) {
-      var c = e.target.closest('.day-circles__btn');
-      if (c) c.dataset.selected = c.dataset.selected === 'true' ? 'false' : 'true';
     });
 
     // THEME PICKER
@@ -401,122 +274,9 @@
       document.querySelectorAll('[data-pick-lang]').forEach(function (b) { b.dataset.selected = (b.dataset.pickLang === cur) ? 'true' : 'false'; });
     })();
 
-    // DAILY LIMIT
-    document.querySelectorAll('[data-limit-step]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var step = parseInt(btn.dataset.limitStep, 10) || 0;
-        var draftEl = document.querySelector('[data-limit-draft]');
-        var cur = parseInt(draftEl.textContent, 10) || 20;
-        var next = Math.max(5, Math.min(200, cur + step));
-        draftEl.textContent = next;
-      });
-    });
-    document.querySelector('[data-limit-save]').addEventListener('click', function () {
-      var rowBtn = document.querySelector('[data-limit]');
-      var saved = parseInt(rowBtn.dataset.limit, 10) || 20;
-      var draftEl = document.querySelector('[data-limit-draft]');
-      var next = parseInt(draftEl.textContent, 10) || saved;
-      var delta = next - saved;
-      rowBtn.dataset.limit = next;
-      var sub = rowBtn.querySelector('[data-limit-current]');
-      if (sub) sub.textContent = next + ' ' + t('v3.profile.limitPicker.unit');
-      closeState();
-      if (delta > 0) {
-        setTimeout(function () {
-          window.showPopup({
-            type: 'info',
-            titleKey: 'v3.profile.limitIncrease.title',
-            message: t('v3.profile.limitIncrease.body').replace('{added}', delta),
-            messageHtml: true,
-            confirmKey: 'v3.profile.limitIncrease.ok',
-            autoDismiss: 0,
-          });
-        }, 220);
-      } else if (delta < 0) {
-        window.popupSuccess(t('v3.profile.dailyLimit') + ': ' + next);
-      }
-    });
-
-    // TIME PICKER
-    document.querySelectorAll('[data-time-step]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var unit = btn.dataset.timeStep;
-        var dir  = btn.dataset.timeDir;
-        var sel  = unit === 'hour' ? '[data-time-hour]' : '[data-time-minute]';
-        var el   = document.querySelector(sel);
-        var cur  = parseInt(el.textContent, 10) || 0;
-        var step = unit === 'hour' ? 1 : 5;
-        var max  = unit === 'hour' ? 23 : 55;
-        var next;
-        if (dir === 'up')   next = cur >= max ? 0 : cur + step;
-        else                next = cur <= 0 ? max : cur - step;
-        el.textContent = String(next).padStart(2, '0');
-      });
-    });
-
-    // SOUND CHIPS with audio preview
-    var audioCtx = null;
-    function previewSound (key) {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        var spec = ({
-          'default':   { freq: 660, type: 'sine',     dur: 0.18, decay: 0.12 },
-          'chime':     { freq: 880, type: 'triangle', dur: 0.55, decay: 0.45 },
-          'bell':      { freq: 1320, type: 'sine',    dur: 0.35, decay: 0.30 },
-          'bird':      { freq: 1760, type: 'sawtooth', dur: 0.18, decay: 0.12 },
-          'celebrate': { freq: 988, type: 'square',   dur: 0.22, decay: 0.18 },
-        })[key] || { freq: 660, type: 'sine', dur: 0.2, decay: 0.15 };
-        var now = audioCtx.currentTime;
-        var osc = audioCtx.createOscillator();
-        var gain = audioCtx.createGain();
-        osc.type = spec.type;
-        osc.frequency.setValueAtTime(spec.freq, now);
-        if (key === 'bird') osc.frequency.exponentialRampToValueAtTime(spec.freq * 0.6, now + spec.dur);
-        if (key === 'chime') osc.frequency.exponentialRampToValueAtTime(spec.freq * 1.5, now + spec.dur);
-        gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.exponentialRampToValueAtTime(0.2, now + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + spec.dur);
-        osc.connect(gain).connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + spec.dur + 0.02);
-      } catch (e) { /* ignore */ }
-    }
-    document.querySelectorAll('[data-pick-sound]').forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        document.querySelectorAll('[data-pick-sound]').forEach(function (c) { c.dataset.selected = (c === chip) ? 'true' : 'false'; });
-        previewSound(chip.dataset.pickSound);
-      });
-    });
-
-    // REMINDER SAVE
-    function selectedDaysSummary () {
-      var labels = Array.from(document.querySelectorAll('.day-circles__btn[data-selected="true"]'))
-        .map(function (b) { return b.textContent.trim(); });
-      if (labels.length === 0) return '—';
-      if (labels.length === 7) return getLocale() === 'fa' ? 'هر روز هفته' : 'every day';
-      return labels.join(getLocale() === 'fa' ? '، ' : ', ');
-    }
-    document.querySelector('[data-notif-save]').addEventListener('click', function () {
-      var h = document.querySelector('[data-time-hour]').textContent;
-      var m = document.querySelector('[data-time-minute]').textContent;
-      var time = h + ':' + m;
-      var days = selectedDaysSummary();
-      var rowSub = document.querySelector('[data-notif-current]');
-      if (rowSub) {
-        var prefix = getLocale() === 'fa' ? 'روشن — ' : 'On — ';
-        rowSub.textContent = prefix + time + ' · ' + days;
-      }
-      closeState();
-      setTimeout(function () {
-        window.showPopup({
-          type: 'success',
-          titleKey: 'v3.profile.reminderSavedTitle',
-          message: t('v3.profile.reminderSavedBody').replace('{time}', time).replace('{days}', days),
-          confirmKey: 'v3.profile.verifyCta',
-          autoDismiss: 0,
-        });
-      }, 200);
-    });
+    // (Daily-limit, time picker, sound chip, and reminder-save logic
+    //  moved to /screens/leitner-settings.html — those dialogs live
+    //  there now.)
 
     // AVATAR UPLOAD
     var avatarTrigger = document.querySelector('[data-avatar-trigger]');
@@ -542,18 +302,6 @@
       });
     }
 
-    // Limit row sub-label refresh on i18n
-    (function () {
-      var rowBtn = document.querySelector('[data-limit]');
-      var saved = parseInt(rowBtn.dataset.limit, 10) || 20;
-      var sub = rowBtn.querySelector('[data-limit-current]');
-      document.addEventListener('i18n:changed', function () {
-        if (sub) sub.textContent = saved + ' ' + t('v3.profile.limitPicker.unit');
-      });
-      setTimeout(function () {
-        if (sub && t('v3.profile.limitPicker.unit')) sub.textContent = saved + ' ' + t('v3.profile.limitPicker.unit');
-      }, 50);
-    })();
   </script>
 </body>
 </html>
