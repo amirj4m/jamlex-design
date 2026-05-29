@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/base.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/components.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/base.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/components.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprezo15" />
 </head>
 <body>
   <div class="preview-controls">
@@ -87,33 +87,39 @@
                REMEMBER: a word_id counts for the level even when it
                was graduated through a category or book — graduation
                is per-word, never per-container. -->
+          <!-- CEFR chips are now <a> links — each chip navigates to
+               category-words.html?group=level-<X>, which fetches
+               /v1/words?level=<X>&limit=1 to count and renders a list
+               of 50-word lessons named "درس ۱، درس ۲…" (numbered
+               naming is explicitly accepted here per product owner,
+               since words at one level have no thematic grouping). -->
           <div class="level-chips" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
-            <button class="lvl-chip lvl-chip--c1" style="background:#FCE4E4;color:#C62828;">
+            <a href="/screens/category-words.html?group=level-C1" class="lvl-chip lvl-chip--c1" style="background:#FCE4E4;color:#C62828;text-decoration:none;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">C1</span>
               <span data-i18n="v3.vocabLearning.level.C1Label"></span>
               <span class="lvl-chip__pct" data-stat="level-pct">8%</span>
-            </button>
-            <button class="lvl-chip lvl-chip--b2" style="background:#FCEEDC;color:#E65100;">
+            </a>
+            <a href="/screens/category-words.html?group=level-B2" class="lvl-chip lvl-chip--b2" style="background:#FCEEDC;color:#E65100;text-decoration:none;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">B2</span>
               <span data-i18n="v3.vocabLearning.level.B2Label"></span>
               <span class="lvl-chip__pct" data-stat="level-pct">22%</span>
-            </button>
-            <button class="lvl-chip lvl-chip--b1" style="background:#E3F2FD;color:#1565C0;">
+            </a>
+            <a href="/screens/category-words.html?group=level-B1" class="lvl-chip lvl-chip--b1" style="background:#E3F2FD;color:#1565C0;text-decoration:none;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">B1</span>
               <span data-i18n="v3.vocabLearning.level.B1Label"></span>
               <span class="lvl-chip__pct" data-stat="level-pct">45%</span>
-            </button>
-            <button class="lvl-chip lvl-chip--a2" style="background:#E0F2F1;color:#00897B;">
+            </a>
+            <a href="/screens/category-words.html?group=level-A2" class="lvl-chip lvl-chip--a2" style="background:#E0F2F1;color:#00897B;text-decoration:none;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">A2</span>
               <span data-i18n="v3.vocabLearning.level.A2Label"></span>
               <span class="lvl-chip__pct" data-stat="level-pct">68%</span>
-            </button>
-            <button class="lvl-chip lvl-chip--a1" data-selected="true" style="background:#E0F2EC;color:#1F9389;border-color:#1F9389;">
+            </a>
+            <a href="/screens/category-words.html?group=level-A1" class="lvl-chip lvl-chip--a1" data-selected="true" style="background:#E0F2EC;color:#1F9389;border-color:#1F9389;text-decoration:none;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">A1</span>
               <span data-i18n="v3.vocabLearning.level.A1Label"></span>
               <span class="lvl-chip__pct" data-stat="level-pct">92%</span>
               <span class="lvl-chip__check">✓</span>
-            </button>
+            </a>
           </div>
 
           <!-- 3. کتاب‌های آموزشی (study books) — moved 2026-05-29 to
@@ -167,7 +173,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpreti06"></script>
+  <script type="module" src="/js/screen-shell.js?v=mprezo15"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -180,8 +186,8 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpreti06';
-    import { VOCAB_SECTIONS, BOOK_META } from '/js/vocab-sections.js?v=mpreti06';
+    import { getLocale } from '/js/i18n.js?v=mprezo15';
+    import { VOCAB_SECTIONS, BOOK_META } from '/js/vocab-sections.js?v=mprezo15';
 
     // ----------------------------------------------------------------
     // STUDY BOOKS — live from openjam at /v1/books.

@@ -898,6 +898,52 @@ export const BOOK_META = {
 
 export const BOOK_SLUGS = new Set(Object.keys(BOOK_META));
 
+// ─────────────────────────────────────────────────────────────────────────────
+//  CEFR LEVELS — direct openjam integration (LOCKED 2026-05-30)
+//
+//  The five chips on the Vocab Learning screen (A1, A2, B1, B2, C1) now
+//  navigate to category-words.html?group=level-<X>. Inside, category-
+//  words.html fetches /v1/words?level=<X>&limit=1 to get the total count
+//  and splits it into 50-word lessons.
+//
+//  Real counts as of 2026-05-30:
+//    A1 → 292 words   → 6 lessons (5×50 + 42)
+//    A2 → 707 words   → 15 lessons
+//    B1 → 968 words   → 20 lessons
+//    B2 → 1,209 words → 25 lessons
+//    C1 → 1,105 words → 23 lessons
+//  (C2 exists in openjam with 16k words but the product owner explicitly
+//  scoped this rollout to A1–C1.)
+//
+//  ⚠️  Lesson naming for levels is "درس ۱، درس ۲… درس N", numbered.
+//  This is the ONE place numbered lesson names are EXPLICITLY accepted —
+//  product owner: "توی این کتگوری نیاز نیست که تو دنبال اسم خاصی بگردی
+//  فقط درس ۱ درس ۲ درس ۳". Words at a single CEFR level have no natural
+//  thematic grouping, so the chunk-by-50 default is honest here.
+// ─────────────────────────────────────────────────────────────────────────────
+export const CEFR_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1'];
+
+export const LEVEL_META = {
+  'A1': { code: 'A1', name_fa: 'مبتدی',          name_en: 'Beginner',           tint: { bg: '#E0F2EC', fg: '#1F9389' } },
+  'A2': { code: 'A2', name_fa: 'پایه',             name_en: 'Elementary',         tint: { bg: '#E0F2F1', fg: '#00897B' } },
+  'B1': { code: 'B1', name_fa: 'متوسط',           name_en: 'Intermediate',        tint: { bg: '#E3F2FD', fg: '#1565C0' } },
+  'B2': { code: 'B2', name_fa: 'بالاتر از متوسط', name_en: 'Upper-intermediate', tint: { bg: '#FCEEDC', fg: '#E65100' } },
+  'C1': { code: 'C1', name_fa: 'پیشرفته',         name_en: 'Advanced',           tint: { bg: '#FCE4E4', fg: '#C62828' } },
+};
+
+// URL pattern: ?group=level-A1
+export const LEVEL_SLUGS = new Set(CEFR_LEVELS.map(L => 'level-' + L));
+
+export function isLevelSlug (slug) {
+  return LEVEL_SLUGS.has(slug);
+}
+
+export function extractLevelFromSlug (slug) {
+  const m = /^level-([A-C][12])$/.exec(slug);
+  return m ? m[1] : null;
+}
+
+
 // Humanize a raw group_name from the books API into a user-facing
 // lesson label. Per the user's lesson-naming rule, generic numeric
 // suffixes are acceptable HERE because the book itself canonically

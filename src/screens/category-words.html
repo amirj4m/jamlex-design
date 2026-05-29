@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/base.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/components.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreti06" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreti06" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/base.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/components.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprezo15" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprezo15" />
 </head>
 <body>
   <div class="preview-controls">
@@ -159,7 +159,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpreti06"></script>
+  <script type="module" src="/js/screen-shell.js?v=mprezo15"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — per-category lesson list.
@@ -190,23 +190,28 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpreti06';
+    import { getLocale } from '/js/i18n.js?v=mprezo15';
     import { OPENJAM_LESSON_NAMES, findVocabCategoryBySlug,
-             BOOK_META, BOOK_SLUGS, humanizeBookGroupName }
-      from '/js/vocab-sections.js?v=mpreti06';
+             BOOK_META, BOOK_SLUGS, humanizeBookGroupName,
+             LEVEL_META, isLevelSlug, extractLevelFromSlug }
+      from '/js/vocab-sections.js?v=mprezo15';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
 
     const WORDS_PER_LESSON = 50;
 
-    // Three top-level paths in getGroup():
+    // Four top-level paths in getGroup():
     //   1. SYNTHETIC — Daily Life / Professional curated categories.
     //   2. BOOK      — openjam book (504/IELTS/TOEFL/GRE); groups come
     //                  from /v1/books/<slug>.
-    //   3. OPENJAM   — topic groups + sub-categories (existing path).
+    //   3. LEVEL     — CEFR level (A1-C1); words come from
+    //                  /v1/words?level=<X>. Numbered lessons.
+    //   4. OPENJAM   — topic groups + sub-categories (existing path).
     const SYNTHETIC = findVocabCategoryBySlug(slug);
     const IS_BOOK   = BOOK_SLUGS.has(slug);
+    const IS_LEVEL  = isLevelSlug(slug);
+    const LEVEL     = IS_LEVEL ? extractLevelFromSlug(slug) : null;
 
     function formatNum (n, locale) {
       return locale === 'fa' ? n.toLocaleString('fa-IR') : n.toLocaleString('en-US');
@@ -238,6 +243,12 @@
       // groups) plus the total word_count from the /v1/books list.
       if (IS_BOOK) {
         return await fetchBookDetail(slug);
+      }
+      // LEVEL path — CEFR (A1-C1). Total word count comes from a
+      // /v1/words?level=X&limit=1 ping; the response's meta.total tells
+      // us how many lessons (chunk by 50). No groups, just count.
+      if (IS_LEVEL) {
+        return await fetchLevelGroup(LEVEL);
       }
       let groups = null;
       try {
@@ -288,6 +299,37 @@
       };
     }
 
+    // Fetch the total word count for a CEFR level by hitting
+    // /v1/words?level=<X>&limit=1 and reading meta.total. Cached per
+    // level in sessionStorage so revisits are instant.
+    async function fetchLevelGroup (levelCode) {
+      let total = 0;
+      const cacheKey = 'openjam_level_count_' + levelCode;
+      try {
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) total = parseInt(cached, 10) || 0;
+      } catch (e) { /* ignore */ }
+      if (!total) {
+        try {
+          const res = await fetch('https://openjam.amirj4m.com/v1/words?level=' + encodeURIComponent(levelCode) + '&limit=1');
+          const data = await res.json();
+          total = (data.meta && data.meta.total) || 0;
+          try { sessionStorage.setItem(cacheKey, String(total)); } catch (e) { /* ignore */ }
+        } catch (e) {
+          console.warn('[openjam] failed to fetch level count', e);
+        }
+      }
+      const meta = LEVEL_META[levelCode] || {};
+      return {
+        level: true,
+        levelCode: levelCode,
+        slug: 'level-' + levelCode,
+        name_fa: 'سطح ' + levelCode + (meta.name_fa ? ' — ' + meta.name_fa : ''),
+        name_en: 'Level ' + levelCode + (meta.name_en ? ' — ' + meta.name_en : ''),
+        word_count: total,
+      };
+    }
+
     // ----------------------------------------------------------------
     // buildLessons(group) — produce a sequential list of ≤50-word
     // lesson objects. Three paths, in priority order:
@@ -325,15 +367,37 @@
         });
       }
 
-      // Path 0 (between 1 and 2): BOOK — lessons come straight from
-      // /v1/books/<slug>.groups, which is the book's own canonical
-      // structure (504 → 42 lessons of 12, IELTS → 10 sublists,
-      // TOEFL → 3 score bands). For GRE (no groups), we chunk the
-      // full word_count into 50-word lessons client-side and label
-      // them with generic "بخش N" — this is the ONLY remaining place
+      // LEVEL path — CEFR level (A1-C1). Numbered "درس N" lessons,
+      // 50 words each. This is the ONE place numbered names are
+      // EXPLICITLY blessed by the product owner — words at one CEFR
+      // level have no natural thematic grouping.
+      if (group.level) {
+        const total = Math.max(1, Math.ceil(group.word_count / WORDS_PER_LESSON));
+        const out = [];
+        for (let i = 1; i <= total; i++) {
+          const isLast = i === total;
+          const remaining = group.word_count - WORDS_PER_LESSON * (i - 1);
+          out.push({
+            idx: i,
+            parentSlug: group.slug,
+            chunk: i,
+            totalChunks: total,
+            levelCode: group.levelCode,
+            name_fa: 'درس ' + Number(i).toLocaleString('fa-IR'),
+            name_en: 'Lesson ' + i,
+            word_count: isLast ? remaining : WORDS_PER_LESSON,
+          });
+        }
+        return out;
+      }
+
+      // BOOK path — lessons come straight from /v1/books/<slug>.groups,
+      // which is the book's own canonical structure (504 → 42 lessons
+      // of 12, IELTS → 10 sublists, TOEFL → 3 score bands). For GRE
+      // (no groups), we chunk into 50-word lessons client-side and
+      // label them with generic "بخش N" — the only remaining place
       // numbered fallback names ship, because GRE has no semantic
-      // grouping in the source data. TODO(flutter): cluster GRE words
-      // by topic so even those lessons get thematic names.
+      // grouping. TODO(flutter): cluster GRE words by topic.
       if (group.book) {
         const bg = group._bookGroups || [];
         if (bg.length > 0) {
@@ -580,13 +644,18 @@
           ? ('تعداد کلمات: ' + formatNum(lesson.word_count, 'fa'))
           : (lesson.word_count + ' words');
       }
-      // Three method links carry context. For BOOKS the param shape
-      // matches the openjam books endpoint contract:
-      //   ?book=<slug>&group=<group_name>     (504, IELTS, TOEFL)
-      //   ?book=<slug>&offset=<n>&limit=50    (GRE, no groups)
-      // For openjam categories the existing sub+chunk format is kept.
+      // Three method links carry context.
+      //   LEVEL : ?level=<code>&offset=<n>&limit=50
+      //           → lesson-words.html hits /v1/words?level=…&offset=…
+      //   BOOK  : ?book=<slug>&group=<group_name>     (504, IELTS, TOEFL)
+      //         : ?book=<slug>&offset=<n>&limit=50    (GRE, no groups)
+      //   OPENJAM : ?group=<sub>&chunk=<n> (existing)
       let qs;
-      if (currentGroup.book) {
+      if (currentGroup.level) {
+        qs = '?level=' + encodeURIComponent(currentGroup.levelCode) +
+             '&offset=' + ((lesson.chunk - 1) * WORDS_PER_LESSON) +
+             '&limit=' + WORDS_PER_LESSON;
+      } else if (currentGroup.book) {
         if (lesson.bookGroupName) {
           qs = '?book=' + encodeURIComponent(slug) +
                '&group=' + encodeURIComponent(lesson.bookGroupName);
