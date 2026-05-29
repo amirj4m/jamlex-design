@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mprae51b" />
-  <link rel="stylesheet" href="/css/base.css?v=mprae51b" />
-  <link rel="stylesheet" href="/css/components.css?v=mprae51b" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprae51b" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mprae51b" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mprae51b" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprae51b" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpraiyu3" />
+  <link rel="stylesheet" href="/css/base.css?v=mpraiyu3" />
+  <link rel="stylesheet" href="/css/components.css?v=mpraiyu3" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpraiyu3" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpraiyu3" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpraiyu3" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpraiyu3" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpraiyu3" />
 </head>
 <body>
   <div class="preview-controls">
@@ -78,10 +78,15 @@
                tinted backgrounds and a coloured fill on top of a
                coloured base looked noisy. The number is the only
                progress signal here.
-               TODO(flutter): replace literal MOCK % with:
-                 progress = COUNT(words at level WHERE graduated=true)
-                          / COUNT(words at level) × 100
-               Hidden when the user has 0 words at that level. -->
+               TODO(flutter): replace literal MOCK % with the same
+               word-ID-intersection formula used everywhere (see
+               architecture_openjam.md § "Word-ID-based progress"):
+                 progress(level) = |level.word_ids ∩ graduated_word_ids|
+                                 / |level.word_ids| × 100
+               Hidden when |level.word_ids ∩ graduated| = 0.
+               REMEMBER: a word_id counts for the level even when it
+               was graduated through a category or book — graduation
+               is per-word, never per-container. -->
           <div class="level-chips" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
             <button class="lvl-chip lvl-chip--c1" style="background:#FCE4E4;color:#C62828;">
               <span style="font-size:18px;font-weight:800;font-family:var(--font-family-latin);">C1</span>
@@ -121,10 +126,17 @@
                cards have brand-tinted backgrounds and a coloured fill
                on top of a coloured base looked noisy. The number is
                the only progress signal here.
-               TODO(flutter): replace mock progress with:
-                 progress = COUNT(book_vocab WHERE graduated=true)
-                          / COUNT(book_vocab) × 100
-               Hidden when the user hasn't opened the book yet. -->
+               TODO(flutter): same word-ID-intersection formula as the
+               cat-disc and lvl-chip (see architecture_openjam.md
+               § "Word-ID-based progress"):
+                 progress(book) = |book.word_ids ∩ graduated_word_ids|
+                                / |book.word_ids| × 100
+               CRITICAL: the user does NOT have to open the book for
+               this number to advance. If they finished "خانواده" and
+               300 of those word_ids are also in 504, the 504 card
+               shows ~60% automatically. That cross-set propagation
+               is the whole point of the model — do not paper over it
+               with a "you must open the book first" check. -->
           <div class="vocab-book-h-scroll">
             <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
               <div class="bookcard__head">
@@ -221,7 +233,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mprae51b"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpraiyu3"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -234,7 +246,7 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mprae51b';
+    import { getLocale } from '/js/i18n.js?v=mpraiyu3';
 
     // Per-group glyph + soft tint. 12 distinct colour-coded tiles so
     // each main group is visually distinguishable at a glance.
@@ -271,12 +283,23 @@
     // Spread covers a deliberate range so reviewers see how varied
     // fills read at a glance.
     //
-    // TODO(flutter): replace with a real read against the local DB:
-    //   progress = COUNT(words in group WHERE graduated_from_leitner=true)
-    //            / COUNT(words in group) * 100
-    // The product owner explicitly asked for NO NUMBER on the tile, only
-    // the coloured liquid fill height (locked 2026-05-29). Do not append
-    // a "%" label later.
+    // TODO(flutter): replace with the WORD-ID-INTERSECTION formula
+    // documented in architecture_openjam.md (§ "Word-ID-based progress").
+    //
+    //   progress(group) = |group.word_ids ∩ user.graduated_word_ids|
+    //                   / |group.word_ids|
+    //                   × 100
+    //
+    // Graduation is tracked per word_id GLOBALLY, never per
+    // (word_id × container). When the user graduates a word inside
+    // ANY container (category, level, book, lesson), the same word_id
+    // counts for every other container it belongs to. This is the
+    // whole point of the model: finishing "خانواده" automatically
+    // lights up the % on the 504 book without the user opening it.
+    // Same rule fires on the .lvl-chip__pct and .bookcard__pct values
+    // — different membership set X, identical intersection formula.
+    // The product owner forbade a "%" label on the tile (locked
+    // 2026-05-29) — colour fill height only.
     const MOCK_PROGRESS = {
       'food-drink':         28,
       'people-family':      62,
