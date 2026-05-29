@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpqj4b0a" />
-  <link rel="stylesheet" href="/css/base.css?v=mpqj4b0a" />
-  <link rel="stylesheet" href="/css/components.css?v=mpqj4b0a" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqj4b0a" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpqj4b0a" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpqj4b0a" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqj4b0a" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqj4b0a" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqjdv5b" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqjdv5b" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqjdv5b" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqjdv5b" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqjdv5b" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqjdv5b" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqjdv5b" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqjdv5b" />
 </head>
 <body>
   <div class="preview-controls">
@@ -294,11 +294,25 @@
               <h2 class="dialog-card__title" data-i18n="v3.settings.notif.title"></h2>
               <p class="dialog-card__sub" data-i18n="v3.settings.notif.sub"></p>
 
-              <!-- Time spinner -->
-              <div class="time-spinner">
-                <button class="time-spinner__btn" aria-label="up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg></button>
-                <div class="time-spinner__val">08:30</div>
-                <button class="time-spinner__btn" aria-label="down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg></button>
+              <!-- Time picker — two separate steppers so users can change
+                   hours and minutes independently. Hours wrap 0..23; minutes
+                   step in 5-minute increments (0, 5, …, 55) so the picker
+                   feels deliberate without overwhelming the user with all 60
+                   values. -->
+              <div class="time-picker">
+                <div class="time-picker__col">
+                  <button class="time-picker__btn" data-time-step="hour" data-time-dir="up" aria-label="hour up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
+                  <div class="time-picker__val font-latin" data-time-hour>08</div>
+                  <div class="time-picker__cap" data-i18n="v3.settings.notif.hourCap"></div>
+                  <button class="time-picker__btn" data-time-step="hour" data-time-dir="down" aria-label="hour down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                </div>
+                <div class="time-picker__sep">:</div>
+                <div class="time-picker__col">
+                  <button class="time-picker__btn" data-time-step="minute" data-time-dir="up" aria-label="minute up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
+                  <div class="time-picker__val font-latin" data-time-minute>30</div>
+                  <div class="time-picker__cap" data-i18n="v3.settings.notif.minuteCap"></div>
+                  <button class="time-picker__btn" data-time-step="minute" data-time-dir="down" aria-label="minute down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+                </div>
               </div>
 
               <!-- Day circles -->
@@ -313,14 +327,30 @@
                 <button class="day-circles__btn" data-i18n="v3.settings.day.fr"></button>
               </div>
 
-              <!-- Sound row -->
-              <div class="sound-row">
-                <span class="sound-row__icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V5l12-2v13M9 9l12-2"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-                </span>
-                <span style="flex:1;font-weight:var(--fw-semibold);" data-i18n="v3.settings.notif.sound"></span>
-                <span style="color:var(--jx-text-2);font-size:var(--fs-body-s);" data-i18n="v3.settings.notif.soundDefault"></span>
-                <span style="color:var(--jx-text-3);">‹</span>
+              <!-- Sound — 5 picks rendered as a horizontally scrollable strip
+                   so it stays compact on a phone. Tap a chip to choose. -->
+              <div style="text-align:start;margin-top:var(--sp-3);font-size:var(--fs-body-s);color:var(--jx-text-2);font-weight:var(--fw-semibold);" data-i18n="v3.settings.notif.sound"></div>
+              <div class="sound-chips" style="margin-top:var(--sp-2);">
+                <button class="sound-chip" data-pick-sound="default" data-selected="true">
+                  <span class="sound-chip__icon">🔔</span>
+                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundDefault"></span>
+                </button>
+                <button class="sound-chip" data-pick-sound="chime">
+                  <span class="sound-chip__icon">🎐</span>
+                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundChime"></span>
+                </button>
+                <button class="sound-chip" data-pick-sound="bell">
+                  <span class="sound-chip__icon">🛎️</span>
+                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundBell"></span>
+                </button>
+                <button class="sound-chip" data-pick-sound="bird">
+                  <span class="sound-chip__icon">🐦</span>
+                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundBird"></span>
+                </button>
+                <button class="sound-chip" data-pick-sound="celebrate">
+                  <span class="sound-chip__icon">✨</span>
+                  <span class="sound-chip__label" data-i18n="v3.settings.notif.soundCelebrate"></span>
+                </button>
               </div>
 
               <div class="dialog-card__actions">
@@ -372,16 +402,16 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpqj4b0a"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpqjdv5b"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // Wire the picker dialogs. The state-picker dropdown in
     // preview-controls is for reviewers to step through each dialog
     // without clicking; users only see the dialogs via the rows.
     // ----------------------------------------------------------------
-    import { setTheme, getTheme } from '/js/theme.js?v=mpqj4b0a';
-    import { setLocale, getLocale } from '/js/i18n.js?v=mpqj4b0a';
-    import { t } from '/js/i18n.js?v=mpqj4b0a';
+    import { setTheme, getTheme } from '/js/theme.js?v=mpqjdv5b';
+    import { setLocale, getLocale } from '/js/i18n.js?v=mpqjdv5b';
+    import { t } from '/js/i18n.js?v=mpqjdv5b';
 
     function showState (s) {
       document.querySelectorAll('.state').forEach(function (el) {
@@ -423,6 +453,40 @@
     document.addEventListener('click', function (e) {
       var c = e.target.closest('.day-circles__btn');
       if (c) c.dataset.selected = c.dataset.selected === 'true' ? 'false' : 'true';
+    });
+
+    // ----------------------------------------------------------------
+    // TIME PICKER (hours wrap 0..23, minutes step by 5 across 0..55)
+    // ----------------------------------------------------------------
+    document.querySelectorAll('[data-time-step]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var unit = btn.dataset.timeStep; // 'hour' | 'minute'
+        var dir  = btn.dataset.timeDir;  // 'up'  | 'down'
+        var sel  = unit === 'hour' ? '[data-time-hour]' : '[data-time-minute]';
+        var el   = document.querySelector(sel);
+        var cur  = parseInt(el.textContent, 10) || 0;
+        var step = unit === 'hour' ? 1 : 5;
+        var max  = unit === 'hour' ? 23 : 55;
+        var next;
+        if (dir === 'up')   next = cur >= max ? 0 : cur + step;
+        else                next = cur <= 0 ? max : cur - step;
+        el.textContent = String(next).padStart(2, '0');
+      });
+    });
+
+    // ----------------------------------------------------------------
+    // SOUND CHIPS — single-select. Tap one, the others deselect. The
+    // actual playback is a Flutter concern; in the preview we just
+    // bookkeep the choice in the DOM.
+    // ----------------------------------------------------------------
+    document.querySelectorAll('[data-pick-sound]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        document.querySelectorAll('[data-pick-sound]').forEach(function (c) {
+          c.dataset.selected = (c === chip) ? 'true' : 'false';
+        });
+        // TODO(flutter): preview the selected sound on tap so the user
+        // can audition it before saving.
+      });
     });
 
     // ----------------------------------------------------------------
@@ -520,7 +584,10 @@
           window.showPopup({
             type: 'info',
             titleKey: 'v3.profile.limitIncrease.title',
+            // <b> wraps the count for emphasis — messageHtml: true tells
+            // popup.js to trust the i18n string and skip escaping.
             message: t('v3.profile.limitIncrease.body').replace('{added}', delta),
+            messageHtml: true,
             confirmKey: 'v3.profile.limitIncrease.ok',
             autoDismiss: 0,
           });
