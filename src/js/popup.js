@@ -29,7 +29,7 @@
  *   - i18n: pass keys via { messageKey, titleKey } as an alternative to literals
  */
 
-import { t } from './i18n.js?v=mpqych6a';
+import { t } from './i18n.js?v=mpqyfjv6';
 
 const ICONS = {
   success: { color: '#26D07C', svg: `<polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>` },
@@ -87,7 +87,7 @@ export function showPopup ({
           </div>
         </div>
         ${resolvedTitle ? `<h3 class="popup-dialog__title">${escapeHtml(resolvedTitle)}</h3>` : ''}
-        <p class="popup-dialog__message">${messageHtml ? resolvedMessage : escapeHtml(resolvedMessage)}</p>
+        ${resolvedMessage ? `<p class="popup-dialog__message">${messageHtml ? resolvedMessage : escapeHtml(resolvedMessage)}</p>` : ''}
         <div class="popup-dialog__actions">
           ${isConfirm ? `<button class="popup-dialog__btn popup-dialog__btn--ghost" data-popup-cancel>${escapeHtml(resolvedCancel)}</button>` : ''}
           <button class="popup-dialog__btn popup-dialog__btn--primary${danger ? ' popup-dialog__btn--danger' : ''}" data-popup-confirm>${escapeHtml(resolvedConfirm)}</button>
