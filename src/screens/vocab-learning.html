@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpqyfjv6" />
-  <link rel="stylesheet" href="/css/base.css?v=mpqyfjv6" />
-  <link rel="stylesheet" href="/css/components.css?v=mpqyfjv6" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqyfjv6" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpqyfjv6" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpqyfjv6" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqyfjv6" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqyfjv6" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqyumbd" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqyumbd" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqyumbd" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqyumbd" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqyumbd" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqyumbd" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqyumbd" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqyumbd" />
 </head>
 <body>
   <div class="preview-controls">
@@ -133,39 +133,22 @@
             <div class="section-h__title" data-i18n="v3.vocabLearning.topicWords"></div>
           </div>
 
-          <div class="cat-2col">
-            <a href="/screens/category-words.html" class="cat-row" style="background:#E0F2F1;color:#00897B;">
-              <span style="font-size:22px;">🌿</span>
-              <div><div style="font-weight:800;" data-i18n="v3.vocabLearning.topic.nature"></div><div style="font-size:11px;opacity:0.8;">85 واژه</div></div>
-            </a>
-            <a href="/screens/category-words.html" class="cat-row" style="background:#FCE4EC;color:#C2185B;">
-              <span style="font-size:22px;">❤️</span>
-              <div><div style="font-weight:800;" data-i18n="v3.vocabLearning.topic.body"></div><div style="font-size:11px;opacity:0.8;">128 واژه</div></div>
-            </a>
-            <a href="/screens/category-words.html" class="cat-row" style="background:#E3F2FD;color:#1565C0;">
-              <span style="font-size:22px;">💼</span>
-              <div><div style="font-weight:800;" data-i18n="v3.vocabLearning.topic.business"></div><div style="font-size:11px;opacity:0.8;">142 واژه</div></div>
-            </a>
-            <a href="/screens/category-words.html" class="cat-row" style="background:#FCE4E4;color:#C62828;">
-              <span style="font-size:22px;">❤️‍🩹</span>
-              <div><div style="font-weight:800;" data-i18n="v3.vocabLearning.topic.health"></div><div style="font-size:11px;opacity:0.8;">112 واژه</div></div>
-            </a>
-            <a href="/screens/category-words.html" class="cat-row" style="background:#E0F2F1;color:#00695C;">
-              <span style="font-size:22px;">🌳</span>
-              <div><div style="font-weight:800;" data-i18n="v3.vocabLearning.topic.animals"></div><div style="font-size:11px;opacity:0.8;">96 واژه</div></div>
-            </a>
-            <a href="/screens/category-words.html" class="cat-row" style="background:#E3F2FD;color:#1565C0;">
-              <span style="font-size:22px;">✈️</span>
-              <div><div style="font-weight:800;" data-i18n="v3.vocabLearning.topic.travel"></div><div style="font-size:11px;opacity:0.8;">98 واژه</div></div>
-            </a>
-            <a href="/screens/category-words.html" class="cat-row" style="background:#FFF8E1;color:#F57F17;">
-              <span style="font-size:22px;">🏠</span>
-              <div><div style="font-weight:800;" data-i18n="v3.vocabLearning.topic.home"></div><div style="font-size:11px;opacity:0.8;">76 واژه</div></div>
-            </a>
-            <a href="/screens/category-words.html" class="cat-row" style="background:#FFF3E0;color:#E65100;">
-              <span style="font-size:22px;">😊</span>
-              <div><div style="font-weight:800;" data-i18n="v3.vocabLearning.topic.feelings"></div><div style="font-size:11px;opacity:0.8;">64 واژه</div></div>
-            </a>
+          <!-- TODO(flutter): the 12 main groups are pulled live from
+               openjam at https://openjam.amirj4m.com/v1/categories/groups
+               (no auth, CORS open). In Flutter, follow the hybrid
+               approach from openjam/INTEGRATION.md: download once
+               (~15 MB), cache locally, audio on-demand from
+               https://audio.openjam.amirj4m.com.
+               See architecture_openjam.md for the full integration
+               contract. -->
+          <div class="cat-2col" data-openjam-groups>
+            <!-- Loading skeleton placeholders — replaced at runtime -->
+            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
+            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
+            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
+            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
+            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
+            <div class="cat-row" style="background:var(--jx-input-bg);height:54px;"></div>
           </div>
 
           <div class="vlearn-footer">
@@ -190,6 +173,105 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpqyfjv6"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpqyumbd"></script>
+  <script type="module">
+    // ----------------------------------------------------------------
+    // openjam categories — live fetch of the 12 main groups.
+    // Endpoint: GET https://openjam.amirj4m.com/v1/categories/groups
+    // No auth, CORS open, returns { groups: [{ slug, name_en, name_fa,
+    // word_count, children: [...] }, ...] }.
+    //
+    // We pull this at runtime and template the 12 tiles. Result is
+    // cached in sessionStorage so locale-switching doesn't refetch.
+    // TODO(flutter): replace the fetch with the hybrid local-DB read
+    // from openjam/INTEGRATION.md (one-time download → SQLite cache).
+    // ----------------------------------------------------------------
+    import { getLocale } from '/js/i18n.js?v=mpqyumbd';
+
+    // Per-group glyph + soft tint. 12 distinct colour-coded tiles so
+    // each main group is visually distinguishable at a glance.
+    const ICONS = {
+      'food-drink':         '🍔',
+      'people-family':      '👨‍👩‍👧',
+      'body-health':        '💪',
+      'nature-animals':     '🌿',
+      'home-objects':       '🏠',
+      'places-travel':      '✈️',
+      'work-money':         '💼',
+      'society-culture':    '🎭',
+      'science-tech':       '🔬',
+      'sport-action':       '⚽',
+      'feelings-qualities': '😊',
+      'time-learning':      '⏳',
+    };
+    const TINTS = {
+      'food-drink':         { bg: '#FFF3E0', fg: '#E65100' },
+      'people-family':      { bg: '#F3E5F5', fg: '#6A1B9A' },
+      'body-health':        { bg: '#FCE4E4', fg: '#C62828' },
+      'nature-animals':     { bg: '#E0F2E0', fg: '#2E7D32' },
+      'home-objects':       { bg: '#FFF8E1', fg: '#B27A12' },
+      'places-travel':      { bg: '#E3F2FD', fg: '#1565C0' },
+      'work-money':         { bg: '#E8EAF6', fg: '#283593' },
+      'society-culture':    { bg: '#FCE4EC', fg: '#C2185B' },
+      'science-tech':       { bg: '#E0F7FA', fg: '#00838F' },
+      'sport-action':       { bg: '#F1F8E9', fg: '#558B2F' },
+      'feelings-qualities': { bg: '#FFECB3', fg: '#B27A12' },
+      'time-learning':      { bg: '#E0F2F1', fg: '#00695C' },
+    };
+
+    function formatCount (n, locale) {
+      return locale === 'fa'
+        ? n.toLocaleString('fa-IR')
+        : n.toLocaleString('en-US');
+    }
+
+    function render (groups) {
+      const container = document.querySelector('[data-openjam-groups]');
+      if (!container) return;
+      const locale = getLocale();
+      const wordLabel = locale === 'fa' ? 'واژه' : 'words';
+      container.innerHTML = groups.map(function (g) {
+        const tint = TINTS[g.slug] || { bg: 'var(--jx-input-bg)', fg: 'var(--jx-text)' };
+        const icon = ICONS[g.slug] || '📖';
+        const name = locale === 'fa' ? g.name_fa : g.name_en;
+        const count = formatCount(g.word_count, locale);
+        return '<a href="/screens/category-words.html?group=' + encodeURIComponent(g.slug) + '" class="cat-row" style="background:' + tint.bg + ';color:' + tint.fg + ';">' +
+          '<span style="font-size:22px;line-height:1;">' + icon + '</span>' +
+          '<div>' +
+            '<div style="font-weight:800;">' + name + '</div>' +
+            '<div style="font-size:11px;opacity:0.8;">' + count + ' ' + wordLabel + '</div>' +
+          '</div>' +
+        '</a>';
+      }).join('');
+    }
+
+    let cachedGroups = null;
+    async function load () {
+      try {
+        const cached = sessionStorage.getItem('openjam_groups');
+        if (cached) {
+          cachedGroups = JSON.parse(cached);
+          render(cachedGroups);
+          return;
+        }
+        const res = await fetch('https://openjam.amirj4m.com/v1/categories/groups');
+        if (!res.ok) throw new Error('http ' + res.status);
+        const data = await res.json();
+        cachedGroups = data.groups || [];
+        sessionStorage.setItem('openjam_groups', JSON.stringify(cachedGroups));
+        render(cachedGroups);
+      } catch (err) {
+        // Leave the skeleton; the next tab open will retry.
+        console.warn('[openjam] failed to load groups', err);
+      }
+    }
+
+    // Re-render on locale change so the labels follow the UI language.
+    document.addEventListener('i18n:changed', function () {
+      if (cachedGroups) render(cachedGroups);
+    });
+
+    load();
+  </script>
 </body>
 </html>
