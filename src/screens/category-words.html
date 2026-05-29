@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mprb0is0" />
-  <link rel="stylesheet" href="/css/base.css?v=mprb0is0" />
-  <link rel="stylesheet" href="/css/components.css?v=mprb0is0" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprb0is0" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mprb0is0" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mprb0is0" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprb0is0" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprb0is0" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mprdtupa" />
+  <link rel="stylesheet" href="/css/base.css?v=mprdtupa" />
+  <link rel="stylesheet" href="/css/components.css?v=mprdtupa" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprdtupa" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mprdtupa" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mprdtupa" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprdtupa" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprdtupa" />
 </head>
 <body>
   <div class="preview-controls">
@@ -159,7 +159,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mprb0is0"></script>
+  <script type="module" src="/js/screen-shell.js?v=mprdtupa"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — per-category lesson list.
@@ -190,18 +190,45 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mprb0is0';
+    import { getLocale } from '/js/i18n.js?v=mprdtupa';
+    import { OPENJAM_LESSON_NAMES, findVocabCategoryBySlug } from '/js/vocab-sections.js?v=mprdtupa';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
 
     const WORDS_PER_LESSON = 50;
 
+    // Is this slug a synthetic category (Daily Life / Professional)?
+    // If yes, we render its hand-crafted lessons directly. If no, we
+    // fall through to the openjam fetch + chunking path below.
+    const SYNTHETIC = findVocabCategoryBySlug(slug);
+
     function formatNum (n, locale) {
       return locale === 'fa' ? n.toLocaleString('fa-IR') : n.toLocaleString('en-US');
     }
 
     async function getGroup () {
+      // Synthetic categories shape themselves into the same `group`
+      // contract used by the openjam path. Each one becomes a "group"
+      // with a single child that holds the hand-crafted lessons (so
+      // buildLessons() can map straight through).
+      if (SYNTHETIC) {
+        return {
+          synthetic: true,
+          slug: SYNTHETIC.category.slug,
+          name_fa: SYNTHETIC.category.name_fa,
+          name_en: SYNTHETIC.category.name_en,
+          word_count: SYNTHETIC.category.word_count,
+          // Stash the hand-crafted lessons so buildLessons() can find them.
+          _handCrafted: SYNTHETIC.category.lessons || [],
+          children: [{
+            slug: SYNTHETIC.category.slug,
+            name_fa: SYNTHETIC.category.name_fa,
+            name_en: SYNTHETIC.category.name_en,
+            word_count: SYNTHETIC.category.word_count,
+          }],
+        };
+      }
       let groups = null;
       try {
         const cached = sessionStorage.getItem('openjam_groups');
@@ -217,28 +244,71 @@
     }
 
     // ----------------------------------------------------------------
-    // buildLessons(group) — flatten the openjam sub-category tree into
-    // a sequential list of ≤50-word lesson objects. Each lesson holds:
-    //   { idx, parentSlug, chunk, totalChunks, name_fa, name_en, word_count }
+    // buildLessons(group) — produce a sequential list of ≤50-word
+    // lesson objects. Three paths, in priority order:
+    //
+    //  1. SYNTHETIC categories (Daily Life / Professional) — the
+    //     hand-crafted lessons array IS the lesson list, verbatim.
+    //     Every name is meaningful by design ("Kitchen tools",
+    //     "Lab & equipment", …) — no chunk-number suffixes.
+    //
+    //  2. OPENJAM sub-categories with an entry in OPENJAM_LESSON_NAMES
+    //     (the showcase map in /js/vocab-sections.js) — use those
+    //     hand-crafted names. Each chunk still 50 words, just
+    //     thematically named instead of "<name> ۱، <name> ۲".
+    //
+    //  3. OPENJAM sub-categories WITHOUT a names map — fall back to
+    //     numbered chunks ("<name> ۱"). Generic but acceptable until
+    //     someone authors names for that sub-cat. The product owner
+    //     explicitly called this out as a TODO ("درس‌ها رو نامگذاری‌های
+    //     فوق‌العاده بی‌معنی کردی"); the path stays as a temporary
+    //     fallback ONLY.
     // ----------------------------------------------------------------
     function buildLessons (group) {
+      // Path 1: synthetic category with hand-crafted lessons.
+      if (group.synthetic && Array.isArray(group._handCrafted)) {
+        return group._handCrafted.map(function (l, idx) {
+          return {
+            idx: idx + 1,
+            parentSlug: group.slug,
+            chunk: idx + 1,
+            totalChunks: group._handCrafted.length,
+            name_fa: l.name_fa,
+            name_en: l.name_en,
+            word_count: l.word_count,
+          };
+        });
+      }
+
+      // Paths 2 + 3: openjam sub-category tree, with optional names map.
       const lessons = [];
       const children = group.children || [];
       let globalIdx = 1;
       children.forEach(function (child) {
         const total = Math.max(1, Math.ceil(child.word_count / WORDS_PER_LESSON));
+        const namesMap = OPENJAM_LESSON_NAMES[child.slug] || null;
         for (let i = 1; i <= total; i++) {
           const isLast = i === total;
           const remaining = child.word_count - WORDS_PER_LESSON * (i - 1);
           const chunkSize = isLast ? remaining : WORDS_PER_LESSON;
           const hasChunks = total > 1;
+          let name_fa, name_en;
+          if (namesMap && namesMap.fa[i - 1] && namesMap.en[i - 1]) {
+            // Path 2: hand-crafted name for this chunk index.
+            name_fa = namesMap.fa[i - 1];
+            name_en = namesMap.en[i - 1];
+          } else {
+            // Path 3: fallback to numbered name.
+            name_fa = hasChunks ? (child.name_fa + ' ' + formatNum(i, 'fa')) : child.name_fa;
+            name_en = hasChunks ? (child.name_en + ' ' + i) : child.name_en;
+          }
           lessons.push({
             idx: globalIdx++,
             parentSlug: child.slug,
             chunk: i,
             totalChunks: total,
-            name_fa: hasChunks ? (child.name_fa + ' ' + formatNum(i, 'fa')) : child.name_fa,
-            name_en: hasChunks ? (child.name_en + ' ' + i) : child.name_en,
+            name_fa: name_fa,
+            name_en: name_en,
             word_count: Math.max(1, chunkSize),
           });
         }

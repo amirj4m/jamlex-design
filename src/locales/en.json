@@ -669,6 +669,8 @@
       "seeAll": "See all",
       "topicWordsAll": "All topic groups",
       "studyBooksAll": "All study books",
+      "daily": { "title": "Daily life" },
+      "professional": { "title": "Professional" },
       "level": {
         "A1Label": "Starter",
         "A2Label": "Elementary",

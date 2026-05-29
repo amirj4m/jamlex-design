@@ -669,6 +669,8 @@
       "seeAll": "مشاهده همه",
       "topicWordsAll": "همه‌ی واژگان موضوعی",
       "studyBooksAll": "همه‌ی کتاب‌های آموزشی",
+      "daily": { "title": "واژگان روزمره" },
+      "professional": { "title": "واژگان حرفه‌ای" },
       "level": {
         "A1Label": "مبتدی",
         "A2Label": "پایه",
