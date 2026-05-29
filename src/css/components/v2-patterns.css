@@ -261,6 +261,21 @@
   background: var(--jx-primary-glow);
   color: var(--jx-primary);
 }
+/* Letter-grade badge — replaces the checkmark for completed lessons.
+   Grade comes from the user's review performance (formula TBD —
+   see architecture_lesson_grading.md). 5 tiers, colour-coded so the
+   user can scan their performance at a glance. */
+.lesson-row[data-grade] .lesson-row__status {
+  font-family: var(--font-family-latin);
+  font-weight: 800;
+  font-size: 16px;
+  color: #fff;
+}
+.lesson-row[data-grade="A"] .lesson-row__status { background: linear-gradient(135deg, #43A047, #2A8E4D); }
+.lesson-row[data-grade="B"] .lesson-row__status { background: linear-gradient(135deg, #4DC4B1, #1F9389); }
+.lesson-row[data-grade="C"] .lesson-row__status { background: linear-gradient(135deg, #F5B945, #B27A12); color: #fff; }
+.lesson-row[data-grade="D"] .lesson-row__status { background: linear-gradient(135deg, #FB8C00, #E65100); }
+.lesson-row[data-grade="E"] .lesson-row__status { background: linear-gradient(135deg, #EF5350, #C62828); }
 .lesson-row[data-status="active"] .lesson-row__status {
   background: var(--jx-primary-glow);
   color: var(--jx-primary);
