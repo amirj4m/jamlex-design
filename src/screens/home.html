@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpqjdv5b" />
-  <link rel="stylesheet" href="/css/base.css?v=mpqjdv5b" />
-  <link rel="stylesheet" href="/css/components.css?v=mpqjdv5b" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqjdv5b" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpqjdv5b" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpqjdv5b" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqjdv5b" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqjdv5b" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpql215e" />
+  <link rel="stylesheet" href="/css/base.css?v=mpql215e" />
+  <link rel="stylesheet" href="/css/components.css?v=mpql215e" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpql215e" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpql215e" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpql215e" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpql215e" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpql215e" />
 </head>
 <body>
   <div class="preview-controls">
@@ -130,16 +130,19 @@
   </div>
 
   <script type="module">
-    // Compose the greeting after i18n is ready, pulling the demo "userName"
-    // from the active locale so the name follows the language (Reza / رضا).
-    import { t } from '/js/i18n.js?v=mpqjdv5b';
+    // Compose the greeting after i18n is ready. The NAME is user data — NOT
+    // i18n — so it stays "رضا محمدی" regardless of the UI language. Only the
+    // surrounding "سلام" / "Hello" string follows the locale. Flutter reads
+    // the actual name from users.display_name.
+    import { t } from '/js/i18n.js?v=mpql215e';
     document.addEventListener('i18n:changed', fillGreeting);
     function fillGreeting () {
       const el = document.querySelector('[data-greeting]');
       if (!el) return;
-      el.textContent = t('v3.home.greetingHi', { name: t('v3.home.userName') });
+      // TODO(flutter): replace literal "رضا محمدی" with users.display_name.
+      el.textContent = t('v3.home.greetingHi', { name: 'رضا محمدی' });
     }
   </script>
-  <script type="module" src="/js/screen-shell.js?v=mpqjdv5b"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpql215e"></script>
 </body>
 </html>
