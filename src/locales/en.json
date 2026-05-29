@@ -940,8 +940,8 @@
         "lang": "Language",
         "other": "About"
       },
-      "dailyLimit": "Daily limit",
-      "dailyLimitSub": "20 cards per day",
+      "dailyLimit": "Daily Leitner words",
+      "dailyLimitSub": "20 words / day",
       "clearLeitner": "Clear my Leitner",
       "clearLeitnerSub": "Start from scratch",
       "notifTitle": "Daily reminder",
@@ -1001,16 +1001,16 @@
       "reminderSavedTitle": "Reminder set",
       "reminderSavedBody": "You'll get a reminder at {time} every {days}.",
       "limitPicker": {
-        "title": "Daily limit",
-        "sub": "How many Leitner cards do you want per day?",
-        "unit": "cards / day",
+        "title": "Daily Leitner words",
+        "sub": "How many Leitner words do you want to review each day?",
+        "unit": "words / day",
         "save": "Save",
         "cancel": "Cancel",
         "minHint": "Min 5, max 200"
       },
       "limitIncrease": {
         "title": "Today's queue grew",
-        "body": "Cards you already studied today still count. <b>{added} more cards</b> were added to today's queue.",
+        "body": "Words you already studied today still count. <b>{added} more words</b> were added to today's queue.",
         "ok": "Got it"
       },
       "langPicker": {
