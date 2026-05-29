@@ -3926,7 +3926,9 @@
 .method-row:hover { text-decoration: none; border-color: var(--jx-text-3); }
 .method-row__icon {
   width: 44px; height: 44px;
-  border-radius: 14px;
+  /* Reference design has the icon containers as perfect circles, not
+     rounded squares. */
+  border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpqzq9gx" />
-  <link rel="stylesheet" href="/css/base.css?v=mpqzq9gx" />
-  <link rel="stylesheet" href="/css/components.css?v=mpqzq9gx" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqzq9gx" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpqzq9gx" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpqzq9gx" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqzq9gx" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqzq9gx" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqzydy4" />
 </head>
 <body>
   <div class="preview-controls">
@@ -87,8 +87,8 @@
         </div>
 
         <!-- Lesson action sheet (modal) — opens when ANY lesson row is
-             tapped (done + active alike). Title / sub-text / review-link
-             are wired up from the lesson number that was tapped. -->
+             tapped (done + active alike). Title / sub-text / method-row
+             hrefs are wired up from the lesson number that was tapped. -->
         <div class="state" data-state="modal" hidden>
           <div class="scrim" onclick="
             document.getElementById('state-picker').value='lessons';
@@ -98,16 +98,26 @@
               <div class="dialog-card__bell" style="background:var(--jx-primary-glow);color:var(--jx-primary);border-color:var(--jx-bg);">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
               </div>
+              <!-- Title is the Persian ordinal ("درس اول") in fa, or
+                   "Lesson N" in en. Sub-line A is the Latin "Lesson N"
+                   (only shown in fa). Sub-line B is the word count. -->
               <h2 class="dialog-card__title" data-modal-title>…</h2>
-              <p class="dialog-card__sub" data-modal-sub>…</p>
+              <div class="dialog-card__sub" style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <span class="font-latin" data-modal-latin>Lesson 1</span>
+                <span data-modal-count>—</span>
+              </div>
 
               <button class="btn btn--filled btn--block btn--lg" type="button" style="margin-top:var(--sp-4);" data-add-to-leitner>
                 <span style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.20);display:inline-flex;align-items:center;justify-content:center;">+</span>
                 <span data-i18n="v3.vocabLearning.modal.addToLeitner"></span>
               </button>
 
-              <div class="section-h" style="padding-top:var(--sp-3);">
-                <div class="section-h__title" style="font-size:var(--fs-body-s);color:var(--jx-text-3);" data-i18n="v3.vocabLearning.modal.pickMethod"></div>
+              <!-- Section heading with horizontal divider lines either
+                   side, matching the product owner's reference. -->
+              <div style="display:flex;align-items:center;gap:12px;margin:var(--sp-4) 0 var(--sp-3);">
+                <span style="flex:1;height:1px;background:var(--jx-divider);"></span>
+                <span style="font-size:var(--fs-body-s);color:var(--jx-text-3);" data-i18n="v3.vocabLearning.modal.pickMethod"></span>
+                <span style="flex:1;height:1px;background:var(--jx-divider);"></span>
               </div>
 
               <div style="display:flex;flex-direction:column;gap:var(--sp-2);">
@@ -121,6 +131,26 @@
                   </div>
                   <span class="setting-item__chevron"></span>
                 </a>
+                <a href="/screens/leitner.html" class="method-row" data-flashcard-link>
+                  <span class="method-row__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  </span>
+                  <div class="method-row__body">
+                    <div class="method-row__title" data-i18n="v3.vocabLearning.modal.flashcard"></div>
+                    <div class="method-row__sub" data-i18n="v3.vocabLearning.modal.flashcardSub"></div>
+                  </div>
+                  <span class="setting-item__chevron"></span>
+                </a>
+                <a href="/screens/leitner.html" class="method-row" data-quiz-link>
+                  <span class="method-row__icon" style="background:rgba(255,152,0,0.18);color:#E59A1A;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><line x1="10" y1="7" x2="14" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="13" y2="15"/></svg>
+                  </span>
+                  <div class="method-row__body">
+                    <div class="method-row__title" data-i18n="v3.vocabLearning.modal.quiz"></div>
+                    <div class="method-row__sub" data-i18n="v3.vocabLearning.modal.quizSub"></div>
+                  </div>
+                  <span class="setting-item__chevron"></span>
+                </a>
               </div>
             </div>
           </div>
@@ -129,7 +159,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpqzq9gx"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpqzydy4"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — dynamic per-category lesson list.
@@ -147,7 +177,7 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpqzq9gx';
+    import { getLocale } from '/js/i18n.js?v=mpqzydy4';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
@@ -274,6 +304,19 @@
     }
 
     // ----------------------------------------------------------------
+    // Persian ordinal labels for lessons (1..15). Past 15 we fall
+    // back to the suffix-style "{n}م" (e.g. "۱۶م").
+    // ----------------------------------------------------------------
+    const PERSIAN_ORDINALS = [
+      '', 'اول', 'دوم', 'سوم', 'چهارم', 'پنجم',
+      'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم',
+      'یازدهم', 'دوازدهم', 'سیزدهم', 'چهاردهم', 'پانزدهم'
+    ];
+    function personianOrdinal (n) {
+      return PERSIAN_ORDINALS[n] || (formatNum(n, 'fa') + 'م');
+    }
+
+    // ----------------------------------------------------------------
     // openLessonModal(n) — populates the action sheet for lesson `n`
     // and shows it. Same modal markup is reused for every lesson.
     // ----------------------------------------------------------------
@@ -283,22 +326,35 @@
       const isfa = locale === 'fa';
       const total = lessonCount(currentGroup.word_count);
       const wordsPerLesson = Math.ceil(currentGroup.word_count / total);
-      const numLabel = formatNum(n, locale);
 
       const titleEl = document.querySelector('[data-modal-title]');
-      const subEl = document.querySelector('[data-modal-sub]');
+      const latinEl = document.querySelector('[data-modal-latin]');
+      const countEl = document.querySelector('[data-modal-count]');
       const reviewLink = document.querySelector('[data-review-link]');
+      const flashLink = document.querySelector('[data-flashcard-link]');
+      const quizLink = document.querySelector('[data-quiz-link]');
       const addBtn = document.querySelector('[data-add-to-leitner]');
 
-      if (titleEl) titleEl.textContent = isfa ? ('درس ' + numLabel) : ('Lesson ' + n);
-      if (subEl) {
-        subEl.textContent = isfa
-          ? ('Lesson ' + n + ' · تعداد کلمات: ' + formatNum(wordsPerLesson, 'fa'))
-          : ('Lesson ' + n + ' · ' + wordsPerLesson + ' words');
+      // Title: Persian ordinal in fa, Latin in en.
+      if (titleEl) titleEl.textContent = isfa ? ('درس ' + personianOrdinal(n)) : ('Lesson ' + n);
+      // Latin sub-line: always "Lesson N", hidden in en mode (would
+      // duplicate the title).
+      if (latinEl) {
+        latinEl.textContent = 'Lesson ' + n;
+        latinEl.style.display = isfa ? '' : 'none';
       }
-      if (reviewLink) {
-        reviewLink.href = '/screens/lesson-words.html?group=' + encodeURIComponent(slug) + '&lesson=' + n;
+      // Word count line.
+      if (countEl) {
+        countEl.textContent = isfa
+          ? ('تعداد کلمات: ' + formatNum(wordsPerLesson, 'fa'))
+          : (wordsPerLesson + ' words');
       }
+      // Three method links — all carry group + lesson context so the
+      // destination page knows which lesson was picked.
+      const qs = '?group=' + encodeURIComponent(slug) + '&lesson=' + n;
+      if (reviewLink) reviewLink.href = '/screens/lesson-words.html' + qs;
+      if (flashLink) flashLink.href = '/screens/leitner.html' + qs + '&mode=flashcard';
+      if (quizLink) quizLink.href = '/screens/leitner.html' + qs + '&mode=quiz';
       if (addBtn) addBtn.dataset.lessonNum = String(n);
 
       document.getElementById('state-picker').value = 'modal';
