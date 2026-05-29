@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpql215e" />
-  <link rel="stylesheet" href="/css/base.css?v=mpql215e" />
-  <link rel="stylesheet" href="/css/components.css?v=mpql215e" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpql215e" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpql215e" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpql215e" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpql215e" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpql215e" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqxgbnr" />
 </head>
 <body>
   <div class="preview-controls">
@@ -25,11 +25,6 @@
       document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
     ">
       <option value="list">List</option>
-      <option value="account">Account sub-page</option>
-      <option value="edit-name">Edit name</option>
-      <option value="edit-username">Edit username</option>
-      <option value="edit-email">Edit email</option>
-      <option value="edit-phone">Edit phone</option>
       <option value="theme">Theme picker</option>
       <option value="limit">Daily limit</option>
       <option value="notif">Reminder</option>
@@ -49,60 +44,42 @@
 
         <div class="screen__body">
           <!-- ============================================================
-               Hero — avatar with UPLOAD pencil, real user name (static,
-               NOT i18n — the name is the user's actual data, not a
-               translated string), and the unique @username used for
-               leaderboard identity.
+               Hero — ONE prominent edit affordance on the avatar.
+               Name + username read below the avatar with NO pencils
+               (their editors live on the Account page now).
 
-               TODO(flutter): the avatar is bound to users.avatar_url
-               (Supabase Storage public bucket). On pencil tap, present
-               the image-source sheet (camera/gallery), upload through
-               the storage API, then UPDATE users.avatar_url. The new
-               URL is what Home / Stats / League read from.
+               TODO(flutter): avatar tap → image_picker → image_cropper
+               → Supabase Storage upload → UPDATE users.avatar_url.
                ============================================================ -->
           <div class="profile-hero-v4">
-            <div class="profile-avatar-lg" data-avatar>
+            <div class="profile-avatar-lg profile-avatar-lg--xl" data-avatar>
               <span data-avatar-letter>ر</span>
               <img data-avatar-img alt="" hidden />
-              <button class="profile-avatar-lg__edit" type="button" data-avatar-trigger aria-label="upload photo">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <button class="avatar-edit-pill" type="button" data-avatar-trigger aria-label="upload photo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
               </button>
               <input type="file" accept="image/*" data-avatar-input hidden />
             </div>
-
-            <div class="profile-id">
-              <h2 class="profile-name" data-profile-name>رضا محمدی</h2>
-              <button class="profile-id__edit" type="button" data-open-state="edit-name" aria-label="edit name">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              </button>
-            </div>
-            <div class="profile-id profile-id--sub">
-              <span class="profile-username" data-profile-username>@reza_m_1378</span>
-              <button class="profile-id__edit" type="button" data-open-state="edit-username" aria-label="edit username">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              </button>
-            </div>
+            <h2 class="profile-name" data-profile-name>رضا محمدی</h2>
+            <div class="profile-username" data-profile-username>@reza_m_1378</div>
           </div>
 
           <!-- ============================================================
-               Section: Account (single tile that opens a sub-dialog
-               grouping email / phone / change password / logout /
-               delete). Keeping these off the main page makes profile
-               read cleanly — preferences in front, destructive +
-               credential stuff behind a tap.
+               Account — single label, no sub-text. Navigates to a
+               dedicated page (NOT a bottom-sheet) so the user has the
+               space to read everything and back out cleanly.
                ============================================================ -->
           <div class="section-label" data-i18n="v3.profile.sec.account"></div>
           <div class="setting-list">
-            <button class="setting-item" data-open-state="account">
+            <a href="/screens/account.html" class="setting-item" style="text-decoration:none;color:inherit;">
               <span class="setting-item__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
               </span>
               <div class="setting-item__main">
                 <div class="setting-item__label" data-i18n="v3.profile.account"></div>
-                <div class="setting-item__sub font-latin">reza@example.com · +98 912 *** 67 89</div>
               </div>
               <span class="setting-item__chevron"></span>
-            </button>
+            </a>
           </div>
 
           <!-- Section: Learning -->
@@ -179,153 +156,7 @@
         </div>
 
         <!-- ============================================================
-             DIALOG: Account sub-page
-             ============================================================ -->
-        <div class="state" data-state="account" hidden>
-          <div class="scrim" data-close-state>
-            <div class="picker-card picker-card--tall" onclick="event.stopPropagation();">
-              <div class="picker-card__handle"></div>
-              <h2 class="picker-card__title" data-i18n="v3.profile.account"></h2>
-              <div class="setting-list" style="margin-top:var(--sp-3);">
-                <button class="setting-item" data-open-state="edit-email" data-email="reza@example.com">
-                  <span class="setting-item__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3,7 12,13 21,7"/></svg>
-                  </span>
-                  <div class="setting-item__main">
-                    <div class="setting-item__label" data-i18n="v3.profile.email"></div>
-                    <div class="setting-item__sub font-latin" data-email-current>reza@example.com</div>
-                  </div>
-                  <span class="setting-item__chevron"></span>
-                </button>
-                <button class="setting-item" data-open-state="edit-phone" data-phone="+98 912 *** 67 89">
-                  <span class="setting-item__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                  </span>
-                  <div class="setting-item__main">
-                    <div class="setting-item__label" data-i18n="v3.profile.phone"></div>
-                    <div class="setting-item__sub font-latin" data-phone-current>+98 912 *** 67 89</div>
-                  </div>
-                  <span class="setting-item__chevron"></span>
-                </button>
-                <a href="/screens/change-password.html" class="setting-item" style="text-decoration:none;color:inherit;">
-                  <span class="setting-item__icon" style="background:var(--jx-input-bg);color:var(--jx-text-2);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-                  </span>
-                  <div class="setting-item__main">
-                    <div class="setting-item__label" data-i18n="v3.profile.changePwd"></div>
-                  </div>
-                  <span class="setting-item__chevron"></span>
-                </a>
-                <button class="setting-item setting-item--danger" onclick="window.confirmAction('logout').then(function(ok){if(ok)setTimeout(function(){location.href='/screens/login.html'},900);});">
-                  <span class="setting-item__icon" style="background:rgba(244,67,54,0.12);color:var(--jx-danger);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                  </span>
-                  <div class="setting-item__main">
-                    <div class="setting-item__label" data-i18n="v3.profile.logout"></div>
-                  </div>
-                  <span class="setting-item__chevron"></span>
-                </button>
-                <button class="setting-item setting-item--danger" onclick="window.confirmAction('deleteAccount').then(function(ok){if(ok)setTimeout(function(){location.href='/screens/login.html'},900);});">
-                  <span class="setting-item__icon" style="background:rgba(244,67,54,0.18);color:var(--jx-danger);">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-                  </span>
-                  <div class="setting-item__main">
-                    <div class="setting-item__label" data-i18n="v3.profile.deleteAccount"></div>
-                    <div class="setting-item__sub" data-i18n="v3.profile.deleteAccountSub"></div>
-                  </div>
-                  <span class="setting-item__chevron"></span>
-                </button>
-              </div>
-              <button class="btn btn--ghost btn--block" style="margin-top:var(--sp-3);" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ============================================================
-             DIALOG: Edit name
-             ============================================================ -->
-        <div class="state" data-state="edit-name" hidden>
-          <div class="scrim" data-close-state>
-            <div class="picker-card" onclick="event.stopPropagation();">
-              <div class="picker-card__handle"></div>
-              <h2 class="picker-card__title" data-i18n="v3.profile.editName"></h2>
-              <div class="field" style="margin-top:var(--sp-3);">
-                <input class="field__input" type="text" data-name-input maxlength="40" value="رضا محمدی" data-i18n-attr="placeholder" data-i18n="v3.profile.namePlaceholder" />
-              </div>
-              <div class="picker-card__actions">
-                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
-                <button class="btn btn--filled" style="flex:1;" data-save-name data-i18n="v3.profile.saveName"></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ============================================================
-             DIALOG: Edit username (with live uniqueness check)
-             ============================================================ -->
-        <div class="state" data-state="edit-username" hidden>
-          <div class="scrim" data-close-state>
-            <div class="picker-card" onclick="event.stopPropagation();">
-              <div class="picker-card__handle"></div>
-              <h2 class="picker-card__title" data-i18n="v3.profile.editUsername"></h2>
-              <p class="picker-card__sub" data-i18n="v3.profile.usernameSub"></p>
-              <div class="field field--prefix" style="margin-top:var(--sp-2);">
-                <span class="field__prefix font-latin">@</span>
-                <input class="field__input font-latin" type="text" data-username-input maxlength="20" value="reza_m_1378" data-i18n-attr="placeholder" data-i18n="v3.profile.usernamePlaceholder" autocomplete="off" autocapitalize="off" spellcheck="false" dir="ltr" />
-              </div>
-              <div class="username-check" data-username-check></div>
-              <div class="picker-card__actions">
-                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
-                <button class="btn btn--filled" style="flex:1;" data-save-username data-i18n="v3.profile.saveUsername"></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ============================================================
-             DIALOG: Edit email
-             ============================================================ -->
-        <div class="state" data-state="edit-email" hidden>
-          <div class="scrim" data-close-state>
-            <div class="picker-card" onclick="event.stopPropagation();">
-              <div class="picker-card__handle"></div>
-              <h2 class="picker-card__title" data-i18n="v3.profile.editEmail"></h2>
-              <p class="picker-card__sub" data-i18n="v3.profile.verifyHint"></p>
-              <div class="field" style="margin-top:var(--sp-2);">
-                <input class="field__input font-latin" type="email" data-email-input value="reza@example.com" dir="ltr" />
-              </div>
-              <div class="picker-card__actions">
-                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
-                <button class="btn btn--filled" style="flex:1;" data-save-email data-i18n="v3.profile.saveName"></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ============================================================
-             DIALOG: Edit phone
-             ============================================================ -->
-        <div class="state" data-state="edit-phone" hidden>
-          <div class="scrim" data-close-state>
-            <div class="picker-card" onclick="event.stopPropagation();">
-              <div class="picker-card__handle"></div>
-              <h2 class="picker-card__title" data-i18n="v3.profile.editPhone"></h2>
-              <p class="picker-card__sub" data-i18n="v3.profile.verifyHint"></p>
-              <div class="field" style="margin-top:var(--sp-2);">
-                <input class="field__input font-latin" type="tel" data-phone-input value="+98 912 555 6789" dir="ltr" />
-              </div>
-              <div class="picker-card__actions">
-                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
-                <button class="btn btn--filled" style="flex:1;" data-save-phone data-i18n="v3.profile.saveName"></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ============================================================
-             DIALOG: Theme picker — REDESIGNED. Three visual tile cards
-             with mini previews (light surface, dark surface, split for
-             auto). Tapping a tile applies the theme.
+             DIALOG: Theme picker (visual tiles)
              ============================================================ -->
         <div class="state" data-state="theme" hidden>
           <div class="scrim" data-close-state>
@@ -333,7 +164,6 @@
               <div class="picker-card__handle"></div>
               <h2 class="picker-card__title" data-i18n="v3.profile.themePicker.title"></h2>
               <p class="picker-card__sub" data-i18n="v3.profile.themePicker.sub"></p>
-
               <div class="theme-tiles">
                 <button class="theme-tile theme-tile--light" data-pick-theme="light">
                   <div class="theme-tile__preview theme-tile__preview--light">
@@ -360,7 +190,6 @@
                   <span class="theme-tile__label" data-i18n="v3.profile.displaySystemValue"></span>
                 </button>
               </div>
-
               <button class="btn btn--ghost btn--block" style="margin-top:var(--sp-4);" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
             </div>
           </div>
@@ -407,7 +236,6 @@
               </div>
               <h2 class="dialog-card__title" data-i18n="v3.settings.notif.title"></h2>
               <p class="dialog-card__sub" data-i18n="v3.settings.notif.sub"></p>
-
               <div class="time-picker">
                 <div class="time-picker__col">
                   <button class="time-picker__btn" data-time-step="hour" data-time-dir="up" aria-label="hour up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>
@@ -423,7 +251,6 @@
                   <button class="time-picker__btn" data-time-step="minute" data-time-dir="down" aria-label="minute down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
                 </div>
               </div>
-
               <div style="text-align:start;margin-top:var(--sp-3);font-size:var(--fs-body-s);color:var(--jx-text-2);font-weight:var(--fw-semibold);" data-i18n="v3.settings.notif.days"></div>
               <div class="day-circles" style="margin-top:var(--sp-2);">
                 <button class="day-circles__btn" data-day="sa" data-selected="true" data-i18n="v3.settings.day.sa"></button>
@@ -434,7 +261,6 @@
                 <button class="day-circles__btn" data-day="th" data-selected="true" data-i18n="v3.settings.day.th"></button>
                 <button class="day-circles__btn" data-day="fr" data-i18n="v3.settings.day.fr"></button>
               </div>
-
               <div style="text-align:start;margin-top:var(--sp-3);font-size:var(--fs-body-s);color:var(--jx-text-2);font-weight:var(--fw-semibold);" data-i18n="v3.settings.notif.sound"></div>
               <div class="sound-chips" style="margin-top:var(--sp-2);">
                 <button class="sound-chip" data-pick-sound="default" data-selected="true">
@@ -458,7 +284,6 @@
                   <span class="sound-chip__label" data-i18n="v3.settings.notif.soundCelebrate"></span>
                 </button>
               </div>
-
               <div class="dialog-card__actions">
                 <button class="dialog-card__cancel" data-close-state data-i18n="v3.settings.notif.cancel"></button>
                 <button class="btn btn--filled" style="flex:1;" data-notif-save data-i18n="v3.settings.notif.save"></button>
@@ -506,26 +331,20 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpql215e"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpqxgbnr"></script>
   <script type="module">
-    import { setTheme, getTheme } from '/js/theme.js?v=mpql215e';
-    import { setLocale, getLocale } from '/js/i18n.js?v=mpql215e';
-    import { t } from '/js/i18n.js?v=mpql215e';
+    import { setTheme, getTheme } from '/js/theme.js?v=mpqxgbnr';
+    import { setLocale, getLocale } from '/js/i18n.js?v=mpqxgbnr';
+    import { t } from '/js/i18n.js?v=mpqxgbnr';
 
-    // -------- Dialog state helpers --------
     function showState (s) {
-      document.querySelectorAll('.state').forEach(function (el) {
-        el.hidden = el.dataset.state !== s;
-      });
-      var sp = document.getElementById('state-picker');
-      if (sp) sp.value = s;
+      document.querySelectorAll('.state').forEach(function (el) { el.hidden = el.dataset.state !== s; });
+      var sp = document.getElementById('state-picker'); if (sp) sp.value = s;
     }
     function closeState () {
       document.querySelectorAll('.state').forEach(function (el) { el.hidden = true; });
-      var sp = document.getElementById('state-picker');
-      if (sp) sp.value = 'list';
+      var sp = document.getElementById('state-picker'); if (sp) sp.value = 'list';
     }
-
     document.querySelectorAll('[data-open-state]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var target = btn.dataset.openState;
@@ -537,32 +356,26 @@
         showState(target);
       });
     });
-
     document.querySelectorAll('[data-close-state]').forEach(function (el) {
       el.addEventListener('click', function (e) {
         if (el.classList.contains('scrim') && e.target !== el) return;
         closeState();
       });
     });
-
     document.addEventListener('click', function (e) {
       var c = e.target.closest('.day-circles__btn');
       if (c) c.dataset.selected = c.dataset.selected === 'true' ? 'false' : 'true';
     });
 
-    // -------- THEME PICKER --------
+    // THEME PICKER
     document.querySelectorAll('[data-pick-theme]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var val = btn.dataset.pickTheme;
         setTheme(val);
-        document.querySelectorAll('[data-pick-theme]').forEach(function (b) {
-          b.dataset.selected = (b === btn) ? 'true' : 'false';
-        });
+        document.querySelectorAll('[data-pick-theme]').forEach(function (b) { b.dataset.selected = (b === btn) ? 'true' : 'false'; });
         var sub = document.querySelector('[data-current-theme-label]');
         if (sub) {
-          var key = val === 'light' ? 'v3.profile.displayLight'
-                  : val === 'dark'  ? 'v3.profile.displayDark'
-                                    : 'v3.profile.displaySystemValue';
+          var key = val === 'light' ? 'v3.profile.displayLight' : val === 'dark' ? 'v3.profile.displayDark' : 'v3.profile.displaySystemValue';
           sub.setAttribute('data-i18n', key);
           sub.textContent = t(key);
         }
@@ -571,30 +384,24 @@
     });
     (function () {
       var cur = getTheme();
-      document.querySelectorAll('[data-pick-theme]').forEach(function (b) {
-        b.dataset.selected = (b.dataset.pickTheme === cur) ? 'true' : 'false';
-      });
+      document.querySelectorAll('[data-pick-theme]').forEach(function (b) { b.dataset.selected = (b.dataset.pickTheme === cur) ? 'true' : 'false'; });
     })();
 
-    // -------- LANGUAGE PICKER --------
+    // LANGUAGE PICKER
     document.querySelectorAll('[data-pick-lang]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var val = btn.dataset.pickLang;
         setLocale(val);
-        document.querySelectorAll('[data-pick-lang]').forEach(function (b) {
-          b.dataset.selected = (b === btn) ? 'true' : 'false';
-        });
+        document.querySelectorAll('[data-pick-lang]').forEach(function (b) { b.dataset.selected = (b === btn) ? 'true' : 'false'; });
         setTimeout(closeState, 140);
       });
     });
     (function () {
       var cur = getLocale();
-      document.querySelectorAll('[data-pick-lang]').forEach(function (b) {
-        b.dataset.selected = (b.dataset.pickLang === cur) ? 'true' : 'false';
-      });
+      document.querySelectorAll('[data-pick-lang]').forEach(function (b) { b.dataset.selected = (b.dataset.pickLang === cur) ? 'true' : 'false'; });
     })();
 
-    // -------- DAILY LIMIT --------
+    // DAILY LIMIT
     document.querySelectorAll('[data-limit-step]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var step = parseInt(btn.dataset.limitStep, 10) || 0;
@@ -630,7 +437,7 @@
       }
     });
 
-    // -------- TIME PICKER --------
+    // TIME PICKER
     document.querySelectorAll('[data-time-step]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var unit = btn.dataset.timeStep;
@@ -647,15 +454,11 @@
       });
     });
 
-    // -------- SOUND CHIPS with audio preview --------
-    // Inline-encoded short WAV beeps generated via WebAudio so the preview
-    // works without shipping mp3 assets in the design site. Flutter will
-    // use the real bundled .ogg files (see architecture_notifications.md).
+    // SOUND CHIPS with audio preview
     var audioCtx = null;
     function previewSound (key) {
       try {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        // Different frequency / envelope per sound so they're distinguishable.
         var spec = ({
           'default':   { freq: 660, type: 'sine',     dur: 0.18, decay: 0.12 },
           'chime':     { freq: 880, type: 'triangle', dur: 0.55, decay: 0.45 },
@@ -668,9 +471,7 @@
         var gain = audioCtx.createGain();
         osc.type = spec.type;
         osc.frequency.setValueAtTime(spec.freq, now);
-        // Bird: chirp up then down for a more recognisable sound.
         if (key === 'bird') osc.frequency.exponentialRampToValueAtTime(spec.freq * 0.6, now + spec.dur);
-        // Chime: gentle slide for a bell-like timbre.
         if (key === 'chime') osc.frequency.exponentialRampToValueAtTime(spec.freq * 1.5, now + spec.dur);
         gain.gain.setValueAtTime(0.0001, now);
         gain.gain.exponentialRampToValueAtTime(0.2, now + 0.02);
@@ -678,28 +479,21 @@
         osc.connect(gain).connect(audioCtx.destination);
         osc.start(now);
         osc.stop(now + spec.dur + 0.02);
-      } catch (e) {
-        // Silently ignore — autoplay restrictions on first interaction can
-        // throw before the user has tapped anything else.
-      }
+      } catch (e) { /* ignore */ }
     }
     document.querySelectorAll('[data-pick-sound]').forEach(function (chip) {
       chip.addEventListener('click', function () {
-        document.querySelectorAll('[data-pick-sound]').forEach(function (c) {
-          c.dataset.selected = (c === chip) ? 'true' : 'false';
-        });
+        document.querySelectorAll('[data-pick-sound]').forEach(function (c) { c.dataset.selected = (c === chip) ? 'true' : 'false'; });
         previewSound(chip.dataset.pickSound);
       });
     });
 
-    // -------- REMINDER SAVE --------
+    // REMINDER SAVE
     function selectedDaysSummary () {
       var labels = Array.from(document.querySelectorAll('.day-circles__btn[data-selected="true"]'))
         .map(function (b) { return b.textContent.trim(); });
       if (labels.length === 0) return '—';
-      if (labels.length === 7) {
-        return getLocale() === 'fa' ? 'هر روز هفته' : 'every day';
-      }
+      if (labels.length === 7) return getLocale() === 'fa' ? 'هر روز هفته' : 'every day';
       return labels.join(getLocale() === 'fa' ? '، ' : ', ');
     }
     document.querySelector('[data-notif-save]').addEventListener('click', function () {
@@ -707,7 +501,6 @@
       var m = document.querySelector('[data-time-minute]').textContent;
       var time = h + ':' + m;
       var days = selectedDaysSummary();
-      // Update the row sub-label so the saved value is visible immediately.
       var rowSub = document.querySelector('[data-notif-current]');
       if (rowSub) {
         var prefix = getLocale() === 'fa' ? 'روشن — ' : 'On — ';
@@ -719,13 +512,13 @@
           type: 'success',
           titleKey: 'v3.profile.reminderSavedTitle',
           message: t('v3.profile.reminderSavedBody').replace('{time}', time).replace('{days}', days),
-          confirmKey: 'v3.profile.limitIncrease.ok',
+          confirmKey: 'v3.profile.verifyCta',
           autoDismiss: 0,
         });
       }, 200);
     });
 
-    // -------- AVATAR UPLOAD --------
+    // AVATAR UPLOAD
     var avatarTrigger = document.querySelector('[data-avatar-trigger]');
     var avatarInput   = document.querySelector('[data-avatar-input]');
     var avatarImg     = document.querySelector('[data-avatar-img]');
@@ -739,131 +532,17 @@
         avatarImg.src = url;
         avatarImg.hidden = false;
         if (avatarLetter) avatarLetter.style.display = 'none';
-        // TODO(flutter): upload to Supabase Storage, then UPDATE
-        // users.avatar_url and broadcast a userChangedAvatar event so
-        // Home / Stats / League rerender.
         window.showPopup({
           type: 'success',
           titleKey: 'v3.profile.avatarUploadedTitle',
           messageKey: 'v3.profile.avatarUploadedBody',
-          confirmKey: 'v3.profile.limitIncrease.ok',
+          confirmKey: 'v3.profile.verifyCta',
           autoDismiss: 0,
         });
       });
     }
 
-    // -------- EDIT NAME --------
-    document.querySelector('[data-save-name]').addEventListener('click', function () {
-      var input = document.querySelector('[data-name-input]');
-      var val = (input.value || '').trim();
-      if (val.length < 2) {
-        window.popupError(getLocale() === 'fa' ? 'حداقل ۲ کاراکتر' : 'Min 2 characters');
-        return;
-      }
-      document.querySelector('[data-profile-name]').textContent = val;
-      closeState();
-      setTimeout(function () {
-        window.showPopup({
-          type: 'success',
-          titleKey: 'v3.profile.nameSavedTitle',
-          message: val,
-          confirmKey: 'v3.profile.limitIncrease.ok',
-          autoDismiss: 0,
-        });
-      }, 180);
-    });
-
-    // -------- EDIT USERNAME (with live uniqueness check) --------
-    // Demo: a small in-memory list of "taken" usernames pretends to be
-    // the server-side check. Flutter calls:
-    //   await supabase.from('users').select('id').eq('username', x);
-    // and forbids save if the result is non-empty.
-    var TAKEN = ['admin', 'jamlex', 'ali', 'ali.reza', 'reza', 'support', 'tester'];
-    var VALID_RE = /^[a-zA-Z0-9_]{3,20}$/;
-    function checkUsername (val) {
-      var node = document.querySelector('[data-username-check]');
-      if (!val) { node.textContent = ''; node.dataset.status = ''; return false; }
-      if (!VALID_RE.test(val)) {
-        node.textContent = t(val.length < 3 ? 'v3.profile.usernameMin' : 'v3.profile.usernameInvalid');
-        node.dataset.status = 'invalid';
-        return false;
-      }
-      if (TAKEN.indexOf(val.toLowerCase()) !== -1) {
-        node.textContent = t('v3.profile.usernameTaken');
-        node.dataset.status = 'invalid';
-        return false;
-      }
-      node.textContent = '✓ ' + t('v3.profile.usernameAvailable');
-      node.dataset.status = 'ok';
-      return true;
-    }
-    var unameInput = document.querySelector('[data-username-input]');
-    if (unameInput) {
-      unameInput.addEventListener('input', function () {
-        checkUsername(unameInput.value.trim());
-      });
-    }
-    document.querySelector('[data-save-username]').addEventListener('click', function () {
-      var val = unameInput.value.trim();
-      if (!checkUsername(val)) return;
-      document.querySelector('[data-profile-username]').textContent = '@' + val;
-      closeState();
-      setTimeout(function () {
-        window.showPopup({
-          type: 'success',
-          titleKey: 'v3.profile.usernameSavedTitle',
-          message: '@' + val,
-          confirmKey: 'v3.profile.limitIncrease.ok',
-          autoDismiss: 0,
-        });
-      }, 180);
-    });
-
-    // -------- EDIT EMAIL --------
-    document.querySelector('[data-save-email]').addEventListener('click', function () {
-      var input = document.querySelector('[data-email-input]');
-      var val = (input.value || '').trim();
-      if (!/.+@.+\..+/.test(val)) {
-        window.popupError(getLocale() === 'fa' ? 'ایمیل معتبر وارد کن' : 'Enter a valid email');
-        return;
-      }
-      var rowSub = document.querySelector('[data-email-current]');
-      if (rowSub) rowSub.textContent = val;
-      closeState();
-      setTimeout(function () {
-        window.showPopup({
-          type: 'success',
-          titleKey: 'v3.profile.emailSavedTitle',
-          message: val,
-          confirmKey: 'v3.profile.limitIncrease.ok',
-          autoDismiss: 0,
-        });
-      }, 180);
-    });
-
-    // -------- EDIT PHONE --------
-    document.querySelector('[data-save-phone]').addEventListener('click', function () {
-      var input = document.querySelector('[data-phone-input]');
-      var val = (input.value || '').trim();
-      if (val.replace(/\D/g, '').length < 8) {
-        window.popupError(getLocale() === 'fa' ? 'شماره معتبر وارد کن' : 'Enter a valid phone');
-        return;
-      }
-      var rowSub = document.querySelector('[data-phone-current]');
-      if (rowSub) rowSub.textContent = val;
-      closeState();
-      setTimeout(function () {
-        window.showPopup({
-          type: 'success',
-          titleKey: 'v3.profile.phoneSavedTitle',
-          message: val,
-          confirmKey: 'v3.profile.limitIncrease.ok',
-          autoDismiss: 0,
-        });
-      }, 180);
-    });
-
-    // -------- Limit row sub-label refresh on i18n changes --------
+    // Limit row sub-label refresh on i18n
     (function () {
       var rowBtn = document.querySelector('[data-limit]');
       var saved = parseInt(rowBtn.dataset.limit, 10) || 20;
@@ -872,9 +551,7 @@
         if (sub) sub.textContent = saved + ' ' + t('v3.profile.limitPicker.unit');
       });
       setTimeout(function () {
-        if (sub && t('v3.profile.limitPicker.unit')) {
-          sub.textContent = saved + ' ' + t('v3.profile.limitPicker.unit');
-        }
+        if (sub && t('v3.profile.limitPicker.unit')) sub.textContent = saved + ' ' + t('v3.profile.limitPicker.unit');
       }, 50);
     })();
   </script>

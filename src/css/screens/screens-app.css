@@ -4140,10 +4140,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--sp-1);
+  gap: 6px;
   margin-bottom: var(--sp-4);
 }
-.profile-hero-v4 .profile-avatar-lg { margin-bottom: var(--sp-2); position: relative; overflow: hidden; }
+.profile-hero-v4 .profile-avatar-lg { margin-bottom: var(--sp-3); position: relative; overflow: visible; }
+.profile-hero-v4 .profile-avatar-lg--xl { width: 120px; height: 120px; font-size: 48px; }
 .profile-hero-v4 .profile-avatar-lg img {
   position: absolute;
   inset: 0;
@@ -4152,22 +4153,28 @@
   object-fit: cover;
   border-radius: 50%;
 }
-.profile-hero-v4 .profile-avatar-lg__edit {
+/* Big, unambiguous "edit avatar" pill — was a 26px almost-invisible disc
+   before. Now it reads as the primary call to action it actually is. */
+.profile-hero-v4 .avatar-edit-pill {
   position: absolute;
-  inset-block-end: 2px;
-  inset-inline-end: 2px;
-  width: 26px;
-  height: 26px;
+  inset-block-end: -4px;
+  inset-inline-end: -4px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: var(--jx-bg);
-  border: 2px solid var(--jx-bg-app);
-  color: var(--jx-text);
+  background: var(--jx-primary);
+  color: #fff;
+  border: 3px solid var(--jx-bg);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 14px rgba(0,180,166,0.35);
+  transition: transform var(--motion-fast);
 }
+.profile-hero-v4 .avatar-edit-pill:hover { transform: scale(1.08); }
+.profile-hero-v4 .avatar-edit-pill:active { transform: scale(0.96); }
+[data-theme="dark"] .profile-hero-v4 .avatar-edit-pill { border-color: #161E2E; }
 .profile-hero-v4 .profile-name {
   font-size: var(--fs-title);
   font-weight: var(--fw-extrabold);
@@ -4332,3 +4339,40 @@
   opacity: 0.85;
 }
 .theme-tile__bar--short { width: 45%; opacity: 0.55; }
+
+/* ============================================================================
+   Country code picker — used in account.html → edit phone. The list is
+   tall and scrollable inside a bottom-sheet picker-card.
+   ============================================================================ */
+.country-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 50vh;
+  overflow-y: auto;
+  margin-top: var(--sp-2);
+  /* room for the scrollbar so the rows don't shift on hover */
+  padding-inline-end: 4px;
+}
+.country-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--jx-input-bg);
+  border: 0;
+  border-radius: var(--rd-3);
+  font-family: inherit;
+  cursor: pointer;
+  text-align: start;
+  transition: background var(--motion-fast);
+}
+.country-row:hover { background: var(--jx-surface-alt); }
+.country-row__flag { font-size: 22px; line-height: 1; flex: none; }
+.country-row__name { flex: 1; font-weight: var(--fw-semibold); font-size: var(--fs-body-s); }
+.country-row__code {
+  color: var(--jx-text-2);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-body-s);
+}

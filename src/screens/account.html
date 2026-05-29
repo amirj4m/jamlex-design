@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/base.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/components.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqxgbnr" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqxgbnr" />
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+    <select id="state-picker" aria-label="State" onchange="
+      document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== event.target.value;});
+    ">
+      <option value="list">Account list</option>
+      <option value="edit-name">Edit name</option>
+      <option value="edit-username">Edit username</option>
+      <option value="edit-email">Edit email</option>
+      <option value="edit-phone">Edit phone</option>
+      <option value="country">Country picker</option>
+    </select>
+  </div>
+  <a href="/screens/profile.html" class="hub-ribbon">‹ Profile</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="topbar">
+          <div class="topbar__leading">
+            <a href="/screens/profile.html" class="btn-icon back-btn" aria-label="Back"></a>
+          </div>
+          <h1 class="topbar__title" data-i18n="v3.profile.accountTitle"></h1>
+          <div></div>
+        </header>
+
+        <div class="screen__body">
+          <!-- ============================================================
+               Identity (display_name + @username)
+               ============================================================ -->
+          <div class="section-label" data-i18n="v3.profile.accountSecIdentity"></div>
+          <div class="setting-list">
+            <button class="setting-item" data-open-state="edit-name">
+              <span class="setting-item__icon" style="background:rgba(108,92,231,0.12);color:#6C5CE7;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.accountName"></div>
+                <div class="setting-item__sub" data-profile-name>رضا محمدی</div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <button class="setting-item" data-open-state="edit-username">
+              <span class="setting-item__icon" style="background:rgba(0,180,166,0.14);color:var(--jx-primary);">
+                <span style="font-family:var(--font-family-latin);font-weight:800;font-size:14px;">@</span>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.accountUsername"></div>
+                <div class="setting-item__sub font-latin" data-profile-username>@reza_m_1378</div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+          </div>
+
+          <!-- ============================================================
+               Contact (email / phone / password)
+               ============================================================ -->
+          <div class="section-label" data-i18n="v3.profile.accountSecContact"></div>
+          <div class="setting-list">
+            <button class="setting-item" data-open-state="edit-email" data-email="reza@example.com">
+              <span class="setting-item__icon" style="background:rgba(74,144,217,0.16);color:#4A90D9;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3,7 12,13 21,7"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.email"></div>
+                <div class="setting-item__sub font-latin" data-email-current>reza@example.com</div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <button class="setting-item" data-open-state="edit-phone" data-phone="+98 912 5556789">
+              <span class="setting-item__icon" style="background:rgba(108,92,231,0.16);color:#6C5CE7;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.phone"></div>
+                <div class="setting-item__sub font-latin" data-phone-current>+98 912 *** 67 89</div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <a href="/screens/change-password.html" class="setting-item" style="text-decoration:none;color:inherit;">
+              <span class="setting-item__icon" style="background:var(--jx-input-bg);color:var(--jx-text-2);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.changePwd"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </a>
+          </div>
+
+          <!-- ============================================================
+               Manage account (destructive — kept at the bottom of the
+               page where the user has to scroll to reach it).
+               ============================================================ -->
+          <div class="section-label" data-i18n="v3.profile.accountSecDanger"></div>
+          <div class="setting-list">
+            <button class="setting-item setting-item--danger" onclick="window.confirmAction('logout').then(function(ok){if(ok)setTimeout(function(){location.href='/screens/login.html'},900);});">
+              <span class="setting-item__icon" style="background:rgba(244,67,54,0.12);color:var(--jx-danger);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.logout"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+            <button class="setting-item setting-item--danger" onclick="window.confirmAction('deleteAccount').then(function(ok){if(ok)setTimeout(function(){location.href='/screens/login.html'},900);});">
+              <span class="setting-item__icon" style="background:rgba(244,67,54,0.18);color:var(--jx-danger);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              </span>
+              <div class="setting-item__main">
+                <div class="setting-item__label" data-i18n="v3.profile.deleteAccount"></div>
+                <div class="setting-item__sub" data-i18n="v3.profile.deleteAccountSub"></div>
+              </div>
+              <span class="setting-item__chevron"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             DIALOG: Edit name
+             ============================================================ -->
+        <div class="state" data-state="edit-name" hidden>
+          <div class="scrim" data-close-state>
+            <div class="picker-card" onclick="event.stopPropagation();">
+              <div class="picker-card__handle"></div>
+              <h2 class="picker-card__title" data-i18n="v3.profile.editName"></h2>
+              <div class="field" style="margin-top:var(--sp-3);">
+                <input class="field__input" type="text" data-name-input maxlength="40" value="رضا محمدی" data-i18n-attr="placeholder" data-i18n="v3.profile.namePlaceholder" />
+              </div>
+              <div class="picker-card__actions">
+                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
+                <button class="btn btn--filled" style="flex:1;" data-save-name data-i18n="v3.profile.saveName"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             DIALOG: Edit username (with live uniqueness check)
+             ============================================================ -->
+        <div class="state" data-state="edit-username" hidden>
+          <div class="scrim" data-close-state>
+            <div class="picker-card" onclick="event.stopPropagation();">
+              <div class="picker-card__handle"></div>
+              <h2 class="picker-card__title" data-i18n="v3.profile.editUsername"></h2>
+              <p class="picker-card__sub" data-i18n="v3.profile.usernameSub"></p>
+              <div class="field field--prefix" style="margin-top:var(--sp-2);">
+                <span class="field__prefix font-latin">@</span>
+                <input class="field__input font-latin" type="text" data-username-input maxlength="20" value="reza_m_1378" data-i18n-attr="placeholder" data-i18n="v3.profile.usernamePlaceholder" autocomplete="off" autocapitalize="off" spellcheck="false" dir="ltr" />
+              </div>
+              <div class="username-check" data-username-check></div>
+              <div class="picker-card__actions">
+                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
+                <button class="btn btn--filled" style="flex:1;" data-save-username data-i18n="v3.profile.saveUsername"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             DIALOG: Edit email — dual-verify rule:
+             - Code sent to OLD + NEW email (skip OLD if user signed up
+               via phone and has no old email yet).
+             - DB is NOT mutated until both codes are verified.
+             ============================================================ -->
+        <div class="state" data-state="edit-email" hidden>
+          <div class="scrim" data-close-state>
+            <div class="picker-card" onclick="event.stopPropagation();">
+              <div class="picker-card__handle"></div>
+              <h2 class="picker-card__title" data-i18n="v3.profile.editEmail"></h2>
+              <p class="picker-card__sub" data-i18n="v3.profile.verifyHint"></p>
+              <div class="field" style="margin-top:var(--sp-2);">
+                <input class="field__input font-latin" type="email" data-email-input value="reza@example.com" dir="ltr" />
+              </div>
+              <div class="picker-card__actions">
+                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
+                <button class="btn btn--filled" style="flex:1;" data-save-email data-i18n="v3.profile.saveName"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             DIALOG: Edit phone — with country-code picker AND a hint
+             that the default code was guessed from device fingerprint.
+             ============================================================ -->
+        <div class="state" data-state="edit-phone" hidden>
+          <div class="scrim" data-close-state>
+            <div class="picker-card" onclick="event.stopPropagation();">
+              <div class="picker-card__handle"></div>
+              <h2 class="picker-card__title" data-i18n="v3.profile.editPhone"></h2>
+              <p class="picker-card__sub" data-i18n="v3.profile.verifyHint"></p>
+              <div class="phone-row" style="margin-top:var(--sp-2);">
+                <button class="country-pick" type="button" data-open-country>
+                  <span class="country-pick__flag" data-cc-flag>🇮🇷</span>
+                  <span class="font-latin" data-cc-code>+98</span>
+                  <span style="color:var(--jx-text-3);font-size:12px;">▾</span>
+                </button>
+                <input class="field__input font-latin" type="tel" data-phone-input value="912 555 6789" dir="ltr" />
+              </div>
+              <p class="limit-stepper__hint" style="text-align:start;margin-top:var(--sp-2);" data-i18n="v3.profile.countryAutoHint"></p>
+              <div class="picker-card__actions">
+                <button class="btn btn--ghost" style="flex:1;" data-close-state data-i18n="v3.profile.themePicker.cancel"></button>
+                <button class="btn btn--filled" style="flex:1;" data-save-phone data-i18n="v3.profile.saveName"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             DIALOG: Country code picker (sub-picker for the phone editor)
+             ============================================================ -->
+        <div class="state" data-state="country" hidden>
+          <div class="scrim" data-close-state>
+            <div class="picker-card picker-card--tall" onclick="event.stopPropagation();">
+              <div class="picker-card__handle"></div>
+              <h2 class="picker-card__title" data-i18n="v3.profile.countryPicker.title"></h2>
+              <div class="country-list" data-country-list>
+                <button class="country-row" data-cc="98"  data-flag="🇮🇷" data-name="Iran"><span class="country-row__flag">🇮🇷</span><span class="country-row__name">Iran · ایران</span><span class="country-row__code font-latin">+98</span></button>
+                <button class="country-row" data-cc="1"   data-flag="🇺🇸" data-name="United States"><span class="country-row__flag">🇺🇸</span><span class="country-row__name">United States</span><span class="country-row__code font-latin">+1</span></button>
+                <button class="country-row" data-cc="1"   data-flag="🇨🇦" data-name="Canada"><span class="country-row__flag">🇨🇦</span><span class="country-row__name">Canada</span><span class="country-row__code font-latin">+1</span></button>
+                <button class="country-row" data-cc="44"  data-flag="🇬🇧" data-name="United Kingdom"><span class="country-row__flag">🇬🇧</span><span class="country-row__name">United Kingdom</span><span class="country-row__code font-latin">+44</span></button>
+                <button class="country-row" data-cc="49"  data-flag="🇩🇪" data-name="Germany"><span class="country-row__flag">🇩🇪</span><span class="country-row__name">Germany · Deutschland</span><span class="country-row__code font-latin">+49</span></button>
+                <button class="country-row" data-cc="33"  data-flag="🇫🇷" data-name="France"><span class="country-row__flag">🇫🇷</span><span class="country-row__name">France</span><span class="country-row__code font-latin">+33</span></button>
+                <button class="country-row" data-cc="31"  data-flag="🇳🇱" data-name="Netherlands"><span class="country-row__flag">🇳🇱</span><span class="country-row__name">Netherlands · Nederland</span><span class="country-row__code font-latin">+31</span></button>
+                <button class="country-row" data-cc="46"  data-flag="🇸🇪" data-name="Sweden"><span class="country-row__flag">🇸🇪</span><span class="country-row__name">Sweden · Sverige</span><span class="country-row__code font-latin">+46</span></button>
+                <button class="country-row" data-cc="61"  data-flag="🇦🇺" data-name="Australia"><span class="country-row__flag">🇦🇺</span><span class="country-row__name">Australia</span><span class="country-row__code font-latin">+61</span></button>
+                <button class="country-row" data-cc="971" data-flag="🇦🇪" data-name="United Arab Emirates"><span class="country-row__flag">🇦🇪</span><span class="country-row__name">UAE · امارات</span><span class="country-row__code font-latin">+971</span></button>
+                <button class="country-row" data-cc="90"  data-flag="🇹🇷" data-name="Turkey"><span class="country-row__flag">🇹🇷</span><span class="country-row__name">Turkey · Türkiye</span><span class="country-row__code font-latin">+90</span></button>
+                <button class="country-row" data-cc="49"  data-flag="🇦🇹" data-name="Austria"><span class="country-row__flag">🇦🇹</span><span class="country-row__name">Austria · Österreich</span><span class="country-row__code font-latin">+43</span></button>
+                <button class="country-row" data-cc="32"  data-flag="🇧🇪" data-name="Belgium"><span class="country-row__flag">🇧🇪</span><span class="country-row__name">Belgium · België</span><span class="country-row__code font-latin">+32</span></button>
+                <button class="country-row" data-cc="34"  data-flag="🇪🇸" data-name="Spain"><span class="country-row__flag">🇪🇸</span><span class="country-row__name">Spain · España</span><span class="country-row__code font-latin">+34</span></button>
+                <button class="country-row" data-cc="39"  data-flag="🇮🇹" data-name="Italy"><span class="country-row__flag">🇮🇹</span><span class="country-row__name">Italy · Italia</span><span class="country-row__code font-latin">+39</span></button>
+              </div>
+              <button class="btn btn--ghost btn--block" style="margin-top:var(--sp-3);" data-close-state data-i18n="v3.profile.countryPicker.cancel"></button>
+            </div>
+          </div>
+        </div>
+
+        <div data-bottomnav="profile"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js?v=mpqxgbnr"></script>
+  <script type="module">
+    import { t, getLocale } from '/js/i18n.js?v=mpqxgbnr';
+
+    function showState (s) {
+      document.querySelectorAll('.state').forEach(function (el) { el.hidden = el.dataset.state !== s; });
+      var sp = document.getElementById('state-picker'); if (sp) sp.value = s;
+    }
+    function closeState () {
+      document.querySelectorAll('.state').forEach(function (el) { el.hidden = true; });
+      var sp = document.getElementById('state-picker'); if (sp) sp.value = 'list';
+    }
+    document.querySelectorAll('[data-open-state]').forEach(function (btn) {
+      btn.addEventListener('click', function () { showState(btn.dataset.openState); });
+    });
+    document.querySelectorAll('[data-close-state]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        if (el.classList.contains('scrim') && e.target !== el) return;
+        closeState();
+      });
+    });
+
+    // -------- EDIT NAME --------
+    document.querySelector('[data-save-name]').addEventListener('click', function () {
+      var input = document.querySelector('[data-name-input]');
+      var val = (input.value || '').trim();
+      if (val.length < 2) {
+        window.popupError(getLocale() === 'fa' ? 'حداقل ۲ کاراکتر' : 'Min 2 characters');
+        return;
+      }
+      document.querySelectorAll('[data-profile-name]').forEach(function (n) { n.textContent = val; });
+      closeState();
+      setTimeout(function () {
+        window.showPopup({
+          type: 'success',
+          titleKey: 'v3.profile.nameSavedTitle',
+          message: val,
+          confirmKey: 'v3.profile.verifyCta',
+          autoDismiss: 0,
+        });
+      }, 180);
+    });
+
+    // -------- EDIT USERNAME (with live uniqueness check) --------
+    var TAKEN = ['admin', 'jamlex', 'ali', 'ali.reza', 'reza', 'support', 'tester'];
+    var VALID_RE = /^[a-zA-Z0-9_]{3,20}$/;
+    function checkUsername (val) {
+      var node = document.querySelector('[data-username-check]');
+      if (!val) { node.textContent = ''; node.dataset.status = ''; return false; }
+      if (!VALID_RE.test(val)) {
+        node.textContent = t(val.length < 3 ? 'v3.profile.usernameMin' : 'v3.profile.usernameInvalid');
+        node.dataset.status = 'invalid';
+        return false;
+      }
+      if (TAKEN.indexOf(val.toLowerCase()) !== -1) {
+        node.textContent = t('v3.profile.usernameTaken');
+        node.dataset.status = 'invalid';
+        return false;
+      }
+      node.textContent = '✓ ' + t('v3.profile.usernameAvailable');
+      node.dataset.status = 'ok';
+      return true;
+    }
+    var unameInput = document.querySelector('[data-username-input]');
+    if (unameInput) {
+      unameInput.addEventListener('input', function () { checkUsername(unameInput.value.trim()); });
+    }
+    document.querySelector('[data-save-username]').addEventListener('click', function () {
+      var val = unameInput.value.trim();
+      if (!checkUsername(val)) return;
+      document.querySelectorAll('[data-profile-username]').forEach(function (n) { n.textContent = '@' + val; });
+      closeState();
+      setTimeout(function () {
+        window.showPopup({
+          type: 'success',
+          titleKey: 'v3.profile.usernameSavedTitle',
+          message: '@' + val,
+          confirmKey: 'v3.profile.verifyCta',
+          autoDismiss: 0,
+        });
+      }, 180);
+    });
+
+    // -------- EDIT EMAIL (with dual-verify rule) --------
+    // The currently-signed-in user has an old email — both old and new
+    // get a verification code. If signedUpVia === 'phone', use the
+    // phone-only variant of the message.
+    var SIGNUP_METHOD = 'email'; // demo: 'email' or 'phone'
+    document.querySelector('[data-save-email]').addEventListener('click', function () {
+      var input = document.querySelector('[data-email-input]');
+      var val = (input.value || '').trim();
+      if (!/.+@.+\..+/.test(val)) {
+        window.popupError(getLocale() === 'fa' ? 'ایمیل معتبر وارد کن' : 'Enter a valid email');
+        return;
+      }
+      closeState();
+      var bodyKey = SIGNUP_METHOD === 'phone' ? 'v3.profile.emailPhoneOnlyVerifyBody' : 'v3.profile.emailDualVerifyBody';
+      setTimeout(function () {
+        window.showPopup({
+          type: 'info',
+          titleKey: 'v3.profile.emailDualVerifyTitle',
+          messageKey: bodyKey,
+          messageHtml: true,
+          confirmKey: 'v3.profile.verifyCta',
+          autoDismiss: 0,
+        });
+      }, 180);
+    });
+
+    // -------- COUNTRY CODE PICKER --------
+    document.querySelector('[data-open-country]').addEventListener('click', function () {
+      showState('country');
+    });
+    document.querySelectorAll('.country-row').forEach(function (row) {
+      row.addEventListener('click', function () {
+        var cc = row.dataset.cc;
+        var flag = row.dataset.flag;
+        document.querySelector('[data-cc-flag]').textContent = flag;
+        document.querySelector('[data-cc-code]').textContent = '+' + cc;
+        showState('edit-phone'); // back to the phone editor
+      });
+    });
+
+    // -------- EDIT PHONE (SMS verify) --------
+    document.querySelector('[data-save-phone]').addEventListener('click', function () {
+      var input = document.querySelector('[data-phone-input]');
+      var val = (input.value || '').trim();
+      var digits = val.replace(/\D/g, '');
+      if (digits.length < 7) {
+        window.popupError(getLocale() === 'fa' ? 'شماره معتبر وارد کن' : 'Enter a valid phone');
+        return;
+      }
+      var cc = document.querySelector('[data-cc-code]').textContent;
+      var full = cc + ' ' + val;
+      closeState();
+      setTimeout(function () {
+        window.showPopup({
+          type: 'info',
+          titleKey: 'v3.profile.phoneSavedTitle',
+          message: t('v3.profile.phoneVerifyBody').replace('{phone}', full),
+          messageHtml: true,
+          confirmKey: 'v3.profile.verifyCta',
+          autoDismiss: 0,
+        });
+      }, 180);
+    });
+
+    // -------- Device-fingerprint country guess (Flutter parity) --------
+    // The native app reads the SIM MCC, then falls back to the device
+    // locale, then GPS. In the browser preview the best we have is the
+    // UI locale, so we pre-select Iran (+98) for fa-IR users and the US
+    // (+1) for en users — this is a placeholder; the real detection
+    // happens in Flutter.
+    (function () {
+      var loc = getLocale();
+      var guess = loc === 'fa' ? { flag: '🇮🇷', code: '+98' } : { flag: '🇺🇸', code: '+1' };
+      var flagEl = document.querySelector('[data-cc-flag]');
+      var codeEl = document.querySelector('[data-cc-code]');
+      if (flagEl && codeEl && codeEl.textContent.trim() === '') {
+        flagEl.textContent = guess.flag;
+        codeEl.textContent = guess.code;
+      }
+    })();
+  </script>
+</body>
+</html>
