@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/base.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/components.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/base.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/components.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprae51b" />
 </head>
 <body>
   <div class="preview-controls">
@@ -159,32 +159,43 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpra0zto"></script>
+  <script type="module" src="/js/screen-shell.js?v=mprae51b"></script>
   <script type="module">
     // ----------------------------------------------------------------
-    // category-words.html — dynamic per-category lesson list.
+    // category-words.html — per-category lesson list.
+    //
+    // NEW MODEL (locked 2026-05-29): lessons are no longer generic
+    // "Lesson 1, 2, 3, ..." chunks of the group's words. Instead, each
+    // row is a REAL openjam sub-category (the `children` array on the
+    // group object), with its real Persian + English name.
+    //
+    // The 50-word rule: a single lesson can NEVER contain more than
+    // 50 words. Sub-categories larger than 50 are split into
+    //   ceil(word_count / 50)
+    // sequentially-numbered chunks ("علم ۱", "علم ۲", … each with up
+    // to 50 words, the last with the remainder).
+    //
+    // Worked examples on real openjam data:
+    //   food-drink → food (581) → 12 lessons + drink (132) → 3   = 15
+    //   science-tech → science (2077) → 42 + technology (543) → 11 = 53
+    //   work-money → work (1275) → 26 + money (586) → 12         = 38
     //
     // 1. Read the openjam group slug from URL: ?group=<slug>.
-    // 2. Pull the group's metadata (name + word_count) from sessionStorage
-    //    cache (populated by vocab-learning.html) OR fetch on-the-fly.
-    // 3. Compute lesson count via:
-    //      lessonCount = clamp(5, 15, ceil(word_count / 220))
-    //    Worked examples: food-drink (709) → 5, body-health (2013) →
-    //    10, science-tech (2613) → 12, sport-action (5448) → 15.
+    // 2. Pull the group + its children from sessionStorage cache
+    //    (populated by vocab-learning.html) OR fetch on-the-fly.
+    // 3. buildLessons() flattens the children into ≤50-word chunks.
     // 4. Render the lesson rows + the overall-progress ring.
     //
     // Status badge replaces the old checkmark with a letter grade
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpra0zto';
+    import { getLocale } from '/js/i18n.js?v=mprae51b';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
 
-    function lessonCount (words) {
-      return Math.max(5, Math.min(15, Math.ceil(words / 220)));
-    }
+    const WORDS_PER_LESSON = 50;
 
     function formatNum (n, locale) {
       return locale === 'fa' ? n.toLocaleString('fa-IR') : n.toLocaleString('en-US');
@@ -205,6 +216,36 @@
       return groups.find(function (g) { return g.slug === slug; }) || groups[0];
     }
 
+    // ----------------------------------------------------------------
+    // buildLessons(group) — flatten the openjam sub-category tree into
+    // a sequential list of ≤50-word lesson objects. Each lesson holds:
+    //   { idx, parentSlug, chunk, totalChunks, name_fa, name_en, word_count }
+    // ----------------------------------------------------------------
+    function buildLessons (group) {
+      const lessons = [];
+      const children = group.children || [];
+      let globalIdx = 1;
+      children.forEach(function (child) {
+        const total = Math.max(1, Math.ceil(child.word_count / WORDS_PER_LESSON));
+        for (let i = 1; i <= total; i++) {
+          const isLast = i === total;
+          const remaining = child.word_count - WORDS_PER_LESSON * (i - 1);
+          const chunkSize = isLast ? remaining : WORDS_PER_LESSON;
+          const hasChunks = total > 1;
+          lessons.push({
+            idx: globalIdx++,
+            parentSlug: child.slug,
+            chunk: i,
+            totalChunks: total,
+            name_fa: hasChunks ? (child.name_fa + ' ' + formatNum(i, 'fa')) : child.name_fa,
+            name_en: hasChunks ? (child.name_en + ' ' + i) : child.name_en,
+            word_count: Math.max(1, chunkSize),
+          });
+        }
+      });
+      return lessons;
+    }
+
     // SVG snippets reused per row status
     const LOCK_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
     function activeRingSvg (pct) {
@@ -217,24 +258,30 @@
     }
 
     let currentGroup = null;
+    let currentLessons = [];
 
     function render () {
       if (!currentGroup) return;
       const locale = getLocale();
       const isfa = locale === 'fa';
       const name = isfa ? currentGroup.name_fa : currentGroup.name_en;
-      const total = lessonCount(currentGroup.word_count);
+
+      currentLessons = buildLessons(currentGroup);
+      const total = currentLessons.length;
 
       // --- Category indicator
       const indicator = isfa ? 'واژگان ' + name : name + ' words';
       document.querySelector('[data-cat-label]').textContent = indicator;
 
-      // --- Demo state: 2 lessons done, lesson 3 active at 65%, rest locked
+      // --- Demo state: first 2 lessons done, lesson 3 active at 65%,
+      // rest follow the free / locked split.
       const doneCount = Math.min(2, total);
       const activeIdx = doneCount < total ? doneCount + 1 : 0; // 0 = no active row
       const activePct = 65;
       const partialProgress = activeIdx ? activePct / 100 : 0;
-      const overallPct = Math.round(((doneCount + partialProgress) / total) * 100);
+      const overallPct = total > 0
+        ? Math.round(((doneCount + partialProgress) / total) * 100)
+        : 0;
 
       document.querySelector('[data-overall-pct]').textContent = overallPct + '%';
       document.querySelector('[data-overall-ring]').setAttribute(
@@ -253,14 +300,11 @@
 
       // --- Render lessons.
       // Free tier (per architecture_freemium_strategy.md Wall 4):
-      //   Lessons 1-3 are fully unlocked (open modal → Add to Leitner,
-      //   review words, all study modes work).
-      //   Lesson 4+ are <button>s with the lock glyph PLUS a tiny gold
-      //   chip in the corner — tapping shows the lesson paywall popup.
+      //   Lessons 1-3 are fully unlocked. Lessons 4+ fire the paywall.
       const FREE_LESSONS = 3;
       const rows = [];
-      for (let i = 1; i <= total; i++) {
-        const numLabel = formatNum(i, locale);
+      currentLessons.forEach(function (ls, idx) {
+        const i = idx + 1;
         let status, grade = '', statusInner;
         let openTag, closeTag, extraAttrs = '', extraInner = '';
         if (i <= doneCount) {
@@ -277,49 +321,51 @@
           extraAttrs = ' type="button" data-open-lesson="' + i + '"';
           closeTag = 'button';
         } else if (i <= FREE_LESSONS) {
-          // Free but not yet started — clickable to open the modal
-          // and add words to Leitner / review.
           status = 'free';
           statusInner = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
           openTag = 'button';
           extraAttrs = ' type="button" data-open-lesson="' + i + '"';
           closeTag = 'button';
         } else {
-          // Premium-walled. Tapping fires the lesson paywall popup.
           status = 'locked';
           statusInner = LOCK_SVG;
           openTag = 'button';
           extraAttrs = ' type="button" data-locked-lesson="' + i + '"';
           closeTag = 'button';
-          // Tiny golden chip on the row to hint at the premium gate.
           extraInner = '<span class="lesson-row__premium-chip" aria-hidden="true">' +
             '<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>' +
           '</span>';
         }
         const gradeAttr = grade ? ' data-grade="' + grade + '"' : '';
-        const lessonName = isfa ? ('درس ' + numLabel) : ('Lesson ' + i);
+        // The leading "num" cell now shows the LESSON'S WORD COUNT —
+        // the product owner explicitly asked for the count on each row
+        // ("با عدد"). Names come straight from openjam (name_fa over
+        // name_en, with the chunk suffix when split).
+        const wcLabel = formatNum(ls.word_count, locale);
+        const primaryName = isfa ? ls.name_fa : ls.name_en;
+        const secondaryName = isfa ? ls.name_en : ls.name_fa;
         rows.push(
           '<' + openTag + ' class="lesson-row" data-status="' + status + '"' + gradeAttr + extraAttrs + '>' +
-            '<span class="lesson-row__num">' + numLabel + '</span>' +
+            '<span class="lesson-row__num">' + wcLabel + '</span>' +
             '<div class="lesson-row__title">' +
-              '<div class="lesson-row__name">' + lessonName + '</div>' +
-              '<div class="lesson-row__sub">Lesson ' + i + '</div>' +
+              '<div class="lesson-row__name">' + primaryName + '</div>' +
+              '<div class="lesson-row__sub">' + secondaryName + '</div>' +
             '</div>' +
             extraInner +
             '<span class="lesson-row__status">' + statusInner + '</span>' +
           '</' + closeTag + '>'
         );
-      }
+      });
       document.querySelector('[data-lesson-list]').innerHTML = rows.join('');
 
-      // Free lessons → open the modal with their lesson number.
+      // Free / done / active rows → open the modal.
       document.querySelectorAll('[data-open-lesson]').forEach(function (btn) {
         btn.addEventListener('click', function () {
           openLessonModal(parseInt(btn.dataset.openLesson, 10));
         });
       });
 
-      // Premium-walled lessons → paywall popup.
+      // Premium-walled rows → paywall popup.
       document.querySelectorAll('[data-locked-lesson]').forEach(function (btn) {
         btn.addEventListener('click', function () {
           // TODO(flutter): FirebaseAnalytics.logEvent('add_to_leitner_click_blocked',
@@ -341,28 +387,15 @@
     }
 
     // ----------------------------------------------------------------
-    // Persian ordinal labels for lessons (1..15). Past 15 we fall
-    // back to the suffix-style "{n}م" (e.g. "۱۶م").
-    // ----------------------------------------------------------------
-    const PERSIAN_ORDINALS = [
-      '', 'اول', 'دوم', 'سوم', 'چهارم', 'پنجم',
-      'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم',
-      'یازدهم', 'دوازدهم', 'سیزدهم', 'چهاردهم', 'پانزدهم'
-    ];
-    function personianOrdinal (n) {
-      return PERSIAN_ORDINALS[n] || (formatNum(n, 'fa') + 'م');
-    }
-
-    // ----------------------------------------------------------------
-    // openLessonModal(n) — populates the action sheet for lesson `n`
-    // and shows it. Same modal markup is reused for every lesson.
+    // openLessonModal(n) — populates the action sheet for lesson n
+    // (1-based global index in currentLessons) and shows it.
     // ----------------------------------------------------------------
     function openLessonModal (n) {
       if (!currentGroup) return;
+      const lesson = currentLessons[n - 1];
+      if (!lesson) return;
       const locale = getLocale();
       const isfa = locale === 'fa';
-      const total = lessonCount(currentGroup.word_count);
-      const wordsPerLesson = Math.ceil(currentGroup.word_count / total);
 
       const titleEl = document.querySelector('[data-modal-title]');
       const latinEl = document.querySelector('[data-modal-latin]');
@@ -372,23 +405,27 @@
       const quizLink = document.querySelector('[data-quiz-link]');
       const addBtn = document.querySelector('[data-add-to-leitner]');
 
-      // Title: Persian ordinal in fa, Latin in en.
-      if (titleEl) titleEl.textContent = isfa ? ('درس ' + personianOrdinal(n)) : ('Lesson ' + n);
-      // Latin sub-line: always "Lesson N", hidden in en mode (would
-      // duplicate the title).
+      // Title: Persian sub-cat name (with chunk suffix if split) in fa,
+      // English name in en. The whole title now matches the row itself,
+      // so the user always knows exactly which sub-category they're on.
+      if (titleEl) titleEl.textContent = isfa ? lesson.name_fa : lesson.name_en;
+      // Sub-line A: the OTHER language name (so both stay visible).
       if (latinEl) {
-        latinEl.textContent = 'Lesson ' + n;
-        latinEl.style.display = isfa ? '' : 'none';
+        latinEl.textContent = isfa ? lesson.name_en : lesson.name_fa;
+        latinEl.style.display = '';
       }
-      // Word count line.
+      // Sub-line B: word count for this lesson.
       if (countEl) {
         countEl.textContent = isfa
-          ? ('تعداد کلمات: ' + formatNum(wordsPerLesson, 'fa'))
-          : (wordsPerLesson + ' words');
+          ? ('تعداد کلمات: ' + formatNum(lesson.word_count, 'fa'))
+          : (lesson.word_count + ' words');
       }
-      // Three method links — all carry group + lesson context so the
-      // destination page knows which lesson was picked.
-      const qs = '?group=' + encodeURIComponent(slug) + '&lesson=' + n;
+      // Three method links carry group + sub + chunk + lesson context.
+      // `lesson=N` kept for backward compat with the old query format.
+      const qs = '?group=' + encodeURIComponent(slug) +
+                 '&sub=' + encodeURIComponent(lesson.parentSlug) +
+                 '&chunk=' + lesson.chunk +
+                 '&lesson=' + n;
       if (reviewLink) reviewLink.href = '/screens/lesson-words.html' + qs;
       if (flashLink) flashLink.href = '/screens/leitner.html' + qs + '&mode=flashcard';
       if (quizLink) quizLink.href = '/screens/leitner.html' + qs + '&mode=quiz';
@@ -401,26 +438,30 @@
     }
 
     // ----------------------------------------------------------------
-    // "افزودن به لایتنر" — when tapped, all words from that lesson
-    // are queued in the user's Leitner box 1. In the design preview
-    // we just flash a success popup; Flutter wires this to:
+    // "افزودن به لایتنر" — Flutter wires this to:
     //   INSERT INTO leitner_cards (user_id, word_id, box, due_at, ...)
-    //   SELECT :uid, id, 1, now(), ... FROM openjam_words
-    //   WHERE category_id = :cat AND lesson_idx = :lesson
+    //   SELECT :uid, w.id, 1, now(), ...
+    //     FROM openjam_words w
+    //     JOIN openjam_subcats c ON c.id = w.subcat_id
+    //    WHERE c.slug = :sub
+    //   ORDER BY w.rank
+    //   OFFSET (:chunk - 1) * 50
+    //    LIMIT 50
     //   ON CONFLICT DO NOTHING;
     // ----------------------------------------------------------------
     document.addEventListener('click', function (e) {
       const btn = e.target.closest('[data-add-to-leitner]');
       if (!btn) return;
       if (!currentGroup) return;
-      const locale = getLocale();
-      const total = lessonCount(currentGroup.word_count);
-      const wordsPerLesson = Math.ceil(currentGroup.word_count / total);
       const n = parseInt(btn.dataset.lessonNum || '1', 10);
+      const lesson = currentLessons[n - 1];
+      if (!lesson) return;
+      const locale = getLocale();
+      const lessonLabel = locale === 'fa' ? lesson.name_fa : lesson.name_en;
       const msg = locale === 'fa'
-        ? (formatNum(wordsPerLesson, 'fa') + ' لغت از درس ' + formatNum(n, 'fa') + ' به لایتنر اضافه شد')
-        : (wordsPerLesson + ' words from Lesson ' + n + ' added to Leitner');
-      // Close the modal first so the popup doesn't fight with the scrim.
+        ? (formatNum(lesson.word_count, 'fa') + ' لغت از «' + lessonLabel + '» به لایتنر اضافه شد')
+        : (lesson.word_count + ' words from "' + lessonLabel + '" added to Leitner');
+      // Close the modal before the popup fires.
       document.getElementById('state-picker').value = 'lessons';
       document.querySelectorAll('.state').forEach(function (s) {
         s.hidden = s.dataset.state !== 'lessons';

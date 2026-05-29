@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/base.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/components.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpra0zto" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpra0zto" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/base.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/components.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprae51b" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprae51b" />
 </head>
 <body>
   <div class="preview-controls">
@@ -161,33 +161,24 @@
           </div>
 
           <!-- ============================================================
-               Stats footer — LOCKED design v2 2026-05-29. The earlier
-               horizontal 3-col version was clipping every label
-               ("Daily ...", "هدف ر..."). The product owner asked for
-               a much bigger card where every detail is readable.
+               Stats footer — LOCKED design v3 2026-05-29 matching the
+               product owner's reference pixel-for-pixel: HORIZONTAL 3-col
+               strip on a soft lavender card.
 
-               Layout is now a VERTICAL stack of three full-width rows:
-                 Row 1 → 📈 Total words learned   2,840
-                 Row 2 → ⚡ Today                 24  +12%
-                 Row 3 → 🏆 Daily goal            40 واژه
-               Each row has 52×52 lead icon + label + big 28px value.
+               Reading order (in fa/RTL, right → left):
+                 [ هدف · 40 واژه · 🏆 ] | [ امروز · 24 +12% ] | [ chart · مجموع · 2,840 ]
 
-               Numbers are LIVE reads, NOT literals. Flutter contract:
-                 data-stat="total-learned" → COUNT(leitner_cards
-                                              WHERE graduated = true)
-                                              per architecture_stats_definitions.md
+               Labels wrap to 2 lines if the column is too narrow (no
+               truncation). Flutter contract for the live reads:
+                 data-stat="total-learned" → COUNT(graduated leitner_cards)
                  data-stat="today-words"   → COUNT graduated TODAY
-                                              (newly mastered today)
-                 data-stat="today-delta"   → pct change vs 7-day avg
-                                              ("+12%" / "-4%"); hide
-                                              when sample size < 3 days
-                 data-stat="daily-goal"    → users.leitner_daily_limit,
-                                              the EXACT number the user
-                                              set in Profile → تنظیمات
-                                              لایتنر. NEVER hardcode.
+                 data-stat="today-delta"   → pct vs 7-day avg
+                 data-stat="daily-goal"    → users.leitner_daily_limit
+                                             (EXACT value from
+                                             Profile → تنظیمات لایتنر)
                ============================================================ -->
           <div class="vlearn-footer">
-            <!-- Row 1 — total ever learned (chart-up icon) -->
+            <!-- LEFT end (RTL: third in flow) — total ever learned + chart icon -->
             <div class="vlearn-stat">
               <span class="vlearn-stat__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -201,14 +192,8 @@
               </div>
             </div>
 
-            <!-- Row 2 — today's newly learned + delta vs 7-day avg
-                 (lightning bolt icon for "today's burst") -->
-            <div class="vlearn-stat">
-              <span class="vlearn-stat__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M13 2L4.5 13.5h6L9 22l8.5-11.5h-6L13 2z"/>
-                </svg>
-              </span>
+            <!-- MIDDLE — today's newly learned + delta vs 7-day avg -->
+            <div class="vlearn-stat vlearn-stat--center">
               <div class="vlearn-stat__body">
                 <div class="vlearn-stat__label" data-i18n="v3.vocabLearning.footer.todayLabel"></div>
                 <div class="vlearn-stat__value">
@@ -218,11 +203,9 @@
               </div>
             </div>
 
-            <!-- Row 3 — daily goal from users.leitner_daily_limit.
-                 The 3D golden trophy Lottie is the row's lead icon
-                 (no white tile, the trophy stands on its own). -->
-            <div class="vlearn-stat">
-              <div class="lottie-stage vlearn-stat__icon vlearn-stat__icon--trophy" data-lottie="vocab-footer-trophy" aria-hidden="true"></div>
+            <!-- RIGHT end (RTL: first in flow) — daily goal + big 3D
+                 golden trophy that pops out toward the card edge. -->
+            <div class="vlearn-stat vlearn-stat--goal">
               <div class="vlearn-stat__body">
                 <div class="vlearn-stat__label" data-i18n="v3.vocabLearning.footer.dailyGoal"></div>
                 <div class="vlearn-stat__value">
@@ -230,6 +213,7 @@
                   <span class="vlearn-stat__unit" data-i18n="v3.vocabLearning.footer.wordsUnit"></span>
                 </div>
               </div>
+              <div class="lottie-stage vlearn-stat__trophy" data-lottie="vocab-footer-trophy" aria-hidden="true"></div>
             </div>
           </div>
         </div>
@@ -237,7 +221,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpra0zto"></script>
+  <script type="module" src="/js/screen-shell.js?v=mprae51b"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -250,7 +234,7 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpra0zto';
+    import { getLocale } from '/js/i18n.js?v=mprae51b';
 
     // Per-group glyph + soft tint. 12 distinct colour-coded tiles so
     // each main group is visually distinguishable at a glance.
