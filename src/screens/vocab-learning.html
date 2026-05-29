@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mprdtupa" />
-  <link rel="stylesheet" href="/css/base.css?v=mprdtupa" />
-  <link rel="stylesheet" href="/css/components.css?v=mprdtupa" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mprdtupa" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mprdtupa" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mprdtupa" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mprdtupa" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mprdtupa" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/base.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/components.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpreg55f" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpreg55f" />
 </head>
 <body>
   <div class="preview-controls">
@@ -116,49 +116,18 @@
             </button>
           </div>
 
-          <!-- 3. واژگان روزمره (Daily Life — synthetic section 4) -->
-          <div class="section-h">
-            <div class="section-h__title" data-i18n="v3.vocabLearning.daily.title"></div>
-          </div>
-          <div class="cat-h-scroll" data-synthetic-section="daily">
-            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
-            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
-            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
-            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
-          </div>
-
-          <!-- 4. واژگان حرفه‌ای (Professional — synthetic section 5) -->
-          <div class="section-h">
-            <div class="section-h__title" data-i18n="v3.vocabLearning.professional.title"></div>
-          </div>
-          <div class="cat-h-scroll" data-synthetic-section="professional">
-            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
-            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
-            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
-            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
-          </div>
-
-          <!-- 5. کتاب‌های آموزشی (study books) — horizontal scroll + see-all -->
+          <!-- 3. کتاب‌های آموزشی (study books) — moved 2026-05-29 to
+               sit between CEFR levels and the synthetic sections, per
+               product owner. -->
           <div class="section-h">
             <div class="section-h__title" data-i18n="v3.vocabLearning.studyBooks"></div>
             <a href="/screens/vocab-books-all.html" class="section-h__action" data-i18n="v3.vocabLearning.seeAll"></a>
           </div>
-          <!-- Study books — minimal % badge in the top-trailing corner
-               of each card. Liquid fill removed 2026-05-29 because the
-               cards have brand-tinted backgrounds and a coloured fill
-               on top of a coloured base looked noisy. The number is
-               the only progress signal here.
-               TODO(flutter): same word-ID-intersection formula as the
-               cat-disc and lvl-chip (see architecture_openjam.md
-               § "Word-ID-based progress"):
-                 progress(book) = |book.word_ids ∩ graduated_word_ids|
-                                / |book.word_ids| × 100
-               CRITICAL: the user does NOT have to open the book for
-               this number to advance. If they finished "خانواده" and
-               300 of those word_ids are also in 504, the 504 card
-               shows ~60% automatically. That cross-set propagation
-               is the whole point of the model — do not paper over it
-               with a "you must open the book first" check. -->
+          <!-- Study books — minimal % badge at the bottom-leading corner
+               of each card (book-pct). Mastery comes from the word-ID
+               intersection (architecture_openjam.md § Word-ID-based
+               progress) — books advance even when the user hasn't opened
+               them, because they share word_ids with other containers. -->
           <div class="vocab-book-h-scroll">
             <a href="/screens/category-words.html" class="bookcard bookcard--ielts">
               <div class="bookcard__head">
@@ -194,6 +163,28 @@
             </a>
           </div>
 
+          <!-- 4. واژگان روزمره (Daily Life — synthetic section) -->
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="v3.vocabLearning.daily.title"></div>
+          </div>
+          <div class="cat-h-scroll" data-synthetic-section="daily">
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+          </div>
+
+          <!-- 5. واژگان حرفه‌ای (Professional — synthetic section) -->
+          <div class="section-h">
+            <div class="section-h__title" data-i18n="v3.vocabLearning.professional.title"></div>
+          </div>
+          <div class="cat-h-scroll" data-synthetic-section="professional">
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+            <a class="cat-disc" style="background:var(--jx-input-bg);min-height:96px;"></a>
+          </div>
+
           <!-- Stats footer card retired 2026-05-29 — product owner asked
                to delete it entirely ("کلاً پاک کن کلاً بندازی سطل
                آشغال"). The same numbers (total learned, today, daily
@@ -204,7 +195,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mprdtupa"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpreg55f"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -217,8 +208,8 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mprdtupa';
-    import { VOCAB_SECTIONS } from '/js/vocab-sections.js?v=mprdtupa';
+    import { getLocale } from '/js/i18n.js?v=mpreg55f';
+    import { VOCAB_SECTIONS } from '/js/vocab-sections.js?v=mpreg55f';
 
     // ----------------------------------------------------------------
     // SYNTHETIC SECTIONS (Daily Life · Professional)
