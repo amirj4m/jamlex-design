@@ -2043,13 +2043,15 @@
   margin: 0 !important;
 }
 /* Minimal percent badge — replaces the noisy liquid fill on book
-   cards. Lands in the top-leading corner of the card (the side
-   opposite the lottie), uses the card's own brand colour via
-   currentColor, no chip / pill / background. Just the number. */
+   cards. Moved 2026-05-29 from the top-trailing to the bottom-LEADING
+   corner of the card so it lands at the visually bottom-right in fa
+   (RTL) — the natural reading spot for a progress hint, opposite the
+   lottie at the bottom-trailing corner. Uses the card's own brand
+   colour via currentColor, no chip / pill / background. */
 .bookcard__pct {
   position: absolute;
-  top: var(--sp-3);
-  inset-inline-end: var(--sp-3);
+  bottom: var(--sp-3);
+  inset-inline-start: var(--sp-3);
   font-family: var(--font-family-latin);
   font-size: 13px;
   font-weight: var(--fw-extrabold);

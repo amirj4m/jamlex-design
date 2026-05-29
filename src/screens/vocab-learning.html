@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpraiyu3" />
-  <link rel="stylesheet" href="/css/base.css?v=mpraiyu3" />
-  <link rel="stylesheet" href="/css/components.css?v=mpraiyu3" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpraiyu3" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpraiyu3" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpraiyu3" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpraiyu3" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpraiyu3" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/base.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/components.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpraooly" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpraooly" />
 </head>
 <body>
   <div class="preview-controls">
@@ -172,68 +172,17 @@
             </a>
           </div>
 
-          <!-- ============================================================
-               Stats footer — LOCKED design v3 2026-05-29 matching the
-               product owner's reference pixel-for-pixel: HORIZONTAL 3-col
-               strip on a soft lavender card.
-
-               Reading order (in fa/RTL, right → left):
-                 [ هدف · 40 واژه · 🏆 ] | [ امروز · 24 +12% ] | [ chart · مجموع · 2,840 ]
-
-               Labels wrap to 2 lines if the column is too narrow (no
-               truncation). Flutter contract for the live reads:
-                 data-stat="total-learned" → COUNT(graduated leitner_cards)
-                 data-stat="today-words"   → COUNT graduated TODAY
-                 data-stat="today-delta"   → pct vs 7-day avg
-                 data-stat="daily-goal"    → users.leitner_daily_limit
-                                             (EXACT value from
-                                             Profile → تنظیمات لایتنر)
-               ============================================================ -->
-          <div class="vlearn-footer">
-            <!-- LEFT end (RTL: third in flow) — total ever learned + chart icon -->
-            <div class="vlearn-stat">
-              <span class="vlearn-stat__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 3v18h18"/>
-                  <path d="M7 14l3-4 4 3 6-7"/>
-                </svg>
-              </span>
-              <div class="vlearn-stat__body">
-                <div class="vlearn-stat__label" data-i18n="v3.vocabLearning.footer.totalLabel"></div>
-                <div class="vlearn-stat__value" data-stat="total-learned">2,840</div>
-              </div>
-            </div>
-
-            <!-- MIDDLE — today's newly learned + delta vs 7-day avg -->
-            <div class="vlearn-stat vlearn-stat--center">
-              <div class="vlearn-stat__body">
-                <div class="vlearn-stat__label" data-i18n="v3.vocabLearning.footer.todayLabel"></div>
-                <div class="vlearn-stat__value">
-                  <span data-stat="today-words">24</span>
-                  <span class="vlearn-stat__delta" data-stat="today-delta">+12%</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- RIGHT end (RTL: first in flow) — daily goal + big 3D
-                 golden trophy that pops out toward the card edge. -->
-            <div class="vlearn-stat vlearn-stat--goal">
-              <div class="vlearn-stat__body">
-                <div class="vlearn-stat__label" data-i18n="v3.vocabLearning.footer.dailyGoal"></div>
-                <div class="vlearn-stat__value">
-                  <span data-stat="daily-goal">40</span>
-                  <span class="vlearn-stat__unit" data-i18n="v3.vocabLearning.footer.wordsUnit"></span>
-                </div>
-              </div>
-              <div class="lottie-stage vlearn-stat__trophy" data-lottie="vocab-footer-trophy" aria-hidden="true"></div>
-            </div>
-          </div>
+          <!-- Stats footer card retired 2026-05-29 — product owner asked
+               to delete it entirely ("کلاً پاک کن کلاً بندازی سطل
+               آشغال"). The same numbers (total learned, today, daily
+               goal) live on the Stats screen now. Do not re-introduce
+               the card here unless explicitly asked. -->
         </div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpraiyu3"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpraooly"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -246,7 +195,7 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpraiyu3';
+    import { getLocale } from '/js/i18n.js?v=mpraooly';
 
     // Per-group glyph + soft tint. 12 distinct colour-coded tiles so
     // each main group is visually distinguishable at a glance.
