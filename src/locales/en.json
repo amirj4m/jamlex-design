@@ -699,6 +699,7 @@
       "footer": {
         "dailyGoal": "Daily goal",
         "dailyGoalValue": "40 words",
+        "wordsUnit": "words",
         "todayLabel": "Today",
         "todayValue": "24",
         "todayDelta": "+12%",

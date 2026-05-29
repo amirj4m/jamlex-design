@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr8xla8" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr8xla8" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr8xla8" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr8xla8" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr8xla8" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr8xla8" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr8xla8" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr8xla8" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr96g30" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr96g30" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr96g30" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr96g30" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr96g30" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr96g30" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr96g30" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr96g30" />
 </head>
 <body>
   <div class="preview-controls">
@@ -153,29 +153,76 @@
             </a>
           </div>
 
+          <!-- ============================================================
+               Stats footer — LOCKED design 2026-05-29 to match the
+               reference: soft-lavender card with three horizontal stats.
+                 [ total learned ] | [ today ] | [ daily goal · 🏆 ]
+               Layout reads identically in fa (RTL) and en (LTR) thanks
+               to flex order — the trophy + goal block lands on the
+               trailing edge in either direction.
+
+               Numbers are LIVE reads, NOT literals — the digits below
+               are skeleton placeholders only. Flutter must populate:
+                 data-stat="total-learned" → COUNT(leitner_cards
+                                              WHERE graduated = true)
+                                              i.e. words the learner
+                                              actually mastered, per
+                                              architecture_stats_definitions.md
+                 data-stat="today-words"   → COUNT graduated TODAY
+                                              (newly mastered today)
+                 data-stat="today-delta"   → pct change vs 7-day avg
+                                              ("+12%" / "-4%"); hide
+                                              when sample size < 3 days
+                 data-stat="daily-goal"    → users.leitner_daily_limit,
+                                              the EXACT number the user
+                                              set in Profile → تنظیمات
+                                              لایتنر. NEVER hardcode.
+               ============================================================ -->
           <div class="vlearn-footer">
-            <div style="flex:1;">
-              <div class="vlearn-footer__row">
-                <span data-i18n="v3.vocabLearning.footer.dailyGoal"></span>
-                <span class="vlearn-footer__value" data-i18n="v3.vocabLearning.footer.dailyGoalValue"></span>
-              </div>
-              <div class="vlearn-footer__row">
-                <span data-i18n="v3.vocabLearning.footer.todayLabel"></span>
-                <span class="vlearn-footer__value">24 <span style="color:#9CFFC5;font-size:11px;">+12%</span></span>
-              </div>
-              <div class="vlearn-footer__row">
-                <span data-i18n="v3.vocabLearning.footer.totalLabel"></span>
-                <span class="vlearn-footer__value">2,840</span>
+            <!-- LEFT end (RTL: third in reading order) — total ever learned -->
+            <div class="vlearn-stat">
+              <span class="vlearn-stat__icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3v18h18"/>
+                  <path d="M7 14l3-4 4 3 6-7"/>
+                </svg>
+              </span>
+              <div class="vlearn-stat__body">
+                <div class="vlearn-stat__label" data-i18n="v3.vocabLearning.footer.totalLabel"></div>
+                <div class="vlearn-stat__value" data-stat="total-learned">2,840</div>
               </div>
             </div>
-            <div class="lottie-stage lottie-stage--sm vlearn-footer__icon" data-lottie="vocab-footer-trophy"></div>
+
+            <!-- MIDDLE — today's newly learned + delta vs 7-day avg -->
+            <div class="vlearn-stat vlearn-stat--center">
+              <div class="vlearn-stat__body">
+                <div class="vlearn-stat__label" data-i18n="v3.vocabLearning.footer.todayLabel"></div>
+                <div class="vlearn-stat__value">
+                  <span data-stat="today-words">24</span>
+                  <span class="vlearn-stat__delta" data-stat="today-delta">+12%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT end (RTL: first in reading order) — daily goal
+                 sourced from users.leitner_daily_limit, plus trophy.    -->
+            <div class="vlearn-stat vlearn-stat--goal">
+              <div class="vlearn-stat__body">
+                <div class="vlearn-stat__label" data-i18n="v3.vocabLearning.footer.dailyGoal"></div>
+                <div class="vlearn-stat__value">
+                  <span data-stat="daily-goal">40</span>
+                  <span class="vlearn-stat__unit" data-i18n="v3.vocabLearning.footer.wordsUnit"></span>
+                </div>
+              </div>
+              <div class="lottie-stage lottie-stage--sm vlearn-stat__trophy" data-lottie="vocab-footer-trophy" aria-hidden="true"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpr8xla8"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr96g30"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // openjam categories — live fetch of the 12 main groups.
@@ -188,7 +235,7 @@
     // TODO(flutter): replace the fetch with the hybrid local-DB read
     // from openjam/INTEGRATION.md (one-time download → SQLite cache).
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpr8xla8';
+    import { getLocale } from '/js/i18n.js?v=mpr96g30';
 
     // Per-group glyph + soft tint. 12 distinct colour-coded tiles so
     // each main group is visually distinguishable at a glance.

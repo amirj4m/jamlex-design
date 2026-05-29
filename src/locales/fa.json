@@ -699,6 +699,7 @@
       "footer": {
         "dailyGoal": "هدف روزانه",
         "dailyGoalValue": "۴۰ واژه",
+        "wordsUnit": "واژه",
         "todayLabel": "واژه‌های امروز",
         "todayValue": "۲۴",
         "todayDelta": "+12%",

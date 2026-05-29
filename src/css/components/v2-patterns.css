@@ -319,30 +319,83 @@
   box-shadow: 0 1px 4px rgba(245,185,69,0.45);
 }
 
-/* ── Vocab learning footer purple summary card ──────────────────────── */
+/* ── Vocab learning footer — soft lavender stats card ────────────────
+   LOCKED design 2026-05-29. Replaces the old deep-purple gradient card.
+   Three horizontal stats: total learned (with bar-chart icon) · today
+   (with delta chip) · daily goal (with trophy). Labels stay readable
+   in fa even at 10.5px because the column widths are equal.            */
 .vlearn-footer {
-  background: linear-gradient(135deg, #8B7EE0, #6C5CE7);
-  color: #fff;
+  background: #ECE7FE;
+  color: #2E2A4A;
   border-radius: 20px;
-  padding: var(--sp-4);
+  padding: 14px 12px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 6px;
   margin-top: var(--sp-5);
-  box-shadow: 0 8px 22px rgba(108, 92, 231, 0.30);
+  box-shadow: 0 4px 14px rgba(108, 92, 231, 0.10);
 }
-.vlearn-footer__col { flex: 1; min-width: 0; }
-.vlearn-footer__row {
+.vlearn-stat {
+  flex: 1;
+  min-width: 0;
   display: flex;
-  justify-content: space-between;
-  gap: var(--sp-2);
-  margin-bottom: 6px;
-  font-size: var(--fs-body-s);
-  opacity: 0.92;
+  align-items: center;
+  gap: 8px;
 }
-.vlearn-footer__row:last-child { margin-bottom: 0; }
-.vlearn-footer__value { font-weight: var(--fw-extrabold); font-family: var(--font-family-latin); }
-.vlearn-footer__icon { flex: none; width: 76px; height: 76px; }
+.vlearn-stat--center { justify-content: center; }
+.vlearn-stat--goal   { justify-content: flex-end; }
+
+.vlearn-stat__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #fff;
+  color: #6C5CE7;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-shadow: 0 1px 3px rgba(108, 92, 231, 0.18);
+}
+.vlearn-stat__body { min-width: 0; }
+.vlearn-stat__label {
+  font-size: 10.5px;
+  color: rgba(74, 67, 115, 0.70);
+  margin-bottom: 3px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vlearn-stat__value {
+  font-family: var(--font-family-latin);
+  font-weight: var(--fw-extrabold);
+  font-size: 18px;
+  color: #2E2A4A;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  line-height: 1;
+}
+.vlearn-stat__unit {
+  font-family: var(--font-family-fa);
+  font-size: 12px;
+  font-weight: var(--fw-medium);
+  color: rgba(74, 67, 115, 0.75);
+}
+.vlearn-stat__delta {
+  font-family: var(--font-family-latin);
+  font-size: 10.5px;
+  font-weight: var(--fw-bold);
+  color: #1FAB57;
+}
+.vlearn-stat__trophy {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  margin-inline-start: 2px;
+  filter: drop-shadow(0 3px 6px rgba(245, 185, 69, 0.35));
+}
 
 /* ── Top-3 podium (Leaderboard) ──────────────────────────────────────── */
 .podium-3 {
