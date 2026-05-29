@@ -2831,6 +2831,65 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  /* progress-fill needs the tile as the clipping/positioning context */
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Liquid progress fill — LOCKED design 2026-05-29.
+   Rises from the bottom of the tile to a height proportional to the
+   user's mastery of that category. Tinted with the category's own
+   --progress-color so each tile is self-identifying.
+
+   Flutter contract: read data-progress (0-100) from the tile, which is
+   computed as:
+     progress = COUNT(words in category WHERE graduated_from_leitner=true)
+              / COUNT(words in category)
+              * 100
+   The product owner explicitly asked: NO NUMBER on the tile, the colour
+   alone communicates progress. Do not add a label later. */
+.cat-disc::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--progress, 0%);
+  background: linear-gradient(
+    to top,
+    var(--progress-color, transparent) 0%,
+    color-mix(in srgb, var(--progress-color, transparent) 35%, transparent) 70%,
+    transparent 100%
+  );
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+  transform-origin: bottom;
+  animation: catDiscFill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* Faint accent line at the water-line for tiles with >0 progress so
+   the fill edge reads cleanly against the white card background. */
+.cat-disc[data-progress]:not([data-progress="0"])::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--progress, 0%);
+  height: 1.5px;
+  background: var(--progress-color, transparent);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+  transform-origin: bottom;
+  animation: catDiscFill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* Children must layer above the fill or the icon disappears. */
+.cat-disc > * { position: relative; z-index: 1; }
+@keyframes catDiscFill {
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cat-disc::before,
+  .cat-disc::after { animation: none; }
 }
 .cat-disc__icon {
   width: 48px; height: 48px;

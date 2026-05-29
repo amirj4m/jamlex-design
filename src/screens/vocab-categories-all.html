@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpr96g30" />
-  <link rel="stylesheet" href="/css/base.css?v=mpr96g30" />
-  <link rel="stylesheet" href="/css/components.css?v=mpr96g30" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr96g30" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpr96g30" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpr96g30" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr96g30" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr96g30" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr9ff2g" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr9ff2g" />
 </head>
 <body>
   <div class="preview-controls">
@@ -52,9 +52,9 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpr96g30"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr9ff2g"></script>
   <script type="module">
-    import { getLocale } from '/js/i18n.js?v=mpr96g30';
+    import { getLocale } from '/js/i18n.js?v=mpr9ff2g';
 
     const ICONS = {
       'food-drink':         '🍔',
@@ -85,6 +85,27 @@
       'time-learning':      { bg: '#E0F2F1', fg: '#00695C' },
     };
 
+    // KEEP IN SYNC with the same map in vocab-learning.html — the
+    // horizontal carousel on that page and this 3-col grid both show
+    // the same mastery percentages. TODO(flutter): swap for a real read:
+    //   progress = COUNT(words in group WHERE graduated_from_leitner=true)
+    //            / COUNT(words in group) * 100
+    // No number on the tile per product owner — colour fill only.
+    const MOCK_PROGRESS = {
+      'food-drink':         28,
+      'people-family':      62,
+      'body-health':        45,
+      'nature-animals':     91,
+      'home-objects':       18,
+      'places-travel':      73,
+      'work-money':         52,
+      'society-culture':    8,
+      'science-tech':       36,
+      'sport-action':       80,
+      'feelings-qualities': 14,
+      'time-learning':      55,
+    };
+
     function formatCount (n, locale) {
       return locale === 'fa' ? n.toLocaleString('fa-IR') : n.toLocaleString('en-US');
     }
@@ -99,7 +120,10 @@
         const icon = ICONS[g.slug] || '📖';
         const name = locale === 'fa' ? g.name_fa : g.name_en;
         const count = formatCount(g.word_count, locale);
-        return '<a href="/screens/category-words.html?group=' + encodeURIComponent(g.slug) + '" class="cat-disc">' +
+        const progress = MOCK_PROGRESS[g.slug] || 0;
+        const fillStyle = '--progress:' + progress + '%;--progress-color:' + tint.fg + ';';
+        return '<a href="/screens/category-words.html?group=' + encodeURIComponent(g.slug) + '"' +
+          ' class="cat-disc" data-progress="' + progress + '" style="' + fillStyle + '">' +
           '<span class="cat-disc__icon" style="background:' + tint.bg + ';color:' + tint.fg + ';">' + icon + '</span>' +
           '<span class="cat-disc__name">' + name + '</span>' +
           '<span class="cat-disc__count">' + count + ' ' + wordLabel + '</span>' +
