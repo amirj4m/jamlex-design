@@ -4218,33 +4218,51 @@
 .username-check[data-status="ok"]      { color: var(--jx-success); }
 .username-check[data-status="invalid"] { color: var(--jx-danger); }
 
-/* Prefix-style input field — used by the @username editor */
+/* Prefix-style input field — used by the @username editor. Overrides
+   the base .field (which is flex-direction: column) and the base
+   .field__input (which is a self-contained pill with its own bg and
+   border-radius). Both base styles fought this wrapper and made the
+   input render as a nested pill with the prefix floating above. */
 .field--prefix {
   display: flex;
+  flex-direction: row;
   align-items: stretch;
+  gap: 4px;
   background: var(--jx-input-bg);
-  border-radius: var(--rd-3);
-  padding: 0 var(--sp-3);
+  border-radius: var(--rd-pill);
+  padding: 0 var(--sp-4);
   border: 1.5px solid transparent;
-  transition: border-color var(--motion-fast);
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast);
+  min-height: 54px;
 }
-.field--prefix:focus-within { border-color: var(--jx-primary); }
+.field--prefix:focus-within {
+  border-color: var(--jx-primary);
+  box-shadow: 0 0 0 3px var(--jx-primary-glow);
+}
 .field--prefix .field__prefix {
   display: inline-flex;
   align-items: center;
   color: var(--jx-text-3);
   font-weight: var(--fw-extrabold);
-  padding-inline-end: 4px;
-  font-size: var(--fs-body-m);
+  font-size: var(--fs-body-l);
 }
-.field--prefix .field__input {
-  border: 0;
-  background: transparent;
+/* Strip the base .field__input pill — inside .field--prefix the
+   outer wrapper IS the pill, so the input is just a flat text node. */
+.field--prefix .field__input,
+.field--prefix .field__input:focus {
   flex: 1;
+  width: auto;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  min-height: 0;
   padding: 12px 0;
-  font-size: var(--fs-body-m);
+  font-size: var(--fs-body-l);
+  font-weight: var(--fw-medium);
   color: var(--jx-text);
   outline: none;
+  box-shadow: none;
 }
 
 /* Taller picker card for the account sub-page (more rows) */
