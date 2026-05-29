@@ -807,6 +807,11 @@
     "bookReader": {
       "chapterProgress": "Chapter 1 · 42%",
       "ofChapters": "{pct}% of {total} chapters",
+      "pager": {
+        "label": "Page",
+        "of": "of",
+        "back": "Back"
+      },
       "lookup": {
         "viewFull": "View full",
         "addToLeitner": "Add to Leitner",
@@ -906,6 +911,9 @@
       "achPremiumHint": "Premium account",
       "achFirstStep": "First step",
       "achFirstStepHint": "First app interaction",
+      "advancedAnalysis": "Advanced analysis",
+      "advancedAnalysisSub": "Weaknesses, frequent slips, forgetting curve",
+      "premiumBadge": "PREMIUM",
       "tabMine": "My progress",
       "tabLeague": "Global League"
     },
@@ -1067,6 +1075,21 @@
       }
     },
     "paywall": {
+      "book": {
+        "title": "Don't lose the thread!",
+        "body": "Unlock full access to thousands of novels, business books, and personal-growth titles — plus unlimited smart tap-to-translate. Go Premium.",
+        "cta": "Upgrade to Premium"
+      },
+      "stats": {
+        "title": "Advanced report — Premium",
+        "body": "Detailed forgetting-curve charts and the list of words you've missed most often — Premium members only.",
+        "cta": "Upgrade to Premium"
+      },
+      "league": {
+        "title": "Premium badge",
+        "body": "Premium members get the gold badge, 2× weekend XP boost, and seasonal leagues.",
+        "cta": "Upgrade to Premium"
+      },
       "headline": "Go {brand} Premium",
       "sub": "Unlimited learning, anywhere, anytime",
       "feat": {

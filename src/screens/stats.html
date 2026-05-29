@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/base.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/components.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr0nh1d" />
 </head>
 <body>
   <div class="preview-controls">
@@ -158,6 +158,37 @@
               </div>
             </div>
 
+            <!-- Wall 2 — Premium advanced analysis card. Free users see
+                 the teaser; tap opens the paywall popup. Streak / heatmap
+                 / level / words-learned tile all stay FREE — this is the
+                 only premium-gated card on the Stats screen. See
+                 architecture_freemium_strategy.md §Wall 2. -->
+            <button class="stats-card stats-card--premium" type="button" data-stats-premium-trigger>
+              <div class="stats-card__head">
+                <span class="stats-card__title">
+                  <svg viewBox="0 0 24 24" fill="#F5B945"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+                  <span data-i18n="v3.stats.advancedAnalysis"></span>
+                </span>
+                <span class="premium-chip">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+                  <span data-i18n="v3.stats.premiumBadge"></span>
+                </span>
+              </div>
+              <div class="stats-premium__sub" data-i18n="v3.stats.advancedAnalysisSub"></div>
+              <!-- A faked teaser strip — forgetting-curve sparkline + locked overlay -->
+              <div class="stats-premium__teaser">
+                <svg viewBox="0 0 200 50" preserveAspectRatio="none" style="width:100%;height:50px;">
+                  <path d="M0,40 Q40,5 80,15 T160,35 T200,30" fill="none" stroke="var(--jx-primary)" stroke-width="2" opacity="0.8"/>
+                  <circle cx="60" cy="11" r="3" fill="var(--jx-primary)"/>
+                  <circle cx="120" cy="28" r="3" fill="#F5B945"/>
+                  <circle cx="180" cy="32" r="3" fill="var(--jx-danger)"/>
+                </svg>
+                <div class="stats-premium__lock">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                </div>
+              </div>
+            </button>
+
             <!-- This week mini-card -->
             <div class="stats-card">
               <div class="stats-card__head">
@@ -247,25 +278,33 @@
                  CSS — the renderer just passes 3 user objects. Each pod
                  needs: avatar initial, username, level, total_xp. -->
             <div class="podium-3" data-lb-podium>
-              <!-- 2nd -->
-              <div class="pod pod--2" data-lb-pod="2">
+              <!-- 2nd — premium user (golden tag) -->
+              <div class="pod pod--2" data-lb-pod="2" data-premium="true">
                 <span class="pod__rank">2</span>
                 <div class="pod__crown">👑</div>
                 <div class="pod__avatar"><span data-lb-pod-avatar>P</span></div>
                 <div class="pod__name" data-lb-pod-name>Parsa_1378</div>
+                <button class="premium-badge" type="button" data-premium-badge aria-label="premium info">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+                  <span data-i18n="v3.stats.premiumBadge"></span>
+                </button>
                 <span class="pod__level-chip" data-lb-pod-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":26}'></span>
                 <div class="pod__xp" data-lb-pod-xp>11,230 XP</div>
               </div>
-              <!-- 1st (center, taller) -->
-              <div class="pod pod--1" data-lb-pod="1">
+              <!-- 1st (center, taller) — premium user -->
+              <div class="pod pod--1" data-lb-pod="1" data-premium="true">
                 <span class="pod__rank">1</span>
                 <div class="pod__crown">👑</div>
                 <div class="pod__avatar"><span data-lb-pod-avatar>A</span></div>
                 <div class="pod__name" data-lb-pod-name>Ali.reza</div>
+                <button class="premium-badge" type="button" data-premium-badge aria-label="premium info">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+                  <span data-i18n="v3.stats.premiumBadge"></span>
+                </button>
                 <span class="pod__level-chip" data-lb-pod-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":28}'></span>
                 <div class="pod__xp" data-lb-pod-xp>12,560 XP</div>
               </div>
-              <!-- 3rd -->
+              <!-- 3rd — free user (no badge) -->
               <div class="pod pod--3" data-lb-pod="3">
                 <span class="pod__rank">3</span>
                 <div class="pod__crown">👑</div>
@@ -287,10 +326,13 @@
                  render time — do NOT keep any of these placeholder names
                  (Tester, Ali.reza, ...) in the live build. -->
             <div class="lb-list" data-lb-list>
-              <div class="lb-row" data-lb-row data-lb-rank="4">
+              <div class="lb-row" data-lb-row data-lb-rank="4" data-premium="true">
                 <span class="lb-row__num" data-lb-row-num>4</span>
                 <span class="lb-row__avatar"><span data-lb-row-avatar>A</span></span>
                 <span class="lb-row__name" data-lb-row-name>Armin_s</span>
+                <button class="premium-badge premium-badge--xs" type="button" data-premium-badge aria-label="premium info">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+                </button>
                 <span class="pod__level-chip" data-lb-row-level data-i18n="v3.leaderboard.level" data-i18n-vars='{"n":25}'></span>
                 <span class="lb-row__xp" data-lb-row-xp>9,850 XP</span>
               </div>
@@ -343,7 +385,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpqzydy4"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr0nh1d"></script>
   <script>
     (function () {
       // -------- Tab toggle (instant, no page reload) --------
@@ -412,6 +454,52 @@
         }
         grid.innerHTML = cells.join('');
       }
+
+      // -------- Wall 2 — advanced analysis card paywall --------
+      // Tap the "تحلیل پیشرفته" card → shows the paywall popup with
+      // the locked copy from architecture_freemium_strategy.md §Wall 2.
+      // Logged as `premium_stats_clicked`.
+      const premiumTrigger = document.querySelector('[data-stats-premium-trigger]');
+      if (premiumTrigger) {
+        premiumTrigger.addEventListener('click', function () {
+          // TODO(flutter): FirebaseAnalytics.logEvent('premium_stats_clicked',
+          //   { card: 'advanced_analysis', session_streak_days, session_total_xp });
+          if (window.console) console.log('[analytics] premium_stats_clicked');
+          if (window.showPopup) {
+            window.showPopup({
+              type: 'info',
+              titleKey: 'v3.paywall.stats.title',
+              messageKey: 'v3.paywall.stats.body',
+              confirmKey: 'v3.paywall.stats.cta',
+              autoDismiss: 0,
+            }).then(function (ok) {
+              if (ok !== false) location.href = '/screens/paywall.html';
+            });
+          }
+        });
+      }
+
+      // -------- Wall 3 — League PREMIUM badge tap --------
+      // Tapping a golden PREMIUM badge in a league row opens the info
+      // popup; logged as `league_premium_tag_clicked`.
+      document.addEventListener('click', function (e) {
+        const tag = e.target.closest('[data-premium-badge]');
+        if (!tag) return;
+        // TODO(flutter): FirebaseAnalytics.logEvent('league_premium_tag_clicked',
+        //   { tapped_user_rank, viewer_rank });
+        if (window.console) console.log('[analytics] league_premium_tag_clicked');
+        if (window.showPopup) {
+          window.showPopup({
+            type: 'info',
+            titleKey: 'v3.paywall.league.title',
+            messageKey: 'v3.paywall.league.body',
+            confirmKey: 'v3.paywall.league.cta',
+            autoDismiss: 0,
+          }).then(function (ok) {
+            if (ok !== false) location.href = '/screens/paywall.html';
+          });
+        }
+      });
     })();
   </script>
 </body>

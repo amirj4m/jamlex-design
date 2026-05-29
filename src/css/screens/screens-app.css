@@ -2136,6 +2136,211 @@
   margin-top: 6px;
   padding-inline-start: 50px;  /* aligns under the main text, past the audio button */
 }
+
+/* ============================================================================
+   Book reader pager + Wall 1 paywall — see architecture_freemium_strategy.md
+   ============================================================================ */
+.rdr-pager {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4) calc(var(--sp-3) + env(safe-area-inset-bottom, 0));
+  background: var(--jx-bg);
+  border-top: 1px solid var(--jx-divider);
+  z-index: var(--z-nav, 10);
+}
+.rdr-pager__btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--jx-input-bg);
+  color: var(--jx-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--motion-fast), transform var(--motion-fast);
+}
+.rdr-pager__btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.rdr-pager__btn:not(:disabled):hover { background: var(--jx-primary-glow); color: var(--jx-primary); }
+.rdr-pager__btn:not(:disabled):active { transform: scale(0.94); }
+.rdr-pager__btn--primary {
+  background: var(--jx-primary);
+  color: #fff;
+}
+.rdr-pager__btn--primary:not(:disabled):hover { background: var(--jx-primary-dark); color: #fff; }
+[dir="rtl"] .rdr-pager__btn--primary svg,
+[dir="rtl"] .rdr-pager__btn svg { transform: scaleX(-1); }
+.rdr-pager__text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  font-weight: var(--fw-semibold);
+}
+
+/* Page-3 read body fades after the wall is triggered */
+.reader-body--blurred {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 200ms var(--ease-out);
+}
+
+/* Paywall overlay — sits over the entire reader screen with a frosted
+   backdrop and the conversion popup centered on it. */
+.rdr-paywall {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-5);
+  z-index: 100;
+  animation: fadeIn 180ms var(--ease-out);
+}
+[data-theme="dark"] .rdr-paywall { background: rgba(20,28,42,0.55); }
+[data-rdr-theme="dark"] .rdr-paywall { background: rgba(20,28,42,0.55); }
+[data-rdr-theme="sepia"] .rdr-paywall { background: rgba(244,236,220,0.55); }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.rdr-paywall__card {
+  background: var(--jx-bg);
+  border-radius: 22px;
+  padding: var(--sp-5);
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+  animation: pop 220ms var(--ease-out);
+}
+@keyframes pop {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.rdr-paywall__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(78,205,196,0.18), rgba(0,180,166,0.20));
+  color: var(--jx-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--sp-3);
+}
+.rdr-paywall__title {
+  font-size: var(--fs-title);
+  font-weight: var(--fw-extrabold);
+  line-height: var(--lh-tight);
+  margin-bottom: var(--sp-2);
+}
+.rdr-paywall__body {
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  line-height: var(--lh-relaxed);
+}
+
+/* ============================================================================
+   Premium badge — surfaces on the league podium / list rows next to
+   premium users' names. Golden gradient + lightning glyph. Tappable
+   chip that pops the league paywall info. See
+   architecture_freemium_strategy.md §Wall 3.
+   ============================================================================ */
+.premium-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--rd-pill);
+  border: 0;
+  background: linear-gradient(135deg, #FFD15C, #F5B945 60%, #B27A12);
+  color: #4A2E00;
+  font-family: var(--font-family-latin);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(245,185,69,0.40);
+  white-space: nowrap;
+}
+.premium-badge:hover { transform: translateY(-1px); }
+.premium-badge--xs {
+  padding: 2px 5px;
+  font-size: 9px;
+  gap: 2px;
+}
+[data-premium="true"] .pod__name {
+  background: linear-gradient(135deg, #FFD15C, #B27A12);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  /* Fallback for non-Webkit if the clip doesn't apply */
+}
+
+/* Stats — Wall 2 "Advanced analysis" premium card */
+.stats-card--premium {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(245,185,69,0.10), rgba(0,180,166,0.12));
+  border: 1px solid rgba(245,185,69,0.30);
+  cursor: pointer;
+  text-align: start;
+  font-family: inherit;
+  margin-bottom: var(--sp-4);
+  transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+}
+.stats-card--premium:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(245,185,69,0.18); }
+.stats-card--premium:active { transform: scale(0.99); }
+.premium-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--rd-pill);
+  background: linear-gradient(135deg, #FFD15C, #F5B945);
+  color: #4A2E00;
+  font-family: var(--font-family-latin);
+  font-weight: 800;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+}
+.stats-premium__sub {
+  font-size: var(--fs-body-s);
+  color: var(--jx-text-2);
+  line-height: var(--lh-relaxed);
+  margin-top: 4px;
+}
+.stats-premium__teaser {
+  position: relative;
+  margin-top: var(--sp-3);
+  padding: var(--sp-2);
+  background: var(--jx-bg);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.stats-premium__teaser svg { filter: blur(2.5px); opacity: 0.85; }
+.stats-premium__lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.18);
+  color: var(--jx-primary);
+}
+[data-theme="dark"] .stats-premium__lock { background: rgba(20,28,42,0.30); }
 .cat-row {
   display: flex;
   align-items: center;

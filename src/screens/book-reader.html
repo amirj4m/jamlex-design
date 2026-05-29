@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/base.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/components.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpqzydy4" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpqzydy4" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/base.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/components.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpr0nh1d" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpr0nh1d" />
 </head>
 <body data-library-screen="book-reader">
   <div class="preview-controls">
@@ -26,6 +26,7 @@
     ">
       <option value="reading">Reading</option>
       <option value="lookup">Word lookup sheet</option>
+      <option value="paywall">Paywall — page 4 reached</option>
     </select>
   </div>
   <a href="/screens/book-detail.html" class="hub-ribbon">‹ Book</a>
@@ -61,8 +62,10 @@
           </button>
         </div>
 
-        <!-- Reading body — English content, dir="ltr" regardless of app dir. -->
-        <div class="reader-body" dir="ltr">
+        <!-- Reading body — English content, dir="ltr" regardless of app dir.
+             The blur effect on this body is the visual cue that page 4
+             is locked. Triggered by adding .reader-body--blurred. -->
+        <div class="reader-body" dir="ltr" data-reader-body>
           <h2 class="reader-body__h2">Chapter 1</h2>
           <p>It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.</p>
           <p>However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters.</p>
@@ -72,6 +75,43 @@
             document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'lookup';});
           ">impatiently</mark>.</p>
           <p>"You want to tell me, and I have no objection to hearing it."</p>
+        </div>
+
+        <!-- Page pager — sticky at the bottom of the reader. Shows the
+             current page and a Next button. After page 3, Next triggers
+             the paywall (Wall 1 per architecture_freemium_strategy.md). -->
+        <div class="rdr-pager" data-rdr-pager>
+          <button type="button" class="rdr-pager__btn" data-rdr-prev aria-label="prev page" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="rdr-pager__text">
+            <span data-i18n="v3.bookReader.pager.label"></span>
+            <span class="font-latin" data-rdr-page>1</span>
+            <span data-i18n="v3.bookReader.pager.of"></span>
+            <span class="font-latin">245</span>
+          </div>
+          <button type="button" class="rdr-pager__btn rdr-pager__btn--primary" data-rdr-next aria-label="next page">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <!-- Wall 1 paywall — page 4 reached. Sits over the reader body
+             with a blur backdrop. Tapping the CTA goes to /paywall.html. -->
+        <div class="state" data-state="paywall" hidden>
+          <div class="rdr-paywall">
+            <div class="rdr-paywall__card">
+              <div class="rdr-paywall__icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              </div>
+              <h2 class="rdr-paywall__title" data-i18n="v3.paywall.book.title"></h2>
+              <p class="rdr-paywall__body" data-i18n="v3.paywall.book.body"></p>
+              <a href="/screens/paywall.html" class="btn btn--filled btn--block btn--lg" style="margin-top:var(--sp-3);background:linear-gradient(135deg,#4ECDC4,#00B4A6);" data-analytics-event="book_page_limit_reached_cta">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l4 12h12l4-12-6 4-4-8-4 8z"/></svg>
+                <span data-i18n="v3.paywall.book.cta"></span>
+              </a>
+              <button type="button" class="btn btn--ghost btn--block" style="margin-top:var(--sp-2);" data-paywall-close data-i18n="v3.bookReader.pager.back"></button>
+            </div>
+          </div>
         </div>
 
         <!-- Word lookup bottom sheet (overlay over the whole reader) -->
@@ -139,7 +179,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpqzydy4"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpr0nh1d"></script>
   <script>
     // Cycle font size: sm → md → lg → sm…
     // Cycle reader theme: light → sepia → dark → light…
@@ -160,6 +200,65 @@
         if (btn.dataset.rdrAction === 'size')  cycle('rdrSize', SIZES);
         if (btn.dataset.rdrAction === 'theme') cycle('rdrTheme', THEMES);
       });
+    })();
+
+    // ----------------------------------------------------------------
+    // Wall 1 — book reader page paywall.
+    // Free users may read pages 1..3 of Chapter 1. Tapping Next on
+    // page 3 (i.e. attempting to load page 4) triggers the paywall.
+    // Logged to Firebase as `book_page_limit_reached`.
+    // See architecture_freemium_strategy.md §Wall 1.
+    // ----------------------------------------------------------------
+    (function () {
+      const FREE_LIMIT = 3;
+      const TOTAL_PAGES = 245;
+      let page = 1;
+
+      const pageEl = document.querySelector('[data-rdr-page]');
+      const prevBtn = document.querySelector('[data-rdr-prev]');
+      const nextBtn = document.querySelector('[data-rdr-next]');
+      const bodyEl = document.querySelector('[data-reader-body]');
+
+      function setPage (n) {
+        page = Math.max(1, Math.min(TOTAL_PAGES, n));
+        if (pageEl) pageEl.textContent = String(page);
+        if (prevBtn) prevBtn.disabled = page === 1;
+        if (nextBtn) nextBtn.disabled = false;
+      }
+
+      function showPaywall () {
+        document.getElementById('state-picker').value = 'paywall';
+        document.querySelectorAll('.state').forEach(function (s) {
+          s.hidden = s.dataset.state !== 'paywall';
+        });
+        if (bodyEl) bodyEl.classList.add('reader-body--blurred');
+        // TODO(flutter): FirebaseAnalytics.logEvent
+        //   name: 'book_page_limit_reached',
+        //   parameters: { book_id, book_title, pages_read: 3, reached_via: 'next_button' }
+        if (window.console) console.log('[analytics] book_page_limit_reached');
+      }
+
+      function hidePaywall () {
+        document.querySelectorAll('.state').forEach(function (s) { s.hidden = true; });
+        document.getElementById('state-picker').value = 'reading';
+        if (bodyEl) bodyEl.classList.remove('reader-body--blurred');
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', function () {
+        if (page >= FREE_LIMIT) {
+          showPaywall();
+          return;
+        }
+        setPage(page + 1);
+      });
+      if (prevBtn) prevBtn.addEventListener('click', function () {
+        setPage(page - 1);
+      });
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('[data-paywall-close]')) hidePaywall();
+      });
+
+      setPage(1);
     })();
   </script>
 </body>
