@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/base.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/components.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpspl9k8" />
 </head>
 <body>
   <div class="preview-controls">
@@ -159,7 +159,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsnw8yf"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpspl9k8"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — per-category lesson list.
@@ -190,11 +190,11 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpsnw8yf';
+    import { getLocale } from '/js/i18n.js?v=mpspl9k8';
     import { OPENJAM_LESSON_NAMES, findVocabCategoryBySlug,
              BOOK_META, BOOK_SLUGS, humanizeBookGroupName,
              LEVEL_META, isLevelSlug, extractLevelFromSlug }
-      from '/js/vocab-sections.js?v=mpsnw8yf';
+      from '/js/vocab-sections.js?v=mpspl9k8';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
@@ -727,7 +727,17 @@
              '&chunk=' + lesson.chunk +
              '&lesson=' + n;
       }
-      if (reviewLink) reviewLink.href = '/screens/lesson-words.html' + qs;
+      // Header context for lesson-words.html (so it can show
+      // "<category> · <lesson name>" at the top). Use distinct
+      // param names (`cat`, `lessonName`) so they don't collide with
+      // the openjam path's existing `lesson=<n>` numeric param.
+      const catLabelForLink = isfa
+        ? (currentGroup.name_fa || '')
+        : (currentGroup.name_en || '');
+      const lessonLabelForLink = isfa ? lesson.name_fa : lesson.name_en;
+      const ctx = '&cat=' + encodeURIComponent(catLabelForLink) +
+                  '&lessonName=' + encodeURIComponent(lessonLabelForLink);
+      if (reviewLink) reviewLink.href = '/screens/lesson-words.html' + qs + ctx;
       if (flashLink) flashLink.href = '/screens/leitner.html' + qs + '&mode=flashcard';
       if (quizLink) quizLink.href = '/screens/leitner.html' + qs + '&mode=quiz';
       if (addBtn) addBtn.dataset.lessonNum = String(n);

@@ -8,14 +8,182 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsnw8yf" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/base.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/components.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpspl9k8" />
+  <style>
+    /* lesson-words.html — single-word review page (LOCKED 2026-05-30).
+       Hero (teal) shows the word; white card below shows senses +
+       examples + synonyms/antonyms. "بلد هستم" advances to next. */
+    .lw-topbar {
+      display: flex; align-items: center; gap: var(--sp-2);
+      padding: var(--sp-3) var(--sp-4);
+      background: var(--jx-bg);
+    }
+    .lw-topbar__title {
+      flex: 1; text-align: center;
+      font-size: var(--fs-body-s); font-weight: var(--fw-bold);
+      color: var(--jx-text-2);
+    }
+    .lw-topbar__title span:nth-child(2) { opacity: 0.4; margin: 0 4px; }
+
+    .lw-hero {
+      background: linear-gradient(160deg, #34BFB1 0%, #1F9389 100%);
+      padding: var(--sp-4) var(--sp-5) var(--sp-5);
+      color: #fff;
+      position: relative;
+      border-radius: 0 0 28px 28px;
+    }
+    .lw-hero__progress {
+      display: flex; align-items: center; gap: var(--sp-2);
+      margin-bottom: var(--sp-5);
+    }
+    .lw-progress__cap {
+      width: 32px; height: 28px; border-radius: 14px;
+      background: #fff; color: #1F9389;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
+      font-size: 13px; flex: none;
+    }
+    .lw-progress__track {
+      flex: 1; height: 6px; background: rgba(255,255,255,0.30);
+      border-radius: 4px; position: relative; overflow: visible;
+    }
+    .lw-progress__fill {
+      position: absolute; inset: 0 auto 0 0;
+      height: 6px; border-radius: 4px; background: #fff;
+      width: 0%;
+      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .lw-progress__bubble {
+      position: absolute; top: -24px; right: 0;
+      transform: translateX(50%);
+      background: rgba(255,255,255,0.92); color: #1F9389;
+      font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
+      font-size: 11px; padding: 2px 8px; border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .lw-word {
+      text-align: center; font-family: var(--font-family-latin);
+      font-size: 56px; font-weight: var(--fw-extrabold);
+      line-height: 1; letter-spacing: -1px; direction: ltr;
+    }
+    .lw-ipa {
+      text-align: center; font-family: var(--font-family-latin);
+      font-size: 17px; opacity: 0.92; margin-top: var(--sp-2); direction: ltr;
+    }
+    .lw-pos {
+      text-align: center; font-size: 14px; margin-top: 2px; opacity: 0.95;
+    }
+    .lw-hero__audio {
+      position: absolute;
+      bottom: -22px; inset-inline-start: var(--sp-5);
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #fff; color: #1F9389; border: 0;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 2;
+    }
+    .lw-hero__audio:active { transform: scale(0.95); }
+    .lw-hero__audio svg { width: 26px; height: 26px; }
+
+    .lw-actions {
+      margin: var(--sp-5) var(--sp-4) var(--sp-4);
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5);
+    }
+    .lw-action {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 0; background: transparent; border: 0;
+      color: var(--jx-text); font-size: 13px;
+      font-weight: var(--fw-medium); cursor: pointer;
+    }
+    .lw-action__icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 2px solid var(--jx-primary); color: var(--jx-primary);
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--jx-bg); transition: transform 0.15s ease;
+    }
+    .lw-action:active .lw-action__icon { transform: scale(0.92); }
+    .lw-action__icon svg { width: 22px; height: 22px; }
+    .lw-action[data-done="true"] .lw-action__icon {
+      background: var(--jx-primary); color: #fff;
+    }
+
+    .lw-senses { padding: 0 var(--sp-4); }
+    .lw-sense + .lw-sense {
+      margin-top: var(--sp-5); padding-top: var(--sp-5);
+      border-top: 1px solid var(--jx-divider);
+    }
+    .lw-sense__head {
+      display: flex; align-items: baseline; gap: 6px;
+      color: var(--jx-primary); font-weight: var(--fw-bold);
+      font-size: 16px; margin-bottom: var(--sp-3);
+    }
+    .lw-sense__num { font-family: var(--font-family-latin); }
+    .lw-example { margin-top: var(--sp-3); }
+    .lw-example + .lw-example {
+      margin-top: var(--sp-3); padding-top: var(--sp-3);
+      border-top: 1px dashed var(--jx-divider);
+    }
+    .lw-example__row { display: flex; align-items: center; gap: 8px; }
+    .lw-example__en {
+      font-family: var(--font-family-latin); font-weight: var(--fw-bold);
+      direction: ltr; font-size: 15px; flex: 1;
+    }
+    .lw-example__audio {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--jx-primary-glow); color: var(--jx-primary);
+      border: 0; display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; flex: none;
+    }
+    .lw-example__audio:active { transform: scale(0.92); }
+    .lw-example__audio svg { width: 14px; height: 14px; }
+    .lw-example__fa { font-size: 13px; color: var(--jx-text-2); margin-top: 4px; }
+
+    .lw-synant {
+      margin: var(--sp-5) var(--sp-4) var(--sp-5);
+      background: var(--jx-input-bg); border-radius: 16px;
+      padding: var(--sp-3) var(--sp-4);
+      display: grid; grid-template-columns: auto 1fr;
+      gap: var(--sp-2) var(--sp-3); align-items: center;
+    }
+    .lw-synant__label { font-size: 13px; color: var(--jx-text-2); white-space: nowrap; }
+    .lw-synant__chips {
+      display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-start;
+    }
+    .lw-chip {
+      font-family: var(--font-family-latin); direction: ltr;
+      font-size: 12px; font-weight: var(--fw-bold);
+      padding: 6px 14px; border-radius: 999px;
+      background: var(--jx-primary); color: #fff;
+      text-decoration: none; cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .lw-chip--ant {
+      background: var(--jx-bg); color: var(--jx-primary);
+      border: 1.5px solid var(--jx-primary);
+    }
+    .lw-chip:active { transform: scale(0.95); }
+    .lw-chip:hover { text-decoration: none; }
+    .lw-empty-syn {
+      grid-column: 1 / -1; font-size: 12px;
+      color: var(--jx-text-3); text-align: center; padding: var(--sp-2) 0;
+    }
+
+    .lw-finish {
+      margin: var(--sp-5) var(--sp-4);
+      background: var(--jx-input-bg); border-radius: 18px;
+      padding: var(--sp-5); text-align: center;
+    }
+    .lw-finish__title { font-weight: var(--fw-bold); font-size: 17px; margin-bottom: var(--sp-2); }
+    .lw-finish__sub { font-size: 13px; color: var(--jx-text-2); margin-bottom: var(--sp-4); }
+  </style>
 </head>
 <body>
   <div class="preview-controls">
@@ -27,224 +195,367 @@
   <div class="shell">
     <div class="phone">
       <div class="screen">
-        <header class="topbar">
-          <div class="topbar__leading">
-            <a href="/screens/category-words.html" class="btn-icon back-btn" data-back-link aria-label="Back"></a>
+        <header class="lw-topbar">
+          <a href="/screens/category-words.html" class="btn-icon back-btn" data-back-link aria-label="Back"></a>
+          <div class="lw-topbar__title">
+            <span data-cat-name>…</span>
+            <span>·</span>
+            <span data-lesson-name>…</span>
           </div>
-          <h1 class="topbar__title" data-lesson-title>…</h1>
-          <div></div>
+          <div style="width:36px;"></div>
         </header>
 
-        <div class="screen__body">
-          <!-- Header card: shows lesson chip + word count + category name -->
-          <div class="lesson-words-head">
-            <div class="lesson-words-head__chip" data-lesson-chip>درس 1</div>
-            <div class="lesson-words-head__sub">
-              <span data-lesson-count>—</span>
-              <span style="opacity:0.4;">·</span>
-              <span data-lesson-cat>…</span>
+        <div class="screen__body" style="padding:0;">
+          <section class="lw-hero">
+            <div class="lw-hero__progress">
+              <span class="lw-progress__cap" data-progress-current>۱</span>
+              <div class="lw-progress__track">
+                <div class="lw-progress__fill" data-progress-fill>
+                  <span class="lw-progress__bubble" data-progress-pct>0%</span>
+                </div>
+              </div>
+              <span class="lw-progress__cap" data-progress-total>—</span>
             </div>
+
+            <div class="lw-word" data-word-en>…</div>
+            <div class="lw-ipa" data-word-ipa>—</div>
+            <div class="lw-pos" data-word-pos>—</div>
+
+            <button class="lw-hero__audio" data-audio-word aria-label="Play word">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
+            </button>
+          </section>
+
+          <div class="lw-actions">
+            <button type="button" class="lw-action" data-add-mine>
+              <span class="lw-action__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </span>
+              <span>افزودن به واژگان من</span>
+            </button>
+            <button type="button" class="lw-action" data-know-it>
+              <span class="lw-action__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span>بلد هستم</span>
+            </button>
           </div>
 
-          <!-- Add-to-Leitner CTA at top for quick access -->
-          <button class="btn btn--filled btn--block btn--lg" type="button" data-add-to-leitner style="margin-top:var(--sp-3);">
-            <span style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.20);display:inline-flex;align-items:center;justify-content:center;">+</span>
-            <span data-i18n="v3.vocabLearning.modal.addToLeitner"></span>
-          </button>
+          <div class="lw-senses" data-senses></div>
 
-          <!-- Word list rendered by JS -->
-          <div class="word-list" data-word-list style="margin-top:var(--sp-4);">
-            <!-- skeleton -->
-            <div class="word-card" style="height:96px;background:var(--jx-input-bg);"></div>
-            <div class="word-card" style="height:96px;background:var(--jx-input-bg);"></div>
-            <div class="word-card" style="height:96px;background:var(--jx-input-bg);"></div>
+          <div class="lw-synant" data-synant>
+            <span class="lw-empty-syn">—</span>
+          </div>
+
+          <div class="lw-finish" data-finish hidden>
+            <div class="lw-finish__title">🎉 آفرین! درس تموم شد</div>
+            <div class="lw-finish__sub">همه‌ی لغات این درس رو دیدی.</div>
+            <a href="/screens/category-words.html" class="btn btn--filled" data-back-to-lessons>برگشت به لیست درس‌ها</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsnw8yf"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpspl9k8"></script>
   <script type="module">
-    // ----------------------------------------------------------------
-    // lesson-words.html — list every word in a single lesson so the
-    // user can browse / preview before "Add to Leitner".
+    // ================================================================
+    // lesson-words.html — SINGLE-WORD review (LOCKED 2026-05-30)
     //
-    // URL: /screens/lesson-words.html?group=<slug>&lesson=N
+    // URL shapes handled (in priority order):
+    //   ?word=<eng>                                   standalone word view
+    //   ?level=<L>&offset=<n>&limit=50               CEFR lesson
+    //   ?book=<slug>&group=<g>                        504 / IELTS lesson
+    //   ?book=<slug>&group=<g>&offset=<n>&limit=50   TOEFL chunked lesson
+    //   ?book=gre&offset=<n>&limit=50                GRE chunked
+    //   ?group=<g>&sub=<sub>&chunk=<n>                openjam topic lesson
     //
-    // The lesson's words are sliced from the openjam category words
-    // endpoint:
-    //   GET /v1/categories/<sub-slug>/words?lang=fa
-    //
-    // openjam's category endpoint expects a SUB-category slug (food,
-    // not food-drink). We use the first child of the group as the
-    // demo data source; the Flutter app aggregates across children
-    // following the lesson formula in architecture_openjam.md.
-    //
-    // Each row plays audio from
-    //   https://audio.openjam.amirj4m.com/<word>.mp3
-    // on tap (HTML5 Audio).
-    // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpsnw8yf';
+    // ⚠️  THE #1 RULE (per architecture_vocab_sections.md):
+    //   The words shown here MUST match the lesson title. For openjam
+    //   sub-cats this is Flutter's responsibility (cluster→name
+    //   binding). For books and CEFR levels the API guarantees
+    //   alignment.
+    // ================================================================
+    import { getLocale } from '/js/i18n.js?v=mpspl9k8';
 
     const params = new URLSearchParams(location.search);
-    const slug = params.get('group') || 'food-drink';
-    const lesson = Math.max(1, parseInt(params.get('lesson') || '1', 10));
+    const singleWord = params.get('word');
+    const bookSlug   = params.get('book');
+    const groupName  = params.get('group');
+    const subSlug    = params.get('sub');
+    const chunkNum   = parseInt(params.get('chunk') || '0', 10);
+    const levelCode  = params.get('level');
+    const offsetN    = parseInt(params.get('offset') || '0', 10);
+    const limitN     = parseInt(params.get('limit') || '50', 10);
+    const catLabel   = params.get('cat')        || '';
+    const lessonLbl  = params.get('lessonName') || params.get('lesson') || '';
 
-    function formatNum (n, locale) {
-      return locale === 'fa' ? n.toLocaleString('fa-IR') : n.toLocaleString('en-US');
-    }
-    function lessonCount (words) {
-      return Math.max(5, Math.min(15, Math.ceil(words / 220)));
-    }
+    const API = 'https://openjam.amirj4m.com';
 
-    async function getGroup () {
-      let groups = null;
+    // Mock synonyms/antonyms — openjam API doesn't expose them yet.
+    // Click on a chip → ?word=<that-word>.
+    // TODO(flutter): replace with /v1/words/<eng>/related or WordNet.
+    const SYNANT = {
+      'none':    { syn: ['no part', 'not one'],          ant: ['all', 'many', 'some'] },
+      'good':    { syn: ['great', 'fine', 'positive'],   ant: ['bad', 'poor'] },
+      'bad':     { syn: ['poor', 'awful'],               ant: ['good', 'great'] },
+      'big':     { syn: ['large', 'huge', 'massive'],    ant: ['small', 'tiny'] },
+      'small':   { syn: ['little', 'tiny'],              ant: ['big', 'large'] },
+      'fast':    { syn: ['quick', 'rapid', 'speedy'],    ant: ['slow', 'sluggish'] },
+      'slow':    { syn: ['gradual', 'leisurely'],        ant: ['fast', 'quick'] },
+      'happy':   { syn: ['glad', 'joyful', 'cheerful'],  ant: ['sad', 'unhappy'] },
+      'sad':     { syn: ['unhappy', 'sorrowful'],        ant: ['happy', 'glad'] },
+      'easy':    { syn: ['simple', 'effortless'],        ant: ['hard', 'difficult'] },
+      'hard':    { syn: ['difficult', 'tough'],          ant: ['easy', 'simple'] },
+      'rich':    { syn: ['wealthy', 'affluent'],         ant: ['poor', 'needy'] },
+      'poor':    { syn: ['needy', 'destitute'],          ant: ['rich', 'wealthy'] },
+      'old':     { syn: ['aged', 'ancient'],             ant: ['young', 'new'] },
+      'young':   { syn: ['youthful', 'juvenile'],        ant: ['old', 'aged'] },
+      'new':     { syn: ['fresh', 'recent', 'novel'],    ant: ['old', 'used'] },
+      'hot':     { syn: ['warm', 'burning'],             ant: ['cold', 'cool'] },
+      'cold':    { syn: ['chilly', 'frigid'],            ant: ['hot', 'warm'] },
+      'strong':  { syn: ['powerful', 'mighty'],          ant: ['weak', 'feeble'] },
+      'weak':    { syn: ['feeble', 'frail'],             ant: ['strong', 'powerful'] },
+      'reaction':{ syn: ['response', 'reply'],           ant: ['cause', 'stimulus'] },
+      'abandon': { syn: ['desert', 'forsake', 'leave'],  ant: ['keep', 'maintain'] },
+    };
+
+    // Step 1: fetch the lesson's word list (just english strings).
+    async function fetchLessonWords () {
       try {
-        const cached = sessionStorage.getItem('openjam_groups');
-        if (cached) groups = JSON.parse(cached);
-      } catch (e) { /* ignore */ }
-      if (!groups) {
-        const res = await fetch('https://openjam.amirj4m.com/v1/categories/groups');
-        const data = await res.json();
-        groups = data.groups || [];
-        try { sessionStorage.setItem('openjam_groups', JSON.stringify(groups)); } catch (e) { /* ignore */ }
+        if (singleWord) return [{ english: singleWord }];
+        if (levelCode) {
+          const url = API + '/v1/words?level=' + encodeURIComponent(levelCode)
+            + '&limit=' + limitN + '&offset=' + offsetN;
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        if (bookSlug) {
+          let url = API + '/v1/books/' + encodeURIComponent(bookSlug) + '/words?lang=fa';
+          if (groupName) url += '&group=' + encodeURIComponent(groupName);
+          if (params.get('offset')) url += '&offset=' + offsetN;
+          if (params.get('limit'))  url += '&limit='  + limitN;
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        if (subSlug) {
+          const off = Math.max(0, (chunkNum - 1) * 50);
+          const url = API + '/v1/categories/' + encodeURIComponent(subSlug)
+            + '/words?lang=fa&offset=' + off + '&limit=50';
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        // Synthetic categories — no API yet. TODO(flutter).
+        return [];
+      } catch (err) {
+        console.warn('[openjam] lesson words fetch failed', err);
+        return [];
       }
-      return groups.find(function (g) { return g.slug === slug; }) || groups[0];
     }
 
-    // Pick the sub-category to draw words from. For the design preview
-    // we use the first child of the group. Flutter aggregates across
-    // all children per the lesson formula.
-    function pickSubCategory (group, lessonNum, totalLessons) {
-      const kids = group.children || [];
-      if (kids.length === 0) return group.slug;
-      // Distribute lessons across children proportionally to word count.
-      let cum = 0;
-      const total = group.word_count;
-      for (let i = 0; i < kids.length; i++) {
-        cum += kids[i].word_count;
-        const lessonsHere = Math.round((cum / total) * totalLessons);
-        if (lessonNum <= lessonsHere) return kids[i].slug;
+    // Step 2: per-word detail. Cached for the session — clicking a
+    // synonym chip and coming back is instant.
+    const detailCache = new Map();
+    async function fetchWordDetail (english) {
+      if (!english) return null;
+      const key = english.toLowerCase();
+      if (detailCache.has(key)) return detailCache.get(key);
+      try {
+        const r = await fetch(API + '/v1/words/' + encodeURIComponent(english) + '?lang=fa');
+        const d = await r.json();
+        detailCache.set(key, d);
+        return d;
+      } catch (err) {
+        console.warn('[openjam] word detail fetch failed for', english, err);
+        return null;
       }
-      return kids[kids.length - 1].slug;
-    }
-
-    let group = null;
-
-    function level2Color (lvl) {
-      const map = {
-        'A1': { bg: 'rgba(0,180,166,0.16)',     fg: '#1F9389' },
-        'A2': { bg: 'rgba(0,180,166,0.12)',     fg: '#00897B' },
-        'B1': { bg: 'rgba(74,144,217,0.14)',    fg: '#1565C0' },
-        'B2': { bg: 'rgba(255,152,0,0.16)',     fg: '#E65100' },
-        'C1': { bg: 'rgba(244,67,54,0.12)',     fg: '#C62828' },
-        'C2': { bg: 'rgba(108,92,231,0.16)',    fg: '#6C5CE7' },
-      };
-      return map[lvl] || { bg: 'var(--jx-input-bg)', fg: 'var(--jx-text-3)' };
     }
 
     function renderHeader () {
-      const locale = getLocale();
-      const isfa = locale === 'fa';
-      const name = isfa ? (group ? group.name_fa : '') : (group ? group.name_en : '');
-      const total = group ? lessonCount(group.word_count) : 5;
-      const wordsPerLesson = group ? Math.ceil(group.word_count / total) : 0;
-
-      const title = isfa ? ('درس ' + formatNum(lesson, 'fa')) : ('Lesson ' + lesson);
-      document.querySelector('[data-lesson-title]').textContent = title;
-      document.querySelector('[data-lesson-chip]').textContent = title;
-      document.querySelector('[data-lesson-cat]').textContent = name;
-      document.querySelector('[data-lesson-count]').textContent = wordsPerLesson + ' ' + (isfa ? 'لغت' : 'words');
-
-      // back-link carries the group slug so the user returns to the
-      // right category-words page.
-      document.querySelector('[data-back-link]').href = '/screens/category-words.html?group=' + encodeURIComponent(slug);
+      const catEl = document.querySelector('[data-cat-name]');
+      const lesEl = document.querySelector('[data-lesson-name]');
+      if (catEl) catEl.textContent = catLabel || '—';
+      if (lesEl) lesEl.textContent = lessonLbl || '—';
+      const back = document.querySelector('[data-back-link]');
+      if (back) {
+        let href = '/screens/category-words.html';
+        if (bookSlug)        href += '?group=' + encodeURIComponent(bookSlug);
+        else if (levelCode)  href += '?group=level-' + encodeURIComponent(levelCode);
+        else if (subSlug && groupName) href += '?group=' + encodeURIComponent(groupName);
+        back.href = href;
+      }
     }
 
-    function renderWords (words) {
+    // Audio
+    let currentAudio = null;
+    function playAudio (url) {
+      if (!url) return;
+      try {
+        if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+        currentAudio = new Audio(url);
+        currentAudio.play().catch(function () {});
+      } catch (e) { /* ignore */ }
+    }
+
+    // Step 3: render one word.
+    function renderWord (detail, idx, total) {
+      if (!detail) return;
       const locale = getLocale();
       const isfa = locale === 'fa';
-      const container = document.querySelector('[data-word-list]');
-      if (!words || words.length === 0) {
-        container.innerHTML = '<div style="text-align:center;color:var(--jx-text-3);padding:var(--sp-4);font-size:var(--fs-body-s);">' +
-          (isfa ? 'لغتی برای نمایش پیدا نشد.' : 'No words to display.') + '</div>';
-        return;
-      }
-      container.innerHTML = words.map(function (w) {
-        const tr = (w.translations || [])[0] || {};
-        const meaning = tr.meaning || '';
-        const example = tr.example || '';
-        const level = w.level || '';
-        const lvlColor = level2Color(level);
-        const lvlChip = level
-          ? '<span style="display:inline-flex;align-items:center;justify-content:center;padding:2px 8px;border-radius:var(--rd-pill);background:' + lvlColor.bg + ';color:' + lvlColor.fg + ';font-family:var(--font-family-latin);font-weight:800;font-size:11px;">' + level + '</span>'
-          : '';
-        return '<div class="word-card">' +
-          '<div class="word-card__row">' +
-            '<button class="word-card__audio" type="button" data-audio="' + w.english + '" aria-label="play">' +
-              '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg>' +
-            '</button>' +
-            '<div class="word-card__main">' +
-              '<div class="word-card__en">' + w.english + '</div>' +
-              (meaning ? '<div class="word-card__fa">' + meaning + '</div>' : '') +
-            '</div>' +
-            lvlChip +
-          '</div>' +
-          (example ? '<div class="word-card__example">' + example + '</div>' : '') +
-        '</div>';
-      }).join('');
 
-      // Wire up audio buttons — direct stream from audio.openjam.
-      container.querySelectorAll('[data-audio]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          const word = btn.dataset.audio.toLowerCase();
-          try {
-            const audio = new Audio('https://audio.openjam.amirj4m.com/' + encodeURIComponent(word) + '.mp3');
-            audio.play().catch(function () { /* gesture / format may fail — ignore */ });
-          } catch (e) { /* ignore */ }
-        });
+      const pct = total > 0 ? Math.round(((idx + 1) / total) * 100) : 0;
+      const cur = document.querySelector('[data-progress-current]');
+      const tot = document.querySelector('[data-progress-total]');
+      const fill = document.querySelector('[data-progress-fill]');
+      const bub = document.querySelector('[data-progress-pct]');
+      if (cur) cur.textContent = (idx + 1).toLocaleString(isfa ? 'fa-IR' : 'en-US');
+      if (tot) tot.textContent = total.toLocaleString(isfa ? 'fa-IR' : 'en-US');
+      if (fill) fill.style.width = pct + '%';
+      if (bub) bub.textContent = pct + '%';
+
+      const sense0 = (detail.senses && detail.senses[0]) || {};
+      const phon = (detail.phonetics && detail.phonetics[0]) || {};
+      const partOfSpeech = sense0.part_of_speech || '';
+      const POS_FA = {
+        noun: 'اسم', verb: 'فعل', adjective: 'صفت', adverb: 'قید',
+        pronoun: 'ضمیر', preposition: 'حرف اضافه', conjunction: 'حرف ربط',
+        determiner: 'حرف تعریف', interjection: 'حرف ندا', auxiliary: 'فعل کمکی',
+      };
+      document.querySelector('[data-word-en]').textContent = detail.english || '';
+      document.querySelector('[data-word-ipa]').textContent = phon.ipa ? '/' + phon.ipa + '/' : '';
+      document.querySelector('[data-word-pos]').textContent = isfa ? (POS_FA[partOfSpeech] || partOfSpeech) : partOfSpeech;
+
+      const heroAudio = document.querySelector('[data-audio-word]');
+      heroAudio.onclick = function () { playAudio(phon.audio_url); };
+
+      const senseEl = document.querySelector('[data-senses]');
+      const senses = detail.senses || [];
+      senseEl.innerHTML = senses.map(function (s, i) {
+        const tr = (s.translations && s.translations[0]) || {};
+        const meaning = tr.meaning || '';
+        const exEn = s.example_en || '';
+        const exFa = tr.example || '';
+        const wordAudio = phon.audio_url || '';
+        const exampleBlock = exEn
+          ? '<div class="lw-example">' +
+              '<div class="lw-example__row">' +
+                '<div class="lw-example__en">' + exEn + '</div>' +
+                '<button class="lw-example__audio" data-audio-url="' + wordAudio + '" aria-label="Play example">' +
+                  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>' +
+                '</button>' +
+              '</div>' +
+              (exFa ? '<div class="lw-example__fa">' + exFa + '</div>' : '') +
+            '</div>'
+          : '';
+        return '<div class="lw-sense">' +
+          '<div class="lw-sense__head">' +
+            '<span class="lw-sense__num">' + (i + 1) + '.</span>' +
+            '<span>' + meaning + '</span>' +
+          '</div>' +
+          exampleBlock +
+        '</div>';
+      }).join('') || '<div class="lw-sense"><div class="lw-sense__head"><span>—</span></div></div>';
+
+      document.querySelectorAll('.lw-example__audio').forEach(function (btn) {
+        btn.onclick = function () { playAudio(btn.dataset.audioUrl); };
+      });
+
+      const sa = SYNANT[(detail.english || '').toLowerCase()];
+      const synantEl = document.querySelector('[data-synant]');
+      if (sa) {
+        const synChips = (sa.syn || []).map(function (w) {
+          return '<a href="/screens/lesson-words.html?word=' + encodeURIComponent(w) + '" class="lw-chip">' + w + '</a>';
+        }).join('');
+        const antChips = (sa.ant || []).map(function (w) {
+          return '<a href="/screens/lesson-words.html?word=' + encodeURIComponent(w) + '" class="lw-chip lw-chip--ant">' + w + '</a>';
+        }).join('');
+        synantEl.innerHTML =
+          '<span class="lw-synant__label">مترادف:</span>' +
+          '<div class="lw-synant__chips">' + (synChips || '<span class="lw-empty-syn">—</span>') + '</div>' +
+          '<span class="lw-synant__label">متضاد:</span>' +
+          '<div class="lw-synant__chips">' + (antChips || '<span class="lw-empty-syn">—</span>') + '</div>';
+      } else {
+        synantEl.innerHTML = '<span class="lw-empty-syn">مترادف/متضاد در دسترس نیست</span>';
+      }
+
+      document.querySelectorAll('[data-add-mine], [data-know-it]').forEach(function (b) {
+        b.removeAttribute('data-done');
       });
     }
 
-    async function loadWords () {
-      try {
-        group = await getGroup();
-        if (!group) return;
-        renderHeader();
-        const total = lessonCount(group.word_count);
-        const subSlug = pickSubCategory(group, lesson, total);
-        // Sub-category word slice — Flutter does precise offset math;
-        // for the preview we just fetch the first ~40 of the picked
-        // sub-category. The user sees the SHAPE of the data even if
-        // the exact lesson slice isn't perfect.
-        const res = await fetch('https://openjam.amirj4m.com/v1/categories/' + encodeURIComponent(subSlug) + '/words?lang=fa&limit=40');
-        const data = await res.json();
-        renderWords(data.data || []);
-      } catch (e) {
-        console.warn('[lesson-words] failed', e);
-      }
+    // Navigation
+    let words = [];
+    let cursor = 0;
+
+    async function showCursor () {
+      if (cursor >= words.length) { showFinish(); return; }
+      const w = words[cursor];
+      const detail = await fetchWordDetail(w.english);
+      renderWord(detail, cursor, words.length);
     }
+
+    function showFinish () {
+      document.querySelector('[data-senses]').innerHTML = '';
+      document.querySelector('[data-synant]').innerHTML = '';
+      document.querySelector('[data-finish]').hidden = false;
+    }
+
+    async function init () {
+      renderHeader();
+      words = await fetchLessonWords();
+      if (singleWord) {
+        document.querySelector('.lw-hero__progress').style.display = 'none';
+        const detail = await fetchWordDetail(singleWord);
+        renderWord(detail, 0, 1);
+        const knowBtn = document.querySelector('[data-know-it]');
+        if (knowBtn) knowBtn.style.display = 'none';
+        return;
+      }
+      if (!words.length) {
+        document.querySelector('[data-word-en]').textContent = '—';
+        document.querySelector('[data-word-pos]').textContent = 'لغات این درس هنوز در دسترس نیست';
+        return;
+      }
+      cursor = 0;
+      await showCursor();
+    }
+
+    // Action button wiring
+    document.addEventListener('click', function (e) {
+      const addMine = e.target.closest('[data-add-mine]');
+      if (addMine) {
+        if (addMine.dataset.done === 'true') return;
+        addMine.dataset.done = 'true';
+        const w = (singleWord || (words[cursor] && words[cursor].english) || '').trim();
+        const msg = w ? '«' + w + '» به واژگان من اضافه شد' : 'به واژگان من اضافه شد';
+        if (window.popupSuccess) window.popupSuccess(msg);
+        // TODO(flutter): INSERT INTO user_saved_words (user_id, word_id)
+        //   SELECT :uid, w.id FROM openjam_words w
+        //   WHERE w.english = :eng ON CONFLICT DO NOTHING;
+        return;
+      }
+      const knowIt = e.target.closest('[data-know-it]');
+      if (knowIt) {
+        if (knowIt.dataset.done === 'true') return;
+        knowIt.dataset.done = 'true';
+        // TODO(flutter): mark as known so it skips Leitner intro
+        // when later added.
+        cursor++;
+        showCursor();
+        return;
+      }
+    });
 
     document.addEventListener('i18n:changed', function () {
       renderHeader();
+      if (cursor < words.length && words[cursor]) {
+        fetchWordDetail(words[cursor].english).then(function (d) {
+          renderWord(d, cursor, words.length);
+        });
+      }
     });
 
-    loadWords();
-
-    // ----------------------------------------------------------------
-    // Add-to-Leitner CTA — same UX as the modal on category-words.
-    // ----------------------------------------------------------------
-    document.querySelector('[data-add-to-leitner]').addEventListener('click', function () {
-      if (!group) return;
-      const locale = getLocale();
-      const total = lessonCount(group.word_count);
-      const wordsPerLesson = Math.ceil(group.word_count / total);
-      const msg = locale === 'fa'
-        ? (formatNum(wordsPerLesson, 'fa') + ' لغت از درس ' + formatNum(lesson, 'fa') + ' به لایتنر اضافه شد')
-        : (wordsPerLesson + ' words from Lesson ' + lesson + ' added to Leitner');
-      window.popupSuccess(msg);
-    });
+    init();
   </script>
 </body>
 </html>
