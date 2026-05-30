@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/tokens.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/base.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/components.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/chrome.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=1i74m4n9" />
 </head>
 <body>
   <div class="preview-controls">
@@ -94,7 +94,7 @@
              ============================================================ -->
         <div class="state" data-state="limit" hidden>
           <div class="scrim" data-close-state>
-            <div class="picker-card" onclick="event.stopPropagation();">
+            <div class="picker-card">
               <div class="picker-card__handle"></div>
               <h2 class="picker-card__title" data-i18n="v3.profile.limitPicker.title"></h2>
               <p class="picker-card__sub" data-i18n="v3.profile.limitPicker.sub"></p>
@@ -124,7 +124,7 @@
              ============================================================ -->
         <div class="state" data-state="notif" hidden>
           <div class="scrim" data-close-state>
-            <div class="dialog-card" onclick="event.stopPropagation();">
+            <div class="dialog-card">
               <div class="dialog-card__bell">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
               </div>
@@ -191,9 +191,9 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsr9ssf"></script>
+  <script type="module" src="/js/screen-shell.js?v=1i74m4n9"></script>
   <script type="module">
-    import { t, getLocale } from '/js/i18n.js?v=mpsr9ssf';
+    import { t, getLocale } from '/js/i18n.js?v=1i74m4n9';
 
     function showState (s) {
       document.querySelectorAll('.state').forEach(function (el) { el.hidden = el.dataset.state !== s; });

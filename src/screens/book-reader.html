@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsr9ssf" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/tokens.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/base.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/components.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/chrome.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=1i74m4n9" />
 </head>
 <body data-library-screen="book-reader">
   <div class="preview-controls">
@@ -117,10 +117,11 @@
         <!-- Word lookup bottom sheet (overlay over the whole reader) -->
         <div class="state" data-state="lookup" hidden>
           <div class="scrim" onclick="
+            if (event.target !== this) return;
             document.getElementById('state-picker').value='reading';
             document.querySelectorAll('.state').forEach(function(s){s.hidden = s.dataset.state !== 'reading';});
           " style="align-items:flex-end;padding:0;">
-            <div class="lookup-sheet-v4" onclick="event.stopPropagation();">
+            <div class="lookup-sheet-v4">
               <div class="lookup-sheet-v4__grab"></div>
 
               <!-- dir="ltr": the headline word is English content → its POSITION is
@@ -179,15 +180,15 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsr9ssf"></script>
+  <script type="module" src="/js/screen-shell.js?v=1i74m4n9"></script>
 
-  <!-- Wire lookup-sheet action buttons. The parent .lookup-sheet-v4
-       has onclick="event.stopPropagation()" so clicks NEVER bubble
-       to document — both buttons need their listeners attached
-       DIRECTLY. -->
+  <!-- Wire lookup-sheet action buttons. Listeners are attached DIRECTLY
+       to each button (not via document delegation) — the scrim's inline
+       onclick uses `if (event.target !== this) return;` so taps inside
+       the sheet bubble safely without closing it. -->
   <script type="module">
-    import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsr9ssf';
-    import { getLocale } from '/js/i18n.js?v=mpsr9ssf';
+    import { addWordToMyWords } from '/js/my-words-flow.js?v=1i74m4n9';
+    import { getLocale } from '/js/i18n.js?v=1i74m4n9';
 
     function getLookupWord () {
       const wordEl = document.querySelector('.lookup-sheet-v4__word');
