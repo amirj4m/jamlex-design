@@ -726,8 +726,8 @@
         "pickMethod": "Choose study method",
         "review": "Word review",
         "reviewSub": "Review words and meanings",
-        "flashcard": "Flashcards",
-        "flashcardSub": "Practice with flashcards",
+        "reverse": "Reverse translation",
+        "reverseSub": "Practice from Persian to English",
         "quiz": "Quiz",
         "quizSub": "Test your knowledge"
       }

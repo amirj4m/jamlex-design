@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Reverse Translation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css?v=8siqn88t" />
+  <link rel="stylesheet" href="/css/base.css?v=8siqn88t" />
+  <link rel="stylesheet" href="/css/components.css?v=8siqn88t" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=8siqn88t" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=8siqn88t" />
+  <link rel="stylesheet" href="/css/chrome.css?v=8siqn88t" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=8siqn88t" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=8siqn88t" />
+  <style>
+    /* reverse-translation.html — Leitner-style flip cards, but cards
+       don't move between boxes. The top of the card shows 3 bucket
+       counts that grow as the user judges each card.
+
+       LOCKED 2026-05-30. Per product owner:
+         "دقیقاً مثل خود لایتنر نمایش میدی کارت‌ها رو با فرق اینی که
+          کارتی از خونه‌ای به خونه دیگه‌ای جابجا نمی‌شه فقط سه تا
+          گزینه بلدم بلد نیستم تا حدی بلدم".
+
+       The lesson-progress ring on category-words.html is driven by
+       lesson-words.html ONLY (see architecture_vocab_sections.md and
+       feedback_lesson_progress.md). This screen does NOT touch
+       jamlex_lesson_progress. */
+    .lw-topbar {
+      display: flex; align-items: center; gap: var(--sp-2);
+      padding: 10px var(--sp-4);
+      background: var(--jx-bg);
+    }
+    .lw-topbar__title {
+      flex: 1; text-align: center;
+      font-size: 12px; font-weight: var(--fw-bold);
+      color: var(--jx-text-2);
+    }
+    .lw-topbar__title span:nth-child(2) { opacity: 0.4; margin: 0 4px; }
+
+    /* 3 buckets: learned · partial · not-learned. Visually mirror the
+       Leitner .lt-boxes row but each chip is a coloured pill instead
+       of a numbered box. */
+    .rt-buckets {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; padding: 10px var(--sp-4) 0;
+    }
+    .rt-bucket {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 10px 6px 8px; border-radius: 12px;
+      background: var(--jx-input-bg);
+      border: 1.5px solid transparent;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+    .rt-bucket__count {
+      font-family: var(--font-family-latin);
+      font-weight: var(--fw-extrabold); font-size: 18px; line-height: 1;
+    }
+    .rt-bucket__label {
+      margin-top: 4px; font-size: 11px; font-weight: var(--fw-medium);
+      color: var(--jx-text-2); text-align: center;
+    }
+    /* Bucket palettes — match the three mastery buttons one-to-one. */
+    .rt-bucket--know  .rt-bucket__count { color: #1F9389; }
+    .rt-bucket--sort  .rt-bucket__count { color: #C77F00; }
+    .rt-bucket--dont  .rt-bucket__count { color: #D63333; }
+    .rt-bucket[data-pulse="true"] { transform: translateY(-2px); }
+    .rt-bucket--know[data-pulse="true"] { border-color: #1F9389; }
+    .rt-bucket--sort[data-pulse="true"] { border-color: #C77F00; }
+    .rt-bucket--dont[data-pulse="true"] { border-color: #D63333; }
+
+    /* Persian word on the front — bigger, Vazirmatn. English on the
+       back uses the same .lt-card__english typography as Leitner. */
+    .rt-card-persian {
+      font-size: 30px; font-weight: var(--fw-extrabold);
+      direction: rtl; line-height: 1.2; text-align: center;
+      color: var(--jx-text);
+    }
+    .rt-card-en {
+      font-family: var(--font-family-latin); direction: ltr;
+      font-size: 32px; font-weight: var(--fw-extrabold);
+      letter-spacing: -0.5px; line-height: 1.05; text-align: center;
+    }
+    .rt-card-ipa {
+      margin-top: 4px; font-family: var(--font-family-latin);
+      font-size: 13px; opacity: 0.85; direction: ltr; text-align: center;
+    }
+
+    /* Three mastery buttons instead of Leitner's four — keep the
+       worst→best progression LEFT→RIGHT via dir="ltr".
+       Reuses .lt-mbtn--dont / --sort / --know palettes verbatim. */
+    .rt-mastery {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; padding: 0 var(--sp-4) var(--sp-4);
+    }
+
+    /* Finish card — same style as lesson-words.html's .lw-finish. */
+    .rt-finish {
+      margin: var(--sp-4) var(--sp-4);
+      background: var(--jx-input-bg); border-radius: 14px;
+      padding: var(--sp-4); text-align: center;
+    }
+    .rt-finish__title { font-weight: var(--fw-bold); font-size: 14px; margin-bottom: 4px; }
+    .rt-finish__sub { font-size: 11.5px; color: var(--jx-text-2); margin-bottom: var(--sp-3); }
+    .rt-finish__numbers {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; margin-bottom: var(--sp-3);
+    }
+    .rt-finish__num {
+      background: var(--jx-bg); border-radius: 10px; padding: 8px 4px;
+    }
+    .rt-finish__num strong {
+      font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
+      font-size: 18px; display: block;
+    }
+    .rt-finish__num span { font-size: 10px; color: var(--jx-text-3); }
+  </style>
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/screens/vocab-learning.html" class="hub-ribbon">‹ Vocab</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen lt-session" data-flipped="false" data-lt-session>
+        <header class="lw-topbar">
+          <a href="/screens/category-words.html" class="btn-icon back-btn" data-back-link aria-label="Back"></a>
+          <div class="lw-topbar__title">
+            <span data-cat-name>…</span>
+            <span>·</span>
+            <span data-lesson-name>…</span>
+          </div>
+          <div style="width:36px;"></div>
+        </header>
+
+        <!-- Three buckets across the top — these tick up as the user
+             judges each card. dir=ltr keeps the same left→right
+             progression as the Leitner box row. -->
+        <div class="rt-buckets" dir="ltr" data-rt-buckets>
+          <div class="rt-bucket rt-bucket--know" data-bucket="know">
+            <span class="rt-bucket__count" data-count-know>0</span>
+            <span class="rt-bucket__label" data-label-bucket-know>یاد گرفتی</span>
+          </div>
+          <div class="rt-bucket rt-bucket--sort" data-bucket="sort">
+            <span class="rt-bucket__count" data-count-sort>0</span>
+            <span class="rt-bucket__label" data-label-bucket-sort>تا حدی</span>
+          </div>
+          <div class="rt-bucket rt-bucket--dont" data-bucket="dont">
+            <span class="rt-bucket__count" data-count-dont>0</span>
+            <span class="rt-bucket__label" data-label-bucket-dont>یاد نگرفتی</span>
+          </div>
+        </div>
+
+        <!-- Control pill — audio plays the ENGLISH (back-side) word.
+             On the front (Persian) the audio button is hidden because
+             playing the English word would defeat the exercise. -->
+        <div class="lt-control" dir="ltr" style="margin-top: 10px;">
+          <button type="button" class="lt-control__btn" data-rt-audio aria-label="Play" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
+          </button>
+          <span class="lt-control__counter" data-rt-counter>1 / —</span>
+          <span style="width:36px;"></span>
+        </div>
+
+        <!-- Card. Front = PERSIAN meaning. Back = ENGLISH word + IPA.
+             Reuses .lt-card so the flip animation is identical to
+             Leitner. -->
+        <div class="lt-card" data-rt-card>
+          <div class="lt-card__inner">
+            <div class="lt-card__front">
+              <div class="rt-card-persian" data-rt-meaning>…</div>
+            </div>
+            <div class="lt-card__back" dir="ltr">
+              <div class="rt-card-en" data-rt-word>…</div>
+              <div class="rt-card-ipa" data-rt-ipa>—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Translate CTA on the front. Tapping it (or the card)
+             flips to English. Hidden once flipped. -->
+        <button type="button" class="lt-translate-btn" data-rt-translate>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14M5 8l4-4m-4 4 4 4M3 16h10M13 16l-3 3m3-3-3-3"/></svg>
+          <span data-label-translate>دیدن کلمه انگلیسی</span>
+        </button>
+
+        <!-- 3 mastery buttons. Visible only after flip. ORDER
+             (dir=ltr): dont-know · sort-of · know. Cards are NOT
+             moved between boxes — just bucketed. -->
+        <div class="lt-mastery rt-mastery" dir="ltr">
+          <button type="button" class="lt-mbtn lt-mbtn--dont" data-rt-judge="dont">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+            <span data-label-dont>بلد نیستم</span>
+          </button>
+          <button type="button" class="lt-mbtn lt-mbtn--sort" data-rt-judge="sort">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="14"/><circle cx="12" cy="19" r="1.6" fill="currentColor"/></svg>
+            <span data-label-sort>تا حدی بلدم</span>
+          </button>
+          <button type="button" class="lt-mbtn lt-mbtn--know" data-rt-judge="know">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-label-know>بلدم</span>
+          </button>
+        </div>
+
+        <!-- Finish state — appears after the last card has been judged.
+             Three count tiles + back / restart buttons. -->
+        <div class="rt-finish" data-rt-finish hidden>
+          <div class="rt-finish__title" data-label-finishtitle>🎉 آفرین! ترجمه معکوس تموم شد</div>
+          <div class="rt-finish__sub" data-label-finishsub>کارت‌ها رو این‌جوری دسته‌بندی کردی:</div>
+          <div class="rt-finish__numbers">
+            <div class="rt-finish__num">
+              <strong style="color:#1F9389;" data-final-know>0</strong>
+              <span data-label-finalknow>یاد گرفتی</span>
+            </div>
+            <div class="rt-finish__num">
+              <strong style="color:#C77F00;" data-final-sort>0</strong>
+              <span data-label-finalsort>تا حدی</span>
+            </div>
+            <div class="rt-finish__num">
+              <strong style="color:#D63333;" data-final-dont>0</strong>
+              <span data-label-finaldont>یاد نگرفتی</span>
+            </div>
+          </div>
+          <a href="/screens/category-words.html" class="btn btn--filled" data-back-to-lessons data-label-backtolist>برگشت به لیست درس‌ها</a>
+          <button type="button" class="btn btn--outlined" data-rt-restart style="margin-top:8px;display:block;margin-inline:auto;" data-label-restart>دوباره از اول</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js?v=8siqn88t"></script>
+  <script type="module">
+    // ================================================================
+    // reverse-translation.html — Persian → English flip-card review
+    // (LOCKED 2026-05-30, per product owner verbatim).
+    //
+    // URL params match lesson-words.html exactly — same fetchers, same
+    // word sets. Header context (cat_fa/cat_en/lessonName_fa/_en) is
+    // passed by category-words.html when opening this screen.
+    //
+    // ⚠️  Lesson progress on category-words.html is driven by
+    //     lesson-words.html ONLY (key: jamlex_lesson_progress).
+    //     This screen never writes that key — judging a card here
+    //     does NOT mark the lesson complete.
+    //     The user said: "اون درصد پیشرفتی رو که توی هر درس به کاربر
+    //     نمایش می‌دیم از بخش مرور لغات می‌گیریم نه از ترجمه معکوس".
+    // ================================================================
+    import { getLocale } from '/js/i18n.js?v=8siqn88t';
+
+    const params = new URLSearchParams(location.search);
+    const singleWord = params.get('word');
+    const bookSlug   = params.get('book');
+    const groupName  = params.get('group');
+    const subSlug    = params.get('sub');
+    const chunkNum   = parseInt(params.get('chunk') || '0', 10);
+    const levelCode  = params.get('level');
+    const offsetN    = parseInt(params.get('offset') || '0', 10);
+    const limitN     = parseInt(params.get('limit') || '50', 10);
+    const catFa     = params.get('cat_fa')        || params.get('cat')        || '';
+    const catEn     = params.get('cat_en')        || params.get('cat')        || '';
+    const lessonFa  = params.get('lessonName_fa') || params.get('lessonName') || '';
+    const lessonEn  = params.get('lessonName_en') || params.get('lessonName') || '';
+
+    const API = 'https://openjam.amirj4m.com';
+
+    const STRINGS = {
+      fa: {
+        translate:     'دیدن کلمه انگلیسی',
+        dont:          'بلد نیستم',
+        sort:          'تا حدی بلدم',
+        know:          'بلدم',
+        bucketKnow:    'یاد گرفتی',
+        bucketSort:    'تا حدی',
+        bucketDont:    'یاد نگرفتی',
+        finishTitle:   '🎉 آفرین! ترجمه معکوس تموم شد',
+        finishSub:     'کارت‌ها رو این‌جوری دسته‌بندی کردی:',
+        backToList:   'برگشت به لیست درس‌ها',
+        restart:       'دوباره از اول',
+        notAvailable:  'کلمات این درس هنوز در دسترس نیست',
+      },
+      en: {
+        translate:     'Reveal English',
+        dont:          "Don't know",
+        sort:          'Sort of',
+        know:          'I know it',
+        bucketKnow:    'Learned',
+        bucketSort:    'Partial',
+        bucketDont:    'Not learned',
+        finishTitle:   '🎉 Well done! Reverse translation complete',
+        finishSub:     'Here is how you bucketed the cards:',
+        backToList:   'Back to lessons',
+        restart:       'Restart from the top',
+        notAvailable:  'Words for this lesson are not yet available',
+      },
+    };
+    function S () { return STRINGS[getLocale() === 'en' ? 'en' : 'fa']; }
+
+    function applyStaticLabels () {
+      const s = S();
+      const setText = function (sel, txt) {
+        const el = document.querySelector(sel);
+        if (el && txt != null) el.textContent = txt;
+      };
+      setText('[data-label-translate]',     s.translate);
+      setText('[data-label-dont]',          s.dont);
+      setText('[data-label-sort]',          s.sort);
+      setText('[data-label-know]',          s.know);
+      setText('[data-label-bucket-know]',   s.bucketKnow);
+      setText('[data-label-bucket-sort]',   s.bucketSort);
+      setText('[data-label-bucket-dont]',   s.bucketDont);
+      setText('[data-label-finishtitle]',   s.finishTitle);
+      setText('[data-label-finishsub]',     s.finishSub);
+      setText('[data-label-finalknow]',     s.bucketKnow);
+      setText('[data-label-finalsort]',     s.bucketSort);
+      setText('[data-label-finaldont]',     s.bucketDont);
+      setText('[data-label-backtolist]',    s.backToList);
+      setText('[data-label-restart]',       s.restart);
+    }
+
+    // Fetchers — identical to lesson-words.html (same routes / params).
+    async function fetchLessonWords () {
+      try {
+        if (singleWord) return [{ english: singleWord }];
+        if (levelCode) {
+          const url = API + '/v1/words?level=' + encodeURIComponent(levelCode)
+            + '&limit=' + limitN + '&offset=' + offsetN;
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        if (bookSlug) {
+          let url = API + '/v1/books/' + encodeURIComponent(bookSlug) + '/words?lang=fa';
+          if (groupName) url += '&group=' + encodeURIComponent(groupName);
+          if (params.get('offset')) url += '&offset=' + offsetN;
+          if (params.get('limit'))  url += '&limit='  + limitN;
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        if (subSlug) {
+          const off = Math.max(0, (chunkNum - 1) * 50);
+          const url = API + '/v1/categories/' + encodeURIComponent(subSlug)
+            + '/words?lang=fa&offset=' + off + '&limit=50';
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        return [];
+      } catch (err) {
+        console.warn('[openjam] reverse-translation words fetch failed', err);
+        return [];
+      }
+    }
+
+    const detailCache = new Map();
+    async function fetchWordDetail (english) {
+      if (!english) return null;
+      const key = english.toLowerCase();
+      if (detailCache.has(key)) return detailCache.get(key);
+      try {
+        const r = await fetch(API + '/v1/words/' + encodeURIComponent(english) + '?lang=fa');
+        const d = await r.json();
+        detailCache.set(key, d);
+        return d;
+      } catch (err) {
+        console.warn('[openjam] word detail fetch failed for', english, err);
+        return null;
+      }
+    }
+
+    function renderHeader () {
+      applyStaticLabels();
+      const isfa = getLocale() === 'fa';
+      const catEl = document.querySelector('[data-cat-name]');
+      const lesEl = document.querySelector('[data-lesson-name]');
+      if (catEl) catEl.textContent = (isfa ? catFa : catEn) || '—';
+      if (lesEl) lesEl.textContent = (isfa ? lessonFa : lessonEn) || '—';
+      // Back link mirrors lesson-words.html — same group-aware href.
+      let href = '/screens/category-words.html';
+      if (bookSlug)        href += '?group=' + encodeURIComponent(bookSlug);
+      else if (levelCode)  href += '?group=level-' + encodeURIComponent(levelCode);
+      else if (subSlug && groupName) href += '?group=' + encodeURIComponent(groupName);
+      const back = document.querySelector('[data-back-link]');
+      if (back) back.href = href;
+      const finishBack = document.querySelector('[data-back-to-lessons]');
+      if (finishBack) finishBack.href = href;
+    }
+
+    // Audio — same as lesson-words.html: stream-based, single channel.
+    let currentAudio = null;
+    function playAudio (url) {
+      if (!url) return;
+      try {
+        if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+        currentAudio = new Audio(url);
+        currentAudio.play().catch(function () {});
+      } catch (e) { /* ignore */ }
+    }
+
+    // Session state.
+    let words = [];
+    let cursor = 0;
+    const buckets = { know: 0, sort: 0, dont: 0 };
+    let currentEnglish = '';
+    let currentAudioUrl = '';
+
+    function updateCounter () {
+      const isfa = getLocale() === 'fa';
+      const tot = words.length;
+      const el = document.querySelector('[data-rt-counter]');
+      if (el) {
+        const cur = Math.min(cursor + 1, tot);
+        el.textContent = (isfa ? cur.toLocaleString('fa-IR') : cur) +
+          ' / ' + (isfa ? tot.toLocaleString('fa-IR') : tot);
+      }
+    }
+
+    function updateBuckets () {
+      const isfa = getLocale() === 'fa';
+      const fmt = function (n) { return isfa ? n.toLocaleString('fa-IR') : String(n); };
+      document.querySelector('[data-count-know]').textContent = fmt(buckets.know);
+      document.querySelector('[data-count-sort]').textContent = fmt(buckets.sort);
+      document.querySelector('[data-count-dont]').textContent = fmt(buckets.dont);
+    }
+
+    function pulseBucket (which) {
+      const el = document.querySelector('[data-bucket="' + which + '"]');
+      if (!el) return;
+      el.dataset.pulse = 'true';
+      setTimeout(function () { delete el.dataset.pulse; }, 320);
+    }
+
+    function setFlipped (flag) {
+      const sess = document.querySelector('[data-lt-session]');
+      if (sess) sess.dataset.flipped = flag ? 'true' : 'false';
+      // Audio button only meaningful on the English (back) side.
+      const audio = document.querySelector('[data-rt-audio]');
+      if (audio) audio.hidden = !flag;
+    }
+
+    async function renderCurrent () {
+      if (cursor >= words.length) { showFinish(); return; }
+      const w = words[cursor];
+      const detail = await fetchWordDetail(w.english);
+      const sense0 = (detail && detail.senses && detail.senses[0]) || {};
+      const tr0 = (sense0.translations && sense0.translations[0]) || {};
+      const phon = (detail && detail.phonetics && detail.phonetics[0]) || {};
+      currentEnglish = (detail && detail.english) || w.english || '';
+      currentAudioUrl = phon.audio_url || '';
+      document.querySelector('[data-rt-meaning]').textContent = tr0.meaning || '—';
+      document.querySelector('[data-rt-word]').textContent = currentEnglish;
+      document.querySelector('[data-rt-ipa]').textContent  = phon.ipa ? '/' + phon.ipa + '/' : '';
+      setFlipped(false);
+      updateCounter();
+    }
+
+    function showFinish () {
+      const isfa = getLocale() === 'fa';
+      const fmt = function (n) { return isfa ? n.toLocaleString('fa-IR') : String(n); };
+      document.querySelector('[data-final-know]').textContent = fmt(buckets.know);
+      document.querySelector('[data-final-sort]').textContent = fmt(buckets.sort);
+      document.querySelector('[data-final-dont]').textContent = fmt(buckets.dont);
+      // Hide the active session UI, show the finish card.
+      document.querySelector('.rt-buckets').style.display = 'none';
+      document.querySelector('.lt-control').style.display = 'none';
+      document.querySelector('[data-rt-card]').style.display = 'none';
+      document.querySelector('[data-rt-translate]').style.display = 'none';
+      document.querySelector('.rt-mastery').style.display = 'none';
+      document.querySelector('[data-rt-finish]').hidden = false;
+    }
+
+    function resetSession () {
+      buckets.know = 0; buckets.sort = 0; buckets.dont = 0;
+      cursor = 0;
+      updateBuckets();
+      document.querySelector('.rt-buckets').style.display = '';
+      document.querySelector('.lt-control').style.display = '';
+      document.querySelector('[data-rt-card]').style.display = '';
+      document.querySelector('[data-rt-translate]').style.display = '';
+      document.querySelector('.rt-mastery').style.display = '';
+      document.querySelector('[data-rt-finish]').hidden = true;
+      renderCurrent();
+    }
+
+    async function init () {
+      renderHeader();
+      words = await fetchLessonWords();
+      if (singleWord) {
+        // Single-word entry point doesn't make sense for this screen;
+        // fall back to a 1-card session.
+        words = [{ english: singleWord }];
+      }
+      if (!words.length) {
+        document.querySelector('[data-rt-meaning]').textContent = S().notAvailable;
+        return;
+      }
+      updateBuckets();
+      await renderCurrent();
+    }
+
+    // Click handling — single document listener. Card OR translate
+    // CTA flips. Mastery buttons judge → bump bucket → next card.
+    document.addEventListener('click', function (e) {
+      // Audio (back side only — gating already enforced by hidden attr)
+      const audioBtn = e.target.closest('[data-rt-audio]');
+      if (audioBtn) { playAudio(currentAudioUrl); return; }
+
+      // Translate or tap-on-card → flip to English
+      const translate = e.target.closest('[data-rt-translate]');
+      const card = e.target.closest('[data-rt-card]');
+      const sess = document.querySelector('[data-lt-session]');
+      if ((translate || card) && sess.dataset.flipped !== 'true') {
+        setFlipped(true);
+        return;
+      }
+
+      // Mastery — bucket and advance
+      const judge = e.target.closest('[data-rt-judge]');
+      if (judge && sess.dataset.flipped === 'true') {
+        const which = judge.dataset.rtJudge;   // 'know' | 'sort' | 'dont'
+        if (buckets[which] != null) buckets[which]++;
+        updateBuckets();
+        pulseBucket(which);
+        cursor++;
+        renderCurrent();
+        return;
+      }
+
+      // Restart from the finish screen
+      const restart = e.target.closest('[data-rt-restart]');
+      if (restart) { resetSession(); return; }
+    });
+
+    document.addEventListener('i18n:changed', function () {
+      renderHeader();
+      updateCounter();
+      updateBuckets();
+      if (cursor < words.length && words[cursor]) renderCurrent();
+    });
+
+    init();
+  </script>
+</body>
+</html>
