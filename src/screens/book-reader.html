@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsr5lsg" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsr5lsg" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsr5lsg" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsr5lsg" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsr5lsg" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsr5lsg" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsr5lsg" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsr5lsg" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsr9ssf" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsr9ssf" />
 </head>
 <body data-library-screen="book-reader">
   <div class="preview-controls">
@@ -179,15 +179,15 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsr5lsg"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpsr9ssf"></script>
 
   <!-- Wire lookup-sheet action buttons. The parent .lookup-sheet-v4
        has onclick="event.stopPropagation()" so clicks NEVER bubble
        to document — both buttons need their listeners attached
        DIRECTLY. -->
   <script type="module">
-    import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsr5lsg';
-    import { getLocale } from '/js/i18n.js?v=mpsr5lsg';
+    import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsr9ssf';
+    import { getLocale } from '/js/i18n.js?v=mpsr9ssf';
 
     function getLookupWord () {
       const wordEl = document.querySelector('.lookup-sheet-v4__word');

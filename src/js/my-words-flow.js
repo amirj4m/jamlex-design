@@ -23,7 +23,7 @@
 //    UPSERT on (user_id, word_id, category_id).
 // ============================================================================
 
-import { getLocale } from './i18n.js?v=mpsr5lsg';
+import { getLocale } from './i18n.js?v=mpsr9ssf';
 
 const STORAGE_KEY = 'jamlex_word_cats';
 
@@ -118,7 +118,7 @@ function showPicker (cats) {
     }).join('');
 
     overlay.innerHTML =
-      '<div class="mw-picker-card" onclick="event.stopPropagation();">' +
+      '<div class="mw-picker-card">' +
         '<h3 class="mw-picker-title">' + s.pickerTitle + '</h3>' +
         '<div class="mw-picker-list">' +
           rows +
@@ -139,18 +139,31 @@ function showPicker (cats) {
       resolve(result);
     }
 
-    overlay.addEventListener('click', function (e) {
-      const newBtn = e.target.closest('[data-cat-new]');
-      if (newBtn) { cleanup({ isNew: true }); return; }
-      const row = e.target.closest('.mw-picker-row');
-      if (row) {
+    // Wire each button DIRECTLY rather than via delegation. Bit us
+    // three times across the app — direct-attach is the safer default
+    // for new dialogs going forward.
+    overlay.querySelectorAll('[data-cat-id]').forEach(function (row) {
+      row.addEventListener('click', function (e) {
+        e.stopPropagation();
         const id = row.dataset.catId;
         const cat = cats.find(function (c) { return c.id === id; });
         cleanup(cat || null);
-        return;
-      }
-      if (e.target.closest('[data-cat-cancel]')) { cleanup(null); return; }
-      if (e.target === overlay) { cleanup(null); }
+      });
+    });
+    const newBtn = overlay.querySelector('[data-cat-new]');
+    if (newBtn) newBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      cleanup({ isNew: true });
+    });
+    const cancelBtn = overlay.querySelector('[data-cat-cancel]');
+    if (cancelBtn) cancelBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      cleanup(null);
+    });
+    // Outside-click on the scrim only — fires when the user taps the
+    // dimmed area around the card (e.target is literally the overlay).
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) cleanup(null);
     });
   });
 }
@@ -164,7 +177,7 @@ function promptNewName () {
 
 /**
  * Main entry point. Call from any "Add to my words" button:
- *   import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsr5lsg';
+ *   import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsr9ssf';
  *   addWordToMyWords('reaction');
  *
  * Returns a Promise that resolves to the chosen category (or null if the
