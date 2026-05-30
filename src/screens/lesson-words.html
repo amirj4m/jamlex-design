@@ -8,159 +8,165 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpspl9k8" />
-  <link rel="stylesheet" href="/css/base.css?v=mpspl9k8" />
-  <link rel="stylesheet" href="/css/components.css?v=mpspl9k8" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpspl9k8" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpspl9k8" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpspl9k8" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpspl9k8" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpspl9k8" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/base.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/components.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpspvfd2" />
   <style>
     /* lesson-words.html — single-word review page (LOCKED 2026-05-30).
-       Hero (teal) shows the word; white card below shows senses +
-       examples + synonyms/antonyms. "بلد هستم" advances to next. */
+       Tightened sizes 2026-05-30 — earlier version was overscaled
+       and crowded; everything dropped ~30% to give the page breathing
+       room. Action button is now "کلمه بعدی" (next word). */
     .lw-topbar {
       display: flex; align-items: center; gap: var(--sp-2);
-      padding: var(--sp-3) var(--sp-4);
+      padding: 10px var(--sp-4);
       background: var(--jx-bg);
     }
     .lw-topbar__title {
       flex: 1; text-align: center;
-      font-size: var(--fs-body-s); font-weight: var(--fw-bold);
+      font-size: 12px; font-weight: var(--fw-bold);
       color: var(--jx-text-2);
     }
     .lw-topbar__title span:nth-child(2) { opacity: 0.4; margin: 0 4px; }
 
     .lw-hero {
       background: linear-gradient(160deg, #34BFB1 0%, #1F9389 100%);
-      padding: var(--sp-4) var(--sp-5) var(--sp-5);
+      padding: var(--sp-3) var(--sp-4) 22px;
       color: #fff;
       position: relative;
-      border-radius: 0 0 28px 28px;
+      border-radius: 0 0 22px 22px;
     }
     .lw-hero__progress {
-      display: flex; align-items: center; gap: var(--sp-2);
-      margin-bottom: var(--sp-5);
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: var(--sp-3);
     }
     .lw-progress__cap {
-      width: 32px; height: 28px; border-radius: 14px;
+      min-width: 26px; height: 20px; padding: 0 6px;
+      border-radius: 12px;
       background: #fff; color: #1F9389;
       display: inline-flex; align-items: center; justify-content: center;
       font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
-      font-size: 13px; flex: none;
+      font-size: 11px; flex: none;
     }
     .lw-progress__track {
-      flex: 1; height: 6px; background: rgba(255,255,255,0.30);
+      flex: 1; height: 4px; background: rgba(255,255,255,0.30);
       border-radius: 4px; position: relative; overflow: visible;
     }
     .lw-progress__fill {
       position: absolute; inset: 0 auto 0 0;
-      height: 6px; border-radius: 4px; background: #fff;
+      height: 4px; border-radius: 4px; background: #fff;
       width: 0%;
       transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .lw-progress__bubble {
-      position: absolute; top: -24px; right: 0;
+      position: absolute; top: -18px; right: 0;
       transform: translateX(50%);
-      background: rgba(255,255,255,0.92); color: #1F9389;
+      background: #fff; color: #1F9389;
       font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
-      font-size: 11px; padding: 2px 8px; border-radius: 8px;
+      font-size: 9px; padding: 1px 5px; border-radius: 6px;
       white-space: nowrap;
     }
 
     .lw-word {
       text-align: center; font-family: var(--font-family-latin);
-      font-size: 56px; font-weight: var(--fw-extrabold);
-      line-height: 1; letter-spacing: -1px; direction: ltr;
+      font-size: 36px; font-weight: var(--fw-extrabold);
+      line-height: 1.05; letter-spacing: -0.5px; direction: ltr;
+      margin-top: 4px;
     }
     .lw-ipa {
       text-align: center; font-family: var(--font-family-latin);
-      font-size: 17px; opacity: 0.92; margin-top: var(--sp-2); direction: ltr;
+      font-size: 13px; opacity: 0.90; margin-top: 4px; direction: ltr;
     }
     .lw-pos {
-      text-align: center; font-size: 14px; margin-top: 2px; opacity: 0.95;
+      text-align: center; font-size: 12px; margin-top: 2px; opacity: 0.92;
     }
     .lw-hero__audio {
       position: absolute;
-      bottom: -22px; inset-inline-start: var(--sp-5);
-      width: 56px; height: 56px; border-radius: 50%;
+      bottom: -18px; inset-inline-start: var(--sp-4);
+      width: 38px; height: 38px; border-radius: 50%;
       background: #fff; color: #1F9389; border: 0;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.14);
       display: inline-flex; align-items: center; justify-content: center;
       cursor: pointer; z-index: 2;
     }
-    .lw-hero__audio:active { transform: scale(0.95); }
-    .lw-hero__audio svg { width: 26px; height: 26px; }
+    .lw-hero__audio:active { transform: scale(0.94); }
+    .lw-hero__audio svg { width: 18px; height: 18px; }
 
     .lw-actions {
-      margin: var(--sp-5) var(--sp-4) var(--sp-4);
-      display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5);
+      margin: 28px var(--sp-4) var(--sp-3);
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3);
     }
     .lw-action {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
       padding: 0; background: transparent; border: 0;
-      color: var(--jx-text); font-size: 13px;
+      color: var(--jx-text); font-size: 11px;
       font-weight: var(--fw-medium); cursor: pointer;
     }
     .lw-action__icon {
-      width: 48px; height: 48px; border-radius: 50%;
-      border: 2px solid var(--jx-primary); color: var(--jx-primary);
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1.5px solid var(--jx-primary); color: var(--jx-primary);
       display: inline-flex; align-items: center; justify-content: center;
       background: var(--jx-bg); transition: transform 0.15s ease;
     }
     .lw-action:active .lw-action__icon { transform: scale(0.92); }
-    .lw-action__icon svg { width: 22px; height: 22px; }
+    .lw-action__icon svg { width: 16px; height: 16px; }
     .lw-action[data-done="true"] .lw-action__icon {
       background: var(--jx-primary); color: #fff;
     }
 
-    .lw-senses { padding: 0 var(--sp-4); }
+    .lw-senses { padding: 0 var(--sp-4); margin-top: var(--sp-3); }
     .lw-sense + .lw-sense {
-      margin-top: var(--sp-5); padding-top: var(--sp-5);
+      margin-top: var(--sp-3); padding-top: var(--sp-3);
       border-top: 1px solid var(--jx-divider);
     }
     .lw-sense__head {
-      display: flex; align-items: baseline; gap: 6px;
+      display: flex; align-items: baseline; gap: 5px;
       color: var(--jx-primary); font-weight: var(--fw-bold);
-      font-size: 16px; margin-bottom: var(--sp-3);
+      font-size: 13px; margin-bottom: 8px;
+      text-align: start;
     }
     .lw-sense__num { font-family: var(--font-family-latin); }
-    .lw-example { margin-top: var(--sp-3); }
+    .lw-example { margin-top: 6px; }
     .lw-example + .lw-example {
-      margin-top: var(--sp-3); padding-top: var(--sp-3);
+      margin-top: 8px; padding-top: 8px;
       border-top: 1px dashed var(--jx-divider);
     }
-    .lw-example__row { display: flex; align-items: center; gap: 8px; }
+    .lw-example__row { display: flex; align-items: center; gap: 6px; }
     .lw-example__en {
       font-family: var(--font-family-latin); font-weight: var(--fw-bold);
-      direction: ltr; font-size: 15px; flex: 1;
+      direction: ltr; font-size: 12.5px; flex: 1;
     }
     .lw-example__audio {
-      width: 28px; height: 28px; border-radius: 50%;
+      width: 22px; height: 22px; border-radius: 50%;
       background: var(--jx-primary-glow); color: var(--jx-primary);
       border: 0; display: inline-flex; align-items: center; justify-content: center;
       cursor: pointer; flex: none;
     }
     .lw-example__audio:active { transform: scale(0.92); }
-    .lw-example__audio svg { width: 14px; height: 14px; }
-    .lw-example__fa { font-size: 13px; color: var(--jx-text-2); margin-top: 4px; }
+    .lw-example__audio svg { width: 11px; height: 11px; }
+    .lw-example__fa { font-size: 11.5px; color: var(--jx-text-2); margin-top: 3px; }
 
     .lw-synant {
-      margin: var(--sp-5) var(--sp-4) var(--sp-5);
-      background: var(--jx-input-bg); border-radius: 16px;
-      padding: var(--sp-3) var(--sp-4);
+      margin: var(--sp-3) var(--sp-4);
+      background: var(--jx-input-bg); border-radius: 12px;
+      padding: 8px 12px;
       display: grid; grid-template-columns: auto 1fr;
-      gap: var(--sp-2) var(--sp-3); align-items: center;
+      gap: 6px 10px; align-items: center;
     }
-    .lw-synant__label { font-size: 13px; color: var(--jx-text-2); white-space: nowrap; }
+    .lw-synant__label {
+      font-size: 11px; color: var(--jx-text-2); white-space: nowrap;
+    }
     .lw-synant__chips {
-      display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-start;
+      display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-start;
     }
     .lw-chip {
       font-family: var(--font-family-latin); direction: ltr;
-      font-size: 12px; font-weight: var(--fw-bold);
-      padding: 6px 14px; border-radius: 999px;
+      font-size: 11px; font-weight: var(--fw-bold);
+      padding: 4px 10px; border-radius: 999px;
       background: var(--jx-primary); color: #fff;
       text-decoration: none; cursor: pointer;
       transition: transform 0.15s ease;
@@ -172,17 +178,17 @@
     .lw-chip:active { transform: scale(0.95); }
     .lw-chip:hover { text-decoration: none; }
     .lw-empty-syn {
-      grid-column: 1 / -1; font-size: 12px;
-      color: var(--jx-text-3); text-align: center; padding: var(--sp-2) 0;
+      grid-column: 1 / -1; font-size: 11px;
+      color: var(--jx-text-3); text-align: center; padding: 4px 0;
     }
 
     .lw-finish {
-      margin: var(--sp-5) var(--sp-4);
-      background: var(--jx-input-bg); border-radius: 18px;
-      padding: var(--sp-5); text-align: center;
+      margin: var(--sp-4) var(--sp-4);
+      background: var(--jx-input-bg); border-radius: 14px;
+      padding: var(--sp-4); text-align: center;
     }
-    .lw-finish__title { font-weight: var(--fw-bold); font-size: 17px; margin-bottom: var(--sp-2); }
-    .lw-finish__sub { font-size: 13px; color: var(--jx-text-2); margin-bottom: var(--sp-4); }
+    .lw-finish__title { font-weight: var(--fw-bold); font-size: 14px; margin-bottom: 4px; }
+    .lw-finish__sub { font-size: 11.5px; color: var(--jx-text-2); margin-bottom: var(--sp-3); }
   </style>
 </head>
 <body>
@@ -233,11 +239,11 @@
               </span>
               <span>افزودن به واژگان من</span>
             </button>
-            <button type="button" class="lw-action" data-know-it>
+            <button type="button" class="lw-action" data-next>
               <span class="lw-action__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
               </span>
-              <span>بلد هستم</span>
+              <span>کلمه بعدی</span>
             </button>
           </div>
 
@@ -257,7 +263,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpspl9k8"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpspvfd2"></script>
   <script type="module">
     // ================================================================
     // lesson-words.html — SINGLE-WORD review (LOCKED 2026-05-30)
@@ -276,7 +282,7 @@
     //   binding). For books and CEFR levels the API guarantees
     //   alignment.
     // ================================================================
-    import { getLocale } from '/js/i18n.js?v=mpspl9k8';
+    import { getLocale } from '/js/i18n.js?v=mpspvfd2';
 
     const params = new URLSearchParams(location.search);
     const singleWord = params.get('word');
@@ -478,7 +484,7 @@
         synantEl.innerHTML = '<span class="lw-empty-syn">مترادف/متضاد در دسترس نیست</span>';
       }
 
-      document.querySelectorAll('[data-add-mine], [data-know-it]').forEach(function (b) {
+      document.querySelectorAll('[data-add-mine], [data-next]').forEach(function (b) {
         b.removeAttribute('data-done');
       });
     }
@@ -507,8 +513,8 @@
         document.querySelector('.lw-hero__progress').style.display = 'none';
         const detail = await fetchWordDetail(singleWord);
         renderWord(detail, 0, 1);
-        const knowBtn = document.querySelector('[data-know-it]');
-        if (knowBtn) knowBtn.style.display = 'none';
+        const nextBtn = document.querySelector('[data-next]');
+        if (nextBtn) nextBtn.style.display = 'none';
         return;
       }
       if (!words.length) {
@@ -534,12 +540,9 @@
         //   WHERE w.english = :eng ON CONFLICT DO NOTHING;
         return;
       }
-      const knowIt = e.target.closest('[data-know-it]');
-      if (knowIt) {
-        if (knowIt.dataset.done === 'true') return;
-        knowIt.dataset.done = 'true';
-        // TODO(flutter): mark as known so it skips Leitner intro
-        // when later added.
+      const nextBtn = e.target.closest('[data-next]');
+      if (nextBtn) {
+        nextBtn.dataset.done = 'true';
         cursor++;
         showCursor();
         return;
