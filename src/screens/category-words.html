@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsn0e0j" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsn0e0j" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsn0e0j" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsn0e0j" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsn0e0j" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsn0e0j" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsn0e0j" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsn0e0j" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsnw8yf" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsnw8yf" />
 </head>
 <body>
   <div class="preview-controls">
@@ -159,7 +159,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsn0e0j"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpsnw8yf"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — per-category lesson list.
@@ -190,11 +190,11 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpsn0e0j';
+    import { getLocale } from '/js/i18n.js?v=mpsnw8yf';
     import { OPENJAM_LESSON_NAMES, findVocabCategoryBySlug,
              BOOK_META, BOOK_SLUGS, humanizeBookGroupName,
              LEVEL_META, isLevelSlug, extractLevelFromSlug }
-      from '/js/vocab-sections.js?v=mpsn0e0j';
+      from '/js/vocab-sections.js?v=mpsnw8yf';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
@@ -414,18 +414,54 @@
           return parseInt(ka, 10) - parseInt(kb, 10);
         });
         if (bg.length > 0) {
-          return bg.map(function (g, idx) {
-            return {
-              idx: idx + 1,
-              parentSlug: group.slug,
-              chunk: idx + 1,
-              totalChunks: bg.length,
-              bookGroupName: g.group_name,
-              name_fa: humanizeBookGroupName(g.group_name, 'fa'),
-              name_en: humanizeBookGroupName(g.group_name, 'en'),
-              word_count: g.word_count,
-            };
-          });
+          // Per-group chunking rule (LOCKED 2026-05-30):
+          //   - group.word_count <= WORDS_PER_LESSON → keep as one lesson.
+          //     Right for 504 (12 words/lesson — the BOOK's canonical
+          //     structure that Persian learners know lesson-by-lesson)
+          //     and for IELTS sublists (~57 words, close enough).
+          //   - group.word_count > WORDS_PER_LESSON → split into 50-word
+          //     chunks named "<group> — درس N". Right for TOEFL score
+          //     bands (~900 words each — way too many per session).
+          //   Product owner: "تو کتاب تافل ما فقط سه تا درس داریم که
+          //   هر درسی ۹۰۰ تا لغت داره، خیلی خیلی کار اشتباهیه".
+          const lessons = [];
+          let globalIdx = 1;
+          for (const g of bg) {
+            const labelFa = humanizeBookGroupName(g.group_name, 'fa');
+            const labelEn = humanizeBookGroupName(g.group_name, 'en');
+            const total = Math.max(1, Math.ceil(g.word_count / WORDS_PER_LESSON));
+            if (g.word_count <= WORDS_PER_LESSON) {
+              lessons.push({
+                idx: globalIdx++,
+                parentSlug: group.slug,
+                chunk: 1,
+                totalChunks: 1,
+                bookGroupName: g.group_name,
+                bookChunkInGroup: 1,
+                name_fa: labelFa,
+                name_en: labelEn,
+                word_count: g.word_count,
+              });
+            } else {
+              for (let i = 1; i <= total; i++) {
+                const isLast = i === total;
+                const remaining = g.word_count - WORDS_PER_LESSON * (i - 1);
+                const chunkSize = isLast ? remaining : WORDS_PER_LESSON;
+                lessons.push({
+                  idx: globalIdx++,
+                  parentSlug: group.slug,
+                  chunk: i,
+                  totalChunks: total,
+                  bookGroupName: g.group_name,
+                  bookChunkInGroup: i,
+                  name_fa: labelFa + ' — درس ' + Number(i).toLocaleString('fa-IR'),
+                  name_en: labelEn + ' — Lesson ' + i,
+                  word_count: chunkSize,
+                });
+              }
+            }
+          }
+          return lessons;
         }
         // GRE — no groups, chunk client-side.
         const total = Math.max(1, Math.ceil(group.word_count / WORDS_PER_LESSON));
@@ -669,10 +705,18 @@
              '&offset=' + ((lesson.chunk - 1) * WORDS_PER_LESSON) +
              '&limit=' + WORDS_PER_LESSON;
       } else if (currentGroup.book) {
-        if (lesson.bookGroupName) {
+        if (lesson.bookGroupName && lesson.totalChunks > 1) {
+          // TOEFL: chunked within a score-band group.
+          qs = '?book=' + encodeURIComponent(slug) +
+               '&group=' + encodeURIComponent(lesson.bookGroupName) +
+               '&offset=' + ((lesson.bookChunkInGroup - 1) * WORDS_PER_LESSON) +
+               '&limit=' + WORDS_PER_LESSON;
+        } else if (lesson.bookGroupName) {
+          // 504 / IELTS sublist: one whole group = one lesson.
           qs = '?book=' + encodeURIComponent(slug) +
                '&group=' + encodeURIComponent(lesson.bookGroupName);
         } else {
+          // GRE: no groups, chunked client-side.
           qs = '?book=' + encodeURIComponent(slug) +
                '&offset=' + ((lesson.chunk - 1) * WORDS_PER_LESSON) +
                '&limit=' + WORDS_PER_LESSON;

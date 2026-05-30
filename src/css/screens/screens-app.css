@@ -2902,22 +2902,10 @@
   transform-origin: bottom;
   animation: catDiscFill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-/* Faint accent line at the water-line for tiles with >0 progress so
-   the fill edge reads cleanly against the white card background. */
-.cat-disc[data-progress]:not([data-progress="0"])::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: var(--progress, 0%);
-  height: 1.5px;
-  background: var(--progress-color, transparent);
-  opacity: 0.45;
-  pointer-events: none;
-  z-index: 0;
-  transform-origin: bottom;
-  animation: catDiscFill 1s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
+/* Waterline accent retired 2026-05-30 — product owner asked to drop
+   the bold edge line ("یه خط پررنگ بالای اون رنگ هست اون خطه رو از
+   بین ببر — فقط رنگ باشه نه خط"). Just the gradient fill now, no
+   sharp edge at the top. */
 /* Children must layer above the fill or the icon disappears. */
 .cat-disc > * { position: relative; z-index: 1; }
 @keyframes catDiscFill {
