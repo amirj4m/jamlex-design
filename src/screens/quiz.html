@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#00B4A6" />
+  <title>Jamlex · Sentence Builder Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/tokens.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/base.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/components.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/chrome.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=5f3kpv24" />
+  <style>
+    /* quiz.html — "Sentence Builder" timed quiz (LOCKED 2026-05-31).
+       Persian prompt → scramble English chips (+ 2 distractors) →
+       user assembles in time `max(5, 2 × word_count)` seconds →
+       judged by speed: fast / slow / wrong.
+
+       Per architecture_vocab_sections.md + feedback_lesson_progress.md:
+       this screen does NOT write to jamlex_lesson_progress. Lesson-
+       progress on category-words.html is driven by lesson-words.html
+       ONLY ("از بخش مرور لغات می‌گیریم نه از ترجمه معکوس و نه از
+       آزمون"). */
+    .lw-topbar {
+      display: flex; align-items: center; gap: var(--sp-2);
+      padding: 10px var(--sp-4); background: var(--jx-bg);
+    }
+    .lw-topbar__title {
+      flex: 1; text-align: center;
+      font-size: 12px; font-weight: var(--fw-bold);
+      color: var(--jx-text-2);
+    }
+    .lw-topbar__title span:nth-child(2) { opacity: 0.4; margin: 0 4px; }
+
+    /* 3 buckets — exact same shape as reverse-translation's, just
+       relabelled (سریع و درست / درست ولی کند / اشتباه). */
+    .qz-buckets {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; padding: 10px var(--sp-4) 0;
+    }
+    .qz-bucket {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 10px 6px 8px; border-radius: 12px;
+      background: var(--jx-input-bg);
+      border: 1.5px solid transparent;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+    .qz-bucket__count {
+      font-family: var(--font-family-latin);
+      font-weight: var(--fw-extrabold); font-size: 18px; line-height: 1;
+    }
+    .qz-bucket__label {
+      margin-top: 4px; font-size: 11px; font-weight: var(--fw-medium);
+      color: var(--jx-text-2); text-align: center;
+    }
+    .qz-bucket--fast  .qz-bucket__count { color: #2A8E4D; }
+    .qz-bucket--slow  .qz-bucket__count { color: #C77F00; }
+    .qz-bucket--wrong .qz-bucket__count { color: #D63333; }
+    .qz-bucket[data-pulse="true"] { transform: translateY(-2px); }
+    .qz-bucket--fast[data-pulse="true"]  { border-color: #2A8E4D; }
+    .qz-bucket--slow[data-pulse="true"]  { border-color: #C77F00; }
+    .qz-bucket--wrong[data-pulse="true"] { border-color: #D63333; }
+
+    /* Counter + timer pill — counter on one end, animated timer on
+       the other. The timer is a vertical bar that drains right-to-left
+       in RTL (matches the user's reading direction). */
+    .qz-meta {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px var(--sp-4) 0; direction: ltr;
+    }
+    .qz-meta__counter {
+      font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
+      font-size: 13px; color: var(--jx-text-2);
+    }
+    .qz-meta__bar {
+      flex: 1; height: 6px; border-radius: 3px;
+      background: var(--jx-input-bg); overflow: hidden; position: relative;
+    }
+    .qz-meta__bar-fill {
+      position: absolute; inset: 0 0 0 0;
+      background: var(--jx-primary);
+      transform-origin: left center;
+      transform: scaleX(1);
+      transition: transform 1s linear, background 0.2s ease;
+    }
+    .qz-meta__bar-fill[data-state="warn"]   { background: #C77F00; }
+    .qz-meta__bar-fill[data-state="danger"] { background: #D63333; }
+    .qz-meta__timer {
+      min-width: 28px; text-align: end;
+      font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
+      font-size: 13px; color: var(--jx-text);
+    }
+
+    /* Persian prompt card — RTL, bigger Vazirmatn. */
+    .qz-prompt {
+      margin: var(--sp-3) var(--sp-4) var(--sp-2);
+      padding: var(--sp-4);
+      background: var(--jx-primary-glow);
+      border-radius: 14px; text-align: center;
+      color: var(--jx-text);
+    }
+    .qz-prompt__hint {
+      font-size: 11px; color: var(--jx-text-2); margin-bottom: 6px;
+    }
+    .qz-prompt__fa {
+      font-size: 17px; font-weight: var(--fw-bold);
+      line-height: 1.5; direction: rtl;
+    }
+
+    /* Assembled row — chips placed in order. Empty state shows hint.
+       Dashed border so it's obvious where to drop. */
+    .qz-assembled {
+      margin: 0 var(--sp-4) var(--sp-3);
+      min-height: 60px;
+      padding: 10px;
+      border: 2px dashed var(--jx-divider);
+      border-radius: 12px;
+      display: flex; flex-wrap: wrap; gap: 6px;
+      align-items: center; justify-content: flex-start;
+      direction: ltr;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .qz-assembled:empty::before {
+      content: attr(data-empty);
+      color: var(--jx-text-3);
+      font-size: 12px; width: 100%; text-align: center;
+      direction: rtl; font-family: var(--font-family-base);
+    }
+    .qz-assembled[data-judging="correct"] {
+      border-color: #2A8E4D; background: rgba(76,175,80,0.08);
+    }
+    .qz-assembled[data-judging="wrong"] {
+      border-color: #D63333; background: rgba(244,67,54,0.08);
+    }
+
+    /* Chip pool — same chip styling as assembled, different container. */
+    .qz-pool {
+      margin: 0 var(--sp-4) var(--sp-3);
+      display: flex; flex-wrap: wrap; gap: 8px;
+      direction: ltr; justify-content: center;
+    }
+
+    /* Chip — pill-shaped tappable button. Used in BOTH pool + assembled. */
+    .qz-chip {
+      font-family: var(--font-family-latin); direction: ltr;
+      font-size: 14px; font-weight: var(--fw-bold);
+      padding: 8px 14px; border-radius: 999px;
+      background: var(--jx-bg);
+      border: 1.5px solid var(--jx-divider);
+      color: var(--jx-text);
+      cursor: pointer; user-select: none;
+      transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .qz-chip:hover  { background: var(--jx-input-bg); }
+    .qz-chip:active { transform: scale(0.94); }
+    /* Reveal-after-wrong: highlight which chips were the right answer */
+    .qz-chip[data-reveal="true"] {
+      background: rgba(76,175,80,0.14);
+      border-color: #2A8E4D; color: #1F7A38;
+    }
+
+    /* Submit button — outlined teal, full width. Disabled until at
+       least one chip is placed. */
+    .qz-submit {
+      margin: 0 var(--sp-4) var(--sp-4);
+      padding: 12px;
+      width: calc(100% - var(--sp-4) * 2);
+      border: 0; border-radius: 12px;
+      background: var(--jx-primary); color: #fff;
+      font-size: 15px; font-weight: var(--fw-extrabold);
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.12s ease;
+    }
+    .qz-submit:disabled {
+      opacity: 0.45; cursor: not-allowed;
+    }
+    .qz-submit:active:not(:disabled) { transform: scale(0.98); }
+
+    /* Finish card — mirrors reverse-translation's finish card. */
+    .qz-finish {
+      margin: var(--sp-4) var(--sp-4);
+      background: var(--jx-input-bg); border-radius: 14px;
+      padding: var(--sp-4); text-align: center;
+    }
+    .qz-finish__title { font-weight: var(--fw-bold); font-size: 14px; margin-bottom: 4px; }
+    .qz-finish__sub { font-size: 11.5px; color: var(--jx-text-2); margin-bottom: var(--sp-3); }
+    .qz-finish__numbers {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; margin-bottom: var(--sp-3);
+    }
+    .qz-finish__num {
+      background: var(--jx-bg); border-radius: 10px; padding: 8px 4px;
+    }
+    .qz-finish__num strong {
+      font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
+      font-size: 18px; display: block;
+    }
+    .qz-finish__num span { font-size: 10px; color: var(--jx-text-3); }
+    .qz-finish__score {
+      font-family: var(--font-family-latin); font-weight: var(--fw-extrabold);
+      font-size: 22px; color: var(--jx-primary);
+      margin-bottom: var(--sp-2);
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-controls">
+    <select data-locale-picker aria-label="Locale"><option value="fa">فارسی</option><option value="en">English</option></select>
+    <select data-theme-picker aria-label="Theme"><option value="system">🖥 System</option><option value="light">☀ Light</option><option value="dark">🌙 Dark</option></select>
+  </div>
+  <a href="/screens/vocab-learning.html" class="hub-ribbon">‹ Vocab</a>
+
+  <div class="shell">
+    <div class="phone">
+      <div class="screen">
+        <header class="lw-topbar">
+          <a href="/screens/category-words.html" class="btn-icon back-btn" data-back-link aria-label="Back"></a>
+          <div class="lw-topbar__title">
+            <span data-cat-name>…</span>
+            <span>·</span>
+            <span data-lesson-name>…</span>
+          </div>
+          <div style="width:36px;"></div>
+        </header>
+
+        <!-- 3 buckets — tick up as the user judges each question -->
+        <div class="qz-buckets" dir="ltr">
+          <div class="qz-bucket qz-bucket--fast" data-bucket="fast">
+            <span class="qz-bucket__count" data-count-fast>0</span>
+            <span class="qz-bucket__label" data-label-bucket-fast>سریع و درست</span>
+          </div>
+          <div class="qz-bucket qz-bucket--slow" data-bucket="slow">
+            <span class="qz-bucket__count" data-count-slow>0</span>
+            <span class="qz-bucket__label" data-label-bucket-slow>درست ولی کند</span>
+          </div>
+          <div class="qz-bucket qz-bucket--wrong" data-bucket="wrong">
+            <span class="qz-bucket__count" data-count-wrong>0</span>
+            <span class="qz-bucket__label" data-label-bucket-wrong>اشتباه</span>
+          </div>
+        </div>
+
+        <!-- Counter + timer bar -->
+        <div class="qz-meta">
+          <span class="qz-meta__counter" data-qz-counter>1 / —</span>
+          <div class="qz-meta__bar"><div class="qz-meta__bar-fill" data-qz-bar></div></div>
+          <span class="qz-meta__timer" data-qz-timer>—</span>
+        </div>
+
+        <!-- Persian prompt -->
+        <div class="qz-prompt">
+          <div class="qz-prompt__hint" data-label-prompthint>این جمله رو با کلمات پایین بساز:</div>
+          <div class="qz-prompt__fa" data-qz-prompt>…</div>
+        </div>
+
+        <!-- Assembled row (chips placed in order) -->
+        <div class="qz-assembled" data-qz-assembled data-empty="بچین جمله رو از کلمات پایین"></div>
+
+        <!-- Chip pool (scrambled + distractors) -->
+        <div class="qz-pool" data-qz-pool></div>
+
+        <!-- Submit/check -->
+        <button type="button" class="qz-submit" data-qz-submit disabled data-label-check>بررسی</button>
+
+        <!-- Finish card -->
+        <div class="qz-finish" data-qz-finish hidden>
+          <div class="qz-finish__title" data-label-finishtitle>🎉 آفرین! آزمون تموم شد</div>
+          <div class="qz-finish__sub" data-label-finishsub>نتیجه‌ی این جلسه:</div>
+          <div class="qz-finish__score"><span data-qz-final-score>0</span> / <span data-qz-final-max>0</span></div>
+          <div class="qz-finish__numbers">
+            <div class="qz-finish__num">
+              <strong style="color:#2A8E4D;" data-final-fast>0</strong>
+              <span data-label-finalfast>سریع</span>
+            </div>
+            <div class="qz-finish__num">
+              <strong style="color:#C77F00;" data-final-slow>0</strong>
+              <span data-label-finalslow>کند</span>
+            </div>
+            <div class="qz-finish__num">
+              <strong style="color:#D63333;" data-final-wrong>0</strong>
+              <span data-label-finalwrong>اشتباه</span>
+            </div>
+          </div>
+          <a href="/screens/category-words.html" class="btn btn--filled" data-back-to-lessons data-label-backtolist>برگشت به لیست درس‌ها</a>
+          <button type="button" class="btn btn--outlined" data-qz-restart style="margin-top:8px;display:block;margin-inline:auto;" data-label-restart>دوباره از اول</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/screen-shell.js?v=5f3kpv24"></script>
+  <script type="module">
+    // ================================================================
+    // quiz.html — Sentence Builder (LOCKED 2026-05-31)
+    //
+    // Build a question from each candidate word in the lesson:
+    //   - PERSIAN prompt   = sense.translations[0].example
+    //   - ENGLISH answer   = sense.example_en (tokens)
+    //   - chip pool        = shuffle(answer tokens ∪ 2 distractors)
+    //   - time budget      = max(5, 2 × answer.tokens.length) seconds
+    //   - judging          = exact-order match on normalized tokens
+    //
+    // Distractors are pulled from OTHER questions' answer tokens
+    // (same-lesson words) so they look plausible without polluting the
+    // answer. Words without a complete sense (no example_en OR no
+    // translation example) are filtered out.
+    //
+    // Scoring per question:
+    //   correct + elapsed < 50% of budget → fast bucket   (+3)
+    //   correct + elapsed ≥ 50% of budget → slow bucket   (+2)
+    //   wrong / timeout                   → wrong bucket  (+0)
+    //
+    // ⚠️ Does NOT write to localStorage `jamlex_lesson_progress` —
+    //    lesson-progress comes from lesson-words.html ONLY.
+    // ================================================================
+    import { getLocale } from '/js/i18n.js?v=5f3kpv24';
+
+    const params = new URLSearchParams(location.search);
+    const bookSlug   = params.get('book');
+    const groupName  = params.get('group');
+    const subSlug    = params.get('sub');
+    const chunkNum   = parseInt(params.get('chunk') || '0', 10);
+    const levelCode  = params.get('level');
+    const offsetN    = parseInt(params.get('offset') || '0', 10);
+    const limitN     = parseInt(params.get('limit') || '50', 10);
+    const catFa     = params.get('cat_fa')        || params.get('cat')        || '';
+    const catEn     = params.get('cat_en')        || params.get('cat')        || '';
+    const lessonFa  = params.get('lessonName_fa') || params.get('lessonName') || '';
+    const lessonEn  = params.get('lessonName_en') || params.get('lessonName') || '';
+
+    const API = 'https://openjam.amirj4m.com';
+    // Cap session length so users get rewarded with a finish screen
+    // even on big lessons. 10 questions is the sweet spot — fewer feels
+    // pointless, more feels grindy.
+    const MAX_QUESTIONS = 10;
+    // Min/max answer length filters — too-short isn't a challenge,
+    // too-long is unreadable on a phone.
+    const MIN_TOKENS = 3;
+    const MAX_TOKENS = 10;
+
+    const STRINGS = {
+      fa: {
+        bucketFast:    'سریع و درست',
+        bucketSlow:    'درست ولی کند',
+        bucketWrong:   'اشتباه',
+        promptHint:    'این جمله رو با کلمات پایین بساز:',
+        empty:         'بچین جمله رو از کلمات پایین',
+        check:         'بررسی',
+        finishTitle:   '🎉 آفرین! آزمون تموم شد',
+        finishSub:     'نتیجه‌ی این جلسه:',
+        finalFast:     'سریع',
+        finalSlow:     'کند',
+        finalWrong:    'اشتباه',
+        backToList:   'برگشت به لیست درس‌ها',
+        restart:       'دوباره از اول',
+        notAvailable:  'برای این درس هنوز جمله‌ای ثبت نشده',
+        loading:       'در حال آماده‌سازی سؤال‌ها…',
+      },
+      en: {
+        bucketFast:    'Fast & right',
+        bucketSlow:    'Right but slow',
+        bucketWrong:   'Wrong',
+        promptHint:    'Build this sentence from the chips below:',
+        empty:         'Tap chips to assemble',
+        check:         'Check',
+        finishTitle:   '🎉 Well done! Quiz complete',
+        finishSub:     'This session’s results:',
+        finalFast:     'Fast',
+        finalSlow:     'Slow',
+        finalWrong:    'Wrong',
+        backToList:   'Back to lessons',
+        restart:       'Restart',
+        notAvailable:  'No sentences are available for this lesson yet',
+        loading:       'Preparing questions…',
+      },
+    };
+    function S () { return STRINGS[getLocale() === 'en' ? 'en' : 'fa']; }
+
+    function applyStaticLabels () {
+      const s = S();
+      const set = function (sel, txt) {
+        const el = document.querySelector(sel);
+        if (el && txt != null) el.textContent = txt;
+      };
+      set('[data-label-bucket-fast]',  s.bucketFast);
+      set('[data-label-bucket-slow]',  s.bucketSlow);
+      set('[data-label-bucket-wrong]', s.bucketWrong);
+      set('[data-label-prompthint]',   s.promptHint);
+      set('[data-label-check]',        s.check);
+      set('[data-label-finishtitle]',  s.finishTitle);
+      set('[data-label-finishsub]',    s.finishSub);
+      set('[data-label-finalfast]',    s.finalFast);
+      set('[data-label-finalslow]',    s.finalSlow);
+      set('[data-label-finalwrong]',   s.finalWrong);
+      set('[data-label-backtolist]',   s.backToList);
+      set('[data-label-restart]',      s.restart);
+      const assembled = document.querySelector('[data-qz-assembled]');
+      if (assembled) assembled.dataset.empty = s.empty;
+    }
+
+    function renderHeader () {
+      applyStaticLabels();
+      const isfa = getLocale() === 'fa';
+      const catEl = document.querySelector('[data-cat-name]');
+      const lesEl = document.querySelector('[data-lesson-name]');
+      if (catEl) catEl.textContent = (isfa ? catFa : catEn) || '—';
+      if (lesEl) lesEl.textContent = (isfa ? lessonFa : lessonEn) || '—';
+      let href = '/screens/category-words.html';
+      if (bookSlug)        href += '?group=' + encodeURIComponent(bookSlug);
+      else if (levelCode)  href += '?group=level-' + encodeURIComponent(levelCode);
+      else if (subSlug && groupName) href += '?group=' + encodeURIComponent(groupName);
+      const back = document.querySelector('[data-back-link]');
+      if (back) back.href = href;
+      const finishBack = document.querySelector('[data-back-to-lessons]');
+      if (finishBack) finishBack.href = href;
+    }
+
+    // Fetchers — same as lesson-words / reverse-translation.
+    async function fetchLessonWords () {
+      try {
+        if (levelCode) {
+          const url = API + '/v1/words?level=' + encodeURIComponent(levelCode)
+            + '&limit=' + limitN + '&offset=' + offsetN;
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        if (bookSlug) {
+          let url = API + '/v1/books/' + encodeURIComponent(bookSlug) + '/words?lang=fa';
+          if (groupName) url += '&group=' + encodeURIComponent(groupName);
+          if (params.get('offset')) url += '&offset=' + offsetN;
+          if (params.get('limit'))  url += '&limit='  + limitN;
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        if (subSlug) {
+          const off = Math.max(0, (chunkNum - 1) * 50);
+          const url = API + '/v1/categories/' + encodeURIComponent(subSlug)
+            + '/words?lang=fa&offset=' + off + '&limit=50';
+          const r = await fetch(url); const d = await r.json();
+          return d.data || [];
+        }
+        return [];
+      } catch (err) {
+        console.warn('[openjam] quiz words fetch failed', err);
+        return [];
+      }
+    }
+
+    async function fetchDetail (english) {
+      try {
+        const r = await fetch(API + '/v1/words/' + encodeURIComponent(english) + '?lang=fa');
+        return await r.json();
+      } catch (err) { return null; }
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    //  Tokenization + question building
+    //
+    //  We split on whitespace and keep punctuation attached to its
+    //  word. The chips look correct ("don't", "world.") and the user
+    //  only has to think about word ORDER, not punctuation. Comparison
+    //  is done on a normalized lowercase/no-punct form so trailing
+    //  punctuation on the LAST chip doesn't fail the check.
+    // ─────────────────────────────────────────────────────────────────
+    function tokenize (sentence) {
+      return String(sentence || '').trim().split(/\s+/).filter(Boolean);
+    }
+    function normalize (token) {
+      return String(token || '').toLowerCase().replace(/[.,!?;:"'()‘’“”]/g, '');
+    }
+    function shuffle (arr) {
+      // Fisher-Yates. Pure Math.random — fine for client-side.
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    function buildQuestion (detail, otherTokens) {
+      const sense = detail && detail.senses && detail.senses[0];
+      if (!sense) return null;
+      const enExample = sense.example_en;
+      const trans = sense.translations && sense.translations[0];
+      const faExample = trans && trans.example;
+      if (!enExample || !faExample) return null;
+      const tokens = tokenize(enExample);
+      if (tokens.length < MIN_TOKENS || tokens.length > MAX_TOKENS) return null;
+      const tokenSet = new Set(tokens.map(normalize));
+      const distractorPool = otherTokens.filter(function (t) {
+        return !tokenSet.has(normalize(t));
+      });
+      const distractors = shuffle(distractorPool).slice(0, 2);
+      return {
+        answer:   tokens,
+        prompt:   faExample,
+        chips:    shuffle(tokens.concat(distractors)),
+        budget:   Math.max(5, tokens.length * 2),
+        english:  detail.english,
+      };
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    //  Session state
+    // ─────────────────────────────────────────────────────────────────
+    let questions = [];
+    let qIndex = 0;
+    let buckets = { fast: 0, slow: 0, wrong: 0 };
+    let scoreTotal = 0;
+    let questionStart = 0;
+    let timerId = null;
+    let placedChips = [];      // strings, in placement order
+    let chipNodes = new Map(); // chipId → { node, original, container }
+    let chipCounter = 0;
+
+    function fmtNum (n) {
+      return getLocale() === 'fa' ? Number(n).toLocaleString('fa-IR') : String(n);
+    }
+
+    function updateBuckets () {
+      document.querySelector('[data-count-fast]').textContent  = fmtNum(buckets.fast);
+      document.querySelector('[data-count-slow]').textContent  = fmtNum(buckets.slow);
+      document.querySelector('[data-count-wrong]').textContent = fmtNum(buckets.wrong);
+    }
+    function pulseBucket (which) {
+      const el = document.querySelector('[data-bucket="' + which + '"]');
+      if (!el) return;
+      el.dataset.pulse = 'true';
+      setTimeout(function () { delete el.dataset.pulse; }, 320);
+    }
+    function updateCounter () {
+      const el = document.querySelector('[data-qz-counter]');
+      if (el) el.textContent = fmtNum(Math.min(qIndex + 1, questions.length)) + ' / ' + fmtNum(questions.length);
+    }
+
+    // Timer — drains the bar AND updates the second digit. Auto-submits
+    // on zero so the user can't sit forever.
+    function startTimer (seconds) {
+      stopTimer();
+      const bar = document.querySelector('[data-qz-bar]');
+      const txt = document.querySelector('[data-qz-timer]');
+      let remaining = seconds;
+      questionStart = performance.now();
+      // Reset bar to full instantly (no animation), then animate drain.
+      if (bar) {
+        bar.style.transition = 'none';
+        bar.style.transform = 'scaleX(1)';
+        bar.dataset.state = 'ok';
+        // Force layout flush before re-enabling transition.
+        // eslint-disable-next-line no-unused-expressions
+        bar.offsetWidth;
+        bar.style.transition = 'transform 1s linear, background 0.2s ease';
+      }
+      const tick = function () {
+        if (txt) txt.textContent = fmtNum(remaining);
+        if (bar) {
+          bar.style.transform = 'scaleX(' + (remaining / seconds) + ')';
+          if (remaining / seconds <= 0.3) bar.dataset.state = 'danger';
+          else if (remaining / seconds <= 0.55) bar.dataset.state = 'warn';
+        }
+        if (remaining <= 0) {
+          stopTimer();
+          // Force a submit if the user hasn't already.
+          judge(true /* timedOut */);
+          return;
+        }
+        remaining--;
+      };
+      tick();
+      timerId = setInterval(tick, 1000);
+    }
+    function stopTimer () {
+      if (timerId) { clearInterval(timerId); timerId = null; }
+    }
+
+    function renderQuestion () {
+      const q = questions[qIndex];
+      if (!q) { showFinish(); return; }
+      // Reset state
+      placedChips = [];
+      chipNodes = new Map();
+      const promptEl = document.querySelector('[data-qz-prompt]');
+      if (promptEl) promptEl.textContent = q.prompt;
+      const assembled = document.querySelector('[data-qz-assembled]');
+      if (assembled) { assembled.innerHTML = ''; delete assembled.dataset.judging; }
+      const pool = document.querySelector('[data-qz-pool]');
+      if (pool) {
+        pool.innerHTML = '';
+        q.chips.forEach(function (token) {
+          const id = 'c' + (++chipCounter);
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'qz-chip';
+          btn.textContent = token;
+          btn.dataset.qzChip = id;
+          btn.dataset.token = token;
+          pool.appendChild(btn);
+          chipNodes.set(id, { node: btn, original: token, container: 'pool' });
+        });
+      }
+      updateCounter();
+      updateSubmitState();
+      startTimer(q.budget);
+    }
+
+    function updateSubmitState () {
+      const btn = document.querySelector('[data-qz-submit]');
+      if (!btn) return;
+      btn.disabled = placedChips.length === 0;
+    }
+
+    function moveChipToAssembled (chipId) {
+      const entry = chipNodes.get(chipId);
+      if (!entry || entry.container === 'assembled') return;
+      const assembled = document.querySelector('[data-qz-assembled]');
+      assembled.appendChild(entry.node);
+      entry.container = 'assembled';
+      placedChips.push(chipId);
+      updateSubmitState();
+    }
+    function moveChipToPool (chipId) {
+      const entry = chipNodes.get(chipId);
+      if (!entry || entry.container === 'pool') return;
+      const pool = document.querySelector('[data-qz-pool]');
+      pool.appendChild(entry.node);
+      entry.container = 'pool';
+      placedChips = placedChips.filter(function (id) { return id !== chipId; });
+      updateSubmitState();
+    }
+
+    // Decide bucket + advance. timedOut === true means the timer hit 0
+    // before the user pressed بررسی.
+    function judge (timedOut) {
+      stopTimer();
+      const q = questions[qIndex];
+      if (!q) return;
+      const elapsedSec = (performance.now() - questionStart) / 1000;
+      const expected = q.answer.map(normalize);
+      const got = placedChips
+        .map(function (id) { return chipNodes.get(id); })
+        .filter(Boolean)
+        .map(function (e) { return normalize(e.original); });
+      const correct = !timedOut &&
+                      expected.length === got.length &&
+                      expected.every(function (w, i) { return w === got[i]; });
+      const assembled = document.querySelector('[data-qz-assembled]');
+      if (correct) {
+        const half = q.budget * 0.5;
+        const bucket = elapsedSec <= half ? 'fast' : 'slow';
+        buckets[bucket]++;
+        scoreTotal += bucket === 'fast' ? 3 : 2;
+        if (assembled) assembled.dataset.judging = 'correct';
+        pulseBucket(bucket);
+        setTimeout(function () { qIndex++; renderQuestion(); }, 700);
+      } else {
+        buckets.wrong++;
+        if (assembled) assembled.dataset.judging = 'wrong';
+        pulseBucket('wrong');
+        // Reveal the correct order in the pool by highlighting the
+        // answer chips. Helps the user learn even when they got it
+        // wrong — Duolingo-style.
+        revealCorrect();
+        setTimeout(function () { qIndex++; renderQuestion(); }, 1700);
+      }
+      updateBuckets();
+    }
+
+    function revealCorrect () {
+      const q = questions[qIndex];
+      if (!q) return;
+      const correctSet = new Set(q.answer.map(normalize));
+      chipNodes.forEach(function (entry) {
+        if (correctSet.has(normalize(entry.original))) {
+          entry.node.dataset.reveal = 'true';
+        }
+      });
+    }
+
+    function showFinish () {
+      stopTimer();
+      const isfa = getLocale() === 'fa';
+      const maxScore = questions.length * 3;
+      document.querySelector('[data-qz-final-score]').textContent = fmtNum(scoreTotal);
+      document.querySelector('[data-qz-final-max]').textContent   = fmtNum(maxScore);
+      document.querySelector('[data-final-fast]').textContent  = fmtNum(buckets.fast);
+      document.querySelector('[data-final-slow]').textContent  = fmtNum(buckets.slow);
+      document.querySelector('[data-final-wrong]').textContent = fmtNum(buckets.wrong);
+      // Hide the live UI, show the finish card.
+      document.querySelector('.qz-buckets').style.display = 'none';
+      document.querySelector('.qz-meta').style.display = 'none';
+      document.querySelector('.qz-prompt').style.display = 'none';
+      document.querySelector('.qz-assembled').style.display = 'none';
+      document.querySelector('.qz-pool').style.display = 'none';
+      document.querySelector('.qz-submit').style.display = 'none';
+      document.querySelector('[data-qz-finish]').hidden = false;
+    }
+
+    function restartSession () {
+      buckets = { fast: 0, slow: 0, wrong: 0 };
+      scoreTotal = 0;
+      qIndex = 0;
+      updateBuckets();
+      document.querySelector('.qz-buckets').style.display = '';
+      document.querySelector('.qz-meta').style.display = '';
+      document.querySelector('.qz-prompt').style.display = '';
+      document.querySelector('.qz-assembled').style.display = '';
+      document.querySelector('.qz-pool').style.display = '';
+      document.querySelector('.qz-submit').style.display = '';
+      document.querySelector('[data-qz-finish]').hidden = true;
+      renderQuestion();
+    }
+
+    async function init () {
+      renderHeader();
+      const promptEl = document.querySelector('[data-qz-prompt]');
+      if (promptEl) promptEl.textContent = S().loading;
+      const words = await fetchLessonWords();
+      if (!words.length) {
+        if (promptEl) promptEl.textContent = S().notAvailable;
+        return;
+      }
+      // Fetch detail for the first MAX_QUESTIONS×2 words — we'll filter
+      // viable ones (need example_en + Persian translation). Hitting
+      // ~2× the target gives us slack for words without examples.
+      const candidates = words.slice(0, MAX_QUESTIONS * 2);
+      const details = await Promise.all(candidates.map(function (w) {
+        return fetchDetail(w.english);
+      }));
+      // First pass: collect every viable answer's tokens for distractor
+      // pool. We use them in a second pass when building each question.
+      const viable = details.filter(Boolean).filter(function (d) {
+        const sense = d.senses && d.senses[0];
+        if (!sense || !sense.example_en) return false;
+        const tr = sense.translations && sense.translations[0];
+        if (!tr || !tr.example) return false;
+        const tk = tokenize(sense.example_en);
+        return tk.length >= MIN_TOKENS && tk.length <= MAX_TOKENS;
+      });
+      if (!viable.length) {
+        if (promptEl) promptEl.textContent = S().notAvailable;
+        return;
+      }
+      const allTokens = [];
+      viable.forEach(function (d) {
+        const s = d.senses[0];
+        tokenize(s.example_en).forEach(function (t) { allTokens.push(t); });
+      });
+      questions = [];
+      for (const d of viable) {
+        if (questions.length >= MAX_QUESTIONS) break;
+        const q = buildQuestion(d, allTokens);
+        if (q) questions.push(q);
+      }
+      if (!questions.length) {
+        if (promptEl) promptEl.textContent = S().notAvailable;
+        return;
+      }
+      updateBuckets();
+      renderQuestion();
+    }
+
+    // Click handling — single document listener.
+    document.addEventListener('click', function (e) {
+      const chip = e.target.closest('[data-qz-chip]');
+      if (chip) {
+        const id = chip.dataset.qzChip;
+        const entry = chipNodes.get(id);
+        if (!entry) return;
+        // Don't let the user touch chips during the post-judgement
+        // freeze (timer stopped + judging flag set).
+        const assembled = document.querySelector('[data-qz-assembled]');
+        if (assembled && assembled.dataset.judging) return;
+        if (entry.container === 'pool') moveChipToAssembled(id);
+        else moveChipToPool(id);
+        return;
+      }
+      const submit = e.target.closest('[data-qz-submit]');
+      if (submit && !submit.disabled) { judge(false); return; }
+      const restart = e.target.closest('[data-qz-restart]');
+      if (restart) { restartSession(); return; }
+    });
+
+    document.addEventListener('i18n:changed', function () {
+      renderHeader();
+      updateCounter();
+      updateBuckets();
+    });
+
+    init();
+  </script>
+</body>
+</html>

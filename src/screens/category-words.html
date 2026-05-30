@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=8siqn88t" />
-  <link rel="stylesheet" href="/css/base.css?v=8siqn88t" />
-  <link rel="stylesheet" href="/css/components.css?v=8siqn88t" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=8siqn88t" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=8siqn88t" />
-  <link rel="stylesheet" href="/css/chrome.css?v=8siqn88t" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=8siqn88t" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=8siqn88t" />
+  <link rel="stylesheet" href="/css/tokens.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/base.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/components.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/chrome.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=5f3kpv24" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=5f3kpv24" />
 </head>
 <body>
   <div class="preview-controls">
@@ -161,7 +161,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=8siqn88t"></script>
+  <script type="module" src="/js/screen-shell.js?v=5f3kpv24"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — per-category lesson list.
@@ -192,11 +192,11 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=8siqn88t';
+    import { getLocale } from '/js/i18n.js?v=5f3kpv24';
     import { OPENJAM_LESSON_NAMES, findVocabCategoryBySlug,
              BOOK_META, BOOK_SLUGS, humanizeBookGroupName,
              LEVEL_META, isLevelSlug, extractLevelFromSlug }
-      from '/js/vocab-sections.js?v=8siqn88t';
+      from '/js/vocab-sections.js?v=5f3kpv24';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
@@ -790,7 +790,9 @@
       // so the topbar can show "<cat> · <lesson>" the same way
       // lesson-words.html does.
       if (reverseLink) reverseLink.href = '/screens/reverse-translation.html' + qs + ctx;
-      if (quizLink) quizLink.href = '/screens/leitner.html' + qs + '&mode=quiz';
+      // Quiz now goes to its own Sentence-Builder screen — no Leitner.
+      // Same query string + breadcrumb context as the other two methods.
+      if (quizLink) quizLink.href = '/screens/quiz.html' + qs + ctx;
       if (addBtn) addBtn.dataset.lessonNum = String(n);
 
       document.getElementById('state-picker').value = 'modal';
