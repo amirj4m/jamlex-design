@@ -73,3 +73,4 @@ src/
 ## Spec docs
 
 See `docs/SPEC.md` for the full product spec — vision, audience, roadmap, every screen with purpose + inputs + outputs + edge cases.
+
