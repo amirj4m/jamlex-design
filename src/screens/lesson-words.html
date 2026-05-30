@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/base.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/components.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/chrome.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/tokens.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/base.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/components.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/chrome.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=k1jfm8cu" />
   <style>
     /* lesson-words.html — single-word review page (LOCKED 2026-05-30).
        Tightened sizes 2026-05-30 — earlier version was overscaled
@@ -98,7 +98,13 @@
 
     .lw-actions {
       margin: 28px var(--sp-4) var(--sp-3);
-      display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3);
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-3);
+    }
+    /* Previous-word button — same chip as Next but disabled until the
+       user has moved past word #1. Disabled = greyed border + greyed
+       icon + cursor not-allowed; otherwise identical to .lw-action. */
+    .lw-action[disabled] {
+      opacity: 0.32; cursor: not-allowed; pointer-events: none;
     }
     .lw-action {
       display: flex; flex-direction: column; align-items: center; gap: 5px;
@@ -239,7 +245,19 @@
             </button>
           </section>
 
+          <!-- Three-button row (LOCKED 2026-05-30):
+                 prev | add-to-my-words | next
+               Prev is disabled at word #1. Next is the primary (filled)
+               action and on the last word becomes "finish lesson" — the
+               click still goes through [data-next], the handler decides. -->
           <div class="lw-actions">
+            <button type="button" class="lw-action" data-prev disabled>
+              <span class="lw-action__icon">
+                <!-- skip-back icon (mirror of skip-forward) -->
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 20l-8-8 8-8v16zM6 4h3v16H6V4z"/></svg>
+              </span>
+              <span data-label-prevword>کلمه قبلی</span>
+            </button>
             <button type="button" class="lw-action" data-add-mine>
               <span class="lw-action__icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -272,7 +290,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=1i74m4n9"></script>
+  <script type="module" src="/js/screen-shell.js?v=k1jfm8cu"></script>
   <script type="module">
     // ================================================================
     // lesson-words.html — SINGLE-WORD review (LOCKED 2026-05-30)
@@ -291,8 +309,8 @@
     //   binding). For books and CEFR levels the API guarantees
     //   alignment.
     // ================================================================
-    import { getLocale } from '/js/i18n.js?v=1i74m4n9';
-    import { addWordToMyWords } from '/js/my-words-flow.js?v=1i74m4n9';
+    import { getLocale } from '/js/i18n.js?v=k1jfm8cu';
+    import { addWordToMyWords } from '/js/my-words-flow.js?v=k1jfm8cu';
 
     const params = new URLSearchParams(location.search);
     const singleWord = params.get('word');
@@ -313,32 +331,84 @@
 
     const API = 'https://openjam.amirj4m.com';
 
+    // ─────────────────────────────────────────────────────────────────
+    //  Lesson-completion persistence (LOCKED 2026-05-30)
+    //  Storage key: jamlex_lesson_progress
+    //  Shape: { "<lesson-key>": { completed: true, last: <ms> } }
+    //
+    //  The key is derived from URL params so the SAME query string
+    //  always maps to the same lesson — that's how the lesson list in
+    //  category-words.html knows which rows to mark 100% and how this
+    //  page knows to jump straight to the finish screen on re-entry.
+    //
+    //  TODO(flutter): replace with Supabase `user_lesson_progress`
+    //    (user_id, lesson_key, completed_at) UPSERT.
+    // ─────────────────────────────────────────────────────────────────
+    const PROGRESS_KEY = 'jamlex_lesson_progress';
+    function lessonKey () {
+      if (singleWord) return 'word:' + singleWord.toLowerCase();
+      if (levelCode) return 'level:' + levelCode + ':' + offsetN + ':' + limitN;
+      if (bookSlug) {
+        if (groupName && params.get('offset')) {
+          return 'book:' + bookSlug + ':' + groupName + ':' + offsetN + ':' + limitN;
+        }
+        if (groupName) return 'book:' + bookSlug + ':' + groupName;
+        if (params.get('offset')) return 'book:' + bookSlug + ':' + offsetN + ':' + limitN;
+        return 'book:' + bookSlug;
+      }
+      if (subSlug) return 'sub:' + (groupName || '') + ':' + subSlug + ':' + chunkNum;
+      return null;
+    }
+    function loadProgress () {
+      try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}'); }
+      catch (e) { return {}; }
+    }
+    function isLessonComplete () {
+      const k = lessonKey();
+      if (!k) return false;
+      const p = loadProgress();
+      return !!(p[k] && p[k].completed);
+    }
+    function markLessonComplete () {
+      const k = lessonKey();
+      if (!k) return;
+      const p = loadProgress();
+      p[k] = { completed: true, last: Date.now() };
+      try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); } catch (e) { /* ignore */ }
+    }
+
     // Locale-aware UI strings. Persian when fa, English when en.
     // The breadcrumb / cat / lesson are passed in both languages
     // separately (cat_fa, cat_en, …).
     const STRINGS = {
       fa: {
+        prevword:       'کلمه قبلی',
         addmine:        'افزودن به واژگان من',
         nextword:       'کلمه بعدی',
+        finishLesson:   'پایان درس',
         synonyms:       'مترادف:',
         antonyms:       'متضاد:',
         noSynAnt:       'مترادف/متضاد در دسترس نیست',
         finishTitle:    '🎉 آفرین! درس تموم شد',
         finishSub:      'همه‌ی لغات این درس رو دیدی.',
         backToList:    'برگشت به لیست درس‌ها',
+        reviewAgain:   'مرور دوباره از اول',
         notAvailable:   'لغات این درس هنوز در دسترس نیست',
         addedMsg:      function (w) { return '«' + w + '» به واژگان من اضافه شد'; },
         emptySynAnt:   '—',
       },
       en: {
+        prevword:       'Previous word',
         addmine:        'Add to my words',
         nextword:       'Next word',
+        finishLesson:   'Finish lesson',
         synonyms:       'Synonyms:',
         antonyms:       'Antonyms:',
         noSynAnt:       'No synonyms / antonyms available',
         finishTitle:    '🎉 Well done! Lesson complete',
         finishSub:      "You've seen every word in this lesson.",
         backToList:    'Back to lessons',
+        reviewAgain:   'Review from the start',
         notAvailable:   'Words for this lesson are not yet available',
         addedMsg:      function (w) { return '«' + w + '» added to my words'; },
         emptySynAnt:   '—',
@@ -352,6 +422,7 @@
         const el = document.querySelector(sel);
         if (el && txt != null) el.textContent = txt;
       };
+      setText('[data-label-prevword]',    s.prevword);
       setText('[data-label-addmine]',     s.addmine);
       setText('[data-label-nextword]',    s.nextword);
       setText('[data-label-finishtitle]', s.finishTitle);
@@ -445,14 +516,16 @@
       const lesEl = document.querySelector('[data-lesson-name]');
       if (catEl) catEl.textContent = (isfa ? catFa : catEn) || '—';
       if (lesEl) lesEl.textContent = (isfa ? lessonFa : lessonEn) || '—';
+      let href = '/screens/category-words.html';
+      if (bookSlug)        href += '?group=' + encodeURIComponent(bookSlug);
+      else if (levelCode)  href += '?group=level-' + encodeURIComponent(levelCode);
+      else if (subSlug && groupName) href += '?group=' + encodeURIComponent(groupName);
       const back = document.querySelector('[data-back-link]');
-      if (back) {
-        let href = '/screens/category-words.html';
-        if (bookSlug)        href += '?group=' + encodeURIComponent(bookSlug);
-        else if (levelCode)  href += '?group=level-' + encodeURIComponent(levelCode);
-        else if (subSlug && groupName) href += '?group=' + encodeURIComponent(groupName);
-        back.href = href;
-      }
+      if (back) back.href = href;
+      // Same href on the finish-card's "back to lessons" button so the
+      // user always lands back on the right group/level/book.
+      const finishBack = document.querySelector('[data-back-to-lessons]');
+      if (finishBack) finishBack.href = href;
     }
 
     // Audio
@@ -557,17 +630,57 @@
     let words = [];
     let cursor = 0;
 
+    function updateNavButtons () {
+      const s = S();
+      const prevBtn = document.querySelector('[data-prev]');
+      const nextBtn = document.querySelector('[data-next]');
+      const nextLabel = document.querySelector('[data-label-nextword]');
+      if (prevBtn) {
+        if (cursor <= 0) prevBtn.setAttribute('disabled', '');
+        else prevBtn.removeAttribute('disabled');
+      }
+      // Next button morphs to "Finish lesson" on the last word so the
+      // user knows the click ends the lesson (not goes to a non-existent
+      // word #51). Same data-attribute, the handler decides the action.
+      if (nextBtn && nextLabel) {
+        if (cursor === words.length - 1) {
+          nextLabel.textContent = s.finishLesson;
+          nextBtn.dataset.finish = 'true';
+        } else {
+          nextLabel.textContent = s.nextword;
+          delete nextBtn.dataset.finish;
+        }
+      }
+    }
+
     async function showCursor () {
       if (cursor >= words.length) { showFinish(); return; }
       const w = words[cursor];
       const detail = await fetchWordDetail(w.english);
       renderWord(detail, cursor, words.length);
+      updateNavButtons();
     }
 
-    function showFinish () {
+    function showFinish (opts) {
+      // opts.skipSave: true when init() jumps here because the user has
+      // already completed this lesson before — no need to re-write.
+      const skipSave = opts && opts.skipSave;
+      if (!skipSave) markLessonComplete();
+      // Hide the hero progress + word + actions; show the finish card.
+      document.querySelector('.lw-hero').style.display = 'none';
+      document.querySelector('.lw-actions').style.display = 'none';
       document.querySelector('[data-senses]').innerHTML = '';
       document.querySelector('[data-synant]').innerHTML = '';
       document.querySelector('[data-finish]').hidden = false;
+    }
+
+    function showWordView () {
+      // Inverse of showFinish — restore the hero/actions and hide the
+      // finish card. Used when the user clicks "Review from start" on
+      // a previously-completed lesson.
+      document.querySelector('.lw-hero').style.display = '';
+      document.querySelector('.lw-actions').style.display = '';
+      document.querySelector('[data-finish]').hidden = true;
     }
 
     async function init () {
@@ -577,13 +690,42 @@
         document.querySelector('.lw-hero__progress').style.display = 'none';
         const detail = await fetchWordDetail(singleWord);
         renderWord(detail, 0, 1);
+        const prevBtn = document.querySelector('[data-prev]');
         const nextBtn = document.querySelector('[data-next]');
+        if (prevBtn) prevBtn.style.display = 'none';
         if (nextBtn) nextBtn.style.display = 'none';
         return;
       }
       if (!words.length) {
         document.querySelector('[data-word-en]').textContent = '—';
         document.querySelector('[data-word-pos]').textContent = S().notAvailable;
+        return;
+      }
+      // If the user has finished this lesson before, jump STRAIGHT to
+      // the finish screen. They asked for this verbatim — "وقتی برمی‌گرده
+      // به همین درس دوباره همین صفحه رو بهش نشون بده نیازی نیست که بهش
+      // از اول کلمات رو نشون بدی".
+      if (isLessonComplete()) {
+        cursor = words.length;
+        // Render the finish UI with a "review from start" link beside
+        // "back to lessons". The skipSave flag keeps localStorage clean.
+        const finishEl = document.querySelector('[data-finish]');
+        const backLink = finishEl.querySelector('[data-back-to-lessons]');
+        const s = S();
+        if (!finishEl.querySelector('[data-review-again]')) {
+          const again = document.createElement('button');
+          again.type = 'button';
+          again.className = 'btn btn--outlined';
+          again.style.marginTop = '8px';
+          again.style.display = 'block';
+          again.style.marginInline = 'auto';
+          again.dataset.reviewAgain = '';
+          again.textContent = s.reviewAgain;
+          backLink.insertAdjacentElement('afterend', again);
+        } else {
+          finishEl.querySelector('[data-review-again]').textContent = s.reviewAgain;
+        }
+        showFinish({ skipSave: true });
         return;
       }
       cursor = 0;
@@ -593,7 +735,7 @@
     // Action button wiring
     document.addEventListener('click', function (e) {
       const addMine = e.target.closest('[data-add-mine]');
-      if (addMine) {
+      if (addMine && !addMine.hasAttribute('disabled')) {
         const w = (singleWord || (words[cursor] && words[cursor].english) || '').trim();
         if (!w) return;
         // Delegate to the shared my-words flow — handles the picker
@@ -604,9 +746,32 @@
         return;
       }
       const nextBtn = e.target.closest('[data-next]');
-      if (nextBtn) {
+      if (nextBtn && !nextBtn.hasAttribute('disabled')) {
+        // On the last word the "next" button is actually "finish".
+        if (nextBtn.dataset.finish === 'true') {
+          cursor = words.length;
+          showFinish();
+          return;
+        }
         nextBtn.dataset.done = 'true';
         cursor++;
+        showCursor();
+        return;
+      }
+      const prevBtn = e.target.closest('[data-prev]');
+      if (prevBtn && !prevBtn.hasAttribute('disabled')) {
+        if (cursor > 0) {
+          cursor--;
+          showCursor();
+        }
+        return;
+      }
+      // "Review from the start" — only present when the user re-opened
+      // a previously-completed lesson and hit the finish screen first.
+      const reviewAgain = e.target.closest('[data-review-again]');
+      if (reviewAgain) {
+        cursor = 0;
+        showWordView();
         showCursor();
         return;
       }
@@ -617,7 +782,13 @@
       if (cursor < words.length && words[cursor]) {
         fetchWordDetail(words[cursor].english).then(function (d) {
           renderWord(d, cursor, words.length);
+          updateNavButtons();
         });
+      } else {
+        // We're on the finish screen — relocalize the "review again"
+        // button if it's there.
+        const again = document.querySelector('[data-review-again]');
+        if (again) again.textContent = S().reviewAgain;
       }
     });
 

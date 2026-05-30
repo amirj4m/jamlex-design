@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/base.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/components.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/chrome.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=1i74m4n9" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=1i74m4n9" />
+  <link rel="stylesheet" href="/css/tokens.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/base.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/components.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/chrome.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=k1jfm8cu" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=k1jfm8cu" />
 </head>
 <body>
   <div class="preview-controls">
@@ -160,7 +160,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=1i74m4n9"></script>
+  <script type="module" src="/js/screen-shell.js?v=k1jfm8cu"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — per-category lesson list.
@@ -191,11 +191,11 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=1i74m4n9';
+    import { getLocale } from '/js/i18n.js?v=k1jfm8cu';
     import { OPENJAM_LESSON_NAMES, findVocabCategoryBySlug,
              BOOK_META, BOOK_SLUGS, humanizeBookGroupName,
              LEVEL_META, isLevelSlug, extractLevelFromSlug }
-      from '/js/vocab-sections.js?v=1i74m4n9';
+      from '/js/vocab-sections.js?v=k1jfm8cu';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
@@ -329,6 +329,33 @@
         name_en: 'Level ' + levelCode + (meta.name_en ? ' — ' + meta.name_en : ''),
         word_count: total,
       };
+    }
+
+    // ----------------------------------------------------------------
+    // lessonKeyFor(group, lesson) — produce the SAME stable key that
+    // lesson-words.html derives from its URL params, so a lesson
+    // completed there is recognised here without any extra plumbing.
+    // KEEP IN SYNC with lessonKey() in lesson-words.html.
+    // ----------------------------------------------------------------
+    function lessonKeyFor (group, ls) {
+      if (group.level) {
+        const off = (ls.chunk - 1) * WORDS_PER_LESSON;
+        return 'level:' + group.levelCode + ':' + off + ':' + WORDS_PER_LESSON;
+      }
+      if (group.book) {
+        if (ls.bookGroupName && ls.totalChunks > 1) {
+          const off = (ls.bookChunkInGroup - 1) * WORDS_PER_LESSON;
+          return 'book:' + group.slug + ':' + ls.bookGroupName + ':' + off + ':' + WORDS_PER_LESSON;
+        }
+        if (ls.bookGroupName) return 'book:' + group.slug + ':' + ls.bookGroupName;
+        const off = (ls.chunk - 1) * WORDS_PER_LESSON;
+        return 'book:' + group.slug + ':' + off + ':' + WORDS_PER_LESSON;
+      }
+      return 'sub:' + group.slug + ':' + ls.parentSlug + ':' + ls.chunk;
+    }
+    function loadLessonProgress () {
+      try { return JSON.parse(localStorage.getItem('jamlex_lesson_progress') || '{}'); }
+      catch (e) { return {}; }
     }
 
     // ----------------------------------------------------------------
@@ -548,11 +575,29 @@
       document.querySelector('[data-cat-label]').textContent = indicator;
 
       // --- Demo state: first 2 lessons done, lesson 3 active at 65%,
-      // rest follow the free / locked split.
-      const doneCount = Math.min(2, total);
-      const activeIdx = doneCount < total ? doneCount + 1 : 0; // 0 = no active row
-      const activePct = 65;
-      const partialProgress = activeIdx ? activePct / 100 : 0;
+      // rest follow the free / locked split. THEN we union with
+      // localStorage-completed lessons (whatever the user finished in
+      // a real session of lesson-words.html). A completed entry
+      // ALWAYS wins over the demo state.
+      const progress = loadLessonProgress();
+      const doneIdx = new Set();        // set of 1-based lesson indices marked done
+      for (let i = 1; i <= Math.min(2, total); i++) doneIdx.add(i);
+      currentLessons.forEach(function (ls, idx) {
+        const k = lessonKeyFor(currentGroup, ls);
+        if (progress[k] && progress[k].completed) doneIdx.add(idx + 1);
+      });
+      const doneCount = doneIdx.size;
+      // Active idx = first non-done index, when there's still room.
+      let activeIdx = 0;
+      for (let i = 1; i <= total; i++) {
+        if (!doneIdx.has(i)) { activeIdx = i; break; }
+      }
+      // If the demo "active at 65%" idx is now done (user actually
+      // finished it), drop the 65% banner.
+      const demoActiveIdx = Math.min(2, total) < total ? Math.min(2, total) + 1 : 0;
+      const showDemoActive = activeIdx === demoActiveIdx;
+      const activePct = showDemoActive ? 65 : 0;
+      const partialProgress = (showDemoActive && activeIdx) ? activePct / 100 : 0;
       const overallPct = total > 0
         ? Math.round(((doneCount + partialProgress) / total) * 100)
         : 0;
@@ -581,14 +626,14 @@
         const i = idx + 1;
         let status, grade = '', statusInner;
         let openTag, closeTag, extraAttrs = '', extraInner = '';
-        if (i <= doneCount) {
+        if (doneIdx.has(i)) {
           status = 'done';
           grade = demoGrades[(i - 1) % demoGrades.length];
           statusInner = grade;
           openTag = 'button';
           extraAttrs = ' type="button" data-open-lesson="' + i + '"';
           closeTag = 'button';
-        } else if (i === activeIdx) {
+        } else if (i === activeIdx && showDemoActive) {
           status = 'active';
           statusInner = activeRingSvg(activePct);
           openTag = 'button';
