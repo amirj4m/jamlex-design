@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsqut60" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsqut60" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsqut60" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsqut60" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsqut60" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsqut60" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsqut60" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsqut60" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsr13zb" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsr13zb" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsr13zb" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsr13zb" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsr13zb" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsr13zb" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsr13zb" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsr13zb" />
 </head>
 <body>
   <div class="preview-controls">
@@ -159,7 +159,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsqut60"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpsr13zb"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — per-category lesson list.
@@ -190,11 +190,11 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpsqut60';
+    import { getLocale } from '/js/i18n.js?v=mpsr13zb';
     import { OPENJAM_LESSON_NAMES, findVocabCategoryBySlug,
              BOOK_META, BOOK_SLUGS, humanizeBookGroupName,
              LEVEL_META, isLevelSlug, extractLevelFromSlug }
-      from '/js/vocab-sections.js?v=mpsqut60';
+      from '/js/vocab-sections.js?v=mpsr13zb';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
@@ -760,25 +760,32 @@
     //    LIMIT 50
     //   ON CONFLICT DO NOTHING;
     // ----------------------------------------------------------------
-    document.addEventListener('click', function (e) {
-      const btn = e.target.closest('[data-add-to-leitner]');
-      if (!btn) return;
-      if (!currentGroup) return;
-      const n = parseInt(btn.dataset.lessonNum || '1', 10);
-      const lesson = currentLessons[n - 1];
-      if (!lesson) return;
-      const locale = getLocale();
-      const lessonLabel = locale === 'fa' ? lesson.name_fa : lesson.name_en;
-      const msg = locale === 'fa'
-        ? (formatNum(lesson.word_count, 'fa') + ' لغت از «' + lessonLabel + '» به لایتنر اضافه شد')
-        : (lesson.word_count + ' words from "' + lessonLabel + '" added to Leitner');
-      // Close the modal before the popup fires.
-      document.getElementById('state-picker').value = 'lessons';
-      document.querySelectorAll('.state').forEach(function (s) {
-        s.hidden = s.dataset.state !== 'lessons';
+    // Attach DIRECTLY to the button — the parent .dialog-card uses
+    // onclick="event.stopPropagation()" to keep scrim-clicks from
+    // closing the modal, which ALSO eats document-level delegated
+    // listeners. So we wire the click straight to the button.
+    (function wireAddToLeitner () {
+      const addBtn = document.querySelector('[data-add-to-leitner]');
+      if (!addBtn) return;
+      addBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!currentGroup) return;
+        const n = parseInt(addBtn.dataset.lessonNum || '1', 10);
+        const lesson = currentLessons[n - 1];
+        if (!lesson) return;
+        const locale = getLocale();
+        const lessonLabel = locale === 'fa' ? lesson.name_fa : lesson.name_en;
+        const msg = locale === 'fa'
+          ? (formatNum(lesson.word_count, 'fa') + ' لغت از «' + lessonLabel + '» به لایتنر اضافه شد')
+          : (lesson.word_count + ' words from "' + lessonLabel + '" added to Leitner');
+        // Close the modal first so the popup doesn't fight with the scrim.
+        document.getElementById('state-picker').value = 'lessons';
+        document.querySelectorAll('.state').forEach(function (s) {
+          s.hidden = s.dataset.state !== 'lessons';
+        });
+        if (window.popupSuccess) window.popupSuccess(msg);
       });
-      window.popupSuccess(msg);
-    });
+    })();
 
     async function init () {
       try {

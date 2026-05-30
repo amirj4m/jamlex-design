@@ -23,7 +23,7 @@
 //    UPSERT on (user_id, word_id, category_id).
 // ============================================================================
 
-import { getLocale } from './i18n.js?v=mpsqut60';
+import { getLocale } from './i18n.js?v=mpsr13zb';
 
 const STORAGE_KEY = 'jamlex_word_cats';
 
@@ -164,7 +164,7 @@ function promptNewName () {
 
 /**
  * Main entry point. Call from any "Add to my words" button:
- *   import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsqut60';
+ *   import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsr13zb';
  *   addWordToMyWords('reaction');
  *
  * Returns a Promise that resolves to the chosen category (or null if the
