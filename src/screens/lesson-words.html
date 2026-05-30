@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsqfzy9" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsqfzy9" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsqfzy9" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsqfzy9" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsqfzy9" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsqfzy9" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsqfzy9" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsqfzy9" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsqut60" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsqut60" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsqut60" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsqut60" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsqut60" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsqut60" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsqut60" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsqut60" />
   <style>
     /* lesson-words.html — single-word review page (LOCKED 2026-05-30).
        Tightened sizes 2026-05-30 — earlier version was overscaled
@@ -272,7 +272,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsqfzy9"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpsqut60"></script>
   <script type="module">
     // ================================================================
     // lesson-words.html — SINGLE-WORD review (LOCKED 2026-05-30)
@@ -291,7 +291,8 @@
     //   binding). For books and CEFR levels the API guarantees
     //   alignment.
     // ================================================================
-    import { getLocale } from '/js/i18n.js?v=mpsqfzy9';
+    import { getLocale } from '/js/i18n.js?v=mpsqut60';
+    import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsqut60';
 
     const params = new URLSearchParams(location.search);
     const singleWord = params.get('word');
@@ -593,14 +594,13 @@
     document.addEventListener('click', function (e) {
       const addMine = e.target.closest('[data-add-mine]');
       if (addMine) {
-        if (addMine.dataset.done === 'true') return;
-        addMine.dataset.done = 'true';
         const w = (singleWord || (words[cursor] && words[cursor].english) || '').trim();
-        const msg = w ? S().addedMsg(w) : S().addmine;
-        if (window.popupSuccess) window.popupSuccess(msg);
-        // TODO(flutter): INSERT INTO user_saved_words (user_id, word_id)
-        //   SELECT :uid, w.id FROM openjam_words w
-        //   WHERE w.english = :eng ON CONFLICT DO NOTHING;
+        if (!w) return;
+        // Delegate to the shared my-words flow — handles the picker
+        // (or auto-create default if no categories yet) + popup.
+        addWordToMyWords(w).then(function (cat) {
+          if (cat) addMine.dataset.done = 'true';
+        });
         return;
       }
       const nextBtn = e.target.closest('[data-next]');

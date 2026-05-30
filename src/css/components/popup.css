@@ -132,3 +132,90 @@
   background: rgba(255, 255, 255, 0.08);
   color: var(--jx-text);
 }
+
+/* ── My Words category picker (my-words-flow.js) ─────────────────────────── */
+.mw-picker-scrim {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.46);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+  padding: var(--sp-4);
+  animation: mw-fade-in 0.18s ease-out;
+}
+@keyframes mw-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.mw-picker-card {
+  background: var(--jx-bg);
+  border-radius: 20px;
+  padding: var(--sp-4);
+  width: 100%; max-width: 360px;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.20);
+  animation: mw-pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes mw-pop-in {
+  from { transform: scale(0.94); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.mw-picker-title {
+  font-size: 15px; font-weight: var(--fw-bold);
+  text-align: center;
+  margin: 4px 0 var(--sp-3);
+  color: var(--jx-text);
+}
+.mw-picker-list {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-bottom: var(--sp-3);
+}
+.mw-picker-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--jx-border);
+  background: var(--jx-bg);
+  text-align: start;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.mw-picker-row:hover { background: var(--jx-input-bg); }
+.mw-picker-row:active { transform: scale(0.98); }
+.mw-picker-icon {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex: none;
+}
+.mw-picker-icon--new {
+  background: var(--jx-primary-glow);
+  color: var(--jx-primary);
+  font-family: var(--font-family-latin);
+  font-weight: var(--fw-extrabold);
+  font-size: 18px;
+}
+.mw-picker-name {
+  flex: 1;
+  font-size: 13px; font-weight: var(--fw-medium);
+  color: var(--jx-text);
+}
+.mw-picker-count {
+  font-size: 11px;
+  color: var(--jx-text-3);
+  font-family: var(--font-family-latin);
+  flex: none;
+}
+.mw-picker-row--new {
+  border-style: dashed;
+  border-color: var(--jx-primary);
+  color: var(--jx-primary);
+}
+.mw-picker-row--new .mw-picker-name { color: var(--jx-primary); }
+.mw-picker-cancel {
+  display: block; width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 0;
+  font-size: 13px; font-weight: var(--fw-medium);
+  color: var(--jx-text-2);
+  cursor: pointer;
+}
+.mw-picker-cancel:hover { color: var(--jx-text); }
