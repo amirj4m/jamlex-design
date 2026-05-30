@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/base.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/components.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsq6o8g" />
   <style>
     /* lesson-words.html — single-word review page (LOCKED 2026-05-30).
        Tightened sizes 2026-05-30 — earlier version was overscaled
@@ -117,6 +117,13 @@
     .lw-action[data-done="true"] .lw-action__icon {
       background: var(--jx-primary); color: #fff;
     }
+    /* Filled (primary) variant — used on the "next word" button so
+       it reads as a different control from the back arrow. */
+    .lw-action__icon--filled {
+      background: var(--jx-primary); color: #fff;
+      border-color: var(--jx-primary);
+    }
+    .lw-action__icon--filled svg { width: 14px; height: 14px; }
 
     .lw-senses { padding: 0 var(--sp-4); margin-top: var(--sp-3); }
     .lw-sense + .lw-sense {
@@ -240,8 +247,10 @@
               <span>افزودن به واژگان من</span>
             </button>
             <button type="button" class="lw-action" data-next>
-              <span class="lw-action__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              <span class="lw-action__icon lw-action__icon--filled">
+                <!-- skip-forward / next-track icon — clearly distinct
+                     from the back-arrow chevron in the topbar. -->
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 4l8 8-8 8V4zm10 0h3v16h-3V4z"/></svg>
               </span>
               <span>کلمه بعدی</span>
             </button>
@@ -263,7 +272,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpspvfd2"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpsq6o8g"></script>
   <script type="module">
     // ================================================================
     // lesson-words.html — SINGLE-WORD review (LOCKED 2026-05-30)
@@ -282,7 +291,7 @@
     //   binding). For books and CEFR levels the API guarantees
     //   alignment.
     // ================================================================
-    import { getLocale } from '/js/i18n.js?v=mpspvfd2';
+    import { getLocale } from '/js/i18n.js?v=mpsq6o8g';
 
     const params = new URLSearchParams(location.search);
     const singleWord = params.get('word');
@@ -293,8 +302,13 @@
     const levelCode  = params.get('level');
     const offsetN    = parseInt(params.get('offset') || '0', 10);
     const limitN     = parseInt(params.get('limit') || '50', 10);
-    const catLabel   = params.get('cat')        || '';
-    const lessonLbl  = params.get('lessonName') || params.get('lesson') || '';
+    // Header context is passed in BOTH languages so locale flips
+    // update the breadcrumb without a navigation. Falls back to the
+    // legacy single-language `cat`/`lessonName` params for old links.
+    const catFa     = params.get('cat_fa')        || params.get('cat')        || '';
+    const catEn     = params.get('cat_en')        || params.get('cat')        || '';
+    const lessonFa  = params.get('lessonName_fa') || params.get('lessonName') || '';
+    const lessonEn  = params.get('lessonName_en') || params.get('lessonName') || '';
 
     const API = 'https://openjam.amirj4m.com';
 
@@ -378,10 +392,11 @@
     }
 
     function renderHeader () {
+      const isfa = getLocale() === 'fa';
       const catEl = document.querySelector('[data-cat-name]');
       const lesEl = document.querySelector('[data-lesson-name]');
-      if (catEl) catEl.textContent = catLabel || '—';
-      if (lesEl) lesEl.textContent = lessonLbl || '—';
+      if (catEl) catEl.textContent = (isfa ? catFa : catEn) || '—';
+      if (lesEl) lesEl.textContent = (isfa ? lessonFa : lessonEn) || '—';
       const back = document.querySelector('[data-back-link]');
       if (back) {
         let href = '/screens/category-words.html';

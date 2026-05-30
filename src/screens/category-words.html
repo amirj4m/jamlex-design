@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/base.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/components.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpspvfd2" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpspvfd2" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsq6o8g" />
 </head>
 <body>
   <div class="preview-controls">
@@ -159,7 +159,7 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpspvfd2"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpsq6o8g"></script>
   <script type="module">
     // ----------------------------------------------------------------
     // category-words.html — per-category lesson list.
@@ -190,11 +190,11 @@
     // A-E for COMPLETED lessons. Active and locked rows keep their
     // existing progress-circle / lock glyphs.
     // ----------------------------------------------------------------
-    import { getLocale } from '/js/i18n.js?v=mpspvfd2';
+    import { getLocale } from '/js/i18n.js?v=mpsq6o8g';
     import { OPENJAM_LESSON_NAMES, findVocabCategoryBySlug,
              BOOK_META, BOOK_SLUGS, humanizeBookGroupName,
              LEVEL_META, isLevelSlug, extractLevelFromSlug }
-      from '/js/vocab-sections.js?v=mpspvfd2';
+      from '/js/vocab-sections.js?v=mpsq6o8g';
 
     const params = new URLSearchParams(location.search);
     const slug = params.get('group') || 'food-drink';
@@ -617,12 +617,14 @@
         const wcLabel = formatNum(ls.word_count, locale);
         const primaryName = isfa ? ls.name_fa : ls.name_en;
         const secondaryName = isfa ? ls.name_en : ls.name_fa;
+        // ONE language only — current locale, no secondary mix.
+        // Product owner: "انگلیسی فارسی قاطی" — drop the secondary
+        // sub-line so each row reads in a single language.
         rows.push(
           '<' + openTag + ' class="lesson-row" data-status="' + status + '"' + gradeAttr + extraAttrs + '>' +
             '<span class="lesson-row__num">' + wcLabel + '</span>' +
             '<div class="lesson-row__title">' +
               '<div class="lesson-row__name">' + primaryName + '</div>' +
-              '<div class="lesson-row__sub">' + secondaryName + '</div>' +
             '</div>' +
             extraInner +
             '<span class="lesson-row__status">' + statusInner + '</span>' +
@@ -727,16 +729,14 @@
              '&chunk=' + lesson.chunk +
              '&lesson=' + n;
       }
-      // Header context for lesson-words.html (so it can show
-      // "<category> · <lesson name>" at the top). Use distinct
-      // param names (`cat`, `lessonName`) so they don't collide with
-      // the openjam path's existing `lesson=<n>` numeric param.
-      const catLabelForLink = isfa
-        ? (currentGroup.name_fa || '')
-        : (currentGroup.name_en || '');
-      const lessonLabelForLink = isfa ? lesson.name_fa : lesson.name_en;
-      const ctx = '&cat=' + encodeURIComponent(catLabelForLink) +
-                  '&lessonName=' + encodeURIComponent(lessonLabelForLink);
+      // Header context for lesson-words.html — pass BOTH languages so
+      // the breadcrumb updates when the user flips the locale picker
+      // on that page (otherwise the URL is baked in fa/en at click
+      // time and never updates).
+      const ctx = '&cat_fa=' + encodeURIComponent(currentGroup.name_fa || '') +
+                  '&cat_en=' + encodeURIComponent(currentGroup.name_en || '') +
+                  '&lessonName_fa=' + encodeURIComponent(lesson.name_fa || '') +
+                  '&lessonName_en=' + encodeURIComponent(lesson.name_en || '');
       if (reviewLink) reviewLink.href = '/screens/lesson-words.html' + qs + ctx;
       if (flashLink) flashLink.href = '/screens/leitner.html' + qs + '&mode=flashcard';
       if (quizLink) quizLink.href = '/screens/leitner.html' + qs + '&mode=quiz';
