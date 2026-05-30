@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsq6o8g" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsq6o8g" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsq6o8g" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsq6o8g" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsq6o8g" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsq6o8g" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsq6o8g" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsq6o8g" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsqfzy9" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsqfzy9" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsqfzy9" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsqfzy9" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsqfzy9" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsqfzy9" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsqfzy9" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsqfzy9" />
   <style>
     /* lesson-words.html — single-word review page (LOCKED 2026-05-30).
        Tightened sizes 2026-05-30 — earlier version was overscaled
@@ -244,7 +244,7 @@
               <span class="lw-action__icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </span>
-              <span>افزودن به واژگان من</span>
+              <span data-label-addmine>افزودن به واژگان من</span>
             </button>
             <button type="button" class="lw-action" data-next>
               <span class="lw-action__icon lw-action__icon--filled">
@@ -252,7 +252,7 @@
                      from the back-arrow chevron in the topbar. -->
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 4l8 8-8 8V4zm10 0h3v16h-3V4z"/></svg>
               </span>
-              <span>کلمه بعدی</span>
+              <span data-label-nextword>کلمه بعدی</span>
             </button>
           </div>
 
@@ -263,16 +263,16 @@
           </div>
 
           <div class="lw-finish" data-finish hidden>
-            <div class="lw-finish__title">🎉 آفرین! درس تموم شد</div>
-            <div class="lw-finish__sub">همه‌ی لغات این درس رو دیدی.</div>
-            <a href="/screens/category-words.html" class="btn btn--filled" data-back-to-lessons>برگشت به لیست درس‌ها</a>
+            <div class="lw-finish__title" data-label-finishtitle>🎉 آفرین! درس تموم شد</div>
+            <div class="lw-finish__sub" data-label-finishsub>همه‌ی لغات این درس رو دیدی.</div>
+            <a href="/screens/category-words.html" class="btn btn--filled" data-back-to-lessons data-label-backtolist>برگشت به لیست درس‌ها</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsq6o8g"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpsqfzy9"></script>
   <script type="module">
     // ================================================================
     // lesson-words.html — SINGLE-WORD review (LOCKED 2026-05-30)
@@ -291,7 +291,7 @@
     //   binding). For books and CEFR levels the API guarantees
     //   alignment.
     // ================================================================
-    import { getLocale } from '/js/i18n.js?v=mpsq6o8g';
+    import { getLocale } from '/js/i18n.js?v=mpsqfzy9';
 
     const params = new URLSearchParams(location.search);
     const singleWord = params.get('word');
@@ -311,6 +311,52 @@
     const lessonEn  = params.get('lessonName_en') || params.get('lessonName') || '';
 
     const API = 'https://openjam.amirj4m.com';
+
+    // Locale-aware UI strings. Persian when fa, English when en.
+    // The breadcrumb / cat / lesson are passed in both languages
+    // separately (cat_fa, cat_en, …).
+    const STRINGS = {
+      fa: {
+        addmine:        'افزودن به واژگان من',
+        nextword:       'کلمه بعدی',
+        synonyms:       'مترادف:',
+        antonyms:       'متضاد:',
+        noSynAnt:       'مترادف/متضاد در دسترس نیست',
+        finishTitle:    '🎉 آفرین! درس تموم شد',
+        finishSub:      'همه‌ی لغات این درس رو دیدی.',
+        backToList:    'برگشت به لیست درس‌ها',
+        notAvailable:   'لغات این درس هنوز در دسترس نیست',
+        addedMsg:      function (w) { return '«' + w + '» به واژگان من اضافه شد'; },
+        emptySynAnt:   '—',
+      },
+      en: {
+        addmine:        'Add to my words',
+        nextword:       'Next word',
+        synonyms:       'Synonyms:',
+        antonyms:       'Antonyms:',
+        noSynAnt:       'No synonyms / antonyms available',
+        finishTitle:    '🎉 Well done! Lesson complete',
+        finishSub:      "You've seen every word in this lesson.",
+        backToList:    'Back to lessons',
+        notAvailable:   'Words for this lesson are not yet available',
+        addedMsg:      function (w) { return '«' + w + '» added to my words'; },
+        emptySynAnt:   '—',
+      },
+    };
+    function S () { return STRINGS[getLocale() === 'en' ? 'en' : 'fa']; }
+
+    function applyStaticLabels () {
+      const s = S();
+      const setText = function (sel, txt) {
+        const el = document.querySelector(sel);
+        if (el && txt != null) el.textContent = txt;
+      };
+      setText('[data-label-addmine]',     s.addmine);
+      setText('[data-label-nextword]',    s.nextword);
+      setText('[data-label-finishtitle]', s.finishTitle);
+      setText('[data-label-finishsub]',   s.finishSub);
+      setText('[data-label-backtolist]',  s.backToList);
+    }
 
     // Mock synonyms/antonyms — openjam API doesn't expose them yet.
     // Click on a chip → ?word=<that-word>.
@@ -393,6 +439,7 @@
 
     function renderHeader () {
       const isfa = getLocale() === 'fa';
+      applyStaticLabels();
       const catEl = document.querySelector('[data-cat-name]');
       const lesEl = document.querySelector('[data-lesson-name]');
       if (catEl) catEl.textContent = (isfa ? catFa : catEn) || '—';
@@ -483,6 +530,7 @@
 
       const sa = SYNANT[(detail.english || '').toLowerCase()];
       const synantEl = document.querySelector('[data-synant]');
+      const sLabels = S();
       if (sa) {
         const synChips = (sa.syn || []).map(function (w) {
           return '<a href="/screens/lesson-words.html?word=' + encodeURIComponent(w) + '" class="lw-chip">' + w + '</a>';
@@ -491,12 +539,12 @@
           return '<a href="/screens/lesson-words.html?word=' + encodeURIComponent(w) + '" class="lw-chip lw-chip--ant">' + w + '</a>';
         }).join('');
         synantEl.innerHTML =
-          '<span class="lw-synant__label">مترادف:</span>' +
-          '<div class="lw-synant__chips">' + (synChips || '<span class="lw-empty-syn">—</span>') + '</div>' +
-          '<span class="lw-synant__label">متضاد:</span>' +
-          '<div class="lw-synant__chips">' + (antChips || '<span class="lw-empty-syn">—</span>') + '</div>';
+          '<span class="lw-synant__label">' + sLabels.synonyms + '</span>' +
+          '<div class="lw-synant__chips">' + (synChips || '<span class="lw-empty-syn">' + sLabels.emptySynAnt + '</span>') + '</div>' +
+          '<span class="lw-synant__label">' + sLabels.antonyms + '</span>' +
+          '<div class="lw-synant__chips">' + (antChips || '<span class="lw-empty-syn">' + sLabels.emptySynAnt + '</span>') + '</div>';
       } else {
-        synantEl.innerHTML = '<span class="lw-empty-syn">مترادف/متضاد در دسترس نیست</span>';
+        synantEl.innerHTML = '<span class="lw-empty-syn">' + sLabels.noSynAnt + '</span>';
       }
 
       document.querySelectorAll('[data-add-mine], [data-next]').forEach(function (b) {
@@ -534,7 +582,7 @@
       }
       if (!words.length) {
         document.querySelector('[data-word-en]').textContent = '—';
-        document.querySelector('[data-word-pos]').textContent = 'لغات این درس هنوز در دسترس نیست';
+        document.querySelector('[data-word-pos]').textContent = S().notAvailable;
         return;
       }
       cursor = 0;
@@ -548,7 +596,7 @@
         if (addMine.dataset.done === 'true') return;
         addMine.dataset.done = 'true';
         const w = (singleWord || (words[cursor] && words[cursor].english) || '').trim();
-        const msg = w ? '«' + w + '» به واژگان من اضافه شد' : 'به واژگان من اضافه شد';
+        const msg = w ? S().addedMsg(w) : S().addmine;
         if (window.popupSuccess) window.popupSuccess(msg);
         // TODO(flutter): INSERT INTO user_saved_words (user_id, word_id)
         //   SELECT :uid, w.id FROM openjam_words w
