@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsm5936" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsm5936" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsm5936" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsm5936" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsm5936" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsm5936" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsm5936" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsm5936" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsn0e0j" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsn0e0j" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsn0e0j" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsn0e0j" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsn0e0j" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsn0e0j" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsn0e0j" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsn0e0j" />
 </head>
 <body>
   <div class="preview-controls">
@@ -47,7 +47,11 @@
             </div>
           </header>
 
-          <!-- Word of Day card (the centerpiece) -->
+          <!-- Word of Day card (the centerpiece)
+               Live from openjam: every calendar day picks one fresh
+               B1 word ((epoch_day) mod 968) → fetch /v1/words/<eng>?lang=fa
+               → populate every element below. Skeleton text is just a
+               placeholder until the fetch resolves. -->
           <article class="wod-card">
             <div class="wod-card__head">
               <span class="wod-card__label">
@@ -55,20 +59,20 @@
                 <span data-i18n="home.wordOfDay"></span>
               </span>
               <div class="wod-card__tags">
-                <span class="chip">verb</span>
-                <span class="chip" data-level="B1">B1</span>
+                <span class="chip" data-wod-pos>—</span>
+                <span class="chip" data-wod-level data-level="B1">B1</span>
               </div>
             </div>
 
-            <div class="wod-card__english">direct</div>
+            <div class="wod-card__english" data-wod-english>…</div>
             <div class="wod-card__ipa">
-              <span>/də ˈrekt/</span>
-              <button class="audio-btn audio-btn--inline" data-audio="direct" aria-label="Play">
+              <span data-wod-ipa>/…/</span>
+              <button class="audio-btn audio-btn--inline" data-wod-audio aria-label="Play">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4.03v8.05A4.5 4.5 0 0 0 16.5 12z"/></svg>
               </button>
             </div>
-            <div class="wod-card__meaning" data-i18n="v3.home.wodMeaning"></div>
-            <div class="wod-card__example">'a direct route'</div>
+            <div class="wod-card__meaning" data-wod-meaning>…</div>
+            <div class="wod-card__example" data-wod-example>…</div>
 
             <!-- Floating Lottie paper-plane decoration (right side of card) -->
             <div class="lottie-stage wod-card__lottie" data-lottie="wod-paper-plane"></div>
@@ -137,7 +141,7 @@
     // i18n — so it stays "رضا محمدی" regardless of the UI language. Only the
     // surrounding "سلام" / "Hello" string follows the locale. Flutter reads
     // the actual name from users.display_name.
-    import { t } from '/js/i18n.js?v=mpsm5936';
+    import { t } from '/js/i18n.js?v=mpsn0e0j';
     document.addEventListener('i18n:changed', fillGreeting);
     function fillGreeting () {
       const el = document.querySelector('[data-greeting]');
@@ -146,6 +150,96 @@
       el.textContent = t('v3.home.greetingHi', { name: 'رضا محمدی' });
     }
   </script>
-  <script type="module" src="/js/screen-shell.js?v=mpsm5936"></script>
+
+  <!-- ============================================================
+       WORD OF DAY — pulled live from openjam.
+       LOCKED 2026-05-30.
+
+       Strategy: pool = all B1 words (~968), pick offset = epoch-day
+       mod pool-size. Same offset → same word for the whole calendar
+       day → "word of the day" is stable from midnight to midnight.
+       Cached per-offset in sessionStorage so multiple loads on the
+       same day don't re-hit the API.
+
+       Two requests:
+         1. /v1/words?level=B1&limit=1&offset=<N>  → just the english
+         2. /v1/words/<english>?lang=fa            → full detail with
+                                                     translations,
+                                                     IPA, audio URL
+
+       Flutter contract: same pattern. Cache by `wod_<dateYYYYMMDD>`.
+       TODO(flutter): consider a dedicated /v1/words/random?seed=<day>
+       endpoint to halve the round-trip count.
+       ============================================================ -->
+  <script type="module">
+    const POOL_TOTAL = 968; // B1 word count as of 2026-05-30
+
+    async function loadWordOfDay () {
+      try {
+        const epochDay = Math.floor(Date.now() / 86400000);
+        const offset = epochDay % POOL_TOTAL;
+        const cacheKey = 'jamlex_wod_' + offset;
+
+        let detail = null;
+        try {
+          const cached = sessionStorage.getItem(cacheKey);
+          if (cached) detail = JSON.parse(cached);
+        } catch (e) { /* ignore */ }
+
+        if (!detail) {
+          const listRes = await fetch(
+            'https://openjam.amirj4m.com/v1/words?level=B1&limit=1&offset=' + offset
+          );
+          const list = await listRes.json();
+          const eng = (list.data && list.data[0] && list.data[0].english) || null;
+          if (!eng) return;
+
+          const detRes = await fetch(
+            'https://openjam.amirj4m.com/v1/words/' + encodeURIComponent(eng) + '?lang=fa'
+          );
+          detail = await detRes.json();
+          try { sessionStorage.setItem(cacheKey, JSON.stringify(detail)); } catch (e) { /* ignore */ }
+        }
+
+        renderWoD(detail);
+      } catch (err) {
+        console.warn('[openjam] Word of Day failed to load', err);
+      }
+    }
+
+    function renderWoD (d) {
+      if (!d) return;
+      const sense = (d.senses && d.senses[0]) || {};
+      const trans = (sense.translations && sense.translations[0]) || {};
+      const phon  = (d.phonetics && d.phonetics[0]) || {};
+
+      const set = function (sel, txt) {
+        const el = document.querySelector(sel);
+        if (el && txt != null) el.textContent = txt;
+      };
+      set('[data-wod-english]', d.english);
+      set('[data-wod-pos]',     sense.part_of_speech || '—');
+      set('[data-wod-meaning]', trans.meaning || '');
+      const exEn = sense.example_en;
+      set('[data-wod-example]', exEn ? "'" + exEn + "'" : '');
+      set('[data-wod-ipa]',     phon.ipa ? '/' + phon.ipa + '/' : '');
+
+      const lvlEl = document.querySelector('[data-wod-level]');
+      if (lvlEl && d.level) {
+        lvlEl.textContent = d.level;
+        lvlEl.setAttribute('data-level', d.level);
+      }
+
+      const audioBtn = document.querySelector('[data-wod-audio]');
+      if (audioBtn && phon.audio_url) {
+        audioBtn.onclick = function () {
+          try { new Audio(phon.audio_url).play().catch(function () {}); } catch (e) {}
+        };
+      }
+    }
+
+    loadWordOfDay();
+  </script>
+  <script type="module" src="/js/screen-shell.js?v=mpsn0e0j"></script>
 </body>
 </html>
