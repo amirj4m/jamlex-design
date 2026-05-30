@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/tokens.css?v=mpsr13zb" />
-  <link rel="stylesheet" href="/css/base.css?v=mpsr13zb" />
-  <link rel="stylesheet" href="/css/components.css?v=mpsr13zb" />
-  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsr13zb" />
-  <link rel="stylesheet" href="/css/components/popup.css?v=mpsr13zb" />
-  <link rel="stylesheet" href="/css/chrome.css?v=mpsr13zb" />
-  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsr13zb" />
-  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsr13zb" />
+  <link rel="stylesheet" href="/css/tokens.css?v=mpsr5lsg" />
+  <link rel="stylesheet" href="/css/base.css?v=mpsr5lsg" />
+  <link rel="stylesheet" href="/css/components.css?v=mpsr5lsg" />
+  <link rel="stylesheet" href="/css/components/v2-patterns.css?v=mpsr5lsg" />
+  <link rel="stylesheet" href="/css/components/popup.css?v=mpsr5lsg" />
+  <link rel="stylesheet" href="/css/chrome.css?v=mpsr5lsg" />
+  <link rel="stylesheet" href="/css/screens/screen-base.css?v=mpsr5lsg" />
+  <link rel="stylesheet" href="/css/screens/screens-app.css?v=mpsr5lsg" />
 </head>
 <body data-library-screen="book-reader">
   <div class="preview-controls">
@@ -161,7 +161,7 @@
               <!-- Action positions are fixed: primary "Add to Leitner" on LEFT, secondary on RIGHT.
                    This mirrors the headline layout above. -->
               <div class="lookup-sheet-v4__actions" dir="ltr">
-                <button class="pill-action" type="button">
+                <button class="pill-action" type="button" data-add-to-leitner>
                   <span class="pill-action__icon">+</span>
                   <span class="pill-action__label" data-i18n="v3.bookReader.lookup.addToLeitner"></span>
                 </button>
@@ -179,18 +179,52 @@
     </div>
   </div>
 
-  <script type="module" src="/js/screen-shell.js?v=mpsr13zb"></script>
+  <script type="module" src="/js/screen-shell.js?v=mpsr5lsg"></script>
 
-  <!-- Wire "Add to my words" in the lookup sheet to the shared flow. -->
+  <!-- Wire lookup-sheet action buttons. The parent .lookup-sheet-v4
+       has onclick="event.stopPropagation()" so clicks NEVER bubble
+       to document — both buttons need their listeners attached
+       DIRECTLY. -->
   <script type="module">
-    import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsr13zb';
-    document.addEventListener('click', function (e) {
-      const btn = e.target.closest('[data-add-to-mywords]');
-      if (!btn) return;
+    import { addWordToMyWords } from '/js/my-words-flow.js?v=mpsr5lsg';
+    import { getLocale } from '/js/i18n.js?v=mpsr5lsg';
+
+    function getLookupWord () {
       const wordEl = document.querySelector('.lookup-sheet-v4__word');
-      const word = wordEl ? wordEl.textContent.trim() : '';
-      if (word) addWordToMyWords(word);
-    });
+      return wordEl ? wordEl.textContent.trim() : '';
+    }
+
+    function flashLeitnerAdded (word) {
+      const fa = getLocale() === 'fa';
+      const msg = fa
+        ? '«' + word + '» به لایتنر اضافه شد'
+        : '«' + word + '» added to Leitner';
+      if (window.popupSuccess) window.popupSuccess(msg);
+    }
+
+    // Attach the listeners to the buttons themselves so the parent's
+    // stopPropagation can't kill them.
+    const leitnerBtn = document.querySelector('[data-add-to-leitner]');
+    if (leitnerBtn) {
+      leitnerBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const w = getLookupWord();
+        if (!w) return;
+        flashLeitnerAdded(w);
+        // TODO(flutter): INSERT INTO leitner_cards (user_id, word_id, box, due_at)
+        //   SELECT :uid, w.id, 1, now() FROM openjam_words w
+        //   WHERE w.english = :eng ON CONFLICT DO NOTHING;
+      });
+    }
+
+    const myWordsBtn = document.querySelector('[data-add-to-mywords]');
+    if (myWordsBtn) {
+      myWordsBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const w = getLookupWord();
+        if (w) addWordToMyWords(w);
+      });
+    }
   </script>
 
   <script>
